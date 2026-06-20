@@ -1,0 +1,87 @@
+============================================================
+BM-TEACH — İLK OTURUM SOHBET ÖZETİ
+Tarih: 15-20 Haziran 2026
+============================================================
+
+AMAÇ
+----
+Hasan'ın (15+ yıl yazılım mühendisi, Düzce BM, DGS 2021 girişli, GANO 1,94)
+azami süre dolmadan kaydının silinmesini önlemek ve mezuniyete ilerlemek.
+Bu workspace teach skill ile kurulan kalıcı çalışma alanı.
+
+DURUM TESPİTİ
+-------------
+- Azami süre bu yıl doluyor. Azami süre sonu 2 sınavından sonra başarısız ders
+  sayısı <=5 olmazsa kayıt silinir (6+ silinir, 2-5 -> 3 dönem ek süre, <=1 -> sınırsız hak).
+- "Başarısız ders" = FF, FD, YZ, EKS, DVZ + hiç alınmamış dersler (seçmeli dahil).
+- Önümüzde 1 yaz okulu + 2 azami süre sonu sınavı var. Yaz okulunda devam şartı yok.
+- Bu yıl af ihtimali konuşuluyor ama af çıkmayacakmış gibi çalışılacak.
+
+SAYILAR
+-------
+- 28 geçilmemiş ders: 15 FF + 3 hiç alınmamış zorunlu (BM302, BM304, BM306) + ~10 bölüm seçmeli.
+- İlişik kesilmemesi için: en az 23 ders geç (<=5'e in).
+- Sınırsız sınav hakkı için: en az 27 geç (<=1'e in).
+- Mezuniyet: 28'inin hepsi + GANO >= 2,00.
+
+STRATEJİ (3 ROTA) — detay: PLAN.md
+-----------------------------------
+ROTA 1 - Yaz okulu (max 24 AKTS, lab'sız zayıf dersler), 20 AKTS:
+  BM107, BM106, BM303, BM213, BM204.
+ROTA 2 - 2 azami süre sonu sınavı (güçlü alan, her ders 2 hak):
+  KRP102, BM215, BM301, BM305, BM302, BM306 + ~10 yazılım seçmelisi + lab dersleri (BM203/304/302).
+ROTA 3 - Ek süreye kalan (yaz okulunda açılmayan, zorlanılan matematik):
+  FIZ102, MAT102, BM209, BM211 -> teach ile çalışılıp ek sürede kapatılacak.
+
+Mantık: yaz okulu kontenjanını zayıf olunan matematik/devre derslerine harca;
+yazılım/CS derslerini ve seçmelileri sınavla geç (orada 15 yıllık tecrübe + 2 hak avantaj).
+
+ÖNEMLİ KARARLAR
+---------------
+- Lab dersleri (BM203/304/302): kullanıcı stratejisi = azami süre sınavına girip geçmek
+  (exam-bazlı süreçte lab dayatılamaz varsayımı). Öğrenci işleri teyidi bekliyor.
+- Staj BM499: iş-temelli muafiyetle (alanında çalışma belgesi) geçmiş olabilir; OBS teyit.
+- BM213 Lineer Cebir DETERMINANT-ÖNCE sıralama kullanıyor (Rus geleneği müfredat).
+  Standart "matris-önce" sıralama YANLIŞ olurdu; syllabus'a göre yeniden kuruldu.
+
+DOĞRULANACAKLAR (öğrenci işleri/danışman)
+------------------------------------------
+- Hiç alınmamış seçmeli sayıma kaç "ders" giriyor?
+- Yaz okulu kayıt limiti (24 AKTS) ve ders adedi.
+- Lab dersleri azami süre sınavıyla tek atışta geçilebilir mi, yoksa ek süreye lab kaydı şart mı?
+- Yaz okulunda "devam şartı yok" lab/uygulamayı kapsıyor mu?
+- DGS muafiyet durumu (transkripte işlenmiş: Mat I, Fizik I notlu görünüyor).
+
+DERS ÇALIŞMA — LİNEER CEBİR (aktif)
+------------------------------------
+- Yol haritası syllabus'a hizalı: lessons/lineer-cebir/ROADMAP.md (13 ders, hafta hafta).
+- Ders 01 yazıldı + tarayıcıda açıldı: Sistemler, Gauss yöntemi, 2x2 & 3x3 determinant (Hafta 1-2).
+- Ders 06 hazır: Matrisler ve temel işlemler (Hafta 7) — başta yanlışlıkla Ders 01 yapılmıştı.
+- Kullanıcı Gauss eliminasyonunun "denklem çıkarma"nın aynısı olduğunu kavradı;
+  "neden 3 ile çarpıyoruz" (katsayı eşitleme) açıklaması derse eklendi.
+- Comprehension check soruldu: "2x+y=4 ve 6x+5y=8 sisteminde x'i yok etmek için 1. satırı kaçla çarp?"
+  (Beklenen cevap: 3.) Kullanıcı henüz cevaplamadı / sonra dönecek.
+
+ÖĞRETİM TERCİHLERİ (NOTES.md)
+------------------------------
+- Türkçe.
+- TÜM worked example adımları açıkça yazılır; "benzer şekilde uygulanır" gibi kısayol yok.
+
+WORKSPACE YAPISI
+----------------
+CLAUDE.md          -> workspace hafızası / devir teslim (yeni oturum bunu okur)
+MISSION.md         -> neden
+PLAN.md            -> önceliklendirme + azami süre stratejisi + sayılar
+RESOURCES.md       -> kaynaklar + EBS linkleri
+NOTES.md           -> profil + öğretim tercihleri
+belgeler/          -> kaynak belgeler (transkript, azami süre, yaz okulu, mezuniyet, ders planı)
+lessons/<ders>/    -> dersler + ROADMAP
+reference/<ders>/  -> hızlı başvuru kartları
+learning-records/  -> öğrenme kayıtları
+
+SIRADAKİ ADIM
+-------------
+Ders 01 sindirildikten sonra Ders 02 (geometrik yorum + n-boyutlu determinant).
+Diğer yaz okulu dersleri (BM107, BM106, BM303, BM204) için EBS haftalık konuları
+alınınca onların da roadmap'i kurulacak.
+============================================================

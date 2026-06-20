@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Determinant & Sistemler</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table.det{ border-collapse:collapse; display:inline-table; vertical-align:middle; position:relative; margin:0 .15em; }
+  table.det td{ padding:.1em .45em; text-align:center; font-family:Consolas,monospace; }
+  table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; border-left:1.5px solid #1a1a1a; }
+  table.det::before{ left:-1px; } table.det::after{ right:-1px; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Determinant & Sistemler — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 01 (Hafta 1-2) özeti.</p>
+
+  <h2>Gauss yöntemi</h2>
+  <div class="card">Sistemi genişletilmiş matris yaz <code>[katsayılar | sonuç]</code> → satır işlemleriyle üçgen forma indir → alttan geri yerine koy.</div>
+
+  <h2>2×2 determinant</h2>
+  <div class="rule">det
+    <table class="det"><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table>
+    = <code>ad − bc</code></div>
+
+  <h2>3×3 determinant (Sarrus)</h2>
+  <div class="rule">det
+    <table class="det"><tr><td>a</td><td>b</td><td>c</td></tr><tr><td>d</td><td>e</td><td>f</td></tr><tr><td>g</td><td>h</td><td>i</td></tr></table>
+    = <code>aei + bfg + cdh − ceg − bdi − afh</code><br>
+    <small>(+) sağ-alta inen 3 çapraz, (−) sol-alta inen 3 çapraz.</small></div>
+
+  <h2>Altın kural</h2>
+  <div class="card">
+    <b>det ≠ 0</b> → sistemin <b>tek çözümü</b> var.<br>
+    <b>det = 0</b> → ya sonsuz çözüm ya çözümsüz.<br>
+    Üçgen matriste (köşegen altı/üstü sıfır) <b>det = köşegen çarpımı</b>.
+  </div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • 3×3'te Sarrus'u 4×4'e uygulamaya çalışmak (Sarrus yalnız 3×3!).<br>
+    • İşaret hatası: (−) terimleri unutmak.<br>
+    • Gauss'ta satırı yanlış katsayıyla çıkarmak.
+  </div>
+</body>
+</html>

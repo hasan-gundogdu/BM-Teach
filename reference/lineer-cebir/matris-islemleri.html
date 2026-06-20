@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Matris İşlemleri</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; position:relative; margin:0 .2em; }
+  table.m td{ padding:.1em .45em; text-align:center; font-family:Consolas,monospace; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:6px; border:1.5px solid #1a1a1a; }
+  table.m::before{ left:-2px; border-right:none; } table.m::after{ right:-2px; border-left:none; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Matris İşlemleri — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 01 özeti. Sınavdan önce göz gezdir.</p>
+
+  <h2>Boyut</h2>
+  <div class="card"><code>satır × sütun</code>. <code>a₍ᵢⱼ₎</code> = i. satır, j. sütun elemanı.</div>
+
+  <h2>Toplama / Çıkarma</h2>
+  <div class="card">Sadece <b>aynı boyut</b>. Karşılıklı elemanları topla/çıkar.</div>
+
+  <h2>Skaler çarpım</h2>
+  <div class="card"><code>k · A</code> → her elemanı <code>k</code> ile çarp.</div>
+
+  <h2>Matris çarpımı</h2>
+  <div class="rule">
+    <b>Boyut:</b> <code>(m×n)·(n×p) = (m×p)</code> — ortadaki <code>n</code>'ler eşit olmalı.<br>
+    <b>Eleman (i,j):</b> 1. matrisin <b>i. satırı</b> × 2. matrisin <b>j. sütunu</b> → çarp & topla.<br>
+    <b>⚠️</b> <code>A·B ≠ B·A</code> (değişmeli değil). Sıra önemli.
+  </div>
+  <div class="card">
+    Örnek:
+    <table class="m"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>·
+    <table class="m"><tr><td>5</td><td>6</td></tr><tr><td>7</td><td>8</td></tr></table>=
+    <table class="m"><tr><td>19</td><td>22</td></tr><tr><td>43</td><td>50</td></tr></table><br>
+    <small>19 = 1·5+2·7 · 22 = 1·6+2·8 · 43 = 3·5+4·7 · 50 = 3·6+4·8</small>
+  </div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • Boyut uyumunu kontrol etmeden çarpmaya başlamak.<br>
+    • Satır × sütun yerine eleman-eleman çarpmak (o <i>Hadamard</i> çarpımıdır, sınavda kastedilen bu değil).<br>
+    • Sırayı ters çevirmek (<code>A·B</code> ile <code>B·A</code> karıştırmak).
+  </div>
+</body>
+</html>
