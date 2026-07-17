@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:ebs.duzce.edu.tr)",
+      "WebFetch(domain:www.aihero.dev)"
+    ]
+  }
+}

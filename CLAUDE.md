@@ -36,8 +36,8 @@ Hasan'ın Düzce Üniversitesi Bilgisayar Mühendisliği'nden mezun olabilmesi i
 - **Sıradaki:** Ders 02 — geometrik yorum + n-boyutlu determinant (kullanıcı onayıyla).
 
 ## Önemli kararlar
-- Yaz okulu (max 24 AKTS, devam şartı yok) → **20 AKTS:** BM107, BM106, BM303, BM213, BM204.
-- Lab dersleri (BM203, BM304, BM302) → azami süre sınavı rotası (kullanıcı stratejisi: exam-bazlı süreçte lab dayatılamaz). **Öğrenci işleri teyidi bekliyor.**
+- Yaz okulu (max 24 AKTS, devam şartı yok) → **KESİNLEŞTİ (28/06/2026), 24 AKTS:** BM213, BM107, BM106, BM303, BM204, BM301.
+- Lab dersleri (BM203, BM304, BM302) yaz okulunda açıldı ama U>0 → lab politikası netleşmeden azami süre sınavı rotasında bırakıldı.
 - BM213 **determinant-önce** sıralama kullanıyor (Rus geleneği müfredat) — LR0002.
 - Staj BM499 iş-temelli muafiyetle geçmiş olabilir (OBS'den teyit edilecek).
 

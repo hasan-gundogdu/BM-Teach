@@ -1,6 +1,6 @@
 # Ders Önceliklendirme & Azami Süre Stratejisi
 
-> Kaynak: transkript (15.06.2026), ders planı, yaz okulu açılan dersler listesi, azami süre sonu iş akış şeması.
+> Kaynak: transkript (15.06.2026), ders planı, yaz okulu kesin açılan dersler listesi (20/06/2026), azami süre sonu iş akış şeması.
 > Durum: GANO 1,94 · Alınan 175 / Gereken 240 AKTS.
 
 ## Sayılar (özet)
@@ -14,7 +14,7 @@
 | **Sınırsız sınav hakkı** (≤1'e in) | **en az 27 ders geç** |
 | **Mezuniyet** | **28'inin hepsi** + GANO ≥ 2,00 |
 
-Beklenen dağılım: Yaz okulu ~5 ders + 2 azami süre sonu sınavı ~18 ders → kalan ~4-5 (FIZ102/MAT102/BM209/BM211) ek süreye.
+Beklenen dağılım: Yaz okulu **6 ders (24 AKTS)** + 2 azami süre sonu sınavı ~17 ders → kalan ~4-5 (FIZ102/MAT102/BM209/BM211) ek süreye.
 
 ## Kural çerçevesi (iş akış şemasından)
 - Başarısız ders = FF, FD, YZ, EKS, DVZ **+ hiç alınmamış** dersler (seçmeli dahil).
@@ -25,17 +25,24 @@ Beklenen dağılım: Yaz okulu ~5 ders + 2 azami süre sonu sınavı ~18 ders �
 
 ## Geçilmemiş dersler ve atanan rota
 
-### Rota 1 — YAZ OKULU (lab'sız + zayıf alan; devam şartı yok; ~20 AKTS doldur)
-| Ders | T-U | AKTS | Neden yaz okulu |
-|---|---|---|---|
-| BM107 Elektrik Devre Temelleri | 3-0 | 4 | EE, zayıf alan, lab yok |
-| BM106 Olasılık ve İstatistik | 3-0 | 4 | matematik, zayıf alan |
-| BM303 İşaretler ve Sistemler | 3-0 | 4 | sinyal/matematik, zayıf alan |
-| BM213 Lineer Cebir | 3-0 | 3 | matematik, zayıf alan |
-| BM204 Bilgisayar Organizasyonu | 3-0 | 5 | lab yok, güvenli ön-temizlik/tampon |
-| **Toplam** | | **20** | (24 limitine 2. bir 5'lik CS dersi sığmıyor) |
+### Rota 1 — YAZ OKULU (KEYİNLEŞTİ — 28/06/2026)
+**Devam şartı yok. Tüm dersler lab'sız (U=0). 24 AKTS limiti tam dolu.**
 
-> **Not — neden bazı başarısız dersler yaz okulunda yok:** MAT102, FIZ102, BM209, BM211 yaz okulu açılan dersler listesinde **yok** → Rota 3'e gidiyorlar (yaz okulunda alınamıyorlar, başarısız oldukları için değil).
+| # | Ders | T-U | AKTS | Gerekçe |
+|---|---|---|---|---|
+| 1 | BM213 Lineer Cebir | 3-0 | 3 | Matematik, zayıf alan; zaten başlandı |
+| 2 | BM107 Elektrik Devre Temelleri | 3-0 | 4 | EE, zayıf alan |
+| 3 | BM106 Olasılık ve İstatistik | 3-0 | 4 | Matematik, zayıf alan |
+| 4 | BM303 İşaretler ve Sistemler | 3-0 | 4 | Sinyal/matematik, zayıf alan; en çok runway ister |
+| 5 | BM204 Bilgisayar Organizasyonu | 3-0 | 5 | Lab yok, yapılandırılmış anlatım gerektirir |
+| 6 | BM301 Biçimsel Diller ve Soyut Makineler | 3-0 | 4 | CS güçlü alanı; azami süre sonu yerine yaz okuluna alındı |
+| | **TOPLAM** | | **24** | |
+
+**Çalışma öncelik sırası:** BM213 → BM107 → BM106 → BM204 → BM301 → BM303
+
+> **Yeni bilgi (kesin liste, 20/06/2026):** BM203 Elektronik, BM302 Ağlar II, BM304 Mikroişlemciler de yaz okulunda açıldı — ama hepsinin U>0 (lab var). Lab politikası netleşmeden bunlar Rota 2'de kalıyor.
+
+> **Not — MAT102, FIZ102, BM209, BM211:** Bunlar kesin listede doğrudan yok. Ancak eşdeğerlik tablosundan erişilebilir (MAT112, FIZ112, EEM282, EEM269). Yük fazla olacağından bu dönem Rota 3'te bırakıldı.
 
 ### Lab/uygulama (U>0) dersleri — strateji
 Geçilmemiş + lab içeren: **BM203 Elektronik (U2)**, **BM304 Mikroişlemciler (U2)**, **BM302 Bilgisayar Ağları II (U1)**, BM498 Tez (U2).
@@ -48,11 +55,10 @@ Geçilmemiş + lab içeren: **BM203 Elektronik (U2)**, **BM304 Mikroişlemciler 
 CS / yazılım — yüksek geçme olasılığı:
 - KRP102 Kariyer Planlama (trivial)
 - BM215 Ayrık İşlemsel Yapılar
-- BM301 Biçimsel Diller ve Soyut Makinalar
-- BM305 İşletim Sistemleri
-- BM302 Bilgisayar Ağları II *(hiç alınmadı)*
+- BM305 İşletim Sistemleri *(yaz okulunda açıldı ama 24 AKTS dolduğu için buraya bırakıldı — cold exam'da doğal alan)*
+- BM302 Bilgisayar Ağları II *(hiç alınmadı; lab var — teyit gerek)*
 - BM306 Sistem Programlama *(hiç alınmadı)*
-- BM204 Bilgisayar Organizasyonu *(yaza alınmazsa)* · BM304 Mikroişlemciler *(lab — teyit gerek)* · BM203 Elektronik *(lab — teyit gerek)*
+- BM304 Mikroişlemciler *(lab — teyit gerek)* · BM203 Elektronik *(lab — teyit gerek)*
 - **~10 yazılım bölüm seçmelisi** (SECMES7YY + SECMES8YY, 50 AKTS) — kendi seçeceğin en hâkim olduğun dersler (Java, mobil, tasarım kalıpları, test, veritabanı, proje yönetimi, vb.)
 
 ### Rota 3 — STRATEJİK KALANLAR (beklenen residual; ek süreye bırak, teach ile çalış)
@@ -65,21 +71,22 @@ Matematik/fizik, yaz okulunda **açılmıyor**, cold exam'da en riskli:
 → Bu 4 ders azami süre sonunda büyük olasılıkla kalan grup = **2–5 bandı** → 3 dönem ek süre. Ek sürede bu workspace'teki derslerle (teach skill) çalışılıp kapatılır.
 
 ## Çalışma sırası (yaz okulu dersleri — öncelik)
-1. **BM213 Lineer Cebir** — bağımsız, hızlı kazanım, İşaretler'in zemini → **ŞİMDİ başla**
-2. **BM107 Elektrik Devre Temelleri** — Elektronik'in (olası) önkoşulu, EE
-3. **BM106 Olasılık ve İstatistik** — ayrık kısımlar bağımsız, orta
-4. **BM303 İşaretler ve Sistemler** — en zor (calculus/karmaşık sayı/Fourier ağırlıklı); en çok runway ister, bir **calculus refresher** ile beslenmeli
-5. **BM204 Bilgisayar Organizasyonu** — CS'e yakın, kendi başına en hızlı geçilir
+1. **BM213 Lineer Cebir** — zaten başlandı, sürdür
+2. **BM107 Elektrik Devre Temelleri** — BM303'ün zemini, EE
+3. **BM106 Olasılık ve İstatistik** — ayrık kısımlar bağımsız, orta zorluk
+4. **BM204 Bilgisayar Organizasyonu** — CS'e yakın, hızlı geçilir
+5. **BM301 Biçimsel Diller ve Soyut Makineler** — CS kuramı, güçlü alan
+6. **BM303 İşaretler ve Sistemler** — en zor (calculus/karmaşık sayı/Fourier); en son başla, en uzun runway
 
-> **Sinerji:** İşaretler + MAT102 + FIZ102 + Olasılık(sürekli) ortak **calculus** ihtiyacı duyuyor → tek bir calculus refresher modülü hepsine hizmet eder.
+> **Sinerji:** BM303 + MAT102 + FIZ102 + BM106(sürekli) ortak **calculus** ihtiyacı duyuyor → tek bir calculus refresher modülü hepsine hizmet eder.
 
 ## Emniyet payı mantığı
 Hedef sadece "4 dersi bırakmak" değil; ek sınavlarda **mümkün olduğunca fazla** CS/seçmeli geçerek tampon oluşturmak. Ne kadar fazla geçersen, beklenmedik bir kalmada 6'ya çıkma riski o kadar düşer.
 
 ## Doğrulanacaklar (öğrenci işleri / danışman)
 1. Hiç alınmamış seçmeli AKTS'leri sayıma kaç "ders" olarak giriyor? (10 ders varsayımı doğru mu?)
-2. Yaz okulu kayıt limiti net 24 AKTS mi, ders adedi sınırı var mı?
+2. ~~Yaz okulu kayıt limiti net 24 AKTS mi?~~ → **Doğrulandı: 24 AKTS.**
 3. Tez (BM498) ek sürede mi yapılmalı, yaz okulunda mı? (Yaza sığmıyor; ek süre planı.)
-4. 2025-2026 yaz okulu kesin açılan ders listesi (eldeki liste "planlanan").
+4. ~~2025-2026 yaz okulu kesin açılan ders listesi~~ → **Doğrulandı: 20/06/2026 tarihli kesin liste alındı.**
 5. **Lab dersleri (BM203/BM304/BM302) azami süre sonu sınavıyla tek atışta geçilebilir mi**, yoksa ek süreye ders kaydı + lab şart mı?
-6. **Yaz okulunda "devam şartı yok" lab/uygulamayı kapsıyor mu**, lab fiziksel katılım istiyor mu?
+6. **BM203/BM302/BM304 yaz okulunda açıldı — lab politikası netleşirse yaz okuluna taşınabilir.**
