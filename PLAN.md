@@ -32,8 +32,8 @@ Beklenen dağılım: Yaz okulu ~5 ders + 2 azami süre sonu sınavı ~18 ders �
 | BM106 Olasılık ve İstatistik | 3-0 | 4 | matematik, zayıf alan |
 | BM303 İşaretler ve Sistemler | 3-0 | 4 | sinyal/matematik, zayıf alan |
 | BM213 Lineer Cebir | 3-0 | 3 | matematik, zayıf alan |
-| BM204 Bilgisayar Organizasyonu | 3-0 | 5 | lab yok, güvenli ön-temizlik/tampon |
-| **Toplam** | | **20** | (24 limitine 2. bir 5'lik CS dersi sığmıyor) |
+| MAT112 Matematik II (MAT102 yerine) | — | 6 | calculus, en zayıf+temel alan; **denklik onayına bağlı** (Müh. Fak., danışman bakıyor; U:3 katılım teyidi) |
+| **Toplam** | | **21** | BM204 → Rota 2'ye taşındı (CS'e yakın, sınavla geçilir) |
 
 > **Not — neden bazı başarısız dersler yaz okulunda yok:** MAT102, FIZ102, BM209, BM211 yaz okulu açılan dersler listesinde **yok** → Rota 3'e gidiyorlar (yaz okulunda alınamıyorlar, başarısız oldukları için değil).
 
