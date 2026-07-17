@@ -25,8 +25,15 @@ Beklenen dağılım: Yaz okulu **6 ders (24 AKTS)** + 2 azami süre sonu sınav�
 
 ## Geçilmemiş dersler ve atanan rota
 
-### Rota 1 — YAZ OKULU (KEYİNLEŞTİ — 28/06/2026)
-**Devam şartı yok. Tüm dersler lab'sız (U=0). 24 AKTS limiti tam dolu.**
+### Rota 1 — YAZ OKULU (lab'sız + zayıf alan; devam şartı yok; ~20 AKTS doldur)
+| Ders | T-U | AKTS | Neden yaz okulu |
+|---|---|---|---|
+| BM107 Elektrik Devre Temelleri | 3-0 | 4 | EE, zayıf alan, lab yok |
+| BM106 Olasılık ve İstatistik | 3-0 | 4 | matematik, zayıf alan |
+| BM303 İşaretler ve Sistemler | 3-0 | 4 | sinyal/matematik, zayıf alan |
+| BM213 Lineer Cebir | 3-0 | 3 | matematik, zayıf alan |
+| MAT112 Matematik II (MAT102 yerine) | — | 6 | calculus, en zayıf+temel alan; **denklik onayına bağlı** (Müh. Fak., danışman bakıyor; U:3 katılım teyidi) |
+| **Toplam** | | **21** | BM204 → Rota 2'ye taşındı (CS'e yakın, sınavla geçilir) |
 
 | # | Ders | T-U | AKTS | Gerekçe |
 |---|---|---|---|---|
