@@ -14,7 +14,7 @@ Hasan'ın Düzce Üniversitesi Bilgisayar Mühendisliği'nden mezun olabilmesi i
 - **28 geçilmemiş ders** var. Hayatta kalmak için **en az 23'ünü** geçmek gerek. Detaylı sayılar/strateji: **PLAN.md**.
 
 ## Nasıl çalışıyoruz (kurallar)
-- **teach skill:** `.agents/skills/teach/SKILL.md` — kullanıcı `/teach` ile çağırır; çağıramazsa SKILL.md'yi oku ve izle.
+- **teach skill:** global kurulu (`~/.agents/skills/teach/`, `~/.claude/skills` symlink ile bağlı) — kullanıcı `/teach` ile çağırır.
 - **Dil:** Türkçe.
 - **Tüm adımlar yazılır:** Worked example'larda "benzer şekilde uygulanır" gibi kısayollar YASAK; her ara adım (satır işlemleri, ara matrisler, geri yerine koyma) tek tek gösterilir. (bkz. NOTES.md)
 - Her ders: `lessons/<ders>/NNNN-*.html` + bir `reference/<ders>/*.html` kartı; ders tarayıcıda açılır.
@@ -27,16 +27,20 @@ Hasan'ın Düzce Üniversitesi Bilgisayar Mühendisliği'nden mezun olabilmesi i
 - `NOTES.md` — öğrenci profili + öğretim tercihleri
 - `lessons/<ders>/`, `reference/<ders>/`, `learning-records/`
 - `lessons/lineer-cebir/ROADMAP.md` — 14 haftalık syllabus → ders eşlemesi
+- `lessons/on-bilgi/` — derse özel olmayan ön bilgi dersleri (örn. trigonometri); ihtiyaç doğduğunda yazılır, önceden değil (bkz. LR0005)
 
 ## Şu anki ilerleme
 - **Aktif ders:** Lineer Cebir (BM213).
-  - Ders 01 (Hafta 1-2: sistemler/Gauss/2×2-3×3 determinant) yazıldı + açıldı.
+  - Ders 01 (Hafta 1-2: sistemler/Gauss/2×2-3×3 determinant) yazıldı + açıldı + **bitirildi**.
+  - Ders 02 (Hafta 3: geometrik yorum + n-boyutlu determinant tanımı) yazıldı + açıldı.
   - Ders 06 (matris işlemleri, Hafta 7) hazır (başta yanlışlıkla Ders 01 yapılmıştı, syllabus görülünce taşındı).
-  - Kullanıcı Gauss eliminasyonunun mantığını ("denklem çıkarma"nın aynısı) kavradı.
-- **Sıradaki:** Ders 02 — geometrik yorum + n-boyutlu determinant (kullanıcı onayıyla).
+  - Kullanıcı Gauss eliminasyonunun mantığını ("denklem çıkarma"nın aynısı) ve toplama/çıkarma işareti kuralını kavradı; matriste girişin işareti vs. determinantın yapısal işareti ayrımını netleştirdi.
+  - Resmî EBS haftalık syllabus görseli kullanıcı tarafından paylaşıldı, ROADMAP.md eşlemesi doğrulandı (birebir uyumlu).
+- **Sıradaki:** Ders 03 — n-boyutlu determinantın özellikleri ve hesaplama yöntemleri (Hafta 4).
 
 ## Önemli kararlar
-- Yaz okulu (max 24 AKTS, devam şartı yok) → **KESİNLEŞTİ (28/06/2026), 24 AKTS:** BM213, BM107, BM106, BM303, BM204, BM301.
+- Yaz okulu (devam şartı yok) → **KESİNLEŞTİ (ders programı alındı, 17/07/2026), 21 AKTS, 5 ders:** BM213 (Lineer Cebir), BM107 (Elektrik Devre Temelleri), BM106 (Olasılık ve İstatistik), BM303 (İşaretler ve Sistemler), **MAT112 (Matematik II, MAT102 yerine — denklik onaylandı)**.
+  - **BM204 ve BM301 yaz okulundan çıktı**, azami süre sonu sınavına (Rota 2) geri döndü.
 - Lab dersleri (BM203, BM304, BM302) yaz okulunda açıldı ama U>0 → lab politikası netleşmeden azami süre sınavı rotasında bırakıldı.
 - BM213 **determinant-önce** sıralama kullanıyor (Rus geleneği müfredat) — LR0002.
 - Staj BM499 iş-temelli muafiyetle geçmiş olabilir (OBS'den teyit edilecek).

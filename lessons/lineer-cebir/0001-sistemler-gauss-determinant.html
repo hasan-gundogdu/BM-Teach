@@ -27,6 +27,14 @@
   table.det{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .15em; position:relative; }
   table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; width:0; border-left:1.6px solid var(--ink); }
   table.det::before{ left:-1px; } table.det::after{ right:-1px; }
+  table.sarrus{ border-collapse:collapse; margin:.6em auto; }
+  table.sarrus td{ font-family:"SF Mono",Consolas,monospace; padding:.25em .6em; text-align:center; font-size:1rem; }
+  table.sarrus td.copy{ color:var(--soft); }
+  table.sarrus td.plus{ background:#eef4ea; }
+  table.sarrus td.minus{ background:#f7eae6; }
+  .diag-step{ font-size:.95rem; color:#4a4a4a; margin:.25em 0; }
+  .diag-step .plus-tag{ color:#3f6b2c; font-weight:700; }
+  .diag-step .minus-tag{ color:#9c3f2a; font-weight:700; }
   .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
   details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
   summary{ cursor:pointer; font-weight:600; color:var(--accent); }
@@ -55,7 +63,8 @@
   <p>Amaç: her iki denklemi de sağlayan <code>(x, y)</code> ikilisini bulmak.</p>
 
   <h2>2. Gauss yöntemi (yok etme)</h2>
-  <p>Fikir: denklemleri birbirinden çıkararak bir bilinmeyeni <span class="hi">yok etmek</span>, tek bilinmeyene inmek, sonra geri yerine koymak. Sistemi <b>genişletilmiş matris</b> olarak yazarız (katsayılar | sonuç):</p>
+  <p>Fikir: denklemleri birbiriyle birleştirerek bir bilinmeyeni <span class="hi">yok etmek</span>, tek bilinmeyene inmek, sonra geri yerine koymak. Sistemi <b>genişletilmiş matris</b> olarak yazarız (katsayılar | sonuç):</p>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Katsayı işareti matrise nasıl girer?</b> Olduğu gibi — <code>x − y = 1</code> denklemindeki <code>−y</code>, matriste <code>-1</code> hücresi olarak yazılır, ayrı bir "eksi" göstergesi yok: <code>[1, -1 | 1]</code>. Formal satır işlemi hep aynıdır — <code>R2 → R2 − k·R1</code> — çarpan <code>k</code> negatif çıkarsa işlem kendiliğinden "toplama" gibi davranır. Yani matris notasyonu, "aynı işaret → çıkar, zıt işaret → topla" ayrımını elle takip etme derdini ortadan kaldırır: tek formülü uygularsın, işaretler kendi kendine hallolur.</p>
   <div class="eq">
     <table class="m"><tr><td>1</td><td>2</td><td>|</td><td>5</td></tr><tr><td>3</td><td>4</td><td>|</td><td>11</td></tr></table>
   </div>
@@ -121,12 +130,43 @@
     <table class="det"><tr><td>a</td><td>b</td><td>c</td></tr><tr><td>d</td><td>e</td><td>f</td></tr><tr><td>g</td><td>h</td><td>i</td></tr></table>
     = <code>aei + bfg + cdh − ceg − bdi − afh</code>
   </div>
-  <p>Püf: ilk iki sütunu sağa kopyala, sağ-alta inen 3 çapraz (+), sol-alta inen 3 çapraz (−).</p>
+  <p><b>Neden bu formül zor ezberlenir?</b> 6 terim, sırası karışık, hangisi + hangisi − takip etmesi zor. Sarrus kuralı bunu <span class="hi">çizerek</span> yapmanın bir yolu — <b>sadece 3×3 için geçerli</b> (4×4 ve üstünde çalışmaz, orada kofaktör açılımı gerekir, bkz. Hafta 5).</p>
+
+  <h3>Sarrus kuralı — adım adım (aynı örnek üzerinden)</h3>
+  <p>Matris:</p>
   <div class="eq">
-    Örnek: det
+    det
     <table class="det"><tr><td>2</td><td>1</td><td>0</td></tr><tr><td>1</td><td>3</td><td>1</td></tr><tr><td>0</td><td>1</td><td>2</td></tr></table>
   </div>
-  <p>= 2·3·2 + 1·1·0 + 0·1·1 − 0·3·0 − 1·1·2 − 2·1·1 = 12 + 0 + 0 − 0 − 2 − 2 = <b>8</b></p>
+
+  <p><b>Adım 1 — ilk iki sütunu sağa kopyala.</b> Matrisin bittiği yerde çapraz çizmeye devam edemezsin (kâğıt biter); sütunları tekrarlayınca çaprazları fiziksel olarak çizebiliyorsun. İçerik değişmiyor, sadece 3 sütunluk matris 5 sütunluk bir görüntüye dönüşüyor:</p>
+  <div class="eq">
+    <table class="sarrus">
+      <tr><td>2</td><td>1</td><td>0</td><td class="copy">2</td><td class="copy">1</td></tr>
+      <tr><td>1</td><td>3</td><td>1</td><td class="copy">1</td><td class="copy">3</td></tr>
+      <tr><td>0</td><td>1</td><td>2</td><td class="copy">0</td><td class="copy">1</td></tr>
+    </table>
+  </div>
+  <p style="font-size:.9rem;color:var(--soft);text-align:center;margin-top:-.6em">(soluk renkli sütunlar — 1. ve 2. sütunun kopyaları)</p>
+
+  <p><b>Adım 2 — sağa-alta inen 3 çapraz (artı işaretli).</b> Sol üstten başlayıp sağ-alta doğru in; her çaprazda 3 sayıyı çarp:</p>
+  <p class="diag-step"><span class="plus-tag">Çapraz 1:</span> 2 → 3 → 2 &nbsp;(1. satır 1. sütun, 2. satır 2. sütun, 3. satır 3. sütun) &nbsp;=&nbsp; 2·3·2 = <b>12</b></p>
+  <p class="diag-step"><span class="plus-tag">Çapraz 2:</span> 1 → 1 → 0 &nbsp;(1. satır 2. sütun, 2. satır 3. sütun, 3. satır kopya-1. sütun) &nbsp;=&nbsp; 1·1·0 = <b>0</b></p>
+  <p class="diag-step"><span class="plus-tag">Çapraz 3:</span> 0 → 1 → 1 &nbsp;(1. satır 3. sütun, 2. satır kopya-1. sütun, 3. satır kopya-2. sütun) &nbsp;=&nbsp; 0·1·1 = <b>0</b></p>
+  <p>Artı toplamı: 12 + 0 + 0 = <b>12</b></p>
+
+  <p><b>Adım 3 — sol-alta inen 3 çapraz (eksi işaretli).</b> Şimdi sağ üstten (kopya sütunları dahil sağdan sayarak) başlayıp sol-alta doğru in:</p>
+  <p class="diag-step"><span class="minus-tag">Çapraz 1:</span> 0 → 3 → 0 &nbsp;(1. satır 3. sütun, 2. satır 2. sütun, 3. satır 1. sütun) &nbsp;=&nbsp; 0·3·0 = <b>0</b></p>
+  <p class="diag-step"><span class="minus-tag">Çapraz 2:</span> 1 → 1 → 2 &nbsp;(1. satır kopya-1. sütun, 2. satır 3. sütun, 3. satır 2. sütun) &nbsp;=&nbsp; 1·1·2 = <b>2</b></p>
+  <p class="diag-step"><span class="minus-tag">Çapraz 3:</span> 2 → 1 → 1 &nbsp;(1. satır kopya-2. sütun, 2. satır kopya-1. sütun, 3. satır 1. sütun) &nbsp;=&nbsp; 2·1·1 = <b>2</b></p>
+  <p>Eksi toplamı: 0 + 2 + 2 = <b>4</b></p>
+
+  <p><b>Adım 4 — sonuç:</b> artı toplamı − eksi toplamı = 12 − 4 = <b>8</b>.</p>
+  <div class="eq"><b>det = 8</b></div>
+
+  <p><b>Neden bu çarpımlar doğru terimler?</b> Determinantın tanımı (permütasyonlar üzerinden) her satır ve her sütundan tam bir eleman seçen tüm kombinasyonları, işaretleriyle toplar. 3×3'te bu kombinasyonlar tam olarak 6 tane — Sarrus'un 3 artı + 3 eksi çaprazı bu 6 kombinasyonun görsel karşılığı. 4×4'te kombinasyon sayısı 24'e çıkıyor ve çapraz çizme tekniği artık kombinasyonların hepsini yakalayamıyor — bu yüzden kural sadece 3×3'e özel.</p>
+
+  <p style="font-size:.95rem;color:var(--soft)"><b>İki farklı işaret, karıştırma:</b> (1) matris girişinin <i>kendi</i> işareti — matriste <code>-2</code> varsa hesaba <code>-2</code> olarak girer; (2) Sarrus'un <i>yapısal</i> +/− işareti (hangi çaprazda olduğuna göre) — bu, permütasyonun parite işareti, girişin kendi işaretiyle ilgisi yok. Örneğin bir artı-çaprazdaki giriş <code>-2</code> ise o terim <code>+(a·b·(−2))</code> olur — iki işaret çarpılır, birbirine karıştırılmaz.</p>
 
   <h2>5. Şimdi sen dene</h2>
   <p>Kalemle çöz, sonra cevabı aç. (Sınavda kalem-kâğıt hızın puan kazandırır.)</p>
@@ -135,6 +175,7 @@
     <p><b>Soru 1.</b> Gauss ile çöz: <code>2x + y = 5</code>, &nbsp; <code>x − y = 1</code>.</p>
     <details><summary>Çözümü göster</summary>
       <p>Toplarsak: 3x = 6 → x = 2. İlk denklem: 2·2 + y = 5 → y = 1. <b>(x,y) = (2, 1)</b></p>
+      <p style="font-size:.9rem;color:var(--soft)"><b>Neden çıkarma değil toplama?</b> Bölüm 2'deki örnekte <code>x</code>'in katsayıları aynı işaretliydi (1 ve 2) → çıkarma gerekti. Burada <code>y</code>'nin katsayıları <b>zıt işaretli</b> (+1 ve −1) → toplayınca <code>y</code> zaten birbirini götürüyor, çıkarmaya gerek yok. Kural: aynı işaret → çıkar, zıt işaret → topla — ikisi de aynı "bir bilinmeyenin katsayısını sıfırla" fikri.</p>
     </details>
   </div>
 

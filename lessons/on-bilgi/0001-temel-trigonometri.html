@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ön Bilgi 01 — Temel Trigonometri (Lineer Cebir için)</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.vals{ border-collapse:collapse; margin:.8em auto; font-size:.95rem; }
+  table.vals th, table.vals td{ border:1px solid var(--rule); padding:.4em .7em; text-align:center; font-family:Consolas,monospace; }
+  table.vals th{ background:var(--note); font-family:inherit; font-weight:700; }
+  .quad-grid{ display:flex; gap:1em; flex-wrap:wrap; margin:.8em 0; }
+  .quad-grid > div{ flex:1; min-width:140px; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.7em .9em; font-size:.92rem; }
+  .quad-grid b{ color:var(--accent); }
+  .diagram{ text-align:center; margin:1em auto; max-width:320px; }
+  .diagram svg{ width:100%; height:auto; background:#fff; border:1px solid var(--rule); border-radius:6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Ön Bilgi 01 · Lineer Cebir & sonrası için altyapı</div>
+  <h1>Temel Trigonometri</h1>
+  <p class="lead">Bu dersin sonunda: herhangi bir açının (90°'den büyük olsa bile) sinüs ve kosinüs değerini elle bulabilecek, bir vektörü "büyüklük + açı" biçiminden "(x,y)" bileşen biçimine çevirebileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Khan Academy'deki vektör sorusunda (<code>100°</code>, <code>210°</code> gibi açılar) takıldın — bu, tesadüf değil: vektörleri bileşenlere çevirmek her zaman sin/cos gerektirir. BM213'ün kendisinde de Hafta 14 (açı, Öklit uzayları) ve Hafta 10/12'de (kompleks sayılar, özdeğerler) bu bilgiye ihtiyaç olacak. Bir kere sağlam öğrenirsek bir daha hiç takılmayız.</p>
+
+  <h2>1. Açı nedir, nasıl ölçülür?</h2>
+  <p>Bir açıyı <span class="hi">standart konum</span>da çizeriz: köşesi (0,0) noktasında, bir kenarı (başlangıç kenarı) pozitif x-ekseni üzerinde. Açı, bu kenardan başlayıp <b>saat yönünün tersine</b> ne kadar döndüğünü gösterir. Örneğin <code>90°</code> tam yukarıyı (pozitif y-ekseni), <code>180°</code> tam sola (negatif x-ekseni) gösterir.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <line x1="10" y1="110" x2="210" y2="110" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="110" y1="10" x2="110" y2="210" stroke="#1a1a1a" stroke-width="1.2"/>
+      <circle cx="110" cy="110" r="80" fill="none" stroke="#e2ded5" stroke-width="1.5"/>
+      <path d="M 150 110 A 40 40 0 0 0 90.6 71.9" fill="none" stroke="#7a5c2e" stroke-width="2"/>
+      <text x="155" y="95" font-size="11" fill="#7a5c2e">θ</text>
+      <line x1="110" y1="110" x2="90.6" y2="71.9" stroke="#2e5f8a" stroke-width="2.5"/>
+      <text x="60" y="60" font-size="10" fill="#2e5f8a">açı kenarı</text>
+      <text x="200" y="105" font-size="10" fill="#6b6b6b">başlangıç kenarı (0°)</text>
+    </svg>
+  </div>
+
+  <h2>2. sin ve cos: birim çember tanımı</h2>
+  <p>Lisede muhtemelen sin/cos'u dik üçgende (<code>karşı/hipotenüs</code>, <code>komşu/hipotenüs</code>) öğrenmiştin — ama bu tanım sadece <b>0°-90°</b> arası açılarda çalışır. Bizim işimize 100°, 210° gibi açılar da girdiği için daha genel bir tanım lazım: <span class="hi">birim çember</span> tanımı.</p>
+
+  <p>Yarıçapı 1 olan bir çember çiz (merkezi orijinde). Açı <code>θ</code>'yı standart konumda çiz. Açı kenarının çemberi kestiği noktanın koordinatları, tam olarak <code>(cos θ, sin θ)</code>'dır:</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+      <!-- birim çember -->
+      <circle cx="120" cy="140" r="90" fill="none" stroke="#e2ded5" stroke-width="1.5"/>
+      <!-- eksenler -->
+      <line x1="20" y1="140" x2="225" y2="140" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="120" y1="35" x2="120" y2="235" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="215" y="135" font-size="10" fill="#6b6b6b">x</text>
+      <text x="126" y="45" font-size="10" fill="#6b6b6b">y</text>
+      <!-- açı yayı -->
+      <path d="M 150 140 A 30 30 0 0 0 142.98 120.72" fill="none" stroke="#7a5c2e" stroke-width="1.5"/>
+      <text x="152" y="128" font-size="11" fill="#7a5c2e">θ</text>
+      <!-- yarıçap (açı kenarı) -->
+      <line x1="120" y1="140" x2="188.9" y2="82.1" stroke="#2e5f8a" stroke-width="2.5"/>
+      <circle cx="188.9" cy="82.1" r="3.5" fill="#2e5f8a"/>
+      <text x="192" y="78" font-size="10" fill="#2e5f8a">(cos θ, sin θ)</text>
+      <text x="145" y="105" font-size="9" fill="#2e5f8a">r = 1</text>
+      <!-- izdüşüm çizgileri (kesikli) -->
+      <line x1="188.9" y1="82.1" x2="188.9" y2="140" stroke="#6b6b6b" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <line x1="188.9" y1="82.1" x2="120" y2="82.1" stroke="#6b6b6b" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <!-- cos θ: x-ekseni üzerindeki segment -->
+      <line x1="120" y1="145" x2="188.9" y2="145" stroke="#7a5c2e" stroke-width="2.5"/>
+      <text x="140" y="158" font-size="10" fill="#7a5c2e">cos θ</text>
+      <!-- sin θ: y-ekseni üzerindeki segment -->
+      <line x1="112" y1="82.1" x2="112" y2="140" stroke="#3f6b2c" stroke-width="2.5"/>
+      <text x="60" y="115" font-size="10" fill="#3f6b2c">sin θ</text>
+    </svg>
+  </div>
+  <p style="font-size:.85rem;color:var(--soft);text-align:center;margin-top:-.6em">(Örnek açı θ ≈ 40°. Mavi nokta çember üzerinde; kahverengi segment x-eksenindeki izdüşümü = <code>cos θ</code>, yeşil segment y-eksenindeki izdüşümü = <code>sin θ</code>.)</p>
+
+  <div class="eq"><code>nokta = (cos θ, sin θ)</code></div>
+
+  <p>Bu tanım <b>her açı için çalışır</b> — 100° de, 210° de, 400° de. Çünkü artık üçgene değil, çember üzerindeki bir noktanın x ve y koordinatına bakıyoruz.</p>
+
+  <h2>3. Dört bölge (kadran) ve işaretler</h2>
+  <p>Çemberi 4 bölgeye ayırırsak (x ve y eksenleriyle), her bölgede x ve y koordinatının işareti (dolayısıyla cos ve sin'in işareti) farklıdır:</p>
+
+  <div class="quad-grid">
+    <div><b>1. Bölge (0°-90°)</b><br>x pozitif, y pozitif<br><code>cos +, sin +</code></div>
+    <div><b>2. Bölge (90°-180°)</b><br>x negatif, y pozitif<br><code>cos −, sin +</code></div>
+    <div><b>3. Bölge (180°-270°)</b><br>x negatif, y negatif<br><code>cos −, sin −</code></div>
+    <div><b>4. Bölge (270°-360°)</b><br>x pozitif, y negatif<br><code>cos +, sin −</code></div>
+  </div>
+
+  <h2>4. Standart açı değerleri</h2>
+  <p>Bu açıların sin/cos değerlerini ezbere bilmek işini çok hızlandırır (ilk bölgede, yani 0°-90° arasında). Hem ondalık hem tam (kök) hâlleriyle:</p>
+
+  <table class="vals">
+    <tr><th>θ</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
+    <tr><td><b>cos θ</b> (kök)</td><td>1</td><td>√3⁄2</td><td>√2⁄2</td><td>1⁄2</td><td>0</td></tr>
+    <tr><td><b>cos θ</b> (ondalık)</td><td>1</td><td>0.866</td><td>0.707</td><td>0.5</td><td>0</td></tr>
+    <tr><td><b>sin θ</b> (kök)</td><td>0</td><td>1⁄2</td><td>√2⁄2</td><td>√3⁄2</td><td>1</td></tr>
+    <tr><td><b>sin θ</b> (ondalık)</td><td>0</td><td>0.5</td><td>0.707</td><td>0.866</td><td>1</td></tr>
+    <tr><td><b>tan θ</b> (kök)</td><td>0</td><td>√3⁄3</td><td>1</td><td>√3</td><td>tanımsız</td></tr>
+  </table>
+
+  <p style="font-size:.9rem;color:var(--soft)">Kök hâlde ezberlemek isteyenler için küçük bir örüntü var: <code>sin</code> satırı 0°→90° <code>√0/2, √1/2, √2/2, √3/2, √4/2</code> şeklinde yazılabilir (kökler sadeleşince yukarıdaki tabloyu verir); <code>cos</code> satırı bunun ters sırasıdır. Ama pratikte ondalık hâli hesaplamalar için genelde yeterli.</p>
+
+  <h3>Bu, lisede öğrendiğin karşı/komşu/hipotenüs formülleriyle aynı</h3>
+  <p>Birim çemberdeki noktayı x-eksenine dik indirirsen bir <span class="hi">dik üçgen</span> oluşur — hipotenüsü çemberin yarıçapı (r), dik kenarları ise <code>cos θ</code> (komşu) ve <code>sin θ</code> (karşı):</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 240 170" xmlns="http://www.w3.org/2000/svg">
+      <line x1="120" y1="140" x2="188.9" y2="140" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="188.9" y1="140" x2="188.9" y2="82.1" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="120" y1="140" x2="188.9" y2="82.1" stroke="#2e5f8a" stroke-width="2.5"/>
+      <rect x="182.9" y="134" width="6" height="6" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+      <path d="M 145 140 A 25 25 0 0 0 138.6 123.5" fill="none" stroke="#7a5c2e" stroke-width="1.5"/>
+      <text x="146" y="128" font-size="11" fill="#7a5c2e">θ</text>
+      <text x="145" y="155" font-size="11" fill="#1a1a1a">komşu (cos θ)</text>
+      <text x="192" y="112" font-size="11" fill="#1a1a1a">karşı (sin θ)</text>
+      <text x="128" y="108" font-size="11" fill="#2e5f8a">hipotenüs (r)</text>
+    </svg>
+  </div>
+
+  <p>Aynı üçgen, iki farklı isimle:</p>
+  <div class="eq">
+    <code>sin θ = karşı / hipotenüs</code><br>
+    <code>cos θ = komşu / hipotenüs</code><br>
+    <code>tan θ = karşı / komşu = sin θ / cos θ</code>
+  </div>
+  <p>Birim çemberde hipotenüs (r) = 1 olduğu için <code>sin θ = karşı/1 = karşı</code> ve <code>cos θ = komşu/1 = komşu</code> — yani birim çemberdeki koordinatlar zaten bu oranların kendisi. Farkı şu: <b>karşı/komşu/hipotenüs tanımı sadece 0°-90° arasında</b> (gerçek bir dik üçgen çizilebildiği sürece) çalışır; <b>birim çember tanımı her açı için</b> çalışır. İkisi çelişmiyor, birim çember sadece aynı fikri genelleştiriyor.</p>
+
+  <h3>Meşhur üçgenler: 45-45-90 ve 30-60-90 (ispatlı)</h3>
+  <p>Yukarıdaki tablodaki 30°, 45°, 60° değerleri ezberden ibaret değil — iki basit üçgenden <b>hesaplanabiliyor</b>. Nasıl çıktığını görelim.</p>
+
+  <h4 style="margin:1.2em 0 .2em;font-size:.98rem;color:var(--ink)">45-45-90 üçgeni</h4>
+  <p>İki dik kenarı eşit uzunlukta olan bir dik üçgen çiz (ikizkenar dik üçgen). Kenar uzunlukları <b>1</b> ve <b>1</b> olsun. Kalan iki açı otomatik olarak eşit olur (ikizkenar üçgen) ve toplamları <code>180° − 90° = 90°</code> olduğundan her biri <b>45°</b>'dir.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 170 150" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="30,120 130,120 130,20" fill="#f3efe6" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="119" y="109" width="11" height="11" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+      <path d="M 55 120 A 25 25 0 0 0 46.7 100.7" fill="none" stroke="#7a5c2e" stroke-width="1.5"/>
+      <text x="52" y="108" font-size="10" fill="#7a5c2e">45°</text>
+      <path d="M 130 45 A 25 25 0 0 1 112.3 37.7" fill="none" stroke="#7a5c2e" stroke-width="1.5"/>
+      <text x="112" y="53" font-size="10" fill="#7a5c2e">45°</text>
+      <text x="72" y="135" font-size="11" fill="#1a1a1a">1</text>
+      <text x="138" y="75" font-size="11" fill="#1a1a1a">1</text>
+      <text x="65" y="65" font-size="11" fill="#2e5f8a">√2</text>
+    </svg>
+  </div>
+
+  <p><b>Hipotenüsü Pisagor teoremiyle bul:</b> <code>hipotenüs² = 1² + 1² = 2</code> → <code>hipotenüs = √2</code>.</p>
+  <p><b>Formülleri uygula (45° açısı için, karşı=1, komşu=1, hipotenüs=√2):</b></p>
+  <div class="eq">
+    <code>sin 45° = 1/√2</code> → paydayı rasyonelleştir: <code>1/√2 · √2/√2 = √2/2</code><br>
+    <code>cos 45° = 1/√2 = √2/2</code> (aynı işlem, komşu da 1 olduğu için)<br>
+    <code>tan 45° = 1/1 = 1</code>
+  </div>
+  <p>Tam olarak tablodaki değerler — şimdi <i>neden</i> öyle olduğunu biliyorsun.</p>
+
+  <h4 style="margin:1.2em 0 .2em;font-size:.98rem;color:var(--ink)">30-60-90 üçgeni</h4>
+  <p>Bu sefer <b>kenar uzunluğu 2 olan eşkenar üçgenden</b> başla (üç açısı da 60°). Tepe noktasından tabana bir <span class="hi">yükseklik (irtifa)</span> indir. Bu yükseklik iki şeyi yapar: tabanı ortadan tam ikiye böler (1 ve 1), ve tepedeki 60°'lik açıyı ikiye böler (30° ve 30°). Sonuçta ortaya <b>iki tane</b> aynı dik üçgen çıkar:</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="40,140 160,140 100,36.1" fill="none" stroke="#e2ded5" stroke-width="1.5"/>
+      <line x1="100" y1="36.1" x2="100" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+      <rect x="94" y="129" width="11" height="11" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+      <path d="M 100 58.1 A 22 22 0 0 1 89 55.15" fill="none" stroke="#7a5c2e" stroke-width="1.5"/>
+      <text x="76" y="60" font-size="10" fill="#7a5c2e">30°</text>
+      <path d="M 111 55.15 A 22 22 0 0 1 100 58.1" fill="none" stroke="#7a5c2e" stroke-width="1.5"/>
+      <text x="106" y="60" font-size="10" fill="#7a5c2e">30°</text>
+      <text x="52" y="132" font-size="10" fill="#1a1a1a">60°</text>
+      <text x="140" y="132" font-size="10" fill="#1a1a1a">60°</text>
+      <text x="68" y="152" font-size="11" fill="#1a1a1a">1</text>
+      <text x="128" y="152" font-size="11" fill="#1a1a1a">1</text>
+      <text x="80" y="90" font-size="11" fill="#3f6b2c">√3</text>
+      <text x="55" y="85" font-size="11" fill="#2e5f8a">2</text>
+      <text x="140" y="85" font-size="11" fill="#2e5f8a">2</text>
+    </svg>
+  </div>
+
+  <p><b>Yüksekliği Pisagor teoremiyle bul:</b> sağdaki (veya soldaki) dik üçgende hipotenüs = 2 (eşkenar üçgenin kenarı), bir dik kenar = 1 (yarım taban). Diğer dik kenar (yükseklik, <code>h</code>):</p>
+  <div class="eq"><code>2² = 1² + h²</code> → <code>h² = 4 − 1 = 3</code> → <code>h = √3</code></div>
+
+  <p><b>30° açısı için</b> (tepede, sol üçgende): karşı = yarım taban = 1, komşu = yükseklik = √3, hipotenüs = 2.</p>
+  <div class="eq">
+    <code>sin 30° = 1/2</code><br>
+    <code>cos 30° = √3/2</code><br>
+    <code>tan 30° = 1/√3</code> → rasyonelleştir: <code>1/√3 · √3/√3 = √3/3</code>
+  </div>
+
+  <p><b>60° açısı için</b> (tabanda): karşı = yükseklik = √3, komşu = yarım taban = 1, hipotenüs = 2.</p>
+  <div class="eq">
+    <code>sin 60° = √3/2</code><br>
+    <code>cos 60° = 1/2</code><br>
+    <code>tan 60° = √3/1 = √3</code>
+  </div>
+
+  <p>Hepsi Bölüm 4'teki tabloyla birebir eşleşiyor — tablo artık ezber değil, ispatlı.</p>
+
+  <h2>5. Referans açı yöntemi — 90°'den büyük açılar için</h2>
+  <p>90°'den büyük bir açının (örn. 100°, 210°) sin/cos'unu bulmak için 3 adım:</p>
+
+  <p><b>Adım 1 — hangi bölgede olduğunu bul.</b> Açıyı 0-90, 90-180, 180-270, 270-360 aralıklarıyla karşılaştır.</p>
+  <p><b>Adım 2 — referans açıyı bul.</b> Bu, açının en yakın x-eksenine olan uzaklığı (her zaman 0°-90° arası bir değer çıkar):</p>
+  <ul>
+    <li>1. bölgede: referans açı = θ (kendisi)</li>
+    <li>2. bölgede: referans açı = <code>180° − θ</code></li>
+    <li>3. bölgede: referans açı = <code>θ − 180°</code></li>
+    <li>4. bölgede: referans açı = <code>360° − θ</code></li>
+  </ul>
+  <p><b>Adım 3 — değeri hesapla, bölgenin işaretini uygula.</b> Referans açının sin/cos'unu tablodan al, sonra Adım 1'de bulduğun bölgenin işaretini (Bölüm 3) uygula.</p>
+
+  <h3>Örnek 1 — 100° (Khan Academy sorusundaki v vektörü)</h3>
+  <p><b>Adım 1:</b> 100°, 90° ile 180° arasında → <b>2. bölge</b>.</p>
+  <p><b>Adım 2:</b> 2. bölgede referans açı <code>= 180° − 100° = 80°</code>.</p>
+  <p><b>Adım 3:</b> <code>cos(80°) ≈ 0.1736</code>, <code>sin(80°) ≈ 0.9848</code>. 2. bölgede cos negatif, sin pozitif:</p>
+  <div class="eq"><code>cos(100°) ≈ −0.1736</code> &nbsp;&nbsp; <code>sin(100°) ≈ 0.9848</code></div>
+
+  <h3>Örnek 2 — 210° (Khan Academy sorusundaki w vektörü)</h3>
+  <p><b>Adım 1:</b> 210°, 180° ile 270° arasında → <b>3. bölge</b>.</p>
+  <p><b>Adım 2:</b> 3. bölgede referans açı <code>= 210° − 180° = 30°</code>.</p>
+  <p><b>Adım 3:</b> <code>cos(30°) ≈ 0.8660</code>, <code>sin(30°) = 0.5</code>. 3. bölgede hem cos hem sin negatif:</p>
+  <div class="eq"><code>cos(210°) ≈ −0.8660</code> &nbsp;&nbsp; <code>sin(210°) ≈ −0.5</code></div>
+
+  <p>Bunlar, bir önceki sohbette senin için hesapladığım tam değerler — şimdi bu değerleri <i>kendi başına</i> nasıl bulacağını biliyorsun.</p>
+
+  <h2>6. Vektörü bileşenlere çevirme (asıl kullanım amacı)</h2>
+  <p>Bir vektörün büyüklüğü <code>r</code>, açısı <code>θ</code> ise, bileşenleri:</p>
+  <div class="eq"><code>(x, y) = (r·cos θ, r·sin θ)</code></div>
+  <p>Yani Bölüm 5'te bulduğun cos/sin değerini büyüklükle çarpman yeterli.</p>
+
+  <h2>7. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> 150° hangi bölgededir?</p>
+    <details><summary>Cevabı göster</summary><p><b>2. bölge</b> (90°-180° arası).</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> 150°'nin referans açısı kaçtır?</p>
+    <details><summary>Cevabı göster</summary><p>2. bölge formülü: <code>180° − 150° = 30°</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> <code>cos(150°)</code> kaçtır (işaretiyle)?</p>
+    <details><summary>Cevabı göster</summary><p>Referans açı 30°, <code>cos(30°) ≈ 0.866</code>. 2. bölgede cos negatif → <code>cos(150°) ≈ −0.866</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4.</b> Büyüklüğü 5, açısı 60° olan bir vektörün bileşenleri nedir?</p>
+    <details><summary>Cevabı göster</summary><p>1. bölge, referans açı = kendisi = 60°. <code>cos60°=0.5</code>, <code>sin60°≈0.866</code>. Bileşenler: <code>(5·0.5, 5·0.866) = (2.5, 4.33)</code>.</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Türkçe, alıştırmalı: <a href="https://tr.khanacademy.org/math/trigonometry">Khan Academy Türkçe — Trigonometri</a> (özellikle "Birim çember" ünitesi).<br>
+    🗂️ Hızlı tekrar: <a href="../../reference/on-bilgi/trigonometri-hizli-basvuru.html">Trigonometri başvuru kartı</a>.
+  </div>
+
+  <p style="font-size:.9rem;color:var(--soft)"><b>Not:</b> Bu, Lineer Cebir'in <i>kendi</i> konusu değil — bir araç. İleride kompleks sayılar (Hafta 10) ve karakteristik polinom kökleri (Hafta 12) için de benzer kısa ön-bilgi dersleri hazırlanacak, ihtiyaç doğduğunda.</p>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← Ön bilgi dersleri</span>
+    <span>Devam: Lineer Cebir Ders 03'e dönüş</span>
+  </div>
+
+</div>
+</body>
+</html>

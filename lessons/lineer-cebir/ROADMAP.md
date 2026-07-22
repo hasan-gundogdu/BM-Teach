@@ -6,7 +6,7 @@ Kaynak: [EBS BM213](https://ebs.duzce.edu.tr/tr-TR/Ders/Index/333778?bno=14&bot=
 | Ders | Syllabus | Konu | Durum |
 |---|---|---|---|
 | 0001 | Hafta 1-2 | Lineer denklem sistemleri, Gauss yöntemi, 2×2 & 3×3 determinant | ✅ yazıldı |
-| 0002 | Hafta 3 | Sistemin geometrik yorumu, n-boyutlu determinant tanımı | ⬜ |
+| 0002 | Hafta 3 | Sistemin geometrik yorumu, n-boyutlu determinant tanımı | ✅ yazıldı |
 | 0003 | Hafta 4 | n-boyutlu determinantın özellikleri ve hesaplama | ⬜ |
 | 0004 | Hafta 5 | Özel determinantlar (üçgen, Vandermonde, üç köşegen) | ⬜ |
 | 0005 | Hafta 6 | Laplace/anti-Laplace açılımı, Cramer teoremi | ⬜ |

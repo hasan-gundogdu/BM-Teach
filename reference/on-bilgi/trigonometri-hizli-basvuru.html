@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Temel Trigonometri</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table{ border-collapse:collapse; margin:.6em auto; font-size:.92rem; }
+  th, td{ border:1px solid #e2ded5; padding:.35em .6em; text-align:center; font-family:Consolas,monospace; }
+  th{ background:#f3efe6; font-family:inherit; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Temel Trigonometri — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir ve sonrası için ön bilgi · Ön Bilgi 01 özeti.</p>
+
+  <h2>Tanım (birim çember)</h2>
+  <div class="card">Standart konumdaki açı θ, birim çemberi <code>(cos θ, sin θ)</code> noktasında keser. Her açı için geçerli — sadece dik üçgenle sınırlı değil.</div>
+
+  <h2>Standart değerler (1. bölge)</h2>
+  <table>
+    <tr><th>θ</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
+    <tr><td>cos (kök)</td><td>1</td><td>√3⁄2</td><td>√2⁄2</td><td>1⁄2</td><td>0</td></tr>
+    <tr><td>cos (ondalık)</td><td>1</td><td>0.866</td><td>0.707</td><td>0.5</td><td>0</td></tr>
+    <tr><td>sin (kök)</td><td>0</td><td>1⁄2</td><td>√2⁄2</td><td>√3⁄2</td><td>1</td></tr>
+    <tr><td>sin (ondalık)</td><td>0</td><td>0.5</td><td>0.707</td><td>0.866</td><td>1</td></tr>
+    <tr><td>tan (kök)</td><td>0</td><td>√3⁄3</td><td>1</td><td>√3</td><td>tanımsız</td></tr>
+  </table>
+
+  <h2>Dik üçgen (SOHCAHTOA) karşılığı</h2>
+  <div class="card">
+    <code>sin θ = karşı / hipotenüs</code><br>
+    <code>cos θ = komşu / hipotenüs</code><br>
+    <code>tan θ = karşı / komşu = sin θ / cos θ</code><br>
+    <small>(Sadece 0°-90° arası; birim çember tanımı her açı için geçerli olanı.)</small>
+  </div>
+
+  <h2>Bölge işaretleri</h2>
+  <div class="card">
+    <b>1. bölge</b> (0-90°): cos +, sin +<br>
+    <b>2. bölge</b> (90-180°): cos −, sin +<br>
+    <b>3. bölge</b> (180-270°): cos −, sin −<br>
+    <b>4. bölge</b> (270-360°): cos +, sin −
+  </div>
+
+  <h2>Referans açı formülleri</h2>
+  <div class="rule">
+    1. bölge: <code>θ</code><br>
+    2. bölge: <code>180° − θ</code><br>
+    3. bölge: <code>θ − 180°</code><br>
+    4. bölge: <code>360° − θ</code>
+  </div>
+
+  <h2>3 adımlı yöntem</h2>
+  <div class="card">1) Bölgeyi bul → 2) Referans açıyı hesapla → 3) Tablodan değeri al, bölgenin işaretini uygula.</div>
+
+  <h2>Vektör bileşenleri</h2>
+  <div class="rule">Büyüklük <code>r</code>, açı <code>θ</code> → bileşenler: <code>(r·cos θ, r·sin θ)</code></div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • Referans açıyı bölge formülünü karıştırıp yanlış hesaplamak.<br>
+    • İşareti unutmak (referans açının değeri her zaman pozitif, işareti bölge belirler).<br>
+    • Dik üçgen tanımını 90°'den büyük açılarda kullanmaya çalışmak (çalışmaz — birim çember tanımı gerekir).
+  </div>
+</body>
+</html>

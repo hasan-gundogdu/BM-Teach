@@ -21,5 +21,7 @@
 - (Diğer derslerin sayfasına: program linkinden ders adına tıklanır.)
 
 ## Gaps
-- **Düzce BM213'ün resmî haftalık syllabus'u** henüz alınmadı (EBS SSL hatası). Kullanıcının yapıştırması bekleniyor → roadmap buna göre hizalanacak.
 - **Geçmiş sınav soruları** elde yok. Hocadan/önceki dönem öğrencilerinden bulunursa eklenecek (sınav formatı için kritik).
+- **Khan Academy Türkçe Lineer Cebir, BM213 Hafta 12-14'ü kapsamıyor.** Güncel KA müfredatı 3 ünite: Vectors and spaces, Matrix transformations, Alternate coordinate systems (bases) — özdeğer/özvektör, Jordan formu, kuadratik formlar bu ünitelerde yok (2026-07 itibariyle doğrulandı). Hafta 1-11 için birincil kaynak olarak güvenilir; Hafta 12-14'te (özdeğer, Jordan, kuadratik formlar) yerine **MIT 18.06 (Gilbert Strang)** kullanılmalı.
+
+> Not: BM213'ün resmî haftalık syllabus'u alındı (kullanıcı ekran görüntüsü paylaştı, 2026-07-17) — `lessons/lineer-cebir/ROADMAP.md` ile birebir doğrulandı.
