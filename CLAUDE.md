@@ -41,6 +41,7 @@ Hasan'ın Düzce Üniversitesi Bilgisayar Mühendisliği'nden mezun olabilmesi i
 ## Önemli kararlar
 - Yaz okulu (devam şartı yok) → **KESİNLEŞTİ (ders programı alındı, 17/07/2026), 21 AKTS, 5 ders:** BM213 (Lineer Cebir), BM107 (Elektrik Devre Temelleri), BM106 (Olasılık ve İstatistik), BM303 (İşaretler ve Sistemler), **MAT112 (Matematik II, MAT102 yerine — denklik onaylandı)**.
   - **BM204 ve BM301 yaz okulundan çıktı**, azami süre sonu sınavına (Rota 2) geri döndü.
+  - **SINAV TRİAJ (22/07/2026):** Yalnızca **3 dersin** sınavına girilecek — BM107 (4 Ağu), BM213 (5 Ağu), BM106 (6 Ağu). **MAT112 + BM303** (27 Tem, aynı gün, hazırlıksız + kullanıcı şehir dışı) **girilmiyor** → azami süre sınavına düşer. Bkz. `belgeler/yaz-okulu-sinav-takvimi.md`.
 - Lab dersleri (BM203, BM304, BM302) yaz okulunda açıldı ama U>0 → lab politikası netleşmeden azami süre sınavı rotasında bırakıldı.
 - BM213 **determinant-önce** sıralama kullanıyor (Rus geleneği müfredat) — LR0002.
 - Staj BM499 iş-temelli muafiyetle geçmiş olabilir (OBS'den teyit edilecek).

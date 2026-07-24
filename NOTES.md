@@ -8,6 +8,7 @@
 
 ## Çalışma yaklaşımı
 - **Adımların hepsi yazılmalı.** "Aynı yöntem benzer şekilde uygulanır" gibi kısayol/özet cümleler yerine her ara adım açıkça gösterilmeli (kullanıcı net görmek istiyor). Worked example'larda satır işlemleri, ara matrisler, geri yerine koyma tek tek yazılacak.
+- **Günlük hayattan örneklerle anlat.** Kavramlar mümkün olduğunca gerçek hayat analojileriyle somutlaştırılmalı (ör. su borusu = akım/gerilim). Soyut tanımdan önce sezgi.
 - Ders çalışma aşamalarında `teach` skill'i (lessons/, reference/, learning-records/) kullanılacak.
 - Workspace commit'lenip başka PC'de de çalışılacak → her şey bu klasörde tutulacak.
 - DGS muafiyeti transkripte zaten işlenmiş (Fizik I, Mat I vb. notlu görünüyor); gizli AKTS indirimi yok, 240 geçerli.

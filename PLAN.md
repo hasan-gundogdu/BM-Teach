@@ -35,7 +35,19 @@ Beklenen dağılım: Yaz okulu **5 ders (21 AKTS)** + 2 azami süre sonu sınav�
 | MAT112 Matematik II (MAT102 yerine) | — | 6 | calculus, en zayıf+temel alan; **denklik onaylandı** |
 | **Toplam** | | **21** | BM204, BM301 → Rota 2'ye taşındı |
 
-**Çalışma öncelik sırası:** BM213 → BM107 → BM106 → MAT112 → BM303
+### ⚠️ SINAV TRİAJ KARARI (22/07/2026)
+Yaz okulu sınav takvimi çıktı; en zor iki ders (MAT112 + BM303) **27 Temmuz'da aynı gün** (hazırlıksız, 5 gün kala), diğer üçü Ağustos'ta:
+| Ders | Sınav | Karar |
+|---|---|---|
+| BM303 İşaretler ve Sistemler | 27.07 12:00 | **GİRİLMEYECEK** → azami süre sınavı (Rota 2) |
+| MAT112 Matematik II | 27.07 18:00 | **GİRİLMEYECEK** → azami süre sınavı / MAT102 Rota 3 |
+| BM107 Elektrik Devre Temelleri | **04.08 16:30** | ✅ ver |
+| BM213 Lineer Cebir | **05.08 15:00** | ✅ ver |
+| BM106 Olasılık ve İstatistik | **06.08 10:30** | ✅ ver |
+
+**Gerekçe:** Odağı bölmemek + kullanıcı 27 Temmuz civarı şehir dışında/izinli. MAT112 & BM303 kaybolmuyor (2 hak azami süre sınavında). Bu 3'ü yazda geçmek = 3 zayıf-alan dersini erken temizlemek.
+
+**Bu dönem çalışma öncelik sırası:** BM107 (en zor+ilk sınav) ‖ BM213 (başlandı) → BM106. Detay sınav takvimi: `belgeler/yaz-okulu-sinav-takvimi.md`.
 
 > **BM204 ve BM301 yaz okulundan çıktı**, azami süre sonu sınavı rotasına (Rota 2) geri döndü — bkz. aşağıda güncellenmiş Rota 2 listesi.
 
