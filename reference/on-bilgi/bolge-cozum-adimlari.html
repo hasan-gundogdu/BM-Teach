@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Açı Çözümü — Bölge & Adımlar</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:var(--ink); background:var(--bg); line-height:1.55; }
+  h1{ font-size:1.6rem; border-bottom:2px solid var(--accent); padding-bottom:.2em; }
+  h2{ font-size:1.1rem; color:var(--accent); margin:1.5em 0 .4em; }
+  .card{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.8em 1.1em; margin:.7em 0; }
+  .rule{ background:var(--note); border-left:3px solid var(--accent); padding:.6em 1em; border-radius:4px; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table{ border-collapse:collapse; margin:.7em auto; font-size:.95rem; width:100%; }
+  th, td{ border:1px solid var(--rule); padding:.5em .7em; text-align:center; }
+  th{ background:var(--note); }
+  .steps{ counter-reset:step; list-style:none; padding:0; }
+  .steps li{ counter-increment:step; margin:.6em 0; padding-left:2.2em; position:relative; }
+  .steps li::before{ content:counter(step); position:absolute; left:0; top:0; width:1.6em; height:1.6em;
+    background:var(--accent); color:#fff; border-radius:50%; text-align:center; line-height:1.6em; font-weight:700; font-size:.9rem; }
+  .worked{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.9em 1.1em; margin:.8em 0; }
+  .worked h3{ margin:0 0 .4em; font-size:1rem; color:var(--accent); }
+  .diagram{ text-align:center; margin:.8em auto; max-width:260px; }
+  .diagram svg{ width:100%; height:auto; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+
+  <h1>Açı Çözümü — Bölge & Adımlar</h1>
+  <p style="color:var(--soft);font-style:italic">90°'den büyük açıların sin/cos'unu bulma — sadece işlem sırası. (Kavram/ispat için: <a href="../../lessons/on-bilgi/0001-temel-trigonometri.html" style="color:var(--accent)">Ön Bilgi 01 — Temel Trigonometri</a>.)</p>
+
+  <div class="rule">
+    <b>Ne zaman gerekli, ne zaman değil?</b> Vektör bileşen formülü <code>(x,y) = (r·cos θ, r·sin θ)</code> her açı için doğrudan çalışır — bölge ayrımına ihtiyaç duymaz. <b>Hesap makinen varsa</b> direkt <code>cos(θ)</code> yaz, sonucu al, bu sayfaya hiç gerek yok. Bu sayfadaki 3 adım sadece <b>hesap makinesi olmadan elle</b> (veya tam/kök değer istendiğinde) hesaplaman gerektiğinde devreye giriyor.
+  </div>
+
+  <h2>4 bölge — işaretler</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <line x1="10" y1="100" x2="190" y2="100" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="100" y1="10" x2="100" y2="190" stroke="#1a1a1a" stroke-width="1.2"/>
+      <circle cx="100" cy="100" r="80" fill="none" stroke="#e2ded5" stroke-width="1.2"/>
+      <text x="135" y="65" font-size="12" fill="#7a5c2e">1: +,+</text>
+      <text x="45" y="65" font-size="12" fill="#7a5c2e">2: −,+</text>
+      <text x="45" y="145" font-size="12" fill="#7a5c2e">3: −,−</text>
+      <text x="130" y="145" font-size="12" fill="#7a5c2e">4: +,−</text>
+      <text x="105" y="20" font-size="9" fill="#6b6b6b">90°</text>
+      <text x="5" y="105" font-size="9" fill="#6b6b6b">180°</text>
+      <text x="105" y="196" font-size="9" fill="#6b6b6b">270°</text>
+      <text x="178" y="105" font-size="9" fill="#6b6b6b">0°/360°</text>
+    </svg>
+  </div>
+
+  <table>
+    <tr><th>Bölge</th><th>Aralık</th><th>cos</th><th>sin</th><th>Referans açı formülü</th></tr>
+    <tr><td>1</td><td>0°–90°</td><td>+</td><td>+</td><td><code>θ</code></td></tr>
+    <tr><td>2</td><td>90°–180°</td><td>−</td><td>+</td><td><code>180° − θ</code></td></tr>
+    <tr><td>3</td><td>180°–270°</td><td>−</td><td>−</td><td><code>θ − 180°</code></td></tr>
+    <tr><td>4</td><td>270°–360°</td><td>+</td><td>−</td><td><code>360° − θ</code></td></tr>
+  </table>
+
+  <h2>Standart değerler tablosu</h2>
+  <table>
+    <tr><th>θ</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
+    <tr><td>cos</td><td>1</td><td>0.866</td><td>0.707</td><td>0.5</td><td>0</td></tr>
+    <tr><td>sin</td><td>0</td><td>0.5</td><td>0.707</td><td>0.866</td><td>1</td></tr>
+  </table>
+
+  <h2>3 adımlı çözüm</h2>
+  <ol class="steps">
+    <li><b>Bölgeyi bul.</b> Açı hangi aralıkta (0-90, 90-180, 180-270, 270-360)?</li>
+    <li><b>Referans açıyı hesapla.</b> Yukarıdaki tablodan o bölgenin formülünü uygula (sonuç her zaman 0°-90° arası çıkar).</li>
+    <li><b>Değeri al, işareti uygula.</b> Referans açının sin/cos'unu standart değerler tablosundan al, sonra 1. adımdaki bölgenin işaretini (+/−) uygula.</li>
+  </ol>
+
+  <h2>Çözülmüş örnekler</h2>
+
+  <div class="worked">
+    <h3>100°</h3>
+    <p>1) 90°-180° arası → <b>2. bölge</b>.<br>
+    2) Referans açı: <code>180° − 100° = 80°</code>.<br>
+    3) <code>cos80° ≈ 0.174</code>, <code>sin80° ≈ 0.985</code>. 2. bölge: cos −, sin +.</p>
+    <div class="rule"><code>cos(100°) ≈ −0.174</code> &nbsp; <code>sin(100°) ≈ 0.985</code></div>
+  </div>
+
+  <div class="worked">
+    <h3>210°</h3>
+    <p>1) 180°-270° arası → <b>3. bölge</b>.<br>
+    2) Referans açı: <code>210° − 180° = 30°</code>.<br>
+    3) <code>cos30° ≈ 0.866</code>, <code>sin30° = 0.5</code>. 3. bölge: cos −, sin −.</p>
+    <div class="rule"><code>cos(210°) ≈ −0.866</code> &nbsp; <code>sin(210°) ≈ −0.5</code></div>
+  </div>
+
+  <h2>Vektör bileşenine çevirme</h2>
+  <div class="card">Büyüklük <code>r</code>, açı <code>θ</code> → bileşenler: <code>(r·cos θ, r·sin θ)</code>. Yukarıdaki 3 adımla cos/sin'i bul, sonra <code>r</code> ile çarp.</div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • Referans açıyı yanlış bölge formülüyle hesaplamak (önce bölgeyi doğru bul!).<br>
+    • Referans açının kendisi her zaman <b>pozitiftir</b> — işareti sonradan bölgeden ekliyorsun, formülden değil.<br>
+    • 0°-90° dışı bir açıda dik üçgen (karşı/komşu) tanımını doğrudan kullanmaya çalışmak.
+  </div>
+
+</body>
+</html>

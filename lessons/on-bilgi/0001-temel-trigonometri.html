@@ -222,7 +222,48 @@
 
   <p>Hepsi Bölüm 4'teki tabloyla birebir eşleşiyor — tablo artık ezber değil, ispatlı.</p>
 
+  <h4 style="margin:1.2em 0 .2em;font-size:.98rem;color:var(--ink)">15-75-90 üçgeni (bonus — farklı bir araçla)</h4>
+  <p>15° ve 75°, yukarıdakiler gibi tek başına bir şekilden (Pisagor'la) çıkmıyor — bunlar <code>45° − 30° = 15°</code> ve <code>45° + 30° = 75°</code> olduğu için, iki bildiğimiz açının <span class="hi">toplam-fark formülleri</span> denen (verilmiş, ispatsız kullanacağımız) formüllerle birleştirilmesinden çıkıyor:</p>
+
+  <div class="eq">
+    <code>sin(A − B) = sinA·cosB − cosA·sinB</code><br>
+    <code>cos(A − B) = cosA·cosB + sinA·sinB</code>
+  </div>
+
+  <p><b>15° için</b> (A=45°, B=30°), Bölüm 4'teki değerleri yerine koy:</p>
+  <div class="eq">
+    <code>sin15° = sin45°cos30° − cos45°sin30° = (√2/2)(√3/2) − (√2/2)(1/2) = √6/4 − √2/4 = (√6−√2)/4</code><br>
+    <code>cos15° = cos45°cos30° + sin45°sin30° = (√2/2)(√3/2) + (√2/2)(1/2) = √6/4 + √2/4 = (√6+√2)/4</code>
+  </div>
+  <p>Ondalık: <code>sin15° ≈ (2.449−1.414)/4 ≈ 0.259</code>, <code>cos15° ≈ (2.449+1.414)/4 ≈ 0.966</code>.</p>
+
+  <p><b>75° için</b> (A=45°, B=30°, bu sefer toplam): <code>sin75° = sin45°cos30° + cos45°sin30° = (√6+√2)/4</code>, <code>cos75° = cos45°cos30° − sin45°sin30° = (√6−√2)/4</code>. Fark et: <code>sin75° = cos15°</code> ve <code>cos75° = sin15°</code> — bu tesadüf değil, <code>75° = 90° − 15°</code> olduğu için (tümler açılar, sin/cos yer değiştirir).</p>
+
+  <p>Bu değerleri, hipotenüsü <b>4</b> seçilmiş bir dik üçgen üzerinde de gösterebiliriz (4 seçmemizin sebebi: payda 4 olduğu için kenarlar tam sayı/kök çıkıyor, kesir kalmıyor):</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 170 150" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="20,130 150,130 150,30" fill="#f3efe6" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="139" y="119" width="11" height="11" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+      <path d="M 45 130 A 25 25 0 0 0 39.8 114.75" fill="none" stroke="#7a5c2e" stroke-width="1.5"/>
+      <text x="46" y="124" font-size="10" fill="#7a5c2e">15°</text>
+      <path d="M 150 55 A 25 25 0 0 1 130.2 45.25" fill="none" stroke="#7a5c2e" stroke-width="1.5"/>
+      <text x="126" y="64" font-size="10" fill="#7a5c2e">75°</text>
+      <text x="78" y="145" font-size="11" fill="#1a1a1a">√6+√2</text>
+      <text x="153" y="82" font-size="11" fill="#1a1a1a">√6−√2</text>
+      <text x="60" y="72" font-size="11" fill="#2e5f8a">4</text>
+    </svg>
+  </div>
+  <p style="font-size:.85rem;color:var(--soft);text-align:center;margin-top:-.6em">(Şematik — gerçek ölçekte değil; 15° gerçekte çok daha "sivri", 75° çok daha "geniş" olurdu.)</p>
+
+  <p>Kontrol (Pisagor ile doğrulama): <code>(√6−√2)² + (√6+√2)² = (8−2√12) + (8+2√12) = 16 = 4²</code> ✓ — üçgen tutarlı.</p>
+
+  <p><b>Bonus — tan15° ve tan75°:</b> <code>tan15° = sin15°/cos15° = (√6−√2)/(√6+√2)</code>, payda-payı <code>(√6−√2)</code> ile çarpıp sadeleştirirsen: <code>tan15° = 2 − √3 ≈ 0.268</code>. Tümler açı olduğundan <code>tan75° = 1/tan15° = 2 + √3 ≈ 3.732</code>.</p>
+
+  <p style="font-size:.9rem;color:var(--soft)"><b>Not:</b> Bu ikisi, sınavda muhtemelen tam değer olarak değil hesap makinesiyle ondalık yaklaşık istenir — pratik amaçlı gösterdik, ama asıl güvenip kullanacağın araç yine <b>referans açı yöntemi</b> (Bölüm 5).</p>
+
   <h2>5. Referans açı yöntemi — 90°'den büyük açılar için</h2>
+  <p style="font-size:.9rem;color:var(--soft)">🗂️ Bu bölümün sade, sadece işlem sırasına odaklanan hâli: <a href="../../reference/on-bilgi/bolge-cozum-adimlari.html">Açı Çözümü — Bölge & Adımlar</a> (ispat/detay yok, direkt uygulamak için).</p>
   <p>90°'den büyük bir açının (örn. 100°, 210°) sin/cos'unu bulmak için 3 adım:</p>
 
   <p><b>Adım 1 — hangi bölgede olduğunu bul.</b> Açıyı 0-90, 90-180, 180-270, 270-360 aralıklarıyla karşılaştır.</p>

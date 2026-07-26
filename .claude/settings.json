@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:ebs.duzce.edu.tr)",
-      "WebFetch(domain:www.aihero.dev)"
+      "WebFetch(domain:www.aihero.dev)",
+      "Bash(start \"\" \"lessons/on-bilgi/0001-temel-trigonometri.html\")",
+      "Bash(start \"\" \"lessons/on-bilgi/0002-matematik-notasyonu.html\")"
     ]
   }
 }

@@ -22,6 +22,9 @@
 
 ## Gaps
 - **Geçmiş sınav soruları** elde yok. Hocadan/önceki dönem öğrencilerinden bulunursa eklenecek (sınav formatı için kritik).
-- **Khan Academy Türkçe Lineer Cebir, BM213 Hafta 12-14'ü kapsamıyor.** Güncel KA müfredatı 3 ünite: Vectors and spaces, Matrix transformations, Alternate coordinate systems (bases) — özdeğer/özvektör, Jordan formu, kuadratik formlar bu ünitelerde yok (2026-07 itibariyle doğrulandı). Hafta 1-11 için birincil kaynak olarak güvenilir; Hafta 12-14'te (özdeğer, Jordan, kuadratik formlar) yerine **MIT 18.06 (Gilbert Strang)** kullanılmalı.
+- **Khan Academy Türkçe Lineer Cebir — güncellenmiş kapsam (2026-07-18, kullanıcının paylaştığı gerçek ünite/konu listesinden doğrulandı):** Önceki not ("Hafta 12-14 hiç yok") **yanlıştı** — düzeltiliyor. Gerçek durum:
+  - Hafta 1-12 çoğunlukla iyi kapsanıyor (özdeğer/özvektör/özuzay dahil — "Ünite 3: Koordinat Sistemleri" altında var).
+  - **Hâlâ eksik/isimsiz:** Kramer teoremi (isim olarak yok), Hamilton-Cayley/Sylvester teoremleri (isim olarak yok), Vandermonde/üç köşegen özel determinantlar, **Jordan formu (Hafta 13, tamamen yok)**, kuadratik formlar (Hafta 14), kompleks vektör uzayları (Hafta 10).
+  - Bu eksik kalanlar için **MIT 18.06 (Gilbert Strang)** kullanılmalı.
 
 > Not: BM213'ün resmî haftalık syllabus'u alındı (kullanıcı ekran görüntüsü paylaştı, 2026-07-17) — `lessons/lineer-cebir/ROADMAP.md` ile birebir doğrulandı.

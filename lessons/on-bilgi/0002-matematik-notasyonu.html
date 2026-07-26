@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ön Bilgi 02 — Matematiksel Notasyon (Σ, alt indis, σ)</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  pre{ background:#1a1a1a; color:#e8e3d8; padding:.9em 1.1em; border-radius:6px; overflow-x:auto; font-size:.88rem; line-height:1.5; }
+  pre code{ background:none; padding:0; color:inherit; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.perm{ border-collapse:collapse; margin:.8em auto; font-size:.92rem; }
+  table.perm th, table.perm td{ border:1px solid var(--rule); padding:.4em .7em; text-align:center; font-family:Consolas,monospace; }
+  table.perm th{ background:var(--note); font-family:inherit; }
+  .map{ display:flex; justify-content:center; gap:2em; margin:.8em 0; font-family:Consolas,monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Ön Bilgi 02 · Lineer Cebir notasyonu için altyapı</div>
+  <h1>Matematiksel Notasyon: Σ, Alt İndis, σ</h1>
+  <p class="lead">Bu dersin sonunda: <code>det(A) = Σ<sub>σ</sub> sign(σ) · a<sub>1,σ(1)</sub> · a<sub>2,σ(2)</sub> ··· a<sub>n,σ(n)</sub></code> formülündeki her sembolü okuyabilecek, formülü kendi kod bildiğin diline çevirebileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Ders 02'deki n-boyutlu determinant formülü, senin matematik geçmişinde olmayan bir sembol seti kullanıyordu (Σ, alt indis, σ). Bunlar aslında sana çok tanıdık kavramların (döngü, dizi, fonksiyon) farklı bir yazımı — 15+ yıllık yazılımcı olarak bunları zaten biliyorsun, sadece matematik gösterimini görmemişsin.</p>
+
+  <h2>1. Σ (sigma) — toplama sembolü, aslında bir for döngüsü</h2>
+  <p>Şunu gördüğünde:</p>
+  <div class="eq"><code>Σ<sub>i=1</sub><sup>n</sup> a<sub>i</sub></code></div>
+  <p>Matematikçi şunu demek istiyor: "<code>i</code>'yi 1'den <code>n</code>'e kadar say, her <code>i</code> için <code>a<sub>i</sub></code>'yi topla." Kod olarak:</p>
+  <pre><code>toplam = 0
+for i in range(1, n+1):
+    toplam += a[i]
+return toplam</code></pre>
+  <p><b>Somut örnek:</b> <code>Σ<sub>i=1</sub><sup>4</sup> i² = 1² + 2² + 3² + 4² = 1+4+9+16 = 30</code>.</p>
+
+  <h2>2. Alt indis — bir dizinin/matrisin hangi elemanı</h2>
+  <p><code>a<sub>i</sub></code>, "bir dizinin <code>i</code>'inci elemanı" demek — kodda <code>a[i]</code> ile aynı şey. İki alt indis varsa (<code>a<sub>i,j</sub></code>), bu bir <span class="hi">matrisin</span> <code>i</code>'inci satır, <code>j</code>'inci sütunundaki eleman — kodda <code>a[i][j]</code>:</p>
+  <div class="eq"><code>a<sub>2,3</sub> = a[2][3]</code> → matrisin 2. satır, 3. sütunundaki sayı</div>
+
+  <h2>3. Fonksiyon notasyonu — σ(1) bir dizi/fonksiyon çağrısı</h2>
+  <p><code>σ</code> (sigma harfi, büyük Σ ile karıştırma — küçük σ burada bir <b>fonksiyon</b>). <code>σ(1)</code> demek, "σ fonksiyonuna 1 gir, çıktısını al" — kodda <code>sigma(1)</code> ya da bir dizi olarak <code>sigma[1]</code> ile aynı şey.</p>
+
+  <h2>4. Permütasyon — σ, bir "karıştırma" fonksiyonu</h2>
+  <p><code>σ</code>, <code>{1, 2, ..., n}</code> sayılarının bir <span class="hi">permütasyonu</span> (yeniden sıralaması). Yani σ, her sayıyı başka (veya aynı) bir sayıya eşleyen, <b>birebir ve örten</b> bir fonksiyon. Örnek, n=3 için bir permütasyon:</p>
+  <div class="map">
+    <span>σ(1) = 2</span>
+    <span>σ(2) = 1</span>
+    <span>σ(3) = 3</span>
+  </div>
+  <p>Kodda bunu bir dizi olarak yazardın: <code>sigma = [2, 1, 3]</code> (yani <code>sigma[1]=2</code> vs.). {1,2,3} için toplam <b>3! = 6</b> farklı permütasyon (dizi düzeni) var — Ders 02'de gördüğün 6 terimin kaynağı tam olarak bu.</p>
+
+  <h2>5. sign(σ) — permütasyonun "tek mi çift mi" olduğu</h2>
+  <p><code>sign(σ)</code>, bir permütasyonu elde etmek için yapılan <span class="hi">takas (swap) sayısının</span> çift mi tek mi olduğuna bakar:</p>
+  <ul>
+    <li>Çift sayıda takas → <code>sign(σ) = +1</code></li>
+    <li>Tek sayıda takas → <code>sign(σ) = −1</code></li>
+  </ul>
+  <p>Örnek: <code>[2,1,3]</code>, <code>[1,2,3]</code>'ten (sıralı hâlden) sadece <b>1 takas</b> ile elde edilir (1 ile 2'nin yerini değiştir) → tek takas → <code>sign = −1</code>.</p>
+
+  <h2>6. Şimdi tam formülü kod gibi okuyalım</h2>
+  <div class="eq"><code>det(A) = Σ<sub>σ</sub> sign(σ) · a<sub>1,σ(1)</sub> · a<sub>2,σ(2)</sub> ··· a<sub>n,σ(n)</sub></code></div>
+  <p>Pseudocode'a çevirirsek:</p>
+  <pre><code>toplam = 0
+for sigma in tüm_permütasyonlar({1,...,n}):   # Σ_σ → tüm permütasyonlar üzerinden döngü
+    çarpım = 1
+    for i in range(1, n+1):
+        çarpım *= a[i][sigma[i]]              # a_{i,σ(i)} → satır i, sütun σ(i)
+    toplam += sign(sigma) * çarpım             # sign(σ) ile işaretle, topla
+return toplam</code></pre>
+  <p>Yani formül, İngilizce/matematik cümlesi değil — <b>iç içe geçmiş iki döngü</b>: dış döngü tüm permütasyonları geziyor, iç döngü her satırdan doğru sütunu seçip çarpıyor.</p>
+
+  <h2>7. n=3 için tüm 6 permütasyonu görelim (Sarrus ile bağlantı)</h2>
+  <p>Ders 02'de gördüğün Sarrus'un 6 terimi, işte bu 6 permütasyonun karşılığı:</p>
+
+  <table class="perm">
+    <tr><th>σ (dizi)</th><th>Takas sayısı</th><th>sign(σ)</th><th>Terim</th></tr>
+    <tr><td>[1,2,3]</td><td>0 (çift)</td><td>+1</td><td>+a₁₁a₂₂a₃₃</td></tr>
+    <tr><td>[2,3,1]</td><td>2 (çift)</td><td>+1</td><td>+a₁₂a₂₃a₃₁</td></tr>
+    <tr><td>[3,1,2]</td><td>2 (çift)</td><td>+1</td><td>+a₁₃a₂₁a₃₂</td></tr>
+    <tr><td>[3,2,1]</td><td>1 (tek)</td><td>−1</td><td>−a₁₃a₂₂a₃₁</td></tr>
+    <tr><td>[1,3,2]</td><td>1 (tek)</td><td>−1</td><td>−a₁₁a₂₃a₃₂</td></tr>
+    <tr><td>[2,1,3]</td><td>1 (tek)</td><td>−1</td><td>−a₁₂a₂₁a₃₃</td></tr>
+  </table>
+
+  <p>Bu 6 satırı topla — Ders 02'deki <code>aei+bfg+cdh−ceg−bdi−afh</code> formülünün ta kendisi çıkıyor (harfler yerine <code>a<sub>i,j</sub></code> notasyonu kullanılmış hâli).</p>
+
+  <h2>8. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> <code>Σ<sub>i=1</sub><sup>3</sup> 2i</code> kaçtır?</p>
+    <details><summary>Cevabı göster</summary><p><code>2·1 + 2·2 + 2·3 = 2+4+6 = 12</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> <code>a<sub>3,2</sub></code> bir matriste neyi ifade eder?</p>
+    <details><summary>Cevabı göster</summary><p>3. satır, 2. sütundaki eleman.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> <code>σ = [3,1,2]</code> ise <code>σ(2)</code> kaçtır?</p>
+    <details><summary>Cevabı göster</summary><p><code>σ(2) = 1</code> (dizinin 2. konumundaki değer).</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4 (kavram).</b> n=4 için kaç farklı permütasyon (dolayısıyla determinant formülünde kaç terim) olur?</p>
+    <details><summary>Cevabı göster</summary><p><code>4! = 24</code> permütasyon/terim.</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Toplama sembolü ve permütasyonlar için: <a href="https://tr.khanacademy.org/math/precalculus">Khan Academy Türkçe — Precalculus (diziler/permütasyonlar bölümü)</a>.<br>
+    🗂️ İlgili ders: <a href="../lineer-cebir/0002-geometrik-yorum-n-boyutlu-determinant.html">Lineer Cebir Ders 02 — n-boyutlu determinant tanımı</a>.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← Ön bilgi dersleri</span>
+    <span>Devam: Lineer Cebir Ders 03'e dönüş</span>
+  </div>
+
+</div>
+</body>
+</html>
