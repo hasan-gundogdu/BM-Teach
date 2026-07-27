@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — n-Boyutlu Determinant (Minör & Kofaktör)</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table.det{ border-collapse:collapse; display:inline-table; vertical-align:middle; position:relative; margin:0 .15em; }
+  table.det td{ padding:.1em .45em; text-align:center; font-family:Consolas,monospace; }
+  table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; border-left:1.5px solid #1a1a1a; }
+  table.det::before{ left:-1px; } table.det::after{ right:-1px; }
+  table.sign{ border-collapse:collapse; margin:.4em 0; }
+  table.sign td{ border:1px solid #e2ded5; width:2em; height:2em; text-align:center; font-family:Consolas,monospace; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>n-Boyutlu Determinant — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 02 (Hafta 3) özeti. Büyük determinantların temeli.</p>
+
+  <h2>Minör (M<sub>ij</sub>)</h2>
+  <div class="card"><code>i.</code> satır ve <code>j.</code> sütunu <b>sil</b>, kalan matrisin determinantı = <code>a₍ᵢⱼ₎</code>'nin minörü.</div>
+
+  <h2>Kofaktör (C<sub>ij</sub>)</h2>
+  <div class="rule"><code>C₍ᵢⱼ₎ = (−1)<sup>i+j</sup> · M₍ᵢⱼ₎</code> — minöre işaret ekle. İşaret satrancı:
+    <table class="sign"><tr><td>+</td><td>−</td><td>+</td></tr><tr><td>−</td><td>+</td><td>−</td></tr><tr><td>+</td><td>−</td><td>+</td></tr></table>
+  </div>
+
+  <h2>Kofaktör açılımı (determinant tanımı)</h2>
+  <div class="rule">
+    Bir satır (veya sütun) seç, o satırdaki her eleman × kendi kofaktörü, topla:<br>
+    <code>det = a₍ᵢ₁₎C₍ᵢ₁₎ + a₍ᵢ₂₎C₍ᵢ₂₎ + … + a₍ᵢₙ₎C₍ᵢₙ₎</code><br>
+    <small>n×n determinantı, (n−1)×(n−1) determinantlara indirger — özyinelemeli.</small>
+  </div>
+  <div class="card"><b>Püf:</b> <b>En çok sıfır olan</b> satır/sütundan aç → sıfırlı terimler düşer, işlem azalır.</div>
+
+  <h2>Geometrik yorum</h2>
+  <div class="card">
+    2×2 det = iki vektörün oluşturduğu <b>paralelkenarın alanı</b> (işaretli).<br>
+    3×3 det = üç vektörün oluşturduğu <b>paralelyüzün hacmi</b> (işaretli).<br>
+    <b>det = 0</b> → vektörler aynı doğru/düzlemde (lineer bağımlı), alan/hacim çöker.<br>
+    İşaret = yönelim (saat yönü / tersi).
+  </div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • Kofaktör işaretini <code>(−1)<sup>i+j</sup></code> unutmak (minör ≠ kofaktör).<br>
+    • Açılımda satır/sütun elemanını yanlış kofaktörle eşleştirmek.<br>
+    • Sıfırı çok olan satır yerine rastgele satırdan açıp işi büyütmek.
+  </div>
+</body>
+</html>

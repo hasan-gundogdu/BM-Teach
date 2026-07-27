@@ -21,6 +21,7 @@ Hasan'ın Düzce Üniversitesi Bilgisayar Mühendisliği'nden mezun olabilmesi i
 - **Müfredata sadık kal:** Bir dersin resmî EBS haftalık konuları alınmadan "eksiksiz" varsayma. (EBS SSL hatası verir → kullanıcı içeriği yapıştırır.)
 
 ## Dosya haritası
+- `GIDIS-SIRASI.md` — **tek bakışta çalışma takibi:** her ders → ders dosyası + referans + Khan videoları + durum. Yeni ders yazıldıkça güncellenir.
 - `MISSION.md` — neden (pusula)
 - `PLAN.md` — ders önceliklendirme, azami süre stratejisi, sayılar, doğrulanacaklar
 - `RESOURCES.md` — güvenilir kaynaklar + EBS resmî ders linkleri

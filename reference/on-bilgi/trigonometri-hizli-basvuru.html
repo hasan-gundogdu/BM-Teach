@@ -22,6 +22,8 @@
   <h1>Temel Trigonometri — Hızlı Başvuru</h1>
   <p style="color:#6b6b6b;font-style:italic">Lineer Cebir ve sonrası için ön bilgi · Ön Bilgi 01 özeti.</p>
 
+  <div class="rule"><b>Ne zaman gerekli?</b> <code>(x,y) = (r·cos θ, r·sin θ)</code> her açı için doğrudan çalışır. <b>Hesap makinen varsa</b> direkt <code>cos(θ)</code> yaz — aşağıdaki bölge/adım yöntemi sadece <b>elle</b> (veya tam/kök değer istendiğinde) gerekir.</div>
+
   <h2>Tanım (birim çember)</h2>
   <div class="card">Standart konumdaki açı θ, birim çemberi <code>(cos θ, sin θ)</code> noktasında keser. Her açı için geçerli — sadece dik üçgenle sınırlı değil.</div>
 
@@ -69,6 +71,12 @@
 
   <h2>3 adımlı yöntem</h2>
   <div class="card">1) Bölgeyi bul → 2) Referans açıyı hesapla → 3) Tablodan değeri al, bölgenin işaretini uygula.</div>
+
+  <h2>Çözülmüş örnekler</h2>
+  <div class="card">
+    <b>100°:</b> 2. bölge → referans <code>180°−100°=80°</code> → <code>cos80°≈0.174, sin80°≈0.985</code> → 2. bölge (cos −, sin +) → <code>cos100°≈−0.174</code>, <code>sin100°≈0.985</code>.<br><br>
+    <b>210°:</b> 3. bölge → referans <code>210°−180°=30°</code> → <code>cos30°≈0.866, sin30°=0.5</code> → 3. bölge (cos −, sin −) → <code>cos210°≈−0.866</code>, <code>sin210°=−0.5</code>.
+  </div>
 
   <h2>Vektör bileşenleri</h2>
   <div class="rule">Büyüklük <code>r</code>, açı <code>θ</code> → bileşenler: <code>(r·cos θ, r·sin θ)</code></div>
