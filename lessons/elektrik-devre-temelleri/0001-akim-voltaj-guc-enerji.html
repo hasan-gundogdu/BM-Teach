@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 01 — Akım, Voltaj, Güç, Enerji</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
+  .analogy b.tag{ color:#8a6d2f; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
+  .eq code{ font-size:1.15rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
+  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
+  table.tbl th{ background:var(--note); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 01 · Hafta 1</div>
+  <h1>Akım, Voltaj, Güç, Enerji</h1>
+  <p class="lead">Bu dersin sonunda: akım, voltaj, güç ve enerjinin <span class="hi">ne olduğunu</span> ve aralarındaki <span class="hi">temel formülleri</span> gerçek örnekler üzerinden hesaplayabileceksin. Tüm BM107'nin üzerine kurulacağı zemin burası.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Düzce BM107 müfredatı Hafta 1'de tam bu dört kavramla başlıyor. Ohm Kanunu, Kirchhoff, seri-paralel devreler — hepsi bu dört kavramın (akım, voltaj, güç, enerji) üzerine inşa edilecek. Sağlam kurmazsak sonraki her hafta sallantılı olur.</p>
+
+  <h2>1. Elektrik yükü ve akım (Akım — Amper)</h2>
+  <p>Her şey <b>elektrik yükü</b> (elektron) ile başlar. Yük, birim olarak <b>Coulomb (C)</b> ile ölçülür. <b>Akım</b>, birim zamanda geçen yük miktarıdır:</p>
+  <div class="eq"><code>I = Q / t</code></div>
+  <p>Burada <code>I</code> akım (Amper, A), <code>Q</code> yük (Coulomb, C), <code>t</code> zaman (saniye, s). 1 Amper = saniyede 1 Coulomb yük geçişi.</p>
+
+  <div class="analogy">
+    <b class="tag">💧 Su analojisi:</b> Bir boruyu düşün. Akım, o borudan <b>saniyede geçen su miktarı</b> (litre/saniye) gibidir — yani <b>debi</b>. Ne kadar su parçacığı (yük) birim zamanda geçiyorsa akım o kadardır. Boru ne kadar "kalabalıksa" (çok elektron akıyorsa), akım o kadar büyüktür.
+  </div>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Bir telden 3 saniyede 6 Coulomb'luk yük geçiyor. Akım kaç Amper?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>I = Q/t = 6C / 3s = 2 A</code></p>
+    </details>
+  </div>
+
+  <h2>2. Voltaj (Gerilim — Volt)</h2>
+  <p>Akımın <i>neden</i> aktığını açıklayan şey <b>voltaj</b>dır (gerilim, potansiyel fark). Voltaj, birim yükü bir noktadan diğerine taşımak için gereken (veya o taşınırken açığa çıkan) enerjidir:</p>
+  <div class="eq"><code>V = W / Q</code></div>
+  <p>Burada <code>V</code> voltaj (Volt, V), <code>W</code> enerji/iş (Joule, J), <code>Q</code> yük (Coulomb, C). 1 Volt = her Coulomb yük için 1 Joule enerji.</p>
+
+  <div class="analogy">
+    <b class="tag">💧 Su analojisi:</b> Voltaj, su kulesinin <b>yüksekliği</b> ya da iki nokta arasındaki <b>basınç farkı</b> gibidir. Su kulesi ne kadar yüksekse, suyu aşağı itme "isteği" (basınç) o kadar fazladır. Akım (debi) olması için mutlaka bir basınç farkı (voltaj) gerekir — düz bir zeminde su akmaz, eğim (voltaj) olmalı. <b>Voltaj her zaman iki nokta arasında ölçülür</b> — tıpkı yükseklik farkının iki nokta arasında olması gibi (tek bir noktanın "yüksekliği" anlamsızdır, referans noktasına göre ölçülür).
+  </div>
+
+  <div class="analogy">
+    <b class="tag">🔌 Gerçek hayat:</b> Türkiye'deki priz <b>220V</b>'tur — yani prizin iki ucu arasında 220V'luk bir "itme gücü" vardır. Bir AA pil <b>1.5V</b>, telefon şarj aleti çıkışı genelde <b>5V</b> (USB) verir. Bu sayı ne kadar büyükse, o kaynak elektronu o kadar "güçlü itiyor" demektir — ama akımın büyüklüğü (kaç elektron aktığı) devredeki dirence de bağlıdır (bunu Hafta 3'te Ohm Kanunu'yla göreceğiz).
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> Bir devrede 4 Coulomb'luk yükü taşımak için 20 Joule enerji harcanıyor. Voltaj kaç Volt?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>V = W/Q = 20J / 4C = 5 V</code></p>
+    </details>
+  </div>
+
+  <h2>3. Güç (Watt)</h2>
+  <p>Güç, <b>birim zamanda harcanan (veya üretilen) enerji</b>dir — yani "iş ne hızda yapılıyor". Elektrikte güç, voltaj ile akımın çarpımıdır:</p>
+  <div class="eq"><code>P = V · I</code></div>
+  <p>Bu formül aslında iki tanımın (V=W/Q ve I=Q/t) birleşimidir: <code>P = W/t = (W/Q)·(Q/t) = V·I</code>. Birim: Watt (W) = Volt × Amper.</p>
+
+  <div class="analogy">
+    <b class="tag">💧 Su analojisi:</b> Güç, su değirmenini <b>ne hızda çevirdiğidir</b> — hem basınç (voltaj) hem debi (akım) yüksekse değirmen çok hızlı döner, yani güç büyüktür. Sadece yüksek basınç (voltaj) yeterli değil, su da akmalı (akım); sadece çok su akması da yeterli değil, basınç da olmalı. İkisi birlikte gücü belirler.
+  </div>
+
+  <div class="analogy">
+    <b class="tag">🔌 Gerçek hayat:</b> Bir ampulün üzerinde "60W" yazar — bu, 220V'ta çalıştığında ne kadar akım çekeceğini de belirler: <code>I = P/V = 60/220 ≈ 0.27 A</code>. Bir telefon şarj aleti "5V 2A" yazıyorsa, gücü <code>P = 5×2 = 10 W</code>'tır.
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Bir cihaz 12V'ta çalışıyor ve 0.5 A çekiyor. Gücü kaç Watt?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>P = V·I = 12 × 0.5 = 6 W</code></p>
+    </details>
+  </div>
+
+  <h2>4. Enerji (Joule / kWh)</h2>
+  <p>Enerji, <b>güç × zaman</b>dır — belirli bir süre boyunca toplam ne kadar iş yapıldığı:</p>
+  <div class="eq"><code>W = P · t</code></div>
+  <p>SI biriminde <code>t</code> saniye ise sonuç <b>Joule</b> çıkar. Ama günlük hayatta (özellikle elektrik faturalarında) zaman <b>saat</b> cinsinden alınır ve sonuç <b>kilowatt-saat (kWh)</b> ile ifade edilir:</p>
+  <div class="eq"><code>Enerji (kWh) = Güç (kW) × Süre (saat)</code></div>
+
+  <div class="analogy">
+    <b class="tag">💧 Su analojisi:</b> Enerji, değirmenin <b>bir gün boyunca ürettiği toplam iş</b>tir — değirmen ne kadar hızlı dönerse dönsün (güç), eğer sadece 1 saniye çalıştıysa toplam iş azdır; 10 saat çalışırsa toplam iş çok daha fazladır. Enerji = güç birikimi.
+  </div>
+
+  <div class="analogy">
+    <b class="tag">🔌 Gerçek hayat:</b> Elektrik faturasındaki "kWh" tam olarak budur. 1000W (1kW) gücündeki bir ısıtıcıyı 3 saat çalıştırırsan: <code>1 kW × 3 saat = 3 kWh</code> tüketmiş olursun. Fatura, kaç kWh tükettiğine göre gelir (Türkiye'de kWh başına birim fiyat vardır).
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4.</b> 2000W'lık bir su ısıtıcısı 30 dakika (0.5 saat) çalışıyor. Kaç kWh enerji tüketti?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>2 kW × 0.5 saat = 1 kWh</code></p>
+      <p style="font-size:.9rem;color:var(--soft)">Not: 2000W = 2kW olarak yazıldı çünkü kWh formülünde güç kW cinsinden olmalı.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 5 (birleştirme).</b> Bir cihaz 220V'ta çalışıyor, 2A çekiyor ve 5 saat boyunca çalıştırılıyor. (a) Gücü kaç Watt? (b) Enerjisi kaç kWh?</p>
+    <details><summary>Çözümü göster</summary>
+      <p>(a) <code>P = V·I = 220 × 2 = 440 W = 0.44 kW</code></p>
+      <p>(b) <code>W = P·t = 0.44 kW × 5 saat = 2.2 kWh</code></p>
+    </details>
+  </div>
+
+  <h2>Özet tablo</h2>
+  <table class="tbl">
+    <tr><th>Kavram</th><th>Formül</th><th>Birim</th><th>Su analojisi</th></tr>
+    <tr><td>Akım (I)</td><td>Q/t</td><td>Amper (A)</td><td>Debi (litre/s)</td></tr>
+    <tr><td>Voltaj (V)</td><td>W/Q</td><td>Volt (V)</td><td>Basınç / yükseklik farkı</td></tr>
+    <tr><td>Güç (P)</td><td>V·I</td><td>Watt (W)</td><td>Değirmenin dönme hızı</td></tr>
+    <tr><td>Enerji (W)</td><td>P·t</td><td>Joule / kWh</td><td>Toplam yapılan iş</td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🎥 Akım, voltaj, direnç kavramlarına görsel giriş: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering</a> (İngilizce, syllabus'un ana kaynağı).<br>
+    📚 Türkçe hızlı tazeleme: <a href="https://tr.khanacademy.org/science/10-sinif-fizik/x700e03322a1a4ae2:elektrik-ve-manyetizma">Khan Academy Türkçe — Elektrik ve Manyetizma</a>.<br>
+    🗂️ Referans kartı henüz yazılmadı — bir sonraki oturumda eklenecek.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← (başlangıç)</span>
+    <span>Sıradaki: Ders 02 — Devre elemanları, tanımlar, kaynak dönüşümü (Hafta 2)</span>
+  </div>
+
+</div>
+</body>
+</html>

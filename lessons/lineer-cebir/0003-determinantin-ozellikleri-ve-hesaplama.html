@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 03 — Determinantın Özellikleri ve Hesaplama Yöntemleri</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.det{ font-family:"SF Mono",Consolas,monospace; border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .15em; position:relative; }
+  table.det td{ padding:.18em .55em; text-align:center; }
+  table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; width:0; border-left:1.6px solid var(--ink); }
+  table.det::before{ left:-1px; } table.det::after{ right:-1px; }
+  table.det td.zero{ color:#c9c2b2; }
+  table.det td.pivot{ color:var(--accent); font-weight:700; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .case{ display:flex; gap:1em; flex-wrap:wrap; margin:.8em 0; }
+  .case > div{ flex:1; min-width:180px; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.7em .9em; font-size:.95rem; }
+  .case b{ color:var(--accent); }
+  .diagram-row{ display:flex; gap:1em; flex-wrap:wrap; margin:.6em 0 1em; }
+  .diagram-row figure{ margin:0; flex:1; min-width:150px; text-align:center; }
+  .diagram-row svg{ width:100%; height:auto; background:#fff; border:1px solid var(--rule); border-radius:6px; }
+  figcaption{ font-size:.82rem; color:var(--soft); margin-top:.35em; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 03 · Hafta 4</div>
+  <h1>Determinantın Özellikleri ve Hesaplama Yöntemleri</h1>
+  <p class="lead">Bu dersin sonunda: <span class="hi">üçgen matrisin</span> determinantını gözle görebilecek, satır işlemlerinin determinanta ne yaptığını bilecek, ve bunları kullanarak <span class="hi">4×4 ve daha büyük</span> matrislerin determinantını (Sarrus'a hiç ihtiyaç duymadan) hesaplayabileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Sarrus sadece 3×3'te işe yarıyordu, permütasyon formülü ise 4×4'te 24 terim gerektiriyordu — elle yapılamayacak kadar çok. Bu ders, büyük matrislerin determinantını **pratik ve hızlı** hesaplamanın yolunu açıyor: Gauss'la (zaten bildiğin) üçgen forma indirip, sadece köşegeni çarpmak.</p>
+
+  <h2>1. Neden yeni bir yönteme ihtiyacımız var?</h2>
+  <p>Ders 02'de gördün: n×n determinant formülünde <code>n!</code> terim var. n büyüdükçe bu sayı patlıyor:</p>
+  <div class="eq"><code>3! = 6</code> &nbsp;&nbsp; <code>4! = 24</code> &nbsp;&nbsp; <code>5! = 120</code> &nbsp;&nbsp; <code>10! = 3.628.800</code></div>
+  <p>4×4'ü bile elle 24 terimle hesaplamak pratik değil. İhtiyacımız olan şey: büyük matrisi, determinantı **kolay hesaplanan bir forma** dönüştürmek. O form: <span class="hi">üçgen matris</span>.</p>
+
+  <h2>2. Üçgen matrisin determinantı = köşegen çarpımı</h2>
+  <p><b>Üst üçgensel matris:</b> ana köşegenin altındaki her eleman sıfır olan bir matris. Örnek (3×3):</p>
+  <div class="eq">
+    <table class="det">
+      <tr><td class="pivot">a</td><td>b</td><td>c</td></tr>
+      <tr><td class="zero">0</td><td class="pivot">d</td><td>e</td></tr>
+      <tr><td class="zero">0</td><td class="zero">0</td><td class="pivot">f</td></tr>
+    </table>
+  </div>
+  <p><b>İddia:</b> bu matrisin determinantı sadece <code>a · d · f</code> (köşegen çarpımı) — geri kalan hiçbir terime gerek yok. <b>Neden?</b> Bunu artık kendi bildiğin permütasyon formülüyle ispatlayabiliriz:</p>
+
+  <p style="font-size:.95rem;color:var(--soft)"><b>Hatırlatma (Ön Bilgi 02'den):</b> <code>σ</code>, <code>{1,2,3}</code> sayılarını karıştıran bir fonksiyondu. <code>σ(3)</code> demek, "σ'ya 3'ü sorarsan hangi cevabı verir" demekti — yani 3. satırda hangi sütunun seçildiği. <code>a<sub>3,σ(3)</sub></code> da "3. satır, σ'nın 3'e verdiği cevap kadar sütun" demekti. Bunu aklında tutarak devam edelim.</p>
+
+  <p class="step"><b>Adım 1 — soruyu netleştir:</b> Formül, mümkün olan <b>her</b> permütasyon <code>σ</code> için <code>a<sub>1,σ(1)</sub>·a<sub>2,σ(2)</sub>·a<sub>3,σ(3)</sub></code> çarpımını hesaplayıp hepsini topluyordu. Bizim işimiz: bu çarpımlardan <b>kaç tanesinin gerçekten sıfırdan farklı</b> olduğunu bulmak — çünkü sıfır olanlar toplama hiçbir katkı yapmıyor, yok sayılabilir.</p>
+
+  <p class="step"><b>Adım 2 — hangi çarpımlar otomatik sıfır?</b> Üst üçgensel matriste, köşegenin altındaki her yer sıfırdı: <code>a<sub>i,j</sub> = 0</code>, eğer <code>j &lt; i</code> (sütun numarası satır numarasından küçükse). Yani bir çarpım <code>a<sub>1,σ(1)</sub>·a<sub>2,σ(2)</sub>·a<sub>3,σ(3)</sub></code>'ün sıfır <b>olmaması</b> için, <b>üç çarpanın hiçbiri</b> köşegenin altına düşmemeli — yani her <code>i</code> için <code>σ(i)</code>, <code>i</code>'den küçük olmamalı: <code>σ(i) ≥ i</code>.</p>
+
+  <p class="step"><b>Adım 3 — bu şartı satır satır uygula:</b></p>
+  <ul>
+    <li><code>i=3</code> için şart: <code>σ(3) ≥ 3</code>. Ama σ sadece <code>{1,2,3}</code> değerlerini verebilir, en büyüğü <code>3</code>. Yani <b>tek seçenek</b>: <code>σ(3) = 3</code>.</li>
+    <li><code>i=2</code> için şart: <code>σ(2) ≥ 2</code>, yani <code>σ(2)</code> ya <code>2</code> ya <code>3</code> olabilirdi — ama <code>3</code>'ü az önce <code>σ(3)</code> kullandı (bir permütasyonda aynı değer iki kez kullanılamaz, hatırlarsan permütasyon = "her değer tam bir kez"). Geriye <b>tek seçenek</b> kalıyor: <code>σ(2) = 2</code>.</li>
+    <li><code>i=1</code> için şart: <code>σ(1) ≥ 1</code> — bu zaten her zaman doğru (en küçük değer 1). Ama <code>2</code> ve <code>3</code> dolu olduğundan geriye sadece <code>σ(1) = 1</code> kalıyor.</li>
+  </ul>
+
+  <p class="step"><b>Sonuç:</b> Şartları sağlayan <b>tek bir</b> permütasyon çıktı: <code>σ = [1,2,3]</code> — yani hiç karıştırmadan, herkesi olduğu yerde bırakan permütasyon (buna "birim/özdeşlik permütasyonu" denir). Bunun işareti <code>sign(σ) = +1</code> (hiç takas yapılmadı, 0 çift sayılır). Yani <b>toplamdaki 6 terimden 5'i sıfır</b>, sadece 1 tanesi hayatta kalıyor: <code>+a<sub>1,1</sub>·a<sub>2,2</sub>·a<sub>3,3</sub> = a·d·f</code> — köşegen çarpımı.</p>
+
+  <p>Bu ispat <b>her boyutta</b> (4×4, 10×10, ...) aynı şekilde çalışır — üçgen matriste her zaman tek hayatta kalan permütasyon "hiç karıştırmama"dır, ve determinant her zaman köşegen çarpımına eşittir.</p>
+
+  <h2>3. Satır işlemlerinin determinanta etkisi</h2>
+  <p>Ders 02'de determinantın <span class="hi">hacim/alan ölçeği</span> olduğunu görmüştük (yön vektörlerinin oluşturduğu paralelkenar/paralel yüzlü hacmi). Satır işlemleri, bu vektörleri değiştirir — determinant da buna göre değişir.</p>
+
+  <h3>Kural 1 — iki satırı yer değiştirmek: işaret ters döner</h3>
+  <div class="case"><div><code>det(satır değişmiş) = −det(orijinal)</code><br>Büyüklük (mutlak değer) aynı kalır, sadece işaret değişir.</div></div>
+  <p><b>Somut örnek:</b> det<table class="det"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table> = 1·4−2·3 = <b>−2</b>. Satırları değiştir: det<table class="det"><tr><td>3</td><td>4</td></tr><tr><td>1</td><td>2</td></tr></table> = 3·2−4·1 = <b>2</b>. Tam olarak işareti ters döndü (−2 → 2).</p>
+
+  <h3>Kural 2 — bir satırı bir sayıyla çarpmak: determinant o sayıyla çarpılır</h3>
+  <div class="case"><div><code>R_i → k·R_i</code> yaparsan, <code>det(yeni) = k · det(orijinal)</code>.</div></div>
+  <p><b>Somut örnek:</b> det<table class="det"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table> = <b>−2</b>. 1. satırı 5 ile çarp: det<table class="det"><tr><td>5</td><td>10</td></tr><tr><td>3</td><td>4</td></tr></table> = 5·4−10·3 = 20−30 = <b>−10</b> = 5×(−2). ✓</p>
+  <p style="font-size:.9rem;color:var(--soft)"><b>Geometrik sezgi:</b> bir yön vektörünü <code>k</code> katına çıkarmak, o vektörün oluşturduğu hacmin bir kenarını <code>k</code> katına çıkarır — hacim de <code>k</code> katına çıkar.</p>
+
+  <h3>Kural 3 — bir satıra başka bir satırın katını eklemek: determinant değişmez</h3>
+  <div class="case"><div><code>R_i → R_i + k·R_j</code> (i≠j) yaparsan, <code>det(yeni) = det(orijinal)</code> — hiç değişmez.</div></div>
+  <p>Bu, Ders 01'de her satırda yaptığımız <code>R2 → R2 − 2·R1</code> gibi işlemlerin ta kendisi — ve determinantı hiç bozmadığı için Gauss'u determinant hesaplamak için güvenle kullanabiliyoruz.</p>
+
+  <p><b>Geometrik sezgi (kesme/shear dönüşümü):</b> bir vektöre diğerinin katını eklemek, şeklin <b>tabanını ve yüksekliğini</b> değiştirmez — sadece "yatık" hâle getirir. Taban × yükseklik aynı kaldığı için alan/hacim de aynı kalır:</p>
+
+  <div class="diagram-row">
+    <figure>
+      <svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg">
+        <line x1="10" y1="120" x2="210" y2="120" stroke="#e2ded5" stroke-width="1"/>
+        <line x1="20" y1="75" x2="220" y2="75" stroke="#e2ded5" stroke-width="1" stroke-dasharray="3 3"/>
+        <polygon points="20,120 80,120 95,75 35,75" fill="#7a5c2e" fill-opacity="0.25" stroke="#7a5c2e" stroke-width="2"/>
+        <text x="45" y="135" font-size="10" fill="#1a1a1a">taban</text>
+        <line x1="35" y1="75" x2="35" y2="120" stroke="#6b6b6b" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="10" y="100" font-size="10" fill="#6b6b6b">yükseklik</text>
+      </svg>
+      <figcaption>Öncesi</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg">
+        <line x1="10" y1="120" x2="220" y2="120" stroke="#e2ded5" stroke-width="1"/>
+        <line x1="20" y1="75" x2="220" y2="75" stroke="#e2ded5" stroke-width="1" stroke-dasharray="3 3"/>
+        <polygon points="20,120 80,120 215,75 155,75" fill="#2e5f8a" fill-opacity="0.25" stroke="#2e5f8a" stroke-width="2"/>
+        <text x="45" y="135" font-size="10" fill="#1a1a1a">taban (aynı)</text>
+        <line x1="155" y1="75" x2="155" y2="120" stroke="#6b6b6b" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="180" y="100" font-size="10" fill="#6b6b6b">yükseklik (aynı)</text>
+      </svg>
+      <figcaption>Sonrası (satıra kat eklendi) — kaymış ama alan aynı</figcaption>
+    </figure>
+  </div>
+
+  <h2>4. Pratik hesaplama yöntemi</h2>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Önce "pivot" nedir?</b> Gauss ile eleme yaparken, bir sütunu sıfırlamak için <span class="hi">referans olarak kullandığın</span> köşegen elemana pivot denir — Ders 01'de "hangi sayıyla çarpıp çıkaracağız" derken kullandığın o köşegen sayı. Örneğin 1. sütunu sıfırlamak için 1. satır 1. sütundaki sayıyı (pivotu) kullanırsın: diğer satırlardaki değeri, pivota bölüp uygun katını çıkararak sıfırlarsın. <b>Pivot sıfırsa</b> bölemezsin (sıfıra bölme olmaz) — o yüzden önce satır değiştirip sıfır olmayan bir sayıyı pivot yapman gerekir.</p>
+  <p>Şimdi 3 kuralı birleştirip bir <b>tarif</b> çıkaralım — herhangi bir n×n matrisin determinantını hesaplamak için:</p>
+  <ol>
+    <li>Gauss eliminasyonuyla (Ders 01'de öğrendiğin, sadece <b>Kural 3</b> tipi işlemlerle — satıra başka satırın katını ekle) matrisi <span class="hi">üst üçgen forma</span> indir. Bu işlemler determinantı <b>değiştirmez</b>.</li>
+    <li>Eğer bir pivot (köşegen eleman) sıfır çıkarsa ve satır değiştirmen gerekirse, kaç kere değiştirdiğini <b>say</b> (Kural 1 — her değişimde işaret ters döner).</li>
+    <li>Üçgen forma ulaşınca, <b>köşegeni çarp</b> (Bölüm 2'deki ispat).</li>
+    <li>Tek sayıda satır değişimi yaptıysan sonucu <b>−1 ile çarp</b>; çift sayıda değiştiyse (veya hiç değiştirmediysen) dokunma.</li>
+  </ol>
+
+  <h3>Örnek 1 — swap gerektiren 3×3 (Kural 1'i pratikte görmek için)</h3>
+  <p>Determinantını bulmak istediğimiz matris:</p>
+  <div class="eq">
+    det<table class="det"><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>1</td><td>3</td><td>2</td></tr><tr><td>2</td><td>1</td><td>1</td></tr></table>
+  </div>
+  <p class="step"><b>Adım 1:</b> 1. satırın 1. sütunu <code>0</code> — pivot olamaz. <code>R1 ↔ R2</code> değiştir (1 takas → sonunda −1 çarpacağız):</p>
+  <div class="eq"><table class="det"><tr><td>1</td><td>3</td><td>2</td></tr><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>2</td><td>1</td><td>1</td></tr></table></div>
+  <p class="step"><b>Adım 2:</b> <code>R3 → R3 − 2·R1</code>: <code>(2−2, 1−6, 1−4) = (0, −5, −3)</code>:</p>
+  <div class="eq"><table class="det"><tr><td>1</td><td>3</td><td>2</td></tr><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>0</td><td>−5</td><td>−3</td></tr></table></div>
+  <p class="step"><b>Adım 3:</b> <code>R3 → R3 + 2.5·R2</code>: <code>(0+0, −5+5, −3+2.5) = (0, 0, −0.5)</code>:</p>
+  <div class="eq"><table class="det"><tr><td>1</td><td>3</td><td>2</td></tr><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>−0.5</td></tr></table></div>
+  <p class="step"><b>Adım 4:</b> Üçgen form tamam. Köşegen çarpımı: <code>1 · 2 · (−0.5) = −1</code>.</p>
+  <p class="step"><b>Adım 5:</b> <b>1 tane</b> satır değişimi yaptık (tek sayı) → sonucu <code>−1</code> ile çarp: <code>−1 × (−1) = 1</code>.</p>
+  <div class="eq"><b>det = 1</b></div>
+  <p style="font-size:.9rem;color:var(--soft)">Kontrol (Sarrus ile, orijinal matriste): <code>0·(3·1−2·1) − 2·(1·1−2·2) + 1·(1·1−3·2) = 0 − 2·(−3) + 1·(−5) = 6−5 = 1</code> ✓ — birebir eşleşiyor.</p>
+
+  <h3>Örnek 2 — 4×4 (asıl amaç: Sarrus'un yetmediği yerde)</h3>
+  <p>Determinantını bulmak istediğimiz matris:</p>
+  <div class="eq">
+    det<table class="det">
+      <tr><td>2</td><td>1</td><td>0</td><td>1</td></tr>
+      <tr><td>4</td><td>3</td><td>1</td><td>2</td></tr>
+      <tr><td>0</td><td>1</td><td>2</td><td>1</td></tr>
+      <tr><td>2</td><td>1</td><td>1</td><td>3</td></tr>
+    </table>
+  </div>
+  <p class="step"><b>Adım 1 — 1. sütunu sıfırla:</b> <code>R2 → R2 − 2·R1</code>, <code>R4 → R4 − 1·R1</code> (satır 3'te zaten 0 var, dokunma):</p>
+  <p style="font-size:.9rem;color:var(--soft)">
+    R2: (4−4, 3−2, 1−0, 2−2) = (0, 1, 1, 0)<br>
+    R4: (2−2, 1−1, 1−0, 3−1) = (0, 0, 1, 2)
+  </p>
+  <div class="eq">
+    <table class="det">
+      <tr><td>2</td><td>1</td><td>0</td><td>1</td></tr>
+      <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+      <tr><td>0</td><td>1</td><td>2</td><td>1</td></tr>
+      <tr><td>0</td><td>0</td><td>1</td><td>2</td></tr>
+    </table>
+  </div>
+  <p class="step"><b>Adım 2 — 2. sütunun altını sıfırla:</b> <code>R3 → R3 − 1·R2</code>: <code>(0−0, 1−1, 2−1, 1−0) = (0, 0, 1, 1)</code>. (R4'te zaten 0 var.)</p>
+  <div class="eq">
+    <table class="det">
+      <tr><td>2</td><td>1</td><td>0</td><td>1</td></tr>
+      <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+      <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+      <tr><td>0</td><td>0</td><td>1</td><td>2</td></tr>
+    </table>
+  </div>
+  <p class="step"><b>Adım 3 — 3. sütunun altını sıfırla:</b> <code>R4 → R4 − 1·R3</code>: <code>(0−0, 0−0, 1−1, 2−1) = (0, 0, 0, 1)</code>.</p>
+  <div class="eq">
+    <table class="det">
+      <tr><td class="pivot">2</td><td>1</td><td>0</td><td>1</td></tr>
+      <tr><td class="zero">0</td><td class="pivot">1</td><td>1</td><td>0</td></tr>
+      <tr><td class="zero">0</td><td class="zero">0</td><td class="pivot">1</td><td>1</td></tr>
+      <tr><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="pivot">1</td></tr>
+    </table>
+  </div>
+  <p class="step"><b>Adım 4:</b> Üçgen form tamam, <b>hiç satır değiştirmedik</b> (0 takas — işaret düzeltmeye gerek yok). Köşegen çarpımı: <code>2 · 1 · 1 · 1 = 2</code>.</p>
+  <div class="eq"><b>det = 2</b></div>
+  <p style="font-size:.9rem;color:var(--soft)">Bu sonucu 24 terimli permütasyon formülüyle elle doğrulamaya çalışsaydık çok zaman alırdı — Gauss + köşegen çarpımı bunu birkaç satır işlemine indirdi.</p>
+
+  <h2>5. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Üst üçgensel bir 4×4 matrisin köşegeni <code>3, −2, 1, 5</code>. Determinant kaçtır?</p>
+    <details><summary>Cevabı göster</summary><p><code>3 × (−2) × 1 × 5 = −30</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> Bir matriste <code>R1 → 4·R1</code> yaptın, determinant 8'den ne oldu?</p>
+    <details><summary>Cevabı göster</summary><p><code>4 × 8 = 32</code> (Kural 2 — bir satırı k ile çarpınca determinant da k ile çarpılır).</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Gauss eliminasyonu sırasında toplam <b>3 kere</b> satır değiştirdin (swap). Üçgen formun köşegen çarpımı <code>6</code> çıktı. Gerçek determinant kaçtır?</p>
+    <details><summary>Cevabı göster</summary><p>3 (tek sayı) swap → işaret ters döner: <code>−6</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4 (kavram).</b> <code>R2 → R2 + 5·R1</code> işlemi determinantı değiştirir mi?</p>
+    <details><summary>Cevabı göster</summary><p>Hayır — Kural 3, bir satıra başka satırın katını eklemek determinantı hiç değiştirmez.</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🎥 Satır işlemlerinin geometrik etkisi: <a href="https://www.youtube.com/watch?v=Ip3X9LOh2dk">3Blue1Brown — The determinant</a>.<br>
+    📚 Derinlemesine determinantlar: <a href="https://www.khanacademy.org/math/linear-algebra/matrix-transformations">Khan Academy — Matrix Transformations ünitesi</a> ("Derinlemesine Determinantlar" bölümü).<br>
+    🗂️ Önceki dersler: <a href="0001-sistemler-gauss-determinant.html">Ders 01</a> · <a href="0002-geometrik-yorum-n-boyutlu-determinant.html">Ders 02</a> · Notasyon: <a href="../on-bilgi/0002-matematik-notasyonu.html">Ön Bilgi 02</a>.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← <a href="0002-geometrik-yorum-n-boyutlu-determinant.html">Ders 02</a></span>
+    <span>Sıradaki: Ders 04 — Özel determinantlar (Üçgen, Vandermonde, Üç köşegen)</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -88,7 +88,11 @@
     <table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>6</td></tr><tr><td>2</td><td>3</td><td>2</td><td>|</td><td>14</td></tr><tr><td>1</td><td>2</td><td>4</td><td>|</td><td>17</td></tr></table>
   </div>
 
-  <p><b>Adım 1 — ilk sütunu sıfırla:</b> <code>R2 → R2 − 2·R1</code> &nbsp;ve&nbsp; <code>R3 → R3 − R1</code></p>
+  <p><b>Adım 1 — ilk sütunu sıfırla.</b> Pivot (referans satır) her zaman <code>R1</code>'in ilk sütunu — burada <code>1</code>. Diğer satırların ilk sütununu bu pivota bölüp çarpanı buluyoruz:</p>
+  <p style="font-size:.95rem;color:#6b6b6b">
+    <code>R2</code>'nin ilk sütunu <code>2</code> → çarpan <code>= 2 ÷ 1 = 2</code> → <code>R2 → R2 − 2·R1</code><br>
+    <code>R3</code>'ün ilk sütunu <code>1</code> → çarpan <code>= 1 ÷ 1 = 1</code> → <code>R3 → R3 − 1·R1</code>
+  </p>
   <p style="font-size:.95rem;color:#6b6b6b">
     R2: (2−2·1, 3−2·1, 2−2·1 | 14−2·6) = (0, 1, 0 | 2)<br>
     R3: (1−1, 2−1, 4−1 | 17−6) = (0, 1, 3 | 11)
@@ -97,7 +101,7 @@
     <table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>6</td></tr><tr><td>0</td><td>1</td><td>0</td><td>|</td><td>2</td></tr><tr><td>0</td><td>1</td><td>3</td><td>|</td><td>11</td></tr></table>
   </div>
 
-  <p><b>Adım 2 — ikinci sütunun altını sıfırla:</b> <code>R3 → R3 − R2</code></p>
+  <p><b>Adım 2 — ikinci sütunun altını sıfırla.</b> Şimdi pivot <code>R2</code>'nin 2. sütunu (<code>1</code>) — 1. sütuna artık dokunmuyoruz, o zaten temiz. <code>R3</code>'ün 2. sütunu (<code>1</code>) bu pivota bölünür: çarpan <code>= 1 ÷ 1 = 1</code> → <code>R3 → R3 − 1·R2</code>:</p>
   <p style="font-size:.95rem;color:#6b6b6b">R3: (0−0, 1−1, 3−0 | 11−2) = (0, 0, 3 | 9)</p>
   <div class="eq">
     <table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>6</td></tr><tr><td>0</td><td>1</td><td>0</td><td>|</td><td>2</td></tr><tr><td>0</td><td>0</td><td>3</td><td>|</td><td>9</td></tr></table>
@@ -191,7 +195,7 @@
       <table class="det"><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>0</td><td>1</td><td>4</td></tr><tr><td>0</td><td>0</td><td>2</td></tr></table> = ?
     </p>
     <details><summary>Cevabı + ipucu göster</summary>
-      <p>Sarrus: 1·1·2 + 2·4·0 + 3·0·0 − 3·1·0 − 2·0·2 − 1·4·0 = 2. <br><b>İpucu:</b> Üçgen (köşegen altı sıfır) matriste determinant = köşegen çarpımı = 1·1·2 = <b>2</b>. (Bu kısayolu Hafta 5'te göreceğiz.)</p>
+      <p>Sarrus: 1·1·2 + 2·4·0 + 3·0·0 − 3·1·0 − 2·0·2 − 1·4·0 = 2. <br><b>İpucu:</b> Üçgen (köşegen altı sıfır) matriste determinant = köşegen çarpımı = 1·1·2 = <b>2</b>. (Bu kısayolun tam ispatını <a href="0003-determinantin-ozellikleri-ve-hesaplama.html">Ders 03</a>'te göreceğiz.)</p>
     </details>
   </div>
 

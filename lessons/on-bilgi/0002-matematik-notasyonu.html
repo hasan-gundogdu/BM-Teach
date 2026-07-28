@@ -49,48 +49,70 @@
   <h2>1. Σ (sigma) — toplama sembolü, aslında bir for döngüsü</h2>
   <p>Şunu gördüğünde:</p>
   <div class="eq"><code>Σ<sub>i=1</sub><sup>n</sup> a<sub>i</sub></code></div>
-  <p>Matematikçi şunu demek istiyor: "<code>i</code>'yi 1'den <code>n</code>'e kadar say, her <code>i</code> için <code>a<sub>i</sub></code>'yi topla." Kod olarak:</p>
-  <pre><code>toplam = 0
-for i in range(1, n+1):
-    toplam += a[i]
-return toplam</code></pre>
+  <p>Matematikçi şunu demek istiyor: "<code>i</code>'yi 1'den <code>n</code>'e kadar say, her <code>i</code> için <code>a<sub>i</sub></code>'yi topla." C# olarak:</p>
+  <pre><code>double toplam = 0;
+for (int i = 1; i &lt;= n; i++)
+{
+    toplam += a[i];
+}
+return toplam;</code></pre>
   <p><b>Somut örnek:</b> <code>Σ<sub>i=1</sub><sup>4</sup> i² = 1² + 2² + 3² + 4² = 1+4+9+16 = 30</code>.</p>
 
   <h2>2. Alt indis — bir dizinin/matrisin hangi elemanı</h2>
   <p><code>a<sub>i</sub></code>, "bir dizinin <code>i</code>'inci elemanı" demek — kodda <code>a[i]</code> ile aynı şey. İki alt indis varsa (<code>a<sub>i,j</sub></code>), bu bir <span class="hi">matrisin</span> <code>i</code>'inci satır, <code>j</code>'inci sütunundaki eleman — kodda <code>a[i][j]</code>:</p>
   <div class="eq"><code>a<sub>2,3</sub> = a[2][3]</code> → matrisin 2. satır, 3. sütunundaki sayı</div>
 
-  <h2>3. Fonksiyon notasyonu — σ(1) bir dizi/fonksiyon çağrısı</h2>
-  <p><code>σ</code> (sigma harfi, büyük Σ ile karıştırma — küçük σ burada bir <b>fonksiyon</b>). <code>σ(1)</code> demek, "σ fonksiyonuna 1 gir, çıktısını al" — kodda <code>sigma(1)</code> ya da bir dizi olarak <code>sigma[1]</code> ile aynı şey.</p>
+  <h2>3. Fonksiyon notasyonu — σ(1) sadece bir metot çağrısı</h2>
+  <p>Önce hatırlayalım: C#'ta bir fonksiyon (metot) girdi alır, çıktı döndürür:</p>
+  <pre><code>int Kare(int x)
+{
+    return x * x;
+}
 
-  <h2>4. Permütasyon — σ, bir "karıştırma" fonksiyonu</h2>
-  <p><code>σ</code>, <code>{1, 2, ..., n}</code> sayılarının bir <span class="hi">permütasyonu</span> (yeniden sıralaması). Yani σ, her sayıyı başka (veya aynı) bir sayıya eşleyen, <b>birebir ve örten</b> bir fonksiyon. Örnek, n=3 için bir permütasyon:</p>
+Kare(3);  // → 9</code></pre>
+  <p><code>Kare(3)</code>, "Kare fonksiyonuna 3'ü ver, sonucu al" demek. Matematikte de aynı fikir, sadece parantez kullanımı bizim de bildiğimiz gibi: <code>f(3)</code> = "f fonksiyonuna 3'ü ver".</p>
+  <p>Şimdi <code>σ</code> (sigma harfi — dikkat, büyük <code>Σ</code> ile karıştırma, o toplamaydı, bu küçük <code>σ</code> bambaşka bir şey, bir <b>fonksiyon</b>). <code>σ(1)</code> tam olarak <code>Kare(3)</code> gibi okunur: "σ fonksiyonuna 1'i ver, çıktısını al". Fonksiyonun ne işe yaradığını Bölüm 4'te göreceğiz.</p>
+
+  <h2>4. Permütasyon — σ'nın gerçekte ne yaptığı</h2>
+  <p><code>σ</code>'nın yaptığı iş basit: <code>1, 2, ..., n</code> sayılarını <span class="hi">karıştırır</span> (yeniden sıralar). Buna <b>permütasyon</b> denir. n=3 için bir örnek:</p>
   <div class="map">
     <span>σ(1) = 2</span>
     <span>σ(2) = 1</span>
     <span>σ(3) = 3</span>
   </div>
-  <p>Kodda bunu bir dizi olarak yazardın: <code>sigma = [2, 1, 3]</code> (yani <code>sigma[1]=2</code> vs.). {1,2,3} için toplam <b>3! = 6</b> farklı permütasyon (dizi düzeni) var — Ders 02'de gördüğün 6 terimin kaynağı tam olarak bu.</p>
+  <p>Yani "1 numaraya sor, 2 cevabını ver; 2 numaraya sor, 1 cevabını ver; 3 numaraya sor, 3 cevabını ver." C#'ta bunu bir dizi olarak saklardın:</p>
+  <pre><code>int[] sigma = { 2, 1, 3 };</code></pre>
+  <p style="font-size:.92rem;color:var(--soft)"><b>Küçük ayrıntı (yazılımcı tuzağı):</b> C# dizileri <code>0</code>'dan başlar, matematik ise <code>1</code>'den. Yani matematikteki <code>σ(1)</code>, C# kodunda <code>sigma[0]</code>'a denk gelir (bir kaydırma var). Bunu bilmen yeterli, formülü okurken matematik tarafında kalacağız (1'den başlayan).</p>
+  <p><code>{1,2,3}</code> için mümkün olan tüm karıştırma şekillerinin sayısı <b>3! = 6</b>. Ders 02'de gördüğün Sarrus'un 6 terimi, işte bu 6 farklı karıştırmanın karşılığı — birazdan tam listesini göreceğiz (Bölüm 6).</p>
 
-  <h2>5. sign(σ) — permütasyonun "tek mi çift mi" olduğu</h2>
-  <p><code>sign(σ)</code>, bir permütasyonu elde etmek için yapılan <span class="hi">takas (swap) sayısının</span> çift mi tek mi olduğuna bakar:</p>
+  <h2>5. sign(σ) — karıştırma "kaç adımda" yapıldı</h2>
+  <p><code>sign(σ)</code> şu soruyu soruyor: sıralı hâlden (<code>1,2,3,...</code>) bu karıştırmaya, <b>kaç tane ikili takas</b> (iki elemanın yerini değiştirme) ile ulaşılır — çift mi, tek mi?</p>
   <ul>
     <li>Çift sayıda takas → <code>sign(σ) = +1</code></li>
     <li>Tek sayıda takas → <code>sign(σ) = −1</code></li>
   </ul>
-  <p>Örnek: <code>[2,1,3]</code>, <code>[1,2,3]</code>'ten (sıralı hâlden) sadece <b>1 takas</b> ile elde edilir (1 ile 2'nin yerini değiştir) → tek takas → <code>sign = −1</code>.</p>
+  <p><b>Somut örnek:</b> <code>sigma = {2, 1, 3}</code>. Sıralı hâl <code>{1,2,3}</code>'ten buna geçmek için tek bir takas yeterli: 1 ile 2'nin yerini değiştir. <b>1 takas = tek</b> → <code>sign(σ) = −1</code>.</p>
 
-  <h2>6. Şimdi tam formülü kod gibi okuyalım</h2>
+  <h2>6. Şimdi tam formülü C# metodu gibi okuyalım</h2>
   <div class="eq"><code>det(A) = Σ<sub>σ</sub> sign(σ) · a<sub>1,σ(1)</sub> · a<sub>2,σ(2)</sub> ··· a<sub>n,σ(n)</sub></code></div>
-  <p>Pseudocode'a çevirirsek:</p>
-  <pre><code>toplam = 0
-for sigma in tüm_permütasyonlar({1,...,n}):   # Σ_σ → tüm permütasyonlar üzerinden döngü
-    çarpım = 1
-    for i in range(1, n+1):
-        çarpım *= a[i][sigma[i]]              # a_{i,σ(i)} → satır i, sütun σ(i)
-    toplam += sign(sigma) * çarpım             # sign(σ) ile işaretle, topla
-return toplam</code></pre>
-  <p>Yani formül, İngilizce/matematik cümlesi değil — <b>iç içe geçmiş iki döngü</b>: dış döngü tüm permütasyonları geziyor, iç döngü her satırdan doğru sütunu seçip çarpıyor.</p>
+  <p>Bu formülün C# karşılığı — <b>iç içe iki döngü</b>, başka bir şey değil:</p>
+  <pre><code>double Determinant(double[,] a, int n)
+{
+    double toplam = 0;
+
+    foreach (var sigma in TumPermutasyonlar(n))   // Σ_σ → tüm permütasyonları gez
+    {
+        double carpim = 1;
+        for (int i = 1; i &lt;= n; i++)
+        {
+            carpim *= a[i, sigma[i]];             // a_(i,σ(i)) → satır i, sütun σ(i)
+        }
+        toplam += Sign(sigma) * carpim;           // sign(σ) ile işaretleyip topla
+    }
+
+    return toplam;
+}</code></pre>
+  <p><b>Dış döngü</b> (<code>foreach sigma</code>): mümkün olan her karıştırmayı tek tek dener. <b>İç döngü</b> (<code>for i</code>): o karıştırmaya göre her satırdan doğru sütunu seçip çarpar. <code>TumPermutasyonlar</code> ve <code>Sign</code>'ı burada "hazır fonksiyon" gibi düşün — nasıl çalıştıklarını Bölüm 4-5'te zaten gördün.</p>
 
   <h2>7. n=3 için tüm 6 permütasyonu görelim (Sarrus ile bağlantı)</h2>
   <p>Ders 02'de gördüğün Sarrus'un 6 terimi, işte bu 6 permütasyonun karşılığı:</p>

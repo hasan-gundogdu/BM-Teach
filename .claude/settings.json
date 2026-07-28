@@ -4,7 +4,11 @@
       "WebFetch(domain:ebs.duzce.edu.tr)",
       "WebFetch(domain:www.aihero.dev)",
       "Bash(start \"\" \"lessons/on-bilgi/0001-temel-trigonometri.html\")",
-      "Bash(start \"\" \"lessons/on-bilgi/0002-matematik-notasyonu.html\")"
+      "Bash(start \"\" \"lessons/on-bilgi/0002-matematik-notasyonu.html\")",
+      "WebSearch",
+      "Bash(start \"\" \"lessons/lineer-cebir/0003-determinantin-ozellikleri-ve-hesaplama.html\")",
+      "Bash(start \"\" \"lessons/lineer-cebir/0001-sistemler-gauss-determinant.html\")",
+      "Bash(start \"\" \"lessons/lineer-cebir/0002-geometrik-yorum-n-boyutlu-determinant.html\")"
     ]
   }
 }

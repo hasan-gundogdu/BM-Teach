@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Determinant Özellikleri & Hesaplama</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  ol{ padding-left:1.3em; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Determinant Özellikleri & Hesaplama — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 03 (Hafta 4) özeti.</p>
+
+  <h2>Üçgen matris kuralı</h2>
+  <div class="rule">Üst (veya alt) üçgensel bir matriste <b>det = köşegen çarpımı</b>. (Tek hayatta kalan permütasyon: hiç karıştırmama.)</div>
+
+  <h2>Satır işlemlerinin etkisi</h2>
+  <div class="card">
+    <b>Kural 1 — takas:</b> iki satırı değiştir → <code>det → −det</code><br>
+    <b>Kural 2 — skaler:</b> <code>R_i → k·R_i</code> → <code>det → k·det</code><br>
+    <b>Kural 3 — kat ekleme:</b> <code>R_i → R_i + k·R_j</code> → <code>det değişmez</code>
+  </div>
+
+  <h2>Pratik hesaplama tarifi (n×n, n≥4 için)</h2>
+  <ol>
+    <li>Gauss ile (sadece Kural 3 işlemleriyle) üst üçgen forma indir.</li>
+    <li>Pivot sıfırsa satır değiştir, <b>kaç kere değiştirdiğini say</b>.</li>
+    <li>Köşegeni çarp.</li>
+    <li>Tek sayıda swap yaptıysan sonucu <code>−1</code> ile çarp.</li>
+  </ol>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • Satır takasından sonra işareti düzeltmeyi unutmak.<br>
+    • <code>R_i → k·R_i</code> yaptıktan sonra determinantı <code>k</code> ile çarpmayı unutmak (Kural 3'le karıştırıp "değişmez" sanmak).<br>
+    • Üçgen form için sadece <b>alt</b> köşegenin sıfır olması yeterli — üst kısmın sıfır olması gerekmiyor.
+  </div>
+</body>
+</html>

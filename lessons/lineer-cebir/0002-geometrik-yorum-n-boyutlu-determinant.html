@@ -176,11 +176,12 @@
 
   <p>Korkutucu görünüyor ama parça parça anlaşılıyor:</p>
   <ul>
-    <li><b>σ (sigma):</b> <code>{1, 2, ..., n}</code> sayılarının bir <span class="hi">permütasyonu</span> (sıralaması). Örn. n=3 için <code>(1,2,3)</code>, <code>(2,1,3)</code>, <code>(3,1,2)</code> gibi 6 tane olası sıralama var.</li>
+    <li><b>σ (sigma):</b> <code>{1, 2, ..., n}</code> sayılarının bir <span class="hi">permütasyonu</span> (sıralaması) — yani sayıları karıştıran bir fonksiyon. Örn. n=3 için <code>(1,2,3)</code>, <code>(2,1,3)</code>, <code>(3,1,2)</code> gibi 6 tane olası sıralama var.</li>
     <li><b>a<sub>1,σ(1)</sub> · a<sub>2,σ(2)</sub> · ...:</b> her satırdan <b>tam bir</b> eleman seç — hangi sütundan seçeceğini permütasyon σ belirliyor. Yani her permütasyon, "her satır ve sütundan tam bir eleman kullanan" bir çarpım üretiyor.</li>
-    <li><b>sign(σ):</b> permütasyonun kaç "takas" ile elde edildiğine bağlı +1 veya −1 (çift takas → +1, tek takas → −1). Bu, Sarrus'taki +/− işaretlerinin kaynağı.</li>
+    <li><b>sign(σ):</b> permütasyonun kaç "takas" ile elde edildiğine bağlı +1 veya −1 (çift takas → +1, tek takas → −1). Örnek: <code>(2,1,3)</code>, sıralı hâlden (<code>1,2,3</code>) sadece <b>1 takasla</b> (1 ile 2'yi değiştir) elde edilir → tek takas → <code>sign = −1</code>. Bu, Sarrus'taki +/− işaretlerinin kaynağı.</li>
     <li><b>Σ<sub>σ</sub>:</b> mümkün olan <b>tüm</b> permütasyonlar üzerinden topla.</li>
   </ul>
+  <p style="font-size:.9rem;color:var(--soft)">Bu semboller (Σ, alt indis, σ, permütasyon) yabancı/karışık geliyorsa, tek tek ve programlama benzetmeleriyle açan ayrı bir ön-bilgi dersi var: <a href="../on-bilgi/0002-matematik-notasyonu.html">Ön Bilgi 02 — Matematiksel Notasyon</a>.</p>
 
   <p><b>Kaç permütasyon var?</b> n elemanın permütasyon sayısı <code>n!</code> (n faktöriyel):</p>
   <ul>
