@@ -14,11 +14,19 @@ Hasan'ın Düzce Üniversitesi Bilgisayar Mühendisliği'nden mezun olabilmesi i
 - **28 geçilmemiş ders** var. Hayatta kalmak için **en az 23'ünü** geçmek gerek. Detaylı sayılar/strateji: **PLAN.md**.
 
 ## Nasıl çalışıyoruz (kurallar)
-- **teach skill:** global kurulu (`~/.agents/skills/teach/`, `~/.claude/skills` symlink ile bağlı) — kullanıcı `/teach` ile çağırır.
+- **teach skill:** **repo içinde** `.claude/skills/teach/` (5 dosya: SKILL.md + 4 format dosyası) — kullanıcı `/teach` ile çağırır. Kaynak: `mattpocock/skills` → `skills/productivity/teach/` (bkz. `skills-lock.json`).
+  - ⚠️ **Buradan taşımayın.** Skill 17/07/2026'da `1065e5e` commit'inde `.agents/skills/teach/`'ten kazara silindi ve 29/07'de git geçmişinden buraya restore edildi. `.agents/skills/` klasörünü Claude Code **okumaz** (oradaki diğer 14 mattpocock skill'i de bu yüzden görünmüyor); çalışan tek yer repo içindeki `.claude/skills/`. Repo içinde olduğu için git ile iki makine arasında da taşınır.
 - **Dil:** Türkçe.
 - **Tüm adımlar yazılır:** Worked example'larda "benzer şekilde uygulanır" gibi kısayollar YASAK; her ara adım (satır işlemleri, ara matrisler, geri yerine koyma) tek tek gösterilir. (bkz. NOTES.md)
 - Her ders: `lessons/<ders>/NNNN-*.html` + bir `reference/<ders>/*.html` kartı; ders tarayıcıda açılır.
 - **Müfredata sadık kal:** Bir dersin resmî EBS haftalık konuları alınmadan "eksiksiz" varsayma. (EBS SSL hatası verir → kullanıcı içeriği yapıştırır.)
+
+## Oturum başı kontrol (30 saniye, atlanmaz)
+Sohbet geçmişi makineler arası taşınmadığı için **durum dosyaları drift eder.** Yeni oturumda ders yazmaya başlamadan önce:
+1. `find lessons reference -name "*.html"` → diskte gerçekten ne var?
+2. Bunu `GIDIS-SIRASI.md` ve ilgili dersin ROADMAP dosyasıyla karşılaştır. Uyuşmuyorsa **önce dosyaları düzelt**, sonra derse geç.
+3. "Şu ders yazılmadı / şu konu derste var" gibi bir iddiada bulunmadan önce **dosyayı aç oku** — başlık kanıt değildir (LR0008).
+4. Bir dosya kayıp görünüyorsa `git log --all --diff-filter=D -- "*ad*"` ile geçmişe bak; kasıtlı silinmiş/birleştirilmiş olabilir.
 
 ## Dosya haritası
 - `GIDIS-SIRASI.md` — **tek bakışta çalışma takibi:** her ders → ders dosyası + referans + Khan videoları + durum. Yeni ders yazıldıkça güncellenir.
@@ -31,13 +39,15 @@ Hasan'ın Düzce Üniversitesi Bilgisayar Mühendisliği'nden mezun olabilmesi i
 - `lessons/on-bilgi/` — derse özel olmayan ön bilgi dersleri (örn. trigonometri); ihtiyaç doğduğunda yazılır, önceden değil (bkz. LR0005)
 
 ## Şu anki ilerleme
-- **Aktif ders:** Lineer Cebir (BM213).
-  - Ders 01 (Hafta 1-2: sistemler/Gauss/2×2-3×3 determinant) yazıldı + açıldı + **bitirildi**.
-  - Ders 02 (Hafta 3: geometrik yorum + n-boyutlu determinant tanımı) yazıldı + açıldı.
-  - Ders 06 (matris işlemleri, Hafta 7) hazır (başta yanlışlıkla Ders 01 yapılmıştı, syllabus görülünce taşındı).
-  - Kullanıcı Gauss eliminasyonunun mantığını ("denklem çıkarma"nın aynısı) ve toplama/çıkarma işareti kuralını kavradı; matriste girişin işareti vs. determinantın yapısal işareti ayrımını netleştirdi.
-  - Resmî EBS haftalık syllabus görseli kullanıcı tarafından paylaşıldı, ROADMAP.md eşlemesi doğrulandı (birebir uyumlu).
-- **Sıradaki:** Ders 03 — n-boyutlu determinantın özellikleri ve hesaplama yöntemleri (Hafta 4).
+
+> ⚠️ **Hangi ders yazıldı / sırada ne var → tek kaynak: `GIDIS-SIRASI.md`.** Burada ders-ders durum listesi **tutulmaz** (üç dosyada birden tutulduğu için 29/07'de drift oldu: Ders 03 yazılmışken CLAUDE.md ve ROADMAP "yazılmadı" diyordu). Yeni oturum önce GIDIS-SIRASI.md'yi okur; ders başlıkları ve syllabus eşlemesi için `lessons/<ders>/ROADMAP.md`. Bu bölüm yalnızca **dosyalardan okunamayan** bilgiyi tutar.
+
+- **Sınav sırası (en yakın önce):** BM107 → 4 Ağustos · BM213 → 5 Ağustos · BM106 → 6 Ağustos. BM106 henüz başlanmadı.
+- **Kullanıcının kavradığı, tekrar anlatılmasına gerek olmayanlar:**
+  - Gauss eliminasyonunun mantığı ("denklem çıkarma"nın aynısı) ve toplama/çıkarma işareti kuralı.
+  - Matriste girişin işareti vs. determinantın yapısal işareti ayrımı (LR0004).
+- **Doğrulanmış eşlemeler:** BM213 ve BM107 resmî EBS haftalık syllabus'ları kullanıcı tarafından paylaşıldı; ilgili ROADMAP.md'ler birebir uyumlu (yeniden doğrulamaya gerek yok).
+- **BM107 Ders 01 notu:** 29/07'de denetlendi, üç kapsam boşluğu kapatıldı (birim önekleri, akım yönü, pasif işaret konvansiyonu) — bkz. LR0008. Ders yazarken **ön koşul zincirini açık yaz**; işaret konvansiyonu olmadan Hafta 3-6 çözülemez.
 
 ## Önemli kararlar
 - Yaz okulu (devam şartı yok) → **KESİNLEŞTİ (ders programı alındı, 17/07/2026), 21 AKTS, 5 ders:** BM213 (Lineer Cebir), BM107 (Elektrik Devre Temelleri), BM106 (Olasılık ve İstatistik), BM303 (İşaretler ve Sistemler), **MAT112 (Matematik II, MAT102 yerine — denklik onaylandı)**.

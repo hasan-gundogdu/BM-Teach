@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Akım, Voltaj, Güç, Enerji + İşaret Kuralları</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #2e5c7a; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#2e5c7a; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#e9f0f4; border-left:3px solid #2e5c7a; padding:.5em .9em; border-radius:4px; }
+  .warn{ background:#fbf1e6; border-left:3px solid #b5762a; padding:.5em .9em; border-radius:4px; margin:.6em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table{ border-collapse:collapse; margin:.6em auto; font-size:.92rem; width:100%; }
+  th, td{ border:1px solid #e2ded5; padding:.35em .6em; text-align:center; font-family:Consolas,monospace; }
+  th{ background:#e9f0f4; font-family:inherit; }
+  td.l{ text-align:left; font-family:inherit; }
+  a{ color:#2e5c7a; }
+  small{ color:#6b6b6b; }
+  @media print{ body{background:#fff} h2{page-break-after:avoid} .card,.rule,.warn,table{page-break-inside:avoid} }
+</style>
+</head>
+<body>
+  <h1>Temel Kavramlar — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Elektrik Devre Temelleri (BM107) · Hafta 1 · <a href="../../lessons/elektrik-devre-temelleri/0001-akim-voltaj-guc-enerji.html">Ders 01</a> özeti.</p>
+
+  <h2>Dört temel formül</h2>
+  <table>
+    <tr><th>Kavram</th><th>Formül</th><th>Birim</th><th>Su analojisi</th></tr>
+    <tr><td class="l">Akım (I)</td><td>I = Q / t</td><td>Amper (A)</td><td class="l">Debi (litre/s)</td></tr>
+    <tr><td class="l">Voltaj (V)</td><td>V = W / Q</td><td>Volt (V)</td><td class="l">Basınç / yükseklik farkı</td></tr>
+    <tr><td class="l">Güç (P)</td><td>P = V · I</td><td>Watt (W)</td><td class="l">Değirmenin dönme hızı</td></tr>
+    <tr><td class="l">Enerji (W)</td><td>W = P · t</td><td>Joule / kWh</td><td class="l">Toplam yapılan iş</td></tr>
+  </table>
+
+  <div class="card">
+    <b>Türetmeler</b> (formülü unutursan buradan çıkarırsın):<br>
+    <code>P = W/t = (W/Q)·(Q/t) = V·I</code> &nbsp;·&nbsp; <code>I = P/V</code> &nbsp;·&nbsp; <code>V = P/I</code> &nbsp;·&nbsp; <code>Q = I·t</code>
+  </div>
+
+  <div class="warn">
+    ⚠️ <b><code>W</code> iki anlama gelir.</b> Formülün içindeyse <b>enerji</b> (Work, Joule): <code>V = W/Q</code>. Sayının yanındaysa <b>Watt</b>: <code>60 W</code>. Bazı kitaplar enerjiye <code>E</code> der.
+  </div>
+
+  <h2>kWh hesabı (fatura mantığı)</h2>
+  <div class="card">
+    <code>Enerji (kWh) = Güç (kW) × Süre (saat)</code><br>
+    <small>Güç <b>kW</b>, süre <b>saat</b> olmalı. 2000 W → 2 kW; 30 dakika → 0.5 saat.</small>
+  </div>
+
+  <h2>Birim önekleri — formüle sokmadan önce SI'ya çevir</h2>
+  <table>
+    <tr><th>p</th><th>n</th><th>µ</th><th>m</th><th>—</th><th>k</th><th>M</th></tr>
+    <tr><td>10⁻¹²</td><td>10⁻⁹</td><td>10⁻⁶</td><td>10⁻³</td><td>1</td><td>10³</td><td>10⁶</td></tr>
+    <tr><td>piko</td><td>nano</td><td>mikro</td><td>mili</td><td>—</td><td>kilo</td><td>mega</td></tr>
+  </table>
+  <div class="warn">
+    ⚠️ <b>En sık kaybedilen puan.</b> <code>20 mA = 0.02 A</code> · <code>4.7 kΩ = 4700 Ω</code> · <code>470 µF = 0.00047 F</code>. Soruyu okur okumaz tüm değerleri SI'ya çevirip kenara yaz.
+  </div>
+
+  <h2>Akım yönü</h2>
+  <table>
+    <tr><th>Yön</th><th>Dış devrede</th><th>Nerede</th></tr>
+    <tr><td class="l"><b>Konvansiyonel</b></td><td>+ → −</td><td class="l"><b>Tüm devre analizi</b>, sınav</td></tr>
+    <tr><td class="l">Elektron akışı</td><td>− → +</td><td class="l">Sadece fiziksel gerçek</td></tr>
+  </table>
+  <div class="rule">
+    <b>Kural:</b> "Akım yönü" dendiğinde <b>daima konvansiyonel</b> yön. Elektron yönü ancak açıkça sorulursa.
+  </div>
+
+  <h2>İşaret kuralları — sınavın bel kemiği</h2>
+  <table>
+    <tr><th>Durum</th><th>Anlamı</th></tr>
+    <tr><td class="l">Akım <b>negatif</b> çıktı</td><td class="l">Büyüklük doğru, gerçek yön çizdiğin okun <b>tersi</b>. <b>Hata değil</b> — eksiyi silme.</td></tr>
+    <tr><td class="l"><code>P &gt; 0</code></td><td class="l"><b>Yutuyor</b> — direnç, ampul, motor (yük)</td></tr>
+    <tr><td class="l"><code>P &lt; 0</code></td><td class="l"><b>Üretiyor</b> — pil, gerilim/akım kaynağı</td></tr>
+    <tr><td class="l">Direncin gücü</td><td class="l"><b>Asla negatif olamaz</b> — direnç enerji üretmez</td></tr>
+  </table>
+
+  <div class="rule">
+    <b>Pasif işaret konvansiyonu:</b> Akımı, gerilimin <b>+</b> ucundan girip <b>−</b> ucundan çıkacak şekilde işaretle → sonra <code>P = V·I</code>. Pilin içinden akım <b>−</b>'den <b>+</b>'ya geçer, bu yüzden pilde akım negatif alınır → <code>P</code> negatif → üretiyor.
+  </div>
+
+  <div class="rule">
+    ✅ <b>ALTIN KONTROL:</b> Devredeki tüm güçleri işaretleriyle topla → <b>tam olarak 0</b> çıkmalı (üretilen = yutulan). 0 çıkmıyorsa hata var. Her çözümün sonunda uygula.
+  </div>
+
+  <h2>Referans çözüm — işaretli güç</h2>
+  <div class="card">
+    12 V pil, 2 A akım, tek direnç:<br>
+    <code>P_pil = 12 × (−2) = −24 W</code> → üretiyor<br>
+    <code>P_direnç = 12 × (+2) = +24 W</code> → yutuyor<br>
+    <code>P_toplam = −24 + 24 = 0 W</code> ✅ tutarlı
+  </div>
+
+  <h2>Sık yapılan hatalar</h2>
+  <div class="card">
+    <table>
+      <tr><th>Hata</th><th>Doğrusu</th></tr>
+      <tr><td class="l">Öneki çevirmemek (4.7 kΩ → 4.7)</td><td class="l">SI'ya çevir: 4700 Ω</td></tr>
+      <tr><td class="l">Negatif akımda eksiyi silmek</td><td class="l">Eksi = yön bilgisi, koru</td></tr>
+      <tr><td class="l">kWh'de gücü W bırakmak</td><td class="l">kW'a çevir (2000 W → 2 kW)</td></tr>
+      <tr><td class="l">kWh'de süreyi dakika bırakmak</td><td class="l">Saate çevir (30 dk → 0.5 saat)</td></tr>
+      <tr><td class="l">Elektron yönüyle çözmek</td><td class="l">Konvansiyonel yön (+ → −)</td></tr>
+      <tr><td class="l">Güç toplamını kontrol etmemek</td><td class="l">Toplam = 0 mı? Bedava doğrulama</td></tr>
+    </table>
+  </div>
+
+  <h2>Sonraki haftalar için not</h2>
+  <div class="card">
+    <small>Direnç ve Ohm Kanunu (<code>V = I·R</code>) resmî syllabus'ta <b>Hafta 3</b>'te. Gücün direnç cinsinden türevleri (<code>P = I²R</code>, <code>P = V²/R</code>) o zaman eklenecek — bu karta da yazılacak.</small>
+  </div>
+
+  <p style="border-top:1px solid #e2ded5;margin-top:2em;padding-top:.8em;font-size:.9rem;color:#6b6b6b">
+    📄 Ders: <a href="../../lessons/elektrik-devre-temelleri/0001-akim-voltaj-guc-enerji.html">Ders 01 — Akım, Voltaj, Güç, Enerji</a> ·
+    📘 Kaynak: <a href="https://spinningnumbers.org/">spinningnumbers.org</a> ·
+    🎥 <a href="https://tr.khanacademy.org/science/10-sinif-fizik/x700e03322a1a4ae2:elektrik-ve-manyetizma">Khan Academy TR</a>
+  </p>
+</body>
+</html>

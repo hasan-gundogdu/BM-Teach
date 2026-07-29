@@ -78,11 +78,16 @@ Syllabus alındı, kaynak: Khan Academy (EN) "Electrical Engineering" kursu + sp
 
 ### 1 · Ders 01 — Elektriksel temel kavramlar (akım, voltaj, güç, enerji) ✅
 - **1.1 Ders:** `lessons/elektrik-devre-temelleri/0001-akim-voltaj-guc-enerji.html`
-- **1.2 Referans:** ⬜ (yazılacak)
+- **1.2 Referans:** `reference/elektrik-devre-temelleri/temel-kavramlar-hizli-basvuru.html` ✅ (yazdırmaya uygun; sınav tekrarında dersi değil bunu oku)
 - **1.3 Kaynak:** Khan EE — Basic electricity & magnetism / Circuit elements
+- **1.4 Khan (TR, Ünite 1):** Akımın Yönü (2 video) ✅izle · Öz Direnç ve İletkenlik ✅izle · Elektrik Akımı ⏭️(derste var) · Elektrolitik iletkenlik ⏭️(müfredat dışı)
+- **1.5 Sonradan eklendi (29/07):** Bölüm 0 birim önekleri · Bölüm 2 akım yönü (konvansiyonel/elektron + referans yön seçimi) · Bölüm 4b pasif işaret konvansiyonu · W notasyon uyarısı · işaret kuralları özet tablosu · inline citation'lar · duraklama noktası
+- **1.6 Ders yapısı:** 0 önekler → 1 akım → 2 akım yönü → ☕ duraklama → 3 voltaj → 4 güç → 4b işaret konvansiyonu → 5 enerji · 7 çözümlü soru
 
 ### 2 · Ders 02 — Devre elemanları, tanımlar, kaynak dönüşümü (Hafta 2) ⬅️ SIRADAKİ
 - **2.1 Ders:** ⬜ · **2.2 Referans:** ⬜
+- **2.3 Khan (TR, Ünite 1):** İdeal Devre Elemanları · İdeal Gerilim ve Akım Kaynakları · Devre Terminolojisi (düğüm/kol/çevre — Hafta 3-6'nın temeli) · Voltmetreler ve Ampermetreler (opsiyonel)
+- **2.4 Not:** Kaynak dönüşümü (source transformation) Khan Ünite 1'de YOK → derste anlatılacak.
 
 # BM106 — Olasılık ve İstatistik · sınav 6 Ağustos ⬜
 Henüz başlanmadı. EBS haftalık konuları alınınca eklenecek. (Ayrık kısım calculus'suz; sürekli kısım için mini integral ön-bilgisi.)
@@ -90,7 +95,7 @@ Henüz başlanmadı. EBS haftalık konuları alınınca eklenecek. (Ayrık kıs�
 ---
 
 ## Ön Bilgi (derse özel değil)
-- Temel Trigonometri: `lessons/on-bilgi/0001-temel-trigonometri.html` + `reference/on-bilgi/trigonometri-hizli-basvuru.html` + `reference/on-bilgi/bolge-cozum-adimlari.html` ✅ (Ders 09, 13 için gerekli)
+- Temel Trigonometri: `lessons/on-bilgi/0001-temel-trigonometri.html` + `reference/on-bilgi/trigonometri-hizli-basvuru.html` ✅ (Ders 09, 13 için gerekli · bölge işaretleri/çözüm adımları bu kartın içinde, ayrı dosya değil)
 - Matematiksel Notasyon (Σ, alt indis, σ, permütasyon): `lessons/on-bilgi/0002-matematik-notasyonu.html` ✅ (Ders 02 için gerekli)
 - ⚠️ Kompleks sayılar — henüz yazılmadı (Ders 09 için gerekecek)
 - ⚠️ Polinom kökü bulma — henüz yazılmadı (Ders 11 için gerekecek)
