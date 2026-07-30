@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Ohm Kanunu, Kirchhoff, Seri-Paralel Dirençler</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #2e5c7a; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#2e5c7a; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#e9f0f4; border-left:3px solid #2e5c7a; padding:.5em .9em; border-radius:4px; }
+  .warn{ background:#fbf1e6; border-left:3px solid #b5762a; padding:.5em .9em; border-radius:4px; margin:.6em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table{ border-collapse:collapse; margin:.6em auto; font-size:.92rem; width:100%; }
+  th, td{ border:1px solid #e2ded5; padding:.35em .6em; text-align:center; font-family:Consolas,monospace; }
+  th{ background:#e9f0f4; font-family:inherit; }
+  td.l{ text-align:left; font-family:inherit; }
+  a{ color:#2e5c7a; }
+  small{ color:#6b6b6b; }
+  @media print{ body{background:#fff} h2{page-break-after:avoid} .card,.rule,.warn,table{page-break-inside:avoid} }
+</style>
+</head>
+<body>
+  <h1>Ohm Kanunu, Kirchhoff, Seri-Paralel Dirençler</h1>
+  <p style="color:#6b6b6b;font-style:italic">Elektrik Devre Temelleri (BM107) · Hafta 3 · <a href="../../lessons/elektrik-devre-temelleri/0003-ohm-kirchhoff-seri-paralel.html">Ders 03</a> özeti.</p>
+
+  <h2>Ohm Kanunu</h2>
+  <div class="rule"><code>V = I·R</code> ⟺ <code>I = V/R</code> ⟺ <code>R = V/I</code></div>
+  <div class="card">Güçle birleşince: <code>P = I²R</code> · <code>P = V²/R</code> (bkz. Hafta 1 <code>P=VI</code>)</div>
+
+  <h2>Kirchhoff Kanunları</h2>
+  <table>
+    <tr><th>Kanun</th><th>İfade</th><th>Korunum</th></tr>
+    <tr><td class="l">KCL (akım)</td><td>ΣI_giren = ΣI_çıkan</td><td class="l">Yük korunumu</td></tr>
+    <tr><td class="l">KVL (gerilim)</td><td>ΣV_işaretli (çevrede) = 0</td><td class="l">Enerji korunumu</td></tr>
+  </table>
+
+  <h2>Seri dirençler</h2>
+  <div class="rule"><code>R_eş = R1+R2+...+Rn</code> — aynı akım, gerilimler toplanır</div>
+  <div class="card"><b>Gerilim bölücü:</b> <code>V_i = V_toplam · (R_i/R_eş)</code> — büyük R → büyük pay</div>
+
+  <h2>Paralel dirençler</h2>
+  <div class="rule"><code>1/R_eş = 1/R1+1/R2+...</code> — aynı gerilim, akımlar toplanır</div>
+  <div class="card">
+    2 direnç kısayolu: <code>R_eş = (R1·R2)/(R1+R2)</code><br>
+    <b>Akım bölücü (2 direnç):</b> <code>I_1 = I_toplam · R2/(R1+R2)</code> — <b>karşı</b> direnç payda'da, küçük R → büyük pay
+  </div>
+  <div class="warn">⚠️ R_eş her zaman en küçük dirençten <b>küçük</b> çıkmalı. Çıkmıyorsa tersini almayı unutmuşsundur.</div>
+
+  <h2>Sık yapılan hatalar</h2>
+  <div class="card">
+    <table>
+      <tr><th>Hata</th><th>Doğrusu</th></tr>
+      <tr><td class="l">Paralelde 1/R_eş'i R_eş sanmak</td><td class="l">Son adımda tersini al</td></tr>
+      <tr><td class="l">Akım bölücüde kendi R'sini payda'ya koymak</td><td class="l">Karşı direnç payda'da</td></tr>
+      <tr><td class="l">KVL'de işaret kuralını yarı yolda değiştirmek</td><td class="l">Baştan seç, tüm çevre boyunca aynı kuralı uygula</td></tr>
+      <tr><td class="l">Seride farklı akım varsaymak</td><td class="l">Seride akım her yerde aynıdır</td></tr>
+      <tr><td class="l">Paralelde farklı gerilim varsaymak</td><td class="l">Paralelde gerilim her kolda aynıdır</td></tr>
+    </table>
+  </div>
+
+  <p style="border-top:1px solid #e2ded5;margin-top:2em;padding-top:.8em;font-size:.9rem;color:#6b6b6b">
+    📄 Ders: <a href="../../lessons/elektrik-devre-temelleri/0003-ohm-kirchhoff-seri-paralel.html">Ders 03 — Ohm Kanunu, Kirchhoff Kanunları, Seri-Paralel Dirençler</a> ·
+    📘 Kaynak: <a href="https://spinningnumbers.org/">spinningnumbers.org</a>
+  </p>
+</body>
+</html>

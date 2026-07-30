@@ -5,8 +5,8 @@ Düzce BM107 resmî haftalık syllabus'una hizalanmıştır. Kaynak: `bm107-haft
 | Ders | Syllabus | Konu | Durum |
 |---|---|---|---|
 | 0001 | Hafta 1 | Elektriksel temel kavramlar: akım, voltaj, güç, enerji | ✅ yazıldı |
-| 0002 | Hafta 2 | Devre elemanları, tanımlar, kaynak dönüşümü | ⬜ |
-| 0003 | Hafta 3 | Seri-Paralel direnç devreleri, Kirchhoff Kanunları | ⬜ |
+| 0002 | Hafta 2 | Devre elemanları, tanımlar, kaynak dönüşümü | ✅ yazıldı |
+| 0003 | Hafta 3 | Seri-Paralel direnç devreleri, Kirchhoff Kanunları | ✅ yazıldı |
 | 0004 | Hafta 4 | Karışık (seri-paralel) devreler | ⬜ |
 | 0005 | Hafta 5 | Çevre Analizi (matris/determinant ile denklem çözümü) | ⬜ |
 | 0006 | Hafta 6 | Düğüm Analizi, Wheatstone Köprü, Yıldız-Üçgen (Y-Δ) dönüşümü | ⬜ |

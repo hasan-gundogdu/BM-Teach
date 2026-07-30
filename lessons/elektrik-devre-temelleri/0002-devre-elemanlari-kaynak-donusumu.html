@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 02 — Devre Elemanları, Terminoloji, Kaynak Dönüşümü</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
+  .analogy b.tag{ color:#8a6d2f; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
+  .eq code{ font-size:1.15rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
+  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
+  table.tbl th{ background:var(--note); }
+  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
+          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
+  .cite{ font-size:.85rem; color:var(--soft); }
+  .cite a{ color:var(--soft); }
+  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
+         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 02 · Hafta 2</div>
+  <h1>Devre Elemanları, Terminoloji, Kaynak Dönüşümü</h1>
+  <p class="lead">Bu dersin sonunda: bir devre şemasında <span class="hi">düğüm / kol / çevre</span> kavramlarını ayırt edebilecek, <span class="hi">ideal gerilim ve akım kaynaklarının</span> ne olduğunu bilecek, <span class="hi">kısa devre / açık devre</span> ayrımını yapabilecek ve bir <span class="hi">kaynak dönüşümü</span> (gerilim kaynağı ↔ akım kaynağı) uygulayabileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Hafta 3'ten itibaren (Kirchhoff, seri-paralel, çevre/düğüm analizi) her cümlede "düğüm", "kol", "çevre" kelimeleri geçecek. Bu terimleri şimdi netleştirmezsek sonraki dört hafta boyunca sürekli kafa karışır. Kaynak dönüşümü ise Hafta 7-9'da (süperpozisyon, Thevenin, Norton) karmaşık devreleri basitleştirmenin ana aracı — şimdi görmek, oralarda "neden bu adımı atıyoruz" sorusunu baştan çözer.</p>
+
+  <h2>1. Devre terminolojisi: düğüm, kol, çevre</h2>
+  <p>Bir devre şemasını okurken üç kelimeyi kesin ayırman gerekiyor. Basit bir örnek üzerinden gidelim — bir pil, iki paralel direnç:</p>
+
+  <div class="circ">   A ●─────┬─────┬───── B
+          │     │
+         [R1]  [R2]
+          │     │
+   D ●─────┴─────┴───── C
+   (Pil, A─D arası, D─A yönünde +'dan devreye giriyor varsayalım)</div>
+
+  <table class="tbl">
+    <tr><th>Terim</th><th>Tanım</th><th>Bu devrede</th></tr>
+    <tr><td><b>Düğüm (node)</b></td><td>İki veya daha fazla elemanın birleştiği <b>bağlantı noktası</b></td><td>A ve D (B-A arasında ve C-D arasında eleman yok, tel var → aynı düğüm sayılır)</td></tr>
+    <tr><td><b>Kol (branch)</b></td><td>İki düğüm arasında <b>tek bir eleman</b> içeren yol</td><td>Pil (A-D), R1 (A-D), R2 (A-D) → 3 kol</td></tr>
+    <tr><td><b>Çevre (loop/mesh)</b></td><td>Başladığın düğüme geri dönen, hiçbir düğümü <b>iki kez</b> kullanmayan kapalı yol</td><td>Pil-R1 çevrimi, Pil-R2 çevrimi, R1-R2 çevrimi (3'ten 2'si bağımsız)</td></tr>
+  </table>
+
+  <div class="analogy">
+    <b class="tag">🚰 Su tesisatı analojisi:</b> <b>Düğüm</b>, borunun T-kavşak yaptığı yerdir — üç veya daha fazla borunun birleştiği nokta. <b>Kol</b>, iki kavşak arasındaki tek bir boru parçasıdır (üzerinde bir vana/pompa olabilir). <b>Çevre</b>, suyun izleyip başladığı yere geri dönebileceği kapalı bir tesisat halkasıdır.
+  </div>
+
+  <p class="mission">⚠️ <b>Sık yapılan hata:</b> Şemada aralarında <b>sadece tel</b> (eleman yok) olan iki nokta <b>tek bir düğüm</b> sayılır, ayrı iki düğüm değil. Yukarıdaki şemada A ile B arasında hiçbir eleman yok — sadece tel — bu yüzden A ve B <b>aynı düğüm</b>. Bu ayrımı gözden kaçırmak, Hafta 6'daki düğüm analizinde yanlış denklem sayısına yol açar.</p>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Yukarıdaki devrede kaç <b>bağımsız</b> düğüm vardır (referans/toprak düğümü hariç sayılan)? Toplam kaç düğüm var?</p>
+    <details><summary>Çözümü göster</summary>
+      <p>Toplam düğüm sayısı: <b>2</b> (A=B düğümü, D=C düğümü). Bağımsız düğüm analizinde bir düğüm referans (toprak) seçilir, geri kalan <code>n−1</code> düğüm için denklem yazılır — burada <code>2−1 = 1</code> bağımsız düğüm denklemi çıkar. Bu formülü (n−1 kuralı) Hafta 6'da Düğüm Analizi'nde tekrar göreceğiz.</p>
+    </details>
+  </div>
+
+  <h2>2. İdeal devre elemanları</h2>
+  <h3>a) Direnç (Resistor)</h3>
+  <p>Akıma karşı koyan, enerjiyi ısıya çeviren pasif eleman. Sembolü <code>R</code>, birimi <b>Ohm (Ω)</b>. Formülünü (Ohm Kanunu) Hafta 3'te işleyeceğiz; burada sadece devre şemasındaki rolünü tanıyoruz: her zaman güç <b>yutar</b> (bkz. Ders 01, pasif işaret konvansiyonu).</p>
+
+  <h3>b) İdeal gerilim kaynağı</h3>
+  <p>Uçları arasındaki gerilimi, <b>çekilen akım ne olursa olsun sabit tutan</b> eleman. Sembolde <code>+</code> ve <code>−</code> uçları işaretlenir.</p>
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Sonsuz büyüklükte, sabit yükseklikte bir su kulesi gibi düşün. Musluğu ne kadar açarsan aç (ne kadar akım/su çekersen çek), kulenin yüksekliği (basıncı = voltajı) <b>değişmez</b>. Gerçek piller buna <b>yaklaşır</b> ama ideal değildir — çok akım çekince gerilimleri biraz düşer (iç direnç yüzünden, bunu ileride göreceğiz).
+  </div>
+
+  <h3>c) İdeal akım kaynağı</h3>
+  <p>Uçlarındaki gerilim ne olursa olsun, devreye <b>sabit bir akım</b> iten eleman. Sembolde ok, akımın yönünü gösterir.</p>
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Debisi sabitlenmiş bir <b>pompa</b> gibi düşün — devrenin direnci ne olursa olsun (borular ne kadar dar/geniş olursa olsun), pompa her saniye <b>aynı miktarda</b> suyu itmeye devam eder; gerekirse basıncı (voltajı) kendisi ayarlar. Gerçek hayatta ideal akım kaynağı görsel olarak daha az sezgiseldir — ama LED sürücü devreleri ve bazı sensör çıkışları buna yaklaşır.
+  </div>
+
+  <p class="mission">💡 <b>İkisini birbirine karıştırma:</b> Gerilim kaynağı "<b>V sabit</b>, I devreye göre değişir" der. Akım kaynağı "<b>I sabit</b>, V devreye göre değişir" der. Hangisinin sabit tutulduğuna bakarak ayırt et.</p>
+
+  <div class="q">
+    <p><b>Soru 2.</b> 9V'luk ideal bir gerilim kaynağına önce 100Ω, sonra 1kΩ'luk bir direnç bağlanıyor. Kaynağın uçlarındaki gerilim her iki durumda da değişir mi?</p>
+    <details><summary>Çözümü göster</summary>
+      <p>Hayır, <b>ideal</b> gerilim kaynağı tanımı gereği gerilim her iki durumda da <b>9V</b> kalır. Değişen şey akımdır (direnç küçüldükçe akım artar — bunu Hafta 3'te Ohm Kanunu ile hesaplayacağız). Kaynak "ideal" olduğu sürece yük ne olursa olsun voltaj sabit kalır.</p>
+    </details>
+  </div>
+
+  <h2>3. Kısa devre ve açık devre</h2>
+  <table class="tbl">
+    <tr><th>Kavram</th><th>Tanım</th><th>Direnç</th><th>Su analojisi</th></tr>
+    <tr><td><b>Kısa devre (short)</b></td><td>İki nokta arasını <b>direnç olmadan</b> (sadece telle) birleştirmek</td><td>R = 0 Ω</td><td>Musluk tamamen açık, hiç engel yok</td></tr>
+    <tr><td><b>Açık devre (open)</b></td><td>İki nokta arasındaki bağlantının <b>tamamen kesilmesi</b></td><td>R = ∞ Ω</td><td>Musluk tamamen kapalı, hiç su geçmiyor</td></tr>
+  </table>
+
+  <p class="mission">⚠️ <b>Kritik ayrım:</b> Kısa devrede gerilim <b>sıfırdır</b> ama akım herhangi bir değer olabilir (yalnızca devrenin geri kalanına bağlıdır). Açık devrede akım <b>sıfırdır</b> ama gerilim herhangi bir değer olabilir. Bu ikisini birbirine karıştırmak (örneğin "kısa devrede akım da sıfırdır" sanmak) çok yaygın bir hatadır — aksine, kısa devre genelde <b>çok yüksek</b> akım anlamına gelir (bu yüzden "kısa devre" günlük hayatta tehlikeli/yangın riski olarak bilinir: R≈0 iken I=V/R çok büyür).</p>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Bir ideal gerilim kaynağının uçları yanlışlıkla bir telle (kısa devre) birleştirilirse ne olur?</p>
+    <details><summary>Çözümü göster</summary>
+      <p>Kaynak gerilimi sabit tutmaya <b>çalışır</b> (ideal tanımı gereği), ama devre direnci sıfıra yaklaştığı için akım matematiksel olarak sonsuza gitmeye çalışır. Gerçek hayatta bu, aşırı akım/ısınma/yangın riski demektir — "kısa devre yapmak" tabirinin kaynağı budur. İdeal kaynak modeli burada çöker; gerçek kaynaklarda iç direnç akımı sınırlar (ama yine de tehlikeli derecede yüksek olabilir).</p>
+    </details>
+  </div>
+
+  <h2>4. Kaynak dönüşümü (source transformation)</h2>
+  <p>Seri bir direnç ile birlikte bir <b>gerilim kaynağı</b>, dışarıdan bakıldığında (yani devrenin geri kalanı için) paralel bir direnç ile birlikte bir <b>akım kaynağına</b> eşdeğerdir — ve tersi de doğrudur. Bu, ileride karmaşık devreleri sadeleştirmenin temel araçlarından biri olacak.</p>
+
+  <div class="eq"><code>V_s = I_s · R</code> &nbsp;&nbsp;⟺&nbsp;&nbsp; <code>I_s = V_s / R</code> &nbsp;&nbsp;&nbsp;&nbsp; (R aynı kalır, sadece kaynak tipi değişir)</div>
+
+  <div class="circ">   Gerilim kaynağı modeli:        Akım kaynağı modeli (eşdeğer):
+
+   A ●───[R]───●            A ●───┬───●
+       +  Vs  −                   │
+   D ●─────────●            D ●──(Is)──[R]──●
+                                   (Is paralel R)</div>
+
+  <p><b>Neden eşdeğer?</b> A-D uçlarına dışarıdan bakan biri, iki devre arasındaki farkı <b>ölçemez</b> — her iki devre de A-D uçlarına aynı akım-gerilim davranışını sergiler (aynı <i>I-V karakteristiği</i>). Yön kuralı: akım kaynağının oku, gerilim kaynağının <b>+</b> ucuna doğru bakmalıdır (yani akım, gerilim kaynağının iterek akım gönderdiği yönle aynı yönde devreye girmeli).</p>
+
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Sabit yükseklikte bir su kulesi + onunla dış devre arasına konmuş dar bir boru (direnç), <b>dışarıdan bakıldığında</b>, sabit debili bir pompa + ona paralel bağlanmış (fazla suyu içeri geri yönlendiren) bir bypass borusu ile <b>aynı davranışı</b> gösterebilir. İçeride mekanizma farklı ama dışarıya sundukları "davranış" (uçlardaki akım-gerilim ilişkisi) aynıdır.
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4.</b> 12V'luk bir gerilim kaynağı 4Ω'luk bir dirençle seri bağlı. Eşdeğer akım kaynağı modelini bul (akım değeri ve paralel direnç).</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>I_s = V_s / R = 12 / 4 = 3 A</code></p>
+      <p>Eşdeğer model: <b>3A'lik akım kaynağı</b>, <b>4Ω'luk direnç ile paralel</b>. Direnç değeri dönüşümde <b>değişmez</b> — sadece seri konumdan paralel konuma geçer.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 5 (ters yön).</b> 2A'lik bir akım kaynağı 6Ω'luk bir dirençle paralel bağlı. Eşdeğer gerilim kaynağı modelini bul.</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>V_s = I_s · R = 2 × 6 = 12 V</code></p>
+      <p>Eşdeğer model: <b>12V'luk gerilim kaynağı</b>, <b>6Ω'luk direnç ile seri</b>.</p>
+    </details>
+  </div>
+
+  <div class="pause">
+    ☕ <b>Doğal duraklama noktası.</b> Buraya kadar terminoloji (düğüm/kol/çevre), ideal kaynaklar, kısa/açık devre ve kaynak dönüşümünü gördün — Hafta 2'nin tamamı bu. Devam etmeden önce bir mola verebilirsin.
+  </div>
+
+  <h2>Özet tablo</h2>
+  <table class="tbl">
+    <tr><th>Terim</th><th>Kısa tanım</th></tr>
+    <tr><td>Düğüm</td><td>2+ elemanın birleştiği nokta (aradaki sadece tel ise aynı düğüm)</td></tr>
+    <tr><td>Kol</td><td>İki düğüm arasında tek bir eleman</td></tr>
+    <tr><td>Çevre</td><td>Hiçbir düğümü tekrar etmeyen kapalı yol</td></tr>
+    <tr><td>İdeal gerilim kaynağı</td><td>V sabit, I yüke göre değişir</td></tr>
+    <tr><td>İdeal akım kaynağı</td><td>I sabit, V yüke göre değişir</td></tr>
+    <tr><td>Kısa devre</td><td>R=0, V=0, I devreye bağlı (genelde büyük)</td></tr>
+    <tr><td>Açık devre</td><td>R=∞, I=0, V devreye bağlı</td></tr>
+    <tr><td>Kaynak dönüşümü</td><td><code>V_s = I_s·R</code>, R değişmez, seri↔paralel yer değiştirir</td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🎥 <b>Khan Academy Türkçe, Ünite 1</b> içinden: <b>İdeal Devre Elemanları</b> · <b>İdeal Gerilim ve Akım Kaynakları</b> · <b>Devre Terminolojisi</b> (düğüm/kol/çevre — bu dersin Bölüm 1'inin görsel karşılığı). "Voltmetreler ve Ampermetreler" opsiyonel (ölçüm aletleri, sınav kapsamı dışı olabilir).<br>
+    ⚠️ <b>Kaynak dönüşümü Khan Türkçe Ünite 1'de yok</b> — bu ders (Bölüm 4) o boşluğu dolduruyor. İstersen İngilizce <a href="https://www.khanacademy.org/science/electrical-engineering">Khan EE — Source transformation</a> videosuyla pekiştirebilirsin.<br>
+    📘 Yazılı referans: <a href="https://spinningnumbers.org/">spinningnumbers.org</a><br>
+    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/devre-terminolojisi-hizli-basvuru.html">Devre Terminolojisi — Hızlı Başvuru</a>
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← <a href="0001-akim-voltaj-guc-enerji.html">Ders 01 — Akım, Voltaj, Güç, Enerji</a></span>
+    <span><a href="../../reference/elektrik-devre-temelleri/devre-terminolojisi-hizli-basvuru.html">🗂️ Referans kartı</a></span>
+    <span>Sıradaki: Ders 03 — Seri-Paralel Direnç Devreleri, Kirchhoff Kanunları (Hafta 3)</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -84,10 +84,21 @@ Syllabus alındı, kaynak: Khan Academy (EN) "Electrical Engineering" kursu + sp
 - **1.5 Sonradan eklendi (29/07):** Bölüm 0 birim önekleri · Bölüm 2 akım yönü (konvansiyonel/elektron + referans yön seçimi) · Bölüm 4b pasif işaret konvansiyonu · W notasyon uyarısı · işaret kuralları özet tablosu · inline citation'lar · duraklama noktası
 - **1.6 Ders yapısı:** 0 önekler → 1 akım → 2 akım yönü → ☕ duraklama → 3 voltaj → 4 güç → 4b işaret konvansiyonu → 5 enerji · 7 çözümlü soru
 
-### 2 · Ders 02 — Devre elemanları, tanımlar, kaynak dönüşümü (Hafta 2) ⬅️ SIRADAKİ
-- **2.1 Ders:** ⬜ · **2.2 Referans:** ⬜
+### 2 · Ders 02 — Devre elemanları, tanımlar, kaynak dönüşümü (Hafta 2) ✅
+- **2.1 Ders:** `lessons/elektrik-devre-temelleri/0002-devre-elemanlari-kaynak-donusumu.html`
+- **2.2 Referans:** `reference/elektrik-devre-temelleri/devre-terminolojisi-hizli-basvuru.html`
 - **2.3 Khan (TR, Ünite 1):** İdeal Devre Elemanları · İdeal Gerilim ve Akım Kaynakları · Devre Terminolojisi (düğüm/kol/çevre — Hafta 3-6'nın temeli) · Voltmetreler ve Ampermetreler (opsiyonel)
-- **2.4 Not:** Kaynak dönüşümü (source transformation) Khan Ünite 1'de YOK → derste anlatılacak.
+- **2.4 Not:** Kaynak dönüşümü (source transformation) Khan Ünite 1'de YOK → derste anlatıldı (Bölüm 4).
+- **2.5 Ders yapısı:** 1 terminoloji (düğüm/kol/çevre) → 2 ideal kaynaklar → 3 kısa/açık devre → 4 kaynak dönüşümü → ☕ duraklama · 5 soru
+
+### 3 · Ders 03 — Ohm Kanunu, Kirchhoff Kanunları, Seri-Paralel Dirençler (Hafta 3) ✅
+- **3.1 Ders:** `lessons/elektrik-devre-temelleri/0003-ohm-kirchhoff-seri-paralel.html`
+- **3.2 Referans:** `reference/elektrik-devre-temelleri/ohm-kirchhoff-hizli-basvuru.html`
+- **3.3 Khan (TR, Ünite 1):** Ohm Kanunu · Kirşof Akım Kanunu · Kirşof Gerilim Kanunu · Seri Dirençler · Paralel Dirençler · Gerilim Bölücü · Akım Bölücü — hepsi bu dersle birebir örtüşüyor
+- **3.4 Ders yapısı:** 1 Ohm → 2 KCL → 3 KVL → ☕ duraklama → 4 seri + gerilim bölücü → 5 paralel + akım bölücü · 6 soru
+
+### 4 · Ders 04 — Karışık (seri-paralel) devreler (Hafta 4) ⬅️ SIRADAKİ
+- **4.1 Ders:** ⬜ · **4.2 Referans:** ⬜
 
 # BM106 — Olasılık ve İstatistik · sınav 6 Ağustos ⬜
 Henüz başlanmadı. EBS haftalık konuları alınınca eklenecek. (Ayrık kısım calculus'suz; sürekli kısım için mini integral ön-bilgisi.)

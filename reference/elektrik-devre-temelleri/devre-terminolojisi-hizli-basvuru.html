@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Devre Terminolojisi, Kaynaklar, Kaynak Dönüşümü</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #2e5c7a; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#2e5c7a; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#e9f0f4; border-left:3px solid #2e5c7a; padding:.5em .9em; border-radius:4px; }
+  .warn{ background:#fbf1e6; border-left:3px solid #b5762a; padding:.5em .9em; border-radius:4px; margin:.6em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table{ border-collapse:collapse; margin:.6em auto; font-size:.92rem; width:100%; }
+  th, td{ border:1px solid #e2ded5; padding:.35em .6em; text-align:center; font-family:Consolas,monospace; }
+  th{ background:#e9f0f4; font-family:inherit; }
+  td.l{ text-align:left; font-family:inherit; }
+  a{ color:#2e5c7a; }
+  small{ color:#6b6b6b; }
+  @media print{ body{background:#fff} h2{page-break-after:avoid} .card,.rule,.warn,table{page-break-inside:avoid} }
+</style>
+</head>
+<body>
+  <h1>Devre Terminolojisi, Kaynaklar, Kaynak Dönüşümü</h1>
+  <p style="color:#6b6b6b;font-style:italic">Elektrik Devre Temelleri (BM107) · Hafta 2 · <a href="../../lessons/elektrik-devre-temelleri/0002-devre-elemanlari-kaynak-donusumu.html">Ders 02</a> özeti.</p>
+
+  <h2>Terminoloji</h2>
+  <table>
+    <tr><th>Terim</th><th>Tanım</th></tr>
+    <tr><td class="l">Düğüm (node)</td><td class="l">2+ elemanın birleştiği nokta. Aradaki sadece tel ise <b>aynı düğüm</b>.</td></tr>
+    <tr><td class="l">Kol (branch)</td><td class="l">İki düğüm arasında tek bir eleman içeren yol</td></tr>
+    <tr><td class="l">Çevre (loop)</td><td class="l">Hiçbir düğümü tekrar etmeyen kapalı yol</td></tr>
+  </table>
+  <div class="warn">⚠️ Bağımsız düğüm sayısı = toplam düğüm − 1 (biri referans/toprak seçilir).</div>
+
+  <h2>İdeal kaynaklar</h2>
+  <table>
+    <tr><th>Kaynak</th><th>Sabit tutulan</th><th>Değişen</th></tr>
+    <tr><td class="l">Gerilim kaynağı</td><td>V</td><td class="l">I (yüke göre)</td></tr>
+    <tr><td class="l">Akım kaynağı</td><td>I</td><td class="l">V (yüke göre)</td></tr>
+  </table>
+
+  <h2>Kısa devre / Açık devre</h2>
+  <table>
+    <tr><th>Durum</th><th>R</th><th>V</th><th>I</th></tr>
+    <tr><td class="l">Kısa devre</td><td>0</td><td>0</td><td class="l">devreye bağlı (genelde büyük)</td></tr>
+    <tr><td class="l">Açık devre</td><td>∞</td><td class="l">devreye bağlı</td><td>0</td></tr>
+  </table>
+  <div class="warn">⚠️ Kısa devrede akım sıfır <b>değildir</b> — tam tersine genelde çok yüksektir. Sıfır olan gerilimdir.</div>
+
+  <h2>Kaynak dönüşümü</h2>
+  <div class="rule">
+    <code>V_s = I_s · R</code> ⟺ <code>I_s = V_s / R</code><br>
+    <small>R değeri <b>değişmez</b>. Gerilim kaynağı+seri R ⟺ Akım kaynağı+paralel R. Akım kaynağının oku, gerilim kaynağının <b>+</b> ucuna doğru bakar.</small>
+  </div>
+  <div class="card">
+    Örnek: 12V + 4Ω seri → <code>I_s = 12/4 = 3A</code>, 4Ω paralel.<br>
+    Ters: 2A + 6Ω paralel → <code>V_s = 2×6 = 12V</code>, 6Ω seri.
+  </div>
+
+  <p style="border-top:1px solid #e2ded5;margin-top:2em;padding-top:.8em;font-size:.9rem;color:#6b6b6b">
+    📄 Ders: <a href="../../lessons/elektrik-devre-temelleri/0002-devre-elemanlari-kaynak-donusumu.html">Ders 02 — Devre Elemanları, Terminoloji, Kaynak Dönüşümü</a> ·
+    📘 Kaynak: <a href="https://spinningnumbers.org/">spinningnumbers.org</a>
+  </p>
+</body>
+</html>

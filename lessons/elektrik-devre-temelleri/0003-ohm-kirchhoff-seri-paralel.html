@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 03 — Ohm Kanunu, Kirchhoff Kanunları, Seri-Paralel Dirençler</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
+  .analogy b.tag{ color:#8a6d2f; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
+  .eq code{ font-size:1.15rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
+  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
+  table.tbl th{ background:var(--note); }
+  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
+          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
+  .cite{ font-size:.85rem; color:var(--soft); }
+  .cite a{ color:var(--soft); }
+  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
+         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 03 · Hafta 3</div>
+  <h1>Ohm Kanunu, Kirchhoff Kanunları, Seri-Paralel Dirençler</h1>
+  <p class="lead">Bu dersin sonunda: <span class="hi">Ohm Kanunu'nu</span> üç yönde de kullanabilecek, <span class="hi">Kirchhoff'un iki kanununu</span> (akım ve gerilim) uygulayabilecek, ve <span class="hi">seri/paralel direnç devrelerini</span> tek bir eşdeğer dirence indirgeyip gerilim/akım bölücü formülleriyle çözebileceksin. Bu, BM107'nin en çok sınav puanı taşıyan haftalarından biri — buradan sonraki her devre bu üç araca dayanıyor.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Öğrenme kazanımı #2'nin tamamı bu haftada: "Ohm Kanunu, Kirşof Kanunlarını öğrenir; Seri, Paralel ve Karışık Devreler üzerinde uygular." Hafta 4'teki karışık devreler ve Hafta 5-6'daki çevre/düğüm analizi, burada öğreneceğin üç aracın (Ohm, KCL, KVL) doğrudan devamı.</p>
+
+  <h2>1. Ohm Kanunu</h2>
+  <p>Bir direncin uçlarındaki gerilim ile üzerinden geçen akım <b>doğru orantılıdır</b>; orantı katsayısı direncin kendisidir:</p>
+  <div class="eq"><code>V = I · R</code></div>
+  <p>Üç formda da kullanılır, hangisini kullanacağın hangi ikisini bildiğine bağlı: <code>V = I·R</code> · <code>I = V/R</code> · <code>R = V/I</code>.</p>
+
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Direnç, borunun <b>ne kadar dar</b> olduğudur. Boru daralınca (R artınca), aynı basınçta (V sabit) daha az su akar (I azalır) — tıpkı <code>I = V/R</code>'nin söylediği gibi. Ders 01'deki "dar boru" analojisi burada formülleşiyor.
+  </div>
+
+  <div class="q">
+    <p><b>Soru 1.</b> 100Ω'luk bir dirençten 0.2A akım geçiyor. Uçlarındaki gerilim kaç Volt?</p>
+    <details><summary>Çözümü göster</summary><p><code>V = I·R = 0.2 × 100 = 20 V</code></p></details>
+  </div>
+
+  <p class="mission">💡 <b>Bağlantı — Ders 01'e köprü:</b> Ohm Kanunu'nu güç formülüyle (<code>P = V·I</code>) birleştirirsen direnç için iki yeni güç formülü çıkar: <code>P = I²R</code> (V=IR yerine koy) ve <code>P = V²/R</code> (I=V/R yerine koy). Üçü de aynı şeyi söyler, hangi iki değişkeni bildiğine göre birini seçersin.</p>
+
+  <h2>2. Kirchhoff Akım Kanunu (KCL — Kirşof Akım Kanunu)</h2>
+  <p>Bir düğüme <b>giren</b> akımların toplamı, o düğümden <b>çıkan</b> akımların toplamına eşittir:</p>
+  <div class="eq"><code>Σ I_giren = Σ I_çıkan</code> &nbsp;&nbsp;(eşdeğer olarak: <code>Σ I_işaretli = 0</code>)</div>
+  <p>İkinci form: düğüme giren akımları <b>+</b>, çıkanları <b>−</b> alıp hepsini toplarsan sonuç sıfır çıkar.</p>
+
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Bir T-kavşağa giren su ile çıkan su eşit olmalı — su kavşakta <b>birikemez</b> veya <b>yoktan var olamaz</b>. KCL, "yük yok olmaz/yaratılmaz" fiziğinin (yük korunumu) devre diline çevrilmiş hali.
+  </div>
+
+  <div class="circ">        I1↓         I2↑
+           \         /
+            \       /
+             ●─────●   (düğüm)
+            /
+           I3↓
+
+   KCL: I1 (giren) = I2 (çıkan) + I3 (çıkan)   [yön oklarına göre]</div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> Bir düğüme 5A ve 3A giriyor; bu düğümden iki kol çıkıyor, birinden 4A çıktığı biliniyor. Diğer koldan çıkan akım kaç Amper?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>Σgiren = 5+3 = 8A = Σçıkan = 4 + I_x → I_x = 4A</code></p>
+    </details>
+  </div>
+
+  <h2>3. Kirchhoff Gerilim Kanunu (KVL — Kirşof Gerilim Kanunu)</h2>
+  <p>Kapalı bir çevre boyunca dolaşırken karşılaşılan <b>işaretli</b> gerilim değişimlerinin toplamı sıfırdır:</p>
+  <div class="eq"><code>Σ V_işaretli = 0</code> &nbsp;&nbsp;(çevre boyunca bir tam tur)</div>
+  <p><b>İşaret kuralı:</b> Çevre yönünde ilerlerken bir elemanın <b>+</b> ucundan girip <b>−</b> ucundan çıkıyorsan o gerilim <b>düşüş</b> (−), <b>−</b>'den girip <b>+</b>'dan çıkıyorsan <b>yükseliş</b> (+) olarak sayılır (veya tersi — tutarlı olduğun sürece hangi kuralı seçtiğin önemli değil, tek kural: baştan seç, sonuna kadar aynı kuralı uygula).</p>
+
+  <div class="analogy">
+    <b class="tag">⛰️ Dağ yürüyüşü analojisi:</b> Bir dağda yürüyüp tam bir tur atıp <b>başladığın noktaya</b> dönersen, yol boyunca çıktığın ve indiğin yüksekliklerin <b>toplam net değişimi sıfırdır</b> — nereye kadar çıktıysan o kadar inmişsindir. Gerilim de devrede bir "yükseklik" gibi davranır (Ders 01'deki voltaj=yükseklik analojisini hatırla); KVL bunun devre versiyonu. Bu, gerilimin <b>enerji korunumu</b>ndan gelen bir sonucu olduğunu da gösterir.
+  </div>
+
+  <div class="circ">   A ●───[R1]───● B
+      +  Vs  −         │
+   D ●─────────────────● C
+              [R2]
+
+   Çevre (A→B→C→D→A, saat yönü):
+   −V_R1 (R1'de düşüş, + den − ya) − V_R2 (R2'de düşüş) + Vs (kaynakta yükseliş, − dan + ya) = 0
+   yani: Vs = V_R1 + V_R2</div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Yukarıdaki tek çevreli devrede Vs = 10V, R1 üzerindeki düşüş 6V ölçülüyor. R2 üzerindeki düşüş kaç Volt?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>Vs = V_R1 + V_R2 → 10 = 6 + V_R2 → V_R2 = 4V</code></p>
+    </details>
+  </div>
+
+  <p class="mission">✅ <b>Ders 01 ile bağlantı — altın kontrol burada da çalışır:</b> KVL aslında enerji korunumunun gerilim versiyonu, KCL ise yük korunumunun akım versiyonu. Ders 01'deki "toplam güç = 0" kontrolü de yine enerji korunumundandı — üçü aynı fiziksel ilkenin (hiçbir şey kaybolmaz/yaratılmaz) farklı yüzleri.</p>
+
+  <div class="pause">
+    ☕ <b>Doğal duraklama noktası.</b> Buraya kadar üç temel aracı (Ohm, KCL, KVL) gördün. Kalan bölüm (seri-paralel direnç, bölücü formülleri) bunları birleştirip pratik hesaplamaya döküyor — ayrı bir oturumda devam edebilirsin.
+  </div>
+
+  <h2>4. Seri dirençler</h2>
+  <p>Seri bağlı dirençlerden <b>aynı akım</b> geçer (aralarında başka bir yol/dallanma olmadığı için — KCL'nin doğal sonucu). Eşdeğer direnç, tek tek dirençlerin <b>toplamıdır</b>:</p>
+  <div class="eq"><code>R_eş = R1 + R2 + ... + Rn</code></div>
+  <p><b>Neden toplanır?</b> KVL'yi uygula: <code>Vs = V1 + V2 = I·R1 + I·R2 = I·(R1+R2)</code>. Yani devre, <code>R_eş = R1+R2</code> tek bir dirençmiş gibi davranır.</p>
+
+  <h3>Gerilim bölücü (voltage divider)</h3>
+  <p>Seri bağlı dirençlerde toplam gerilim, dirençlerle <b>orantılı</b> paylaşılır:</p>
+  <div class="eq"><code>V_i = V_toplam · (R_i / R_eş)</code></div>
+  <p><b>Sezgi:</b> Aynı akım her dirençten geçtiği için (I sabit), büyük direnç büyük gerilim düşümü demektir (<code>V=IR</code>) — direnç oranı = gerilim oranı.</p>
+
+  <div class="q">
+    <p><b>Soru 4.</b> 12V'luk kaynağa seri bağlı R1=2kΩ ve R2=4kΩ var. R2 üzerindeki gerilim kaç Volt?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>R_eş = 2k+4k = 6k</code></p>
+      <p><code>V_R2 = 12 · (4k/6k) = 12 · (2/3) = 8V</code></p>
+      <p>Kontrol (KVL): <code>V_R1 = 12·(2k/6k) = 4V</code>, toplam <code>4+8=12V</code> ✅</p>
+    </details>
+  </div>
+
+  <h2>5. Paralel dirençler</h2>
+  <p>Paralel bağlı dirençlerin uçlarında <b>aynı gerilim</b> vardır (aynı iki düğüme bağlı oldukları için). Eşdeğer direncin <b>tersi</b>, tek tek dirençlerin terslerinin toplamıdır:</p>
+  <div class="eq"><code>1/R_eş = 1/R1 + 1/R2 + ... + 1/Rn</code></div>
+  <p>İki direnç için pratik kısayol: <code>R_eş = (R1·R2)/(R1+R2)</code> ("çarpım bölü toplam").</p>
+
+  <p><b>Neden bu şekilde?</b> KCL'yi uygula: <code>I_toplam = I1 + I2 = V/R1 + V/R2 = V·(1/R1 + 1/R2)</code>. Devre, <code>1/R_eş = 1/R1+1/R2</code> tek bir dirençmiş gibi davranır.</p>
+
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Paralel dirençler, yan yana açılmış birden fazla borudur — su ikisinden birden akabildiği için toplam akış <b>kolaylaşır</b>, yani eşdeğer direnç <b>her zaman en küçük dirençten bile küçüktür</b>. Daha fazla yol eklemek direnci azaltır, tıpkı daha fazla musluk açmanın toplam su akışını artırması gibi.
+  </div>
+
+  <p class="mission">⚠️ <b>Sık yapılan hata:</b> <code>1/R_eş = 1/R1+1/R2</code> hesapladıktan sonra <b>tersini almayı unutmak</b> — yani <code>1/R_eş</code> değerini <code>R_eş</code> sanıp öyle bırakmak. Son adımda mutlaka tersini al.</p>
+
+  <h3>Akım bölücü (current divider)</h3>
+  <p>Paralel bağlı <b>iki</b> dirençte, toplam akım dirençlerle <b>ters orantılı</b> paylaşılır (küçük direnç daha çok akım çeker):</p>
+  <div class="eq"><code>I_1 = I_toplam · (R2 / (R1+R2))</code> &nbsp;&nbsp;<code>I_2 = I_toplam · (R1 / (R1+R2))</code></div>
+  <p><b>Dikkat:</b> Formülün payında <b>karşı direnç</b> var (I1 formülünde R2, I2 formülünde R1) — gerilim bölücüdeki "kendi direnci payda'da" mantığının tam tersi. Sebebi: aynı gerilim her ikisinde de var (V sabit), küçük direnç <code>I=V/R</code> ile daha çok akım çeker.</p>
+
+  <div class="q">
+    <p><b>Soru 5.</b> 12A'lik bir akım kaynağı, paralel bağlı R1=3Ω ve R2=6Ω arasında bölünüyor. R1'den geçen akım kaç Amper?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>I_1 = I_toplam · R2/(R1+R2) = 12 · 6/9 = 8A</code></p>
+      <p>Kontrol: <code>I_2 = 12 · 3/9 = 4A</code>, toplam <code>8+4=12A</code> ✅ (KCL sağlandı)</p>
+      <p style="font-size:.9rem;color:var(--soft)">Küçük direnç (3Ω) daha büyük akım (8A) çekti — beklenen sonuç: küçük direnç = kolay yol.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 6 (birleştirme — eşdeğer direnç).</b> R1=10Ω ve R2=15Ω paralel bağlı. Eşdeğer direnci hesapla.</p>
+    <details><summary>Çözümü göster</summary>
+      <p>Kısayol formülü: <code>R_eş = (R1·R2)/(R1+R2) = (10·15)/(10+15) = 150/25 = 6Ω</code></p>
+      <p style="font-size:.9rem;color:var(--soft)">Doğrulama: eşdeğer direnç her zaman en küçük dirençten (10Ω) küçük çıkmalı — 6Ω < 10Ω ✅</p>
+    </details>
+  </div>
+
+  <h2>Özet tablo</h2>
+  <table class="tbl">
+    <tr><th>Kural</th><th>Formül</th><th>Sezgi</th></tr>
+    <tr><td>Ohm Kanunu</td><td><code>V = I·R</code></td><td>Direnç = borunun darlığı</td></tr>
+    <tr><td>KCL</td><td><code>ΣI_giren = ΣI_çıkan</code></td><td>Düğümde su birikmez</td></tr>
+    <tr><td>KVL</td><td><code>ΣV_işaretli = 0</code></td><td>Turu tamamlayınca net yükseklik değişimi 0</td></tr>
+    <tr><td>Seri R_eş</td><td><code>R1+R2+...</code></td><td>Aynı akım, gerilimler toplanır</td></tr>
+    <tr><td>Paralel R_eş</td><td><code>1/(1/R1+1/R2+...)</code></td><td>Aynı gerilim, akımlar toplanır; sonuç en küçük R'den küçük</td></tr>
+    <tr><td>Gerilim bölücü</td><td><code>V_i = V·(R_i/R_eş)</code></td><td>Büyük direnç → büyük pay (doğru orantı)</td></tr>
+    <tr><td>Akım bölücü (2 direnç)</td><td><code>I_1 = I·(R2/(R1+R2))</code></td><td>Küçük direnç → büyük pay (ters orantı, karşı R payda'da)</td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🎥 <b>Khan Academy Türkçe, Ünite 1</b>: <b>Ohm Kanunu</b> · <b>Kirşof Akım Kanunu</b> · <b>Kirşof Gerilim Kanunu</b> · <b>Seri Dirençler</b> · <b>Paralel Dirençler</b> · <b>Gerilim Bölücü</b> · <b>Akım Bölücü</b> — bu ders bu videoların Türkçe müfredat karşılığı, hepsi izlenebilir.<br>
+    📘 İngilizce ileri kaynak (aynı konular, daha fazla worked example): <a href="https://www.khanacademy.org/science/electrical-engineering">Khan EE</a> · <a href="https://spinningnumbers.org/">spinningnumbers.org</a><br>
+    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/ohm-kirchhoff-hizli-basvuru.html">Ohm & Kirchhoff — Hızlı Başvuru</a>
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← <a href="0002-devre-elemanlari-kaynak-donusumu.html">Ders 02 — Devre Elemanları, Kaynak Dönüşümü</a></span>
+    <span><a href="../../reference/elektrik-devre-temelleri/ohm-kirchhoff-hizli-basvuru.html">🗂️ Referans kartı</a></span>
+    <span>Sıradaki: Ders 04 — Karışık (seri-paralel) devreler (Hafta 4)</span>
+  </div>
+
+</div>
+</body>
+</html>
