@@ -35,24 +35,25 @@ Sohbet geçmişi makineler arası taşınmadığı için **durum dosyaları drif
 - `RESOURCES.md` — güvenilir kaynaklar + EBS resmî ders linkleri
 - `NOTES.md` — öğrenci profili + öğretim tercihleri
 - `lessons/<ders>/`, `reference/<ders>/`, `learning-records/`
-- `lessons/lineer-cebir/ROADMAP.md` — 14 haftalık syllabus → ders eşlemesi
+- `lessons/lineer-cebir/ROADMAP.md` — gerçek ders notu PDF'lerine (`DersNotlari/LineerCebir/*.pdf`) birebir bağlı Bölüm → ders eşlemesi (EBS syllabus'u değil — bkz. LR aşağıda)
 - `lessons/on-bilgi/` — derse özel olmayan ön bilgi dersleri (örn. trigonometri); ihtiyaç doğduğunda yazılır, önceden değil (bkz. LR0005)
 
 ## Şu anki ilerleme
 
 > ⚠️ **Hangi ders yazıldı / sırada ne var → tek kaynak: `GIDIS-SIRASI.md`.** Burada ders-ders durum listesi **tutulmaz** (üç dosyada birden tutulduğu için 29/07'de drift oldu: Ders 03 yazılmışken CLAUDE.md ve ROADMAP "yazılmadı" diyordu). Yeni oturum önce GIDIS-SIRASI.md'yi okur; ders başlıkları ve syllabus eşlemesi için `lessons/<ders>/ROADMAP.md`. Bu bölüm yalnızca **dosyalardan okunamayan** bilgiyi tutar.
 
-- **Sınav sırası (en yakın önce):** BM107 → 4 Ağustos · BM213 → 5 Ağustos · BM106 → 6 Ağustos. BM106 henüz başlanmadı.
+- **Sınav sırası (en yakın önce):** BM107 → 4 Ağustos · BM213 → 5 Ağustos. **BM106 (6 Ağustos) girilmiyor** (01/08/2026 kararı, bkz. PLAN.md Sınav Triaj) — hiç çalışılmadı, kalan süre BM107+BM213'e odaklanıyor; BM106 azami süre sınavına (Rota 2) kaldı.
 - **Kullanıcının kavradığı, tekrar anlatılmasına gerek olmayanlar:**
   - Gauss eliminasyonunun mantığı ("denklem çıkarma"nın aynısı) ve toplama/çıkarma işareti kuralı.
   - Matriste girişin işareti vs. determinantın yapısal işareti ayrımı (LR0004).
-- **Doğrulanmış eşlemeler:** BM213 ve BM107 resmî EBS haftalık syllabus'ları kullanıcı tarafından paylaşıldı; ilgili ROADMAP.md'ler birebir uyumlu (yeniden doğrulamaya gerek yok).
+- **Doğrulanmış eşlemeler:** BM107 resmî EBS haftalık syllabus'u kullanıcı tarafından paylaşıldı; ROADMAP.md birebir uyumlu (yeniden doğrulamaya gerek yok).
+- **BM213 düzeltmesi (2026-07-18):** Önceki "EBS syllabus'u ile uyumlu" notu **yanlış çıktı** — kullanıcı hocanın gerçek ders notu PDF'lerini (`DersNotlari/LineerCebir/*.pdf`) paylaştı, gerçek içerik EBS'nin haftalık başlıklarından farklı (Bölüm bazlı) ilerliyor. ROADMAP.md tamamen PDF'lere göre yeniden yazıldı, Hafta 1-9 (13 ders) tamamlandı. Hafta 10-14 için PDF henüz okunmadı — o kısma gelince yine varsayım yapılmayacak, PDF açılıp doğrulanacak.
 - **BM107 Ders 01 notu:** 29/07'de denetlendi, üç kapsam boşluğu kapatıldı (birim önekleri, akım yönü, pasif işaret konvansiyonu) — bkz. LR0008. Ders yazarken **ön koşul zincirini açık yaz**; işaret konvansiyonu olmadan Hafta 3-6 çözülemez.
 
 ## Önemli kararlar
 - Yaz okulu (devam şartı yok) → **KESİNLEŞTİ (ders programı alındı, 17/07/2026), 21 AKTS, 5 ders:** BM213 (Lineer Cebir), BM107 (Elektrik Devre Temelleri), BM106 (Olasılık ve İstatistik), BM303 (İşaretler ve Sistemler), **MAT112 (Matematik II, MAT102 yerine — denklik onaylandı)**.
   - **BM204 ve BM301 yaz okulundan çıktı**, azami süre sonu sınavına (Rota 2) geri döndü.
-  - **SINAV TRİAJ (22/07/2026):** Yalnızca **3 dersin** sınavına girilecek — BM107 (4 Ağu), BM213 (5 Ağu), BM106 (6 Ağu). **MAT112 + BM303** (27 Tem, aynı gün, hazırlıksız + kullanıcı şehir dışı) **girilmiyor** → azami süre sınavına düşer. Bkz. `belgeler/yaz-okulu-sinav-takvimi.md`.
+  - **SINAV TRİAJ (22/07/2026, güncelleme 01/08/2026):** Yalnızca **2 dersin** sınavına girilecek — BM107 (4 Ağu), BM213 (5 Ağu). **MAT112 + BM303** (27 Tem, aynı gün, hazırlıksız + kullanıcı şehir dışı) ve **BM106** (6 Ağu, hiç çalışılmadı) **girilmiyor** → azami süre sınavına düşer. Bkz. `belgeler/yaz-okulu-sinav-takvimi.md`.
 - Lab dersleri (BM203, BM304, BM302) yaz okulunda açıldı ama U>0 → lab politikası netleşmeden azami süre sınavı rotasında bırakıldı.
 - BM213 **determinant-önce** sıralama kullanıyor (Rus geleneği müfredat) — LR0002.
 - Staj BM499 iş-temelli muafiyetle geçmiş olabilir (OBS'den teyit edilecek).

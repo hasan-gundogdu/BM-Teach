@@ -35,7 +35,7 @@ Beklenen dağılım: Yaz okulu **5 ders (21 AKTS)** + 2 azami süre sonu sınav�
 | MAT112 Matematik II (MAT102 yerine) | — | 6 | calculus, en zayıf+temel alan; **denklik onaylandı** |
 | **Toplam** | | **21** | BM204, BM301 → Rota 2'ye taşındı |
 
-### ⚠️ SINAV TRİAJ KARARI (22/07/2026)
+### ⚠️ SINAV TRİAJ KARARI (22/07/2026, BM106 güncelleme 01/08/2026)
 Yaz okulu sınav takvimi çıktı; en zor iki ders (MAT112 + BM303) **27 Temmuz'da aynı gün** (hazırlıksız, 5 gün kala), diğer üçü Ağustos'ta:
 | Ders | Sınav | Karar |
 |---|---|---|
@@ -43,11 +43,13 @@ Yaz okulu sınav takvimi çıktı; en zor iki ders (MAT112 + BM303) **27 Temmuz'
 | MAT112 Matematik II | 27.07 18:00 | **GİRİLMEYECEK** → azami süre sınavı / MAT102 Rota 3 |
 | BM107 Elektrik Devre Temelleri | **04.08 16:30** | ✅ ver |
 | BM213 Lineer Cebir | **05.08 15:00** | ✅ ver |
-| BM106 Olasılık ve İstatistik | **06.08 10:30** | ✅ ver |
+| BM106 Olasılık ve İstatistik | 06.08 10:30 | **GİRİLMEYECEK** (01/08 kararı) → azami süre sınavı (Rota 2) |
 
-**Gerekçe:** Odağı bölmemek + kullanıcı 27 Temmuz civarı şehir dışında/izinli. MAT112 & BM303 kaybolmuyor (2 hak azami süre sınavında). Bu 3'ü yazda geçmek = 3 zayıf-alan dersini erken temizlemek.
+**Gerekçe (ilk üçlü):** Odağı bölmemek + kullanıcı 27 Temmuz civarı şehir dışında/izinli. MAT112 & BM303 kaybolmuyor (2 hak azami süre sınavında). BM107+BM213'ü yazda geçmek = 2 zayıf-alan dersini erken temizlemek.
 
-**Bu dönem çalışma öncelik sırası:** BM107 (en zor+ilk sınav) ‖ BM213 (başlandı) → BM106. Detay sınav takvimi: `belgeler/yaz-okulu-sinav-takvimi.md`.
+**BM106 kararı (01/08/2026):** Zaten azami süre sonu sınavlarını (Rota 2) kovalıyoruz — bir ders eksik/fazla girmesi büyük fark yaratmıyor. BM106'ya hiç çalışılmamışken 3 gün içinde (BM107 + BM213 sınavlarının hemen ardından) sıfırdan hazırlanmak yerine, tüm odağı üstünde zaten çalışılmış BM107 ve BM213'e vermek daha yüksek başarı olasılığı taşıyor. BM106 kaybolmuyor, 2 hak azami süre sınavında duruyor.
+
+**Bu dönem çalışma öncelik sırası:** BM107 (en zor+ilk sınav) ‖ BM213 (başlandı). BM106 çalışması durduruldu. Detay sınav takvimi: `belgeler/yaz-okulu-sinav-takvimi.md`.
 
 > **BM204 ve BM301 yaz okulundan çıktı**, azami süre sonu sınavı rotasına (Rota 2) geri döndü — bkz. aşağıda güncellenmiş Rota 2 listesi.
 

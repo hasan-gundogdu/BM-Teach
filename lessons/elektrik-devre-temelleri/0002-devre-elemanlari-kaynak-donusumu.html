@@ -73,14 +73,42 @@
     <b class="tag">🚰 Su tesisatı analojisi:</b> <b>Düğüm</b>, borunun T-kavşak yaptığı yerdir — üç veya daha fazla borunun birleştiği nokta. <b>Kol</b>, iki kavşak arasındaki tek bir boru parçasıdır (üzerinde bir vana/pompa olabilir). <b>Çevre</b>, suyun izleyip başladığı yere geri dönebileceği kapalı bir tesisat halkasıdır.
   </div>
 
-  <p class="mission">⚠️ <b>Sık yapılan hata:</b> Şemada aralarında <b>sadece tel</b> (eleman yok) olan iki nokta <b>tek bir düğüm</b> sayılır, ayrı iki düğüm değil. Yukarıdaki şemada A ile B arasında hiçbir eleman yok — sadece tel — bu yüzden A ve B <b>aynı düğüm</b>. Bu ayrımı gözden kaçırmak, Hafta 6'daki düğüm analizinde yanlış denklem sayısına yol açar.</p>
+  <p class="mission">⚠️ <b>Sık yapılan hata:</b> Şemada aralarında <b>sadece tel</b> (eleman yok) olan iki nokta <b>tek bir düğüm</b> sayılır, ayrı iki düğüm değil. Yukarıdaki şemada A ile B arasında hiçbir eleman yok — sadece tel — bu yüzden A ve B <b>aynı düğüm</b>. Bu ayrımı gözden kaçırmak, ileride düğüm analizinde yanlış denklem sayısına yol açar.</p>
 
   <div class="q">
     <p><b>Soru 1.</b> Yukarıdaki devrede kaç <b>bağımsız</b> düğüm vardır (referans/toprak düğümü hariç sayılan)? Toplam kaç düğüm var?</p>
     <details><summary>Çözümü göster</summary>
-      <p>Toplam düğüm sayısı: <b>2</b> (A=B düğümü, D=C düğümü). Bağımsız düğüm analizinde bir düğüm referans (toprak) seçilir, geri kalan <code>n−1</code> düğüm için denklem yazılır — burada <code>2−1 = 1</code> bağımsız düğüm denklemi çıkar. Bu formülü (n−1 kuralı) Hafta 6'da Düğüm Analizi'nde tekrar göreceğiz.</p>
+      <p>Toplam düğüm sayısı: <b>2</b> (A=B düğümü, D=C düğümü). Bağımsız düğüm analizinde bir düğüm referans (toprak) seçilir, geri kalan <code>n−1</code> düğüm için denklem yazılır — burada <code>2−1 = 1</code> bağımsız düğüm denklemi çıkar. Bu formülü (n−1 kuralı) birazdan genel bir formül içinde tekrar göreceğiz.</p>
     </details>
   </div>
+
+  <h3>d) Dal, düğüm, çevre sayıları arasındaki ilişki</h3>
+  <p>Bu üç sayı birbirinden bağımsız değil — birini bilince diğerini kontrol edebilirsin. <code>b</code> dal sayısı, <code>n</code> düğüm sayısı, <code>l</code> bağımsız çevre sayısı olmak üzere:</p>
+  <div class="eq"><code>b = l + n − 1</code></div>
+  <p>Yukarıdaki pil + 2 direnç örneğinde: <code>n = 2</code> düğüm, <code>b = 3</code> kol (pil, R1, R2). Formülden: <code>3 = l + 2 − 1 → l = 2</code> bağımsız çevre.</p>
+  <div class="analogy">
+    <b class="tag">🗺️ Neden bu formül doğru?</b> Sezgisel olarak: <code>n</code> düğümü birbirine bağlamanın en "ucuz" yolu <code>n−1</code> dal kullanmaktır (ağaç yapısı — hiç çevre yaratmadan). Elindeki her <b>ekstra</b> dal (<code>b − (n−1)</code>) bir tam kapalı döngü, yani bir bağımsız çevre yaratır. O yüzden <code>l = b − (n−1) = b − n + 1</code>, yani <code>b = l + n − 1</code>.
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> Bir devrede 5 dal, 3 düğüm var. Kaç bağımsız çevre vardır?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>b = l + n − 1 → 5 = l + 3 − 1 → l = 3</code></p>
+    </details>
+  </div>
+
+  <h3>e) Bağımlı kaynaklar — dört tip</h3>
+  <p>Ders 01'de gördüğün gerilim/akım kaynakları <b>bağımsızdı</b> (değerleri sabit, devrenin geri kalanından etkilenmez). <b>Bağımlı kaynak</b> ise değeri devredeki <i>başka bir</i> gerilim veya akıma bağlı olan kaynaktır — şemada elmas (◇) şekliyle çizilir (bağımsız kaynaklar daire ile çizilir, bu ayrım şemada bağımlı/bağımsız ayrımını hemen gösterir). Dört kombinasyon mümkün:</p>
+  <table class="tbl">
+    <tr><th>Kısaltma</th><th>Açılımı</th><th>Kontrol eden</th><th>Ürettiği</th></tr>
+    <tr><td><b>GKGK</b></td><td>Gerilim Kontrollü Gerilim Kaynağı</td><td>bir gerilim (V)</td><td>gerilim (V)</td></tr>
+    <tr><td><b>AKGK</b></td><td>Akım Kontrollü Gerilim Kaynağı</td><td>bir akım (I)</td><td>gerilim (V)</td></tr>
+    <tr><td><b>GKAK</b></td><td>Gerilim Kontrollü Akım Kaynağı</td><td>bir gerilim (V)</td><td>akım (I)</td></tr>
+    <tr><td><b>AKAK</b></td><td>Akım Kontrollü Akım Kaynağı</td><td>bir akım (I)</td><td>akım (I)</td></tr>
+  </table>
+  <p>Örnek gösterim: <code>2Iₓ</code> yazan bir elmas kaynak, devredeki <code>Iₓ</code> akımının 2 katı kadar gerilim/akım üretir demektir (hangisi olduğu elmasın içindeki + / − işaretinden ya da okundan bellidir). <span class="cite">Bağımlı kaynaklar gerçek dünyada yalnız başına bulunmaz — transistör, OPAMP gibi aktif elemanların devre modeli her zaman bağımlı kaynak içerir.</span></p>
+
+  <p class="mission">⚠️ <b>Kaynak dönüşümünde fark:</b> Bölüm 4'teki kaynak dönüşümü kuralı bağımlı kaynaklar için de <b>aynen</b> çalışır — tek fark, dönüştürdüğün kaynağın değeri (<code>2Iₓ</code> gibi) hesaplamalar boyunca sabit bir sayı değil, bir <i>ifade</i> olarak taşınır.</p>
 
   <h2>2. İdeal devre elemanları</h2>
   <h3>a) Direnç (Resistor)</h3>
@@ -180,6 +208,13 @@
     ⚠️ <b>Kaynak dönüşümü Khan Türkçe Ünite 1'de yok</b> — bu ders (Bölüm 4) o boşluğu dolduruyor. İstersen İngilizce <a href="https://www.khanacademy.org/science/electrical-engineering">Khan EE — Source transformation</a> videosuyla pekiştirebilirsin.<br>
     📘 Yazılı referans: <a href="https://spinningnumbers.org/">spinningnumbers.org</a><br>
     🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/devre-terminolojisi-hizli-basvuru.html">Devre Terminolojisi — Hızlı Başvuru</a>
+  </div>
+
+  <div class="src" style="margin-top:.8em">
+    📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
+    Konu: <b>Bölüm 2.3</b> Nodes/Branches/Loops (kitap s. 35, PDF s. 67) · <b>Bölüm 4.4</b> Source Transformation (kitap s. 135, PDF s. 167)<br>
+    Çöz: <b>Problem 2.5, 2.6, 2.7</b> (düğüm/dal sayma — <code>b=l+n−1</code> pratiği) · <b>4.20, 4.22, 4.25</b> (kaynak dönüşümü)<br>
+    <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 2, Solution N" / "Chapter 4, Solution N".</small>
   </div>
 
   <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>

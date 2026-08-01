@@ -1,4 +1,6 @@
-# BM213 Lineer Cebir — Resmî Haftalık Konular (Syllabus)
+> ⚠️ **SÜPERSEDE (2026-07-18):** Bu tablo EBS web sitesinden alınmıştı ve haftalık konuları genel başlıklarla veriyordu. Kullanıcı hocanın **gerçek ders notu PDF'lerini** (`DersNotlari/LineerCebir/*.pdf`) paylaşınca, gerçek içeriğin bu tablodan farklı (Bölüm bazlı, farklı hafta eşlemeli) ilerlediği ortaya çıktı. **Artık tek doğru kaynak `lessons/lineer-cebir/ROADMAP.md`.** Bu dosya sadece tarihsel kayıt olarak duruyor — yeni bir şey planlarken buna değil ROADMAP.md'ye bak.
+
+# BM213 Lineer Cebir — Resmî Haftalık Konular (Syllabus) [ESKİ/GEÇERSİZ]
 
 > Kaynak: Düzce EBS BM213 ders sayfası "Ders Planı (Haftalık Konular)" (kullanıcı paylaştı).
 > Link: https://ebs.duzce.edu.tr/tr-TR/Ders/Index/333778?bno=14&bot=14&yilNo=0

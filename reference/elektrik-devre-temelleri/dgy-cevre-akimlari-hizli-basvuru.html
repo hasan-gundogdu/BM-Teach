@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Düğüm Gerilimleri & Çevre Akımları Yöntemi</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #2e5c7a; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#2e5c7a; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#e9f0f4; border-left:3px solid #2e5c7a; padding:.5em .9em; border-radius:4px; }
+  .warn{ background:#fbf1e6; border-left:3px solid #b5762a; padding:.5em .9em; border-radius:4px; margin:.6em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table{ border-collapse:collapse; margin:.6em auto; font-size:.92rem; width:100%; }
+  th, td{ border:1px solid #e2ded5; padding:.35em .6em; text-align:center; font-family:Consolas,monospace; }
+  th{ background:#e9f0f4; font-family:inherit; }
+  td.l{ text-align:left; font-family:inherit; }
+  a{ color:#2e5c7a; }
+  small{ color:#6b6b6b; }
+  @media print{ body{background:#fff} h2{page-break-after:avoid} .card,.rule,.warn,table{page-break-inside:avoid} }
+</style>
+</head>
+<body>
+  <h1>Düğüm Gerilimleri (DGY) & Çevre Akımları Yöntemi</h1>
+  <p style="color:#6b6b6b;font-style:italic">Elektrik Devre Temelleri (BM107) · Hafta 1 devam · <a href="../../lessons/elektrik-devre-temelleri/0004-dugum-gerilimleri-yontemi.html">Ders 04</a> + <a href="../../lessons/elektrik-devre-temelleri/0005-cevre-akimlari-yontemi.html">Ders 05</a> özeti.</p>
+
+  <h2>Düğüm Gerilimleri Yöntemi (KCL tabanlı)</h2>
+  <div class="rule">
+    1) Referans düğüm seç (0V) · 2) Her düğüme KCL: <code>Σ I_çıkan = 0</code>, dal akımı <code>I=(v_a−v_b)/R</code> · 3) <code>n−1</code> denklemi çöz
+  </div>
+  <div class="warn">⚠️ Akım kaynaklı dal: akım zaten bilinir, direkt yaz. Polarite tutarlılığına dikkat.</div>
+
+  <h2>Çevre Akımları Yöntemi (KVL tabanlı)</h2>
+  <div class="rule">
+    1) Her bağımsız çevreye akım yönü ata (genelde saat yönü) · 2) Her çevreye KVL, ortak koldaki düşüm = "bu çevre − komşu çevre" · 3) <code>l</code> denklemi çöz
+  </div>
+  <div class="card">
+    Ortak kol kuralı: 1. çevre denkleminde <code>(i1−i2)</code>, 2. çevre denkleminde <code>(i2−i1)</code> — birbirinin tersi.
+  </div>
+
+  <h2>Kramer Kuralı (2×2)</h2>
+  <div class="card">
+    <code>[a b; c d][x;y]=[e;f]</code> için:<br>
+    <code>D = ad−bc</code> &nbsp;·&nbsp; <code>x = (ed−bf)/D</code> &nbsp;·&nbsp; <code>y = (af−ec)/D</code><br>
+    <small>3×3'te Sarrus kuralı (BM213 Ders 01) kullanılır.</small>
+  </div>
+
+  <h2>Hangi yöntem ne zaman?</h2>
+  <table>
+    <tr><th>Durum</th><th>Tercih</th></tr>
+    <tr><td class="l">Düğüm sayısı az</td><td class="l">DGY</td></tr>
+    <tr><td class="l">Bağımsız çevre sayısı az</td><td class="l">Çevre Akımları</td></tr>
+    <tr><td class="l">Akım kaynağı çok</td><td class="l">DGY (akım zaten bilinir)</td></tr>
+    <tr><td class="l">Gerilim kaynağı çok</td><td class="l">Çevre Akımları</td></tr>
+  </table>
+
+  <p style="border-top:1px solid #e2ded5;margin-top:2em;padding-top:.8em;font-size:.9rem;color:#6b6b6b">
+    📄 Ders 04: <a href="../../lessons/elektrik-devre-temelleri/0004-dugum-gerilimleri-yontemi.html">Düğüm Gerilimleri Yöntemi</a> · Ders 05: <a href="../../lessons/elektrik-devre-temelleri/0005-cevre-akimlari-yontemi.html">Çevre Akımları Yöntemi</a>
+  </p>
+</body>
+</html>

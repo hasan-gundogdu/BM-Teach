@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 08 — Norton Teoremi</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
+  .analogy b.tag{ color:#8a6d2f; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
+  .eq code{ font-size:1.15rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
+  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
+  table.tbl th{ background:var(--note); }
+  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
+          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
+  .cite{ font-size:.85rem; color:var(--soft); }
+  .cite a{ color:var(--soft); }
+  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
+         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 08 · Hafta 2 (2.2)</div>
+  <h1>Norton Teoremi</h1>
+  <p class="lead">Bu dersin sonunda: Thevenin'in <span class="hi">akım kaynaklı ikizini</span> kuracak ve iki eşdeğer arasında (Ders 02'deki kaynak dönüşümü ile) rahatça geçiş yapabileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Thevenin (Ders 07) devreyi gerilim kaynağı + seri direnç olarak sadeleştiriyordu. Norton, <b>aynı devreyi</b> akım kaynağı + paralel direnç olarak sadeleştirir. İkisi de aynı "dışarıdan görünen davranışı" temsil eder — hangisini kullanacağın, sonraki hesabın hangisiyle daha kolay olduğuna bağlı (ör. akım bölücü kullanacaksan Norton, gerilim bölücü kullanacaksan Thevenin daha pratik).</p>
+
+  <h2>1. Fikir</h2>
+  <p>Doğrusal aktif bir devre, a-b uçlarından bakıldığında, tek bir <b>akım kaynağı</b> (<code>I_N</code>) ile ona <b>paralel</b> bağlı tek bir direnç (<code>R_N</code>) ile aynı davranışı gösterir:</p>
+  <div class="circ">   [Karmaşık        a●               a●
+    doğrusal    ≡              ≡    ┬
+    devre]           b●         I_N(↑)  R_N
+                                     ┴
+                                     b●</div>
+  <p><code>I_N</code>, a-b uçları <b>kısa devre</b> edildiğinde (birbirine telle bağlandığında) o telden geçen akımdır — <b>kısa devre akımı</b>. <code>R_N</code> ise Thevenin'deki <code>R_TH</code> ile <b>birebir aynı</b> hesaplanır (bağımsız kaynaklar söndürülür, a-b'den bakılan eşdeğer direnç bulunur).</p>
+
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Thevenin, devreyi sabit basınçlı bir su kulesi + dar boru (seri direnç) gibi tanımlar. Norton, <b>aynı</b> devreyi sabit debili bir pompa + o pompaya paralel bağlı bir "sızıntı" borusu (paralel direnç) gibi tanımlar. İkisi de dışarıya aynı su davranışını sunar — Ders 02'deki kaynak dönüşümünü hatırla, Thevenin↔Norton geçişi tam olarak o dönüşümün ta kendisi.
+  </div>
+
+  <h2>2. Norton ↔ Thevenin dönüşümü</h2>
+  <p>İki eşdeğer arasında geçiş, Ders 02'deki kaynak dönüşümü formülüyle birebir aynıdır:</p>
+  <div class="eq"><code>R_N = R_TH</code> &nbsp;&nbsp;&nbsp; <code>I_N = V_TH / R_TH</code> &nbsp;&nbsp;&nbsp; <code>V_TH = I_N · R_N</code></div>
+  <p>Yani Thevenin eşdeğerini zaten bulduysan (Ders 07), Norton'u bulmak için <b>yeni bir devre analizi yapmana gerek yok</b> — tek satırlık bir kaynak dönüşümü yeterli.</p>
+
+  <h2>3. Dört adım (bağımsız hesaplarsan)</h2>
+  <ol>
+    <li>Yükü (varsa) devreden çıkar.</li>
+    <li>a-b uçlarını <b>kısa devre</b> yap, o telden geçen akımı bul: <code>I_N</code>.</li>
+    <li>Bağımsız kaynakları söndür (Ders 06 kuralları), a-b'den bakılan eşdeğer direnci bul: <code>R_N</code> (Thevenin'deki <code>R_TH</code> ile aynı işlem).</li>
+    <li>Yükü Norton eşdeğerine (akım kaynağı + paralel direnç) geri bağla.</li>
+  </ol>
+
+  <div class="pause">
+    ☕ <b>Doğal duraklama noktası.</b> Kuralları gördün. Şimdi Ders 07'deki <b>aynı devreyi</b> Norton eşdeğerine çevirip, sonucun Thevenin'le uyuştuğunu doğrulayacağız.
+  </div>
+
+  <h2>4. Tam örnek — Ders 07'deki devrenin devamı</h2>
+  <p>Hatırla: 18V kaynak, R1=3Ω, R2=6Ω, R3=2Ω'luk devrede Thevenin eşdeğerini <code>V_TH=12V</code>, <code>R_TH=4Ω</code> bulmuştuk.</p>
+
+  <h3>Yöntem A — Doğrudan dönüşüm (en hızlı)</h3>
+  <div class="eq"><code>R_N = R_TH = 4Ω</code></div>
+  <div class="eq"><code>I_N = V_TH/R_TH = 12/4 = 3A</code></div>
+
+  <h3>Yöntem B — Sıfırdan (doğrulama için)</h3>
+  <p>a-b'yi kısa devre yaparsak, R3 artık doğrudan referansa bağlanmış olur — yani R3, R2 ile <b>paralel</b> hale gelir. Devre: 18V kaynak + R1=3Ω seri, sonra (R2∥R3) paralel kombinasyonu:</p>
+  <div class="eq"><code>R2∥R3 = (6·2)/(6+2) = 1.5Ω</code></div>
+  <p>A düğümündeki gerilim (gerilim bölücü ile): <code>V_A = 18 · 1.5/(3+1.5) = 18 · (1.5/4.5) = 6V</code>. Kısa devre teli üzerinden geçen akım, R3 üzerinden akan akımdır:</p>
+  <div class="eq"><code>I_N = V_A / R3 = 6/2 = 3A</code></div>
+  <p>✅ İki yöntem de <b>I_N = 3A</b> veriyor — doğrudan dönüşüm formülü zaman kazandırıyor ama sıfırdan hesap onu doğruluyor.</p>
+
+  <h3>Norton eşdeğeriyle yük hesabı</h3>
+  <p>Aynı <code>R_L=8Ω</code> yükünü Norton eşdeğerine (3A, 4Ω paralel) bağlarsak, <b>akım bölücü</b> (Ders 03) kullanılır:</p>
+  <div class="eq"><code>I_L = I_N · R_N/(R_N+R_L) = 3 · 4/12 = 1A</code></div>
+  <p>Ders 07'de Thevenin ile bulduğumuz <code>I_L = 1A</code> ile <b>birebir aynı</b> — beklenen sonuç, çünkü iki eşdeğer aynı devreyi temsil ediyor.</p>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Norton eşdeğerinde (3A, 4Ω) yük direnci R_L=4Ω olsaydı, yük akımı kaç Amper olurdu?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>I_L = 3 · 4/(4+4) = 3 · 0.5 = 1.5A</code>. (Ders 07 Soru 1'de aynı R_L için Thevenin'le <code>V_L=6V</code> bulmuştuk; kontrol: <code>I_L=V_L/R_L=6/4=1.5A</code> ✅ — birebir uyuşuyor.)</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (kavram).</b> Bir devrede sadece bağımlı kaynak varsa (bağımsız kaynak söndürüldükten sonra), Norton akımı <code>I_N</code> nasıl bulunur?</p>
+    <details><summary>Çözümü göster</summary>
+      <p>Thevenin'deki gibi: a-b'ye <b>1A'lik test akım kaynağı</b> bağlanır (veya 1V test gerilimi), oluşan gerilim/akım ölçülür, oradan <code>R_N</code> bulunur. Bağımlı-kaynak-tek durumda genelde <code>I_N=0</code> çıkar (kısa devrede sürücü bağımsız kaynak olmadığı için akım akmaz) — asıl bilgi <code>R_N</code>'de saklıdır.</p>
+    </details>
+  </div>
+
+  <h2>Özet tablo</h2>
+  <table class="tbl">
+    <tr><th>Büyüklük</th><th>Thevenin</th><th>Norton</th></tr>
+    <tr><td>Kaynak</td><td>Gerilim (V_TH), seri</td><td>Akım (I_N), paralel</td></tr>
+    <tr><td>Direnç</td><td>R_TH</td><td>R_N = R_TH</td></tr>
+    <tr><td>Bulma yöntemi</td><td>a-b açık devre gerilimi</td><td>a-b kısa devre akımı</td></tr>
+    <tr><td>Dönüşüm</td><td><code>V_TH = I_N·R_N</code></td><td><code>I_N = V_TH/R_TH</code></td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📘 Bu ders, gerçek BM107 ders notunuzun "2.2 Ders Notu" bölümündeki <b>Norton Teoremi</b> konusunu birebir işliyor (kısa devre akımı, Norton-Thevenin dönüşümü, test kaynağı yöntemi).<br>
+    🎥 İngilizce görsel pekiştirme: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering, Norton's Theorem</a>.<br>
+    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html">Süperpozisyon/Thevenin/Norton/Maks.Güç — Hızlı Başvuru</a>
+  </div>
+
+  <div class="src" style="margin-top:.8em">
+    📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
+    Konu: <b>Bölüm 4.6</b> Norton's Theorem (kitap s. 145-149, PDF s. 177-181)<br>
+    Çöz: <b>Problem 4.37</b> (temel Norton) · <b>4.45, 4.48</b> (bağımlı kaynaklı — test kaynağı yöntemi) · <b>4.53</b> (ileri seviye)<br>
+    <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 4, Solution N".</small>
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← <a href="0007-thevenin-teoremi.html">Ders 07 — Thevenin Teoremi</a></span>
+    <span><a href="../../reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html">🗂️ Referans kartı</a></span>
+    <span>Sıradaki: Ders 09 — Maksimum Güç Transferi</span>
+  </div>
+
+</div>
+</body>
+</html>

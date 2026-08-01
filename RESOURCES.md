@@ -24,33 +24,34 @@
 
 ### Gaps
 - **Geçmiş sınav soruları** elde yok. Hocadan/önceki dönem öğrencilerinden bulunursa eklenecek (sınav formatı için kritik).
-- **Khan Academy Türkçe Lineer Cebir — güncellenmiş kapsam (2026-07-18, kullanıcının paylaştığı gerçek ünite/konu listesinden doğrulandı):** Önceki not ("Hafta 12-14 hiç yok") **yanlıştı** — düzeltiliyor. Gerçek durum:
-  - Hafta 1-12 çoğunlukla iyi kapsanıyor (özdeğer/özvektör/özuzay dahil — "Ünite 3: Koordinat Sistemleri" altında var).
-  - **Hâlâ eksik/isimsiz:** Kramer teoremi (isim olarak yok), Hamilton-Cayley/Sylvester teoremleri (isim olarak yok), Vandermonde/üç köşegen özel determinantlar, **Jordan formu (Hafta 13, tamamen yok)**, kuadratik formlar (Hafta 14), kompleks vektör uzayları (Hafta 10).
-  - Bu eksik kalanlar için **MIT 18.06 (Gilbert Strang)** kullanılmalı.
+- **Khan Academy Türkçe Lineer Cebir kapsamı** — Hafta 1-9 (Bölüm 1-6) içeriğiyle iyi örtüşüyor (bkz. her dersin kendi "Birincil kaynak" bölümü). Hafta 10-14 için Khan kapsamı henüz doğrulanmadı, PDF okununca netleşecek.
+- **Düzeltme (2026-07-18):** "Vandermonde/üç köşegen özel determinantlar" ve "Kramer teoremi Khan'da yok" notları **eskiydi** — gerçek ders notu PDF'leri (`DersNotlari/LineerCebir/*.pdf`) okunduğunda, Vandermonde/üç köşegen determinant diye ayrı bir konu **hiç yok** (EBS'nin eski, yanlış çıkan iddiasıydı), Cramer kuralı ve Adjoint matris ise resmi notlarda ayrıntılı işlenmiş ve Ders 0009'da tamamen `teach` ile kapsandı — Khan'da olup olmaması artık önemli değil.
+- Hamilton-Cayley/Sylvester, Jordan formu, kuadratik formlar için Hafta 10-14 PDF'i (`10-11-12.pdf`, `13-14.pdf`) henüz okunmadı — o zaman gerçek kapsam netleşecek, MIT 18.06 (Gilbert Strang) yedek kaynak olarak duruyor.
 
-> Not: BM213'ün resmî haftalık syllabus'u alındı (kullanıcı ekran görüntüsü paylaştı, 2026-07-17) — `lessons/lineer-cebir/ROADMAP.md` ile birebir doğrulandı.
+> Not: BM213'ün gerçek ders notu PDF'leri artık tek doğru kaynak — bkz. `lessons/lineer-cebir/ROADMAP.md`. Eski EBS haftalık syllabus'u (`lessons/lineer-cebir/bm213-haftalik-konular.md`) süperlendi, artık kullanılmıyor.
 
 ## Elektrik Devre Temelleri (BM107) Kaynakları
 
-> Kullanıcının belirgin alt yapısı var (bkz. LR0006-edt-altyapi-var) — İngilizce kaynak burada sorun değil, önemli olan syllabus'a birebir uyum ve derinlik.
+> **2026-08-01 güncellemesi:** Kullanıcı hocanın gerçek ders notu PDF'lerini (`DersNotlari/ElektrikDevreTemelleri/*.pdf`, Dr. Öğr. Üyesi Ekrem BAŞER) paylaştı — bunlar artık **tek doğru kaynak ve birincil referans**. Aşağıdaki Khan/Spinning Numbers/Kuphaldt kaynakları **ikincil** (pekiştirme/görsel sezgi) konuma indi. Gerçek ders kapsamı, jenerik 14 haftalık syllabus'tan önemli ölçüde farklı çıktı (bkz. `lessons/elektrik-devre-temelleri/ROADMAP.md`) — Wheatstone köprü, Y-Δ dönüşümü, Millman, Kapasitör, Bobin gerçek notlarda **yok**. Kullanıcının belirgin alt yapısı var (bkz. LR0006-edt-altyapi-var).
 
-### Knowledge
+### Knowledge (birincil)
+- `DersNotlari/ElektrikDevreTemelleri/*.pdf` (Dr. Öğr. Üyesi Ekrem BAŞER, Düzce Üniversitesi) — **Birincil kaynak.** 1. Hafta (temel kavramlar + Ohm/KCL/KVL/seri-paralel), 1. Hafta-Devam (DGY, Çevre Akımları/Kramer), 2.1 (Süperpozisyon, Kaynak Dönüşümü), 2.2 (Thevenin, Norton), 3.1 (Maksimum Güç Transferi), 3.2 (İdeal Opamp — **kapsam dışı**).
+- `DersNotlari/ElektrikDevreTemelleri/Fundamentals of Electric Circuits.pdf` (Alexander & Sadiku, 4. baskı) + `Solutions-Fundamentals-of-Electric-Circuits-5th-Edition-[konkur.in].pdf` — **Pratik soru kaynağı.** Her ders (0001-0009) sonunda "📚 Kitaptan pratik" kutusunda ilgili bölüm + problem numaraları var (pdftotext ile PDF sayfa numaraları doğrulandı: printed sayfa + 32 = PDF sayfası). Çözüm kitabı 5. baskı olduğu için numaralar bazen 1-2 kaymış olabilir — tutmazsa şekil/konuya göre eşleştir.
+
+### Knowledge (ikincil — pekiştirme)
 - [Khan Academy — Electrical Engineering course](https://www.khanacademy.org/science/electrical-engineering) (İngilizce)
-  **Birincil kaynak.** Syllabus'un neredeyse tamamını (devre elemanları, Ohm/Kirchhoff, düğüm/çevre analizi, süperpozisyon, Thevenin/Norton, maks. güç transferi, kapasitör/bobin, OPAMP) birebir kapsıyor. Use for: her haftanın ilk öğrenimi, video + alıştırma.
+  Gerçek ders notundaki konuların çoğunu (devre elemanları, Ohm/Kirchhoff, düğüm/çevre analizi, süperpozisyon, Thevenin/Norton, maks. güç transferi) görsel/video formatında kapsıyor. Use for: konuyu ilk gördükten sonra pekiştirme.
 - [Spinning Numbers](https://spinningnumbers.org/) (İngilizce)
-  Khan EE kursunu hazırlayan kişinin yazılı/referans sitesi — aynı müfredat, metin + şekil formatında. Use for: hızlı tekrar, reference kartı hazırlarken kaynak doğrulama.
-- [Lessons In Electric Circuits (Tony Kuphaldt), Volume I — DC](https://www.circuitbread.com/textbooks/lessons-in-electric-circuits-volume-i-dc) (İngilizce)
-  Klasik, ücretsiz, çok net anlatılmış ders kitabı. Wheatstone köprü, Y-Δ dönüşümü, Millman gibi Khan'da zayıf kapsanan konular için derinlik. Use for: Khan sonrası pekiştirme, formül doğrulama.
+  Khan EE kursunu hazırlayan kişinin yazılı/referans sitesi. Use for: hızlı tekrar.
 - [Khan Academy Türkçe — Fizik / Devreler](https://tr.khanacademy.org/science/10-sinif-fizik/x700e03322a1a4ae2:elektrik-ve-manyetizma) (Türkçe)
-  Yalnızca Hafta 1-3 (akım/voltaj/güç, Ohm, Kirchhoff) seviyesinde — lise fiziği kapsamında. Use for: temel kavramları Türkçe hızlıca tazelemek.
+  Yalnızca temel kavramlar (akım/voltaj/güç, Ohm, Kirchhoff) seviyesinde — lise fiziği kapsamında. Use for: temel kavramları Türkçe hızlıca tazelemek.
 
 ### Wisdom (Communities)
 - Henüz eklenmedi.
 
 ### EBS resmî ders sayfası
-- **BM107 Elektrik Devre Temelleri:** program linkinden ders adına tıklanarak ulaşılır (bkz. BM213 linki yukarıda, aynı program sayfası).
+- **BM107 Elektrik Devre Temelleri:** program linkinden ders adına tıklanarak ulaşılır (bkz. BM213 linki yukarıda, aynı program sayfası). Artık ikincil — gerçek ders notu PDF'leri esas alınıyor.
 
 ### Gaps
-- **Türkçe kaynak Hafta 4 sonrası (karışık devreler → OPAMP) zayıf/yok.** Bu bölümlerde İngilizce Khan EE + Spinning Numbers + Kuphaldt kullanılacak, teach lessons Türkçe anlatımla köprü kuracak.
 - Geçmiş sınav soruları elde yok.
+- 3.2 (İdeal Opamp) sonrası ders notu var mı bilinmiyor — kullanıcı "opampa kadar sorumluyuz" dediği için araştırılmadı.

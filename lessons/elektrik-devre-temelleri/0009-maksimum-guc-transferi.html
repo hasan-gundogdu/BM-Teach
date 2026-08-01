@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 09 — Maksimum Güç Transferi</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
+  .analogy b.tag{ color:#8a6d2f; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
+  .eq code{ font-size:1.15rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
+  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
+  table.tbl th{ background:var(--note); }
+  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
+          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
+  .cite{ font-size:.85rem; color:var(--soft); }
+  .cite a{ color:var(--soft); }
+  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
+         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 09 · Hafta 3 (3.1)</div>
+  <h1>Maksimum Güç Transferi</h1>
+  <p class="lead">Bu dersin sonunda: bir kaynaktan bir yüke <span class="hi">en fazla gücün ne zaman aktarıldığını</span> bilecek ve bunun için gereken yük direncini <span class="hi">Thevenin eşdeğerinden</span> (Ders 07) tek adımda bulabileceksin. BM107'nin sorumlu olduğun son teoremi burası.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Ders 07-08'de aynı Thevenin/Norton eşdeğerine <b>farklı</b> yükler (8Ω, sonra 4Ω) bağladık ve her seferinde farklı güç aktarıldı. Doğal soru: hangi yük değeri, kaynaktan <b>en fazla</b> gücü çeker? Cevap mühendislikte çok pratik: hoparlör-amplifikatör eşleşmesi, güneş paneli-yük eşleşmesi, akü şarj devresi tasarımı hep bu soruya dayanır.</p>
+
+  <h2>1. Teorem</h2>
+  <p>Doğrusal bir devrede, yük direnci <b>Thevenin eşdeğer direncine eşit olduğunda</b> (<code>R_L = R_TH</code>), yük <b>maksimum gücü</b> çeker:</p>
+  <div class="eq"><code>R_L = R_TH</code> &nbsp;&nbsp;→&nbsp;&nbsp; <code>P_max = V_TH² / (4·R_TH)</code></div>
+  <p>Norton eşdeğeri cinsinden aynı sonuç:</p>
+  <div class="eq"><code>R_L = R_N</code> &nbsp;&nbsp;→&nbsp;&nbsp; <code>P_max = I_N²·R_N / 4</code></div>
+
+  <h3>Formülün nereden geldiği (sezgi)</h3>
+  <p>Yükteki güç <code>P = I²·R_L = (V_TH/(R_TH+R_L))² · R_L</code>'dir. <code>R_L</code>'yi 0'dan sonsuza kadar değiştirirsen:</p>
+  <ul>
+    <li><code>R_L → 0</code> (kısa devre): akım maksimum ama <code>P=I²·0=0</code> — güç sıfıra gider (Ders 03: kısa devrede gerilim sıfır).</li>
+    <li><code>R_L → ∞</code> (açık devre): akım sıfıra gider, yine <code>P→0</code>.</li>
+    <li>İkisinin arasında bir yerde güç <b>bir tepe noktasına</b> ulaşır — matematiksel olarak bu tepe tam <code>R_L=R_TH</code>'ta oluşur.</li>
+  </ul>
+
+  <div class="analogy">
+    <b class="tag">🚴 Analoji:</b> Bir bisikletin vitesini düşün. Çok "hafif" vitesle (küçük direnç) pedal çok hızlı döner ama neredeyse hiç kuvvet iletmezsin — az iş yaparsın. Çok "ağır" vitesle (büyük direnç) çok kuvvet uygularsın ama pedal zar zor döner — yine az iş yaparsın. Ortada, bacak gücünle bisikletin direncinin <b>eşleştiği</b> bir vites var — orada en hızlı ilerlersin (en çok güç aktarırsın). Maksimum güç transferi teoremi tam bu "eşleşme noktası"nı buluyor.
+  </div>
+
+  <p class="mission">⚠️ <b>Sık karışan nokta — verim (%) ile karıştırma:</b> <code>R_L=R_TH</code> olduğunda yüke <b>en çok güç</b> gider, ama bu en <b>verimli</b> (en az kayıplı) çalışma noktası değildir! O noktada, kaynağın ürettiği toplam gücün tam <b>yarısı</b> R_TH üzerinde ısı olarak kaybolur (R_TH ve R_L eşit olduğu için akım ikisinden de aynı geçer, güç dağılımı da eşit — bkz. Ders 01 güç formülü <code>P=I²R</code>). Güç şebekelerinde verim önceliklidir (R_L≫R_TH tercih edilir); ses/sinyal devrelerinde ise maksimum güç transferi önceliklidir. Hangi hedefin öncelikli olduğu uygulamaya göre değişir.</p>
+
+  <div class="pause">
+    ☕ <b>Doğal duraklama noktası.</b> Formülü ve mantığını gördün. Şimdi Ders 07-08'deki devreyi tamamlayıp üç teoremi birbirine bağlayacağız.
+  </div>
+
+  <h2>2. Tam örnek — aynı devrenin sonucu</h2>
+  <p>Ders 07-08'de Thevenin/Norton eşdeğerini <code>V_TH=12V</code>, <code>R_TH=4Ω</code> (Norton: <code>I_N=3A</code>, <code>R_N=4Ω</code>) bulmuştuk. Bu devreye bağlanacak yük için maksimum güç şartı:</p>
+  <div class="eq"><code>R_L = R_TH = 4Ω</code></div>
+  <div class="eq"><code>P_max = V_TH²/(4·R_TH) = 12²/(4·4) = 144/16 = 9W</code></div>
+
+  <p><b>Karşılaştırma — Ders 07'deki <code>R_L=8Ω</code> ne kadar güç çekiyordu?</b> Orada <code>I_L=1A</code> bulmuştuk, yani <code>P = I_L²·R_L = 1²·8 = 8W</code>. Bu, maksimumdan (<code>9W</code>) <b>daha az</b> — beklenen sonuç, çünkü <code>8Ω ≠ R_TH(4Ω)</code>.</p>
+
+  <p><b>Karşılaştırma — Ders 07 Soru 1'deki <code>R_L=4Ω</code> ne kadar çekiyordu?</b> Orada <code>I_L=1.5A</code> bulmuştuk: <code>P = 1.5²·4 = 9W</code> — tam olarak maksimum! Çünkü orada zaten <code>R_L=R_TH=4Ω</code> şartı sağlanmıştı, fark etmeden maksimum noktayı bulmuştuk.</p>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Norton eşdeğerini (<code>I_N=3A, R_N=4Ω</code>) kullanarak aynı <code>P_max</code> değerini doğrula.</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>P_max = I_N²·R_N/4 = 3²·4/4 = 9·4/4 = 9W</code> ✅ — Thevenin formülüyle birebir aynı sonuç, beklendiği gibi (iki eşdeğer aynı devre).</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> Bir devrenin Thevenin eşdeğeri <code>V_TH=20V</code>, <code>R_TH=5Ω</code>. Maksimum güç için gereken <code>R_L</code> ve <code>P_max</code> nedir?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>R_L = R_TH = 5Ω</code></p>
+      <p><code>P_max = 20²/(4·5) = 400/20 = 20W</code></p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (kavram).</b> Bir mühendis, güneş panelinden evin şebekesine mümkün olduğunca <b>az kayıpla</b> (yüksek verimle) enerji aktarmak istiyor. Yük direncini panelin iç direncine eşitlemeli mi?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><b>Hayır.</b> <code>R_L=R_TH</code> en çok gücü aktarır ama verim orada sadece <b>%50</b>'dir (gücün yarısı panelin iç direncinde kaybolur). Yüksek verim için <code>R_L</code>'nin <code>R_TH</code>'tan <b>büyük</b> seçilmesi gerekir — bu Soru başlığındaki "verim vs maksimum güç" ayrımının tam pratik örneği (yukarıdaki uyarı kutusuna bkz).</p>
+    </details>
+  </div>
+
+  <h2>Özet tablo</h2>
+  <table class="tbl">
+    <tr><th>Büyüklük</th><th>Formül</th></tr>
+    <tr><td>Maks. güç şartı</td><td><code>R_L = R_TH = R_N</code></td></tr>
+    <tr><td>Maks. güç (Thevenin)</td><td><code>P_max = V_TH²/(4R_TH)</code></td></tr>
+    <tr><td>Maks. güç (Norton)</td><td><code>P_max = I_N²·R_N/4</code></td></tr>
+    <tr><td>O noktadaki verim</td><td>Her zaman %50</td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📘 Bu ders, gerçek BM107 ders notunuzun "3.1 Ders Notu" bölümündeki <b>Maksimum Güç Transferi</b> konusunu birebir işliyor (teorem, Thevenin/Norton üzerinden türetim, gerçek dünya uygulamaları: güneş enerjisi, akü şarj cihazları, ses amplifikatörleri).<br>
+    🎥 İngilizce görsel pekiştirme: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering, Maximum Power Transfer</a>.<br>
+    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html">Süperpozisyon/Thevenin/Norton/Maks.Güç — Hızlı Başvuru</a>
+  </div>
+
+  <div class="src" style="margin-top:.8em">
+    📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
+    Konu: <b>Bölüm 4.8</b> Maximum Power Transfer (kitap s. 150-152, PDF s. 182-184)<br>
+    Çöz: <b>Problem 4.66, 4.67</b> (temel R_L=R_TH pratiği) · <b>4.69</b> (bağımlı kaynaklı) · <b>4.74</b> (köprü devresinde maks. güç — ileri seviye)<br>
+    <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 4, Solution N".</small>
+  </div>
+
+  <p class="mission">✅ <b>Kapsam notu:</b> Bu ders, senin BM107'de sorumlu olduğun konuların <b>sonuncusu</b> — bir sonraki başlık (OPAMP) senin belirttiğin gibi kapsam dışı. GIDIS-SIRASI.md dosyasında bu netleştirildi.</p>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← <a href="0008-norton-teoremi.html">Ders 08 — Norton Teoremi</a></span>
+    <span><a href="../../reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html">🗂️ Referans kartı</a></span>
+    <span>Sıradaki: (kapsam dışı — OPAMP)</span>
+  </div>
+
+</div>
+</body>
+</html>

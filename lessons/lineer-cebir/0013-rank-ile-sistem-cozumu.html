@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ders — Rank ile Sistem Çözümü ve Homojen Sistemler</title>
+<title>Ders 13 — Rank ile Sistem Çözümü ve Homojen Sistemler</title>
 <style>
   :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
   *{box-sizing:border-box}
@@ -43,9 +43,9 @@
 <body>
 <div class="wrap">
 
-  <div class="kicker">Lineer Cebir · Bölüm 6.2-6.3.2</div>
+  <div class="kicker">Lineer Cebir · Ders 13 · Bölüm 6.2-6.3.2</div>
   <h1>Rank ile Sistem Çözümü ve Homojen Sistemler</h1>
-  <p class="lead">Bu dersin sonunda: bir sistemin <span class="hi">kaç çözümü olduğunu</span> (tek/sonsuz/hiç) sadece rank karşılaştırmasıyla önceden bileceksin — hiç çözmeden. Bu, Ders 01-02'deki geometrik yorumun (kesişen/paralel/çakışık doğrular) <b>rank diliyle</b> ifadesi.</p>
+  <p class="lead">Bu dersin sonunda: bir sistemin <span class="hi">kaç çözümü olduğunu</span> (tek/sonsuz/hiç) sadece rank karşılaştırmasıyla önceden bileceksin — hiç çözmeden. Bu, Ders 06'daki geometrik yorumun (kesişen/paralel/çakışık doğrular) <b>rank diliyle</b> ifadesi.</p>
 
   <p class="mission">🎯 <b>Neden bu?</b> Bu, "Bölüm 6"nın asıl amacı — hocanın notu bu yüzden "Rank Kavramı" başlığını taşıyor. Determinant sadece kare (n×n) sistemlerde işe yarıyordu; rank, <b>her boyuttaki</b> sistem için (kare olmayanlar dahil) çalışır.</p>
 
@@ -69,7 +69,7 @@
   <h3>Örnek 3 — çözümsüz (r(A) ≠ r(AB))</h3>
   <div class="eq"><code>x + y = 2</code> · <code>2x + 2y = 5</code></div>
   <p class="step">Aynı <code>A</code>, yine <code>r(A)=1</code>. Ama <code>[A:B]</code> = <table class="m"><tr><td>1</td><td>1</td><td>|</td><td>2</td></tr><tr><td>2</td><td>2</td><td>|</td><td>5</td></tr></table>: <code>R2 → R2−2R1</code>: <code>(0,0|1)</code> — sıfır olmayan bir satır çıktı → <code>r(AB)=2</code>.</p>
-  <p><code>r(A)=1 ≠ r(AB)=2</code> → <b>çözüm yok</b>. (Bu, Ders 01'deki "paralel ama çakışmayan doğrular" durumunun rank karşılığı.)</p>
+  <p><code>r(A)=1 ≠ r(AB)=2</code> → <b>çözüm yok</b>. (Bu, Ders 06'daki "paralel ama çakışmayan doğrular" durumunun rank karşılığı.)</p>
 
   <h2>2. Lineer Homojen Denklem Sistemi (AX=0)</h2>
   <p><code>AX=0</code> sisteminde <code>[A:0]</code>'ın rankı her zaman <code>A</code>'nın rankına eşittir (sıfır sütunu rankı asla artıramaz) — yani <b>her homojen sistemin en az bir çözümü vardır</b>: <code>x₁=x₂=...=xₙ=0</code>. Buna <b>sıfır çözüm</b> (trivial solution) denir.</p>
@@ -122,7 +122,7 @@
   <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
 
   <div class="nav">
-    <span>← <a href="0012-matris-ranki.html">Matris Rankı</a></span>
+    <span>← <a href="0012-matris-ranki.html">Ders 12 — Matris Rankı</a></span>
     <span>Bu, Hafta 1-9 (Bölüm 1-6) içeriğinin sonu — sıradaki: Hafta 10-12 PDF'i okunacak</span>
   </div>
 

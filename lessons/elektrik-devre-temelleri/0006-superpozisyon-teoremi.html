@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 06 — Süperpozisyon Teoremi</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
+  .analogy b.tag{ color:#8a6d2f; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
+  .eq code{ font-size:1.15rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
+  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
+  table.tbl th{ background:var(--note); }
+  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
+          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
+  .cite{ font-size:.85rem; color:var(--soft); }
+  .cite a{ color:var(--soft); }
+  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
+         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 06 · Hafta 2 (2.1)</div>
+  <h1>Süperpozisyon Teoremi</h1>
+  <p class="lead">Bu dersin sonunda: <span class="hi">birden fazla kaynağı olan</span> bir devrede, her kaynağın etkisini <span class="hi">ayrı ayrı</span> hesaplayıp sonra toplayarak gerçek akım/gerilimi bulabileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Ders 04-05'teki DGY/Çevre Akımları her zaman işe yarar ama çok kaynaklı devrelerde denklemler kalabalıklaşır. Süperpozisyon, "böl ve fethet" mantığıyla devreyi <b>tek kaynaklı alt-problemlere</b> ayırır — her biri Ders 03 seviyesinde basit bir devre olur. Bu teorem aynı zamanda Ders 08-09'daki Thevenin/Norton'da kullanacağın "kaynağı söndürme" tekniğinin de temelini atıyor.</p>
+
+  <h2>1. Doğrusallık (lineerlik) şartı</h2>
+  <p>Süperpozisyon <b>yalnızca doğrusal devrelerde</b> geçerlidir — yani her elemanın (direnç) değeri sabit kalıp Ohm Kanunu'na uyduğu devrelerde. Bu şartın matematiksel kalbi <b>toplanabilirlik özelliği</b>dir:</p>
+  <div class="eq"><code>v = (i1 + i2)·R = i1·R + i2·R = v1 + v2</code></div>
+  <p>Yani: iki akımın toplamının yarattığı gerilim, her akımın <i>ayrı ayrı</i> yarattığı gerilimlerin toplamına eşittir. Direnç devreleri bu özelliği otomatik sağlar (Ohm Kanunu zaten çarpma/toplama ile doğrusal).</p>
+
+  <div class="analogy">
+    <b class="tag">🎵 Analoji:</b> Bir odada aynı anda iki hoparlörden farklı müzik çalıyor. Kulağının duyduğu toplam ses dalgası, her hoparlörün <b>tek başına</b> ürettiği ses dalgalarının toplamıdır — hoparlör 1'i kapatıp sadece 2'yi dinleyebilir, sonra tersini yapabilir, ikisini "zihinsel olarak" toplayarak ikisi birden çaldığındaki sesi tahmin edebilirsin. Bu, ses dalgalarının (ve doğrusal devrelerin) <b>üst üste binebilir (superposable)</b> olmasının sonucu.
+  </div>
+
+  <h2>2. Üç adım</h2>
+  <ol>
+    <li><b>Bir bağımsız kaynak hariç hepsini söndür.</b> Söndürme kuralı:
+      <ul>
+        <li><b>Bağımsız gerilim kaynağı</b> → <b>kısa devre</b> (0V, yani sadece tel) ile değiştirilir.</li>
+        <li><b>Bağımsız akım kaynağı</b> → <b>açık devre</b> (0A, yani kesilir) ile değiştirilir.</li>
+        <li><b>Bağımlı kaynaklar</b> (Ders 02) <b>asla söndürülmez</b> — devre değişkenlerine bağlı oldukları için oldukları gibi bırakılır.</li>
+      </ul>
+    </li>
+    <li>Kalan tek-kaynaklı basit devrede istenen akım/gerilimi Ders 03'ün araçlarıyla (Ohm, gerilim/akım bölücü) bul.</li>
+    <li>Diğer her kaynak için 1-2. adımı tekrarla, sonunda tüm katkıları <b>cebirsel olarak</b> (işaretlerine dikkat ederek) topla.</li>
+  </ol>
+
+  <p class="mission">⚠️ <b>Neden gerilim kaynağı kısa, akım kaynağı açık devre olur?</b> "Söndürmek", o kaynağın değerini <b>sıfıra</b> çekmek demektir. Bir gerilim kaynağının değeri sıfırsa (<code>V=0</code>), uçları arasında hiç potansiyel farkı yok → bu, düz bir telle (kısa devre) aynı şey. Bir akım kaynağının değeri sıfırsa (<code>I=0</code>), o daldan hiç akım geçmiyor → bu da devrenin kesilmesiyle (açık devre) aynı şey. Ders 03'teki kısa/açık devre tanımını hatırla.</p>
+
+  <div class="pause">
+    ☕ <b>Doğal duraklama noktası.</b> Buraya kadar kuralları gördün. Devamı tam bir sayısal örnek.
+  </div>
+
+  <h2>3. Tam örnek</h2>
+  <p>12V'luk gerilim kaynağı, R1=4Ω ile seri olarak bir düğüme bağlı. Aynı düğüme 3A'lik bir akım kaynağı doğrudan giriyor. Düğümden R2=2Ω ile referansa (0V) bağlanılıyor. R2 üzerindeki akımı (<code>I</code>) bul.</p>
+  <div class="circ">   12V(+)──[R1=4Ω]──┬──[R2=2Ω]──┐
+                     │            │
+                  3A ─▶           │
+                     └────────────┘ (referans, 0V)</div>
+
+  <h3>Adım 1 — Sadece 12V kaynağı aktif (akım kaynağı açık devre)</h3>
+  <p>Akım kaynağı çıkarılınca devre, R1-R2 üzerinden basit bir <b>gerilim bölücü</b> olur (Ders 03):</p>
+  <div class="eq"><code>I' = 12 / (R1+R2) = 12/6 = 2A</code></div>
+
+  <h3>Adım 2 — Sadece 3A kaynağı aktif (gerilim kaynağı kısa devre)</h3>
+  <p>Gerilim kaynağı kısa devre olunca, R1'in sol ucu da referansa bağlanmış olur — yani R1 ve R2 artık <b>paralel</b> ve 3A bu ikisi arasında <b>akım bölücü</b> ile paylaşılır (Ders 03):</p>
+  <div class="eq"><code>I'' = 3 · R1/(R1+R2) = 3 · 4/6 = 2A</code></div>
+
+  <h3>Adım 3 — Topla</h3>
+  <div class="eq"><code>I = I' + I'' = 2 + 2 = 4A</code></div>
+
+  <p><b>Doğrulama (DGY ile, Ders 04):</b> Düğüm geriliminde KCL: <code>(12−V)/4 + 3 = V/2</code>. Çözersen <code>V=8V</code>, dolayısıyla <code>I = V/R2 = 8/2 = 4A</code> — birebir aynı sonuç. ✅</p>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Yukarıdaki örnekte R2 üzerindeki gerilim kaç Volt? Her iki adımdaki katkıları ayrı ayrı hesaplayıp sonra topla.</p>
+    <details><summary>Çözümü göster</summary>
+      <p>Adım 1'de: <code>V' = I'·R2 = 2·2 = 4V</code>. Adım 2'de: <code>V'' = I''·R2 = 2·2 = 4V</code>. Toplam: <code>V = 4+4 = 8V</code> — düğüm gerilimiyle (bir önceki doğrulama) birebir uyuşuyor.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (kavram).</b> Bir devrede güç hesaplarken süperpozisyon uygulanabilir mi — yani "her kaynağın gücünü ayrı hesapla, sonra topla" doğru mudur?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><b>Hayır.</b> Güç, akım/gerilimin <b>karesiyle</b> orantılıdır (<code>P=I²R</code>) — kare alma işlemi doğrusal değildir (<code>(a+b)² ≠ a²+b²</code>). Süperpozisyon sadece <b>akım ve gerilim</b> için geçerlidir; güç için önce süperpozisyonla toplam akım/gerilimi bulup, <b>sonra</b> tek seferde güç hesabı yapılmalıdır.</p>
+    </details>
+  </div>
+
+  <h2>Özet tablo</h2>
+  <table class="tbl">
+    <tr><th>Kaynak türü</th><th>Söndürülünce ne olur</th></tr>
+    <tr><td>Bağımsız gerilim kaynağı</td><td>Kısa devre (tel, V=0)</td></tr>
+    <tr><td>Bağımsız akım kaynağı</td><td>Açık devre (kesik, I=0)</td></tr>
+    <tr><td>Bağımlı kaynak (Ders 02)</td><td>Asla söndürülmez — olduğu gibi kalır</td></tr>
+  </table>
+  <table class="tbl">
+    <tr><th>Geçerli</th><th>Geçersiz</th></tr>
+    <tr><td>Akım süperpozisyonu</td><td>Güç süperpozisyonu (kare alma doğrusal değil)</td></tr>
+    <tr><td>Gerilim süperpozisyonu</td><td>—</td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📘 Bu ders, gerçek BM107 ders notunuzun "2.1 Ders Notu" bölümündeki <b>Süperpozisyon Teoremi</b> konusunu birebir işliyor (doğrusallık toplanabilirlik özelliği, kaynak söndürme kuralları, adım adım çözüm).<br>
+    🎥 İngilizce görsel pekiştirme: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering, Superposition</a>.<br>
+    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html">Süperpozisyon/Thevenin/Norton/Maks.Güç — Hızlı Başvuru</a>
+  </div>
+
+  <div class="src" style="margin-top:.8em">
+    📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
+    Konu: <b>Bölüm 4.2-4.3</b> Linearity & Superposition (kitap s. 128-134, PDF s. 160-166)<br>
+    Çöz: <b>Problem 4.8, 4.9</b> (temel süperpozisyon) · <b>4.12, 4.15</b> (bağımlı kaynaklı — bağımlı kaynağın <b>asla söndürülmediğini</b> pratikte gör)<br>
+    <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 4, Solution N".</small>
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← <a href="0005-cevre-akimlari-yontemi.html">Ders 05 — Çevre Akımları Yöntemi</a></span>
+    <span><a href="../../reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html">🗂️ Referans kartı</a></span>
+    <span>Sıradaki: Ders 07 — Thevenin Teoremi</span>
+  </div>
+
+</div>
+</body>
+</html>

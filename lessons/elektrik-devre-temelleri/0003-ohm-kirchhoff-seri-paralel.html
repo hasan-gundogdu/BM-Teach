@@ -68,6 +68,42 @@
 
   <p class="mission">💡 <b>Bağlantı — Ders 01'e köprü:</b> Ohm Kanunu'nu güç formülüyle (<code>P = V·I</code>) birleştirirsen direnç için iki yeni güç formülü çıkar: <code>P = I²R</code> (V=IR yerine koy) ve <code>P = V²/R</code> (I=V/R yerine koy). Üçü de aynı şeyi söyler, hangi iki değişkeni bildiğine göre birini seçersin.</p>
 
+  <h3>Direncin kaynağı: özdirenç formülü</h3>
+  <p>Bir malzemenin direnci üç şeye bağlıdır: malzemenin cinsi (<b>özdirenç</b> ρ), teli ne kadar <b>uzun</b> yaptığın (l) ve teli ne kadar <b>kalın</b> yaptığın (kesit alanı A):</p>
+  <div class="eq"><code>R = ρ · l / A</code></div>
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Uzun bir boru suya daha çok direnir (<code>l</code> pay'da → R artar); kalın bir boru daha az direnir (<code>A</code> payda'da → R azalır). Özdirenç ρ ise borunun yapıldığı malzemenin "doğal darlığı" — bakır boru gümüşten biraz daha dar (özdirenci büyük), gümüş neredeyse en iyi iletken.
+  </div>
+  <p>Bakır (ρ≈1.72×10⁻⁸ Ωm) ve gümüş (ρ≈1.59×10⁻⁸ Ωm) gibi metaller çok düşük özdirence sahiptir → <b>iletken</b>. Cam, kauçuk gibi malzemeler çok yüksek özdirence sahiptir → <b>yalıtkan</b>. Kablo üretiminde bakırın tercih edilmesinin nedeni budur: gümüşe yakın iletkenlik, çok daha ucuz.</p>
+
+  <div class="q">
+    <p><b>Soru A.</b> Aynı malzemeden yapılan X teli, Y telinin <b>3 katı uzunlukta</b> ve <b>3 katı yarıçapta</b>. R_X / R_Y oranı kaçtır?</p>
+    <details><summary>Çözümü göster</summary>
+      <p>Kesit alanı yarıçapın karesiyle orantılı (<code>A = πr²</code>), yani yarıçap 3 katına çıkınca alan <b>9 katına</b> çıkar.</p>
+      <p><code>R_X/R_Y = (l_X/A_X)/(l_Y/A_Y) = (3l/9A)/(l/A) = 3/9 = 1/3</code></p>
+      <p>X teli Y'nin <b>üçte biri</b> kadar dirence sahip — uzunluk artışı direnci artırırken, kalınlık artışı (kare ile) onu fazlasıyla telafi ediyor.</p>
+    </details>
+  </div>
+
+  <h3>Direnç renk kodu okuma</h3>
+  <p>Fiziksel direnç elemanlarının üzerinde sayı yazmaz — üzerlerindeki renkli bantlarla kodlanır. 4 bantlı standart kod: ilk iki bant rakam, üçüncü bant çarpan (10'un kuvveti), dördüncü bant tolerans.</p>
+  <table class="tbl">
+    <tr><th>Renk</th><th>Rakam</th><th>Çarpan</th></tr>
+    <tr><td>Siyah</td><td>0</td><td>×1</td></tr>
+    <tr><td>Kahve</td><td>1</td><td>×10</td></tr>
+    <tr><td>Kırmızı</td><td>2</td><td>×100</td></tr>
+    <tr><td>Turuncu</td><td>3</td><td>×1.000</td></tr>
+    <tr><td>Sarı</td><td>4</td><td>×10.000</td></tr>
+    <tr><td>Yeşil</td><td>5</td><td>×100.000</td></tr>
+    <tr><td>Mavi</td><td>6</td><td>×1.000.000</td></tr>
+  </table>
+  <p><b>Örnek:</b> Yeşil–Mavi–Kırmızı–Altın bantlı direnç: <code>56 × 100 = 5.600 Ω = 5,6 kΩ</code>, tolerans ±%5 (altın). <span class="cite">Pratikte bir multimetre ile ölçmek daha hızlıdır, ama devre şemasında etiket okuyamadığın durumlarda (fiziksel breadboard) bu kod işe yarar.</span></p>
+
+  <h3>İletkenlik — direncin tersi</h3>
+  <p><b>İletkenlik (G)</b>, bir malzemede akımın ne kadar rahat aktığının ölçüsüdür — direncin matematiksel tersi:</p>
+  <div class="eq"><code>G = 1/R</code> &nbsp;&nbsp;(birim: Siemens, S)</div>
+  <p>Büyük direnç = küçük iletkenlik, küçük direnç = büyük iletkenlik. Paralel dirençlerde birazdan göreceğin <code>1/R_eş = 1/R1+1/R2+...</code> formülü, iletkenlik cinsinden çok daha sade görünür: <code>G_eş = G1 + G2 + ...</code> (iletkenlikler paralelde toplanır, tıpkı seri dirençlerin toplanması gibi — G, R'nin "aynadaki görüntüsü").</p>
+
   <h2>2. Kirchhoff Akım Kanunu (KCL — Kirşof Akım Kanunu)</h2>
   <p>Bir düğüme <b>giren</b> akımların toplamı, o düğümden <b>çıkan</b> akımların toplamına eşittir:</p>
   <div class="eq"><code>Σ I_giren = Σ I_çıkan</code> &nbsp;&nbsp;(eşdeğer olarak: <code>Σ I_işaretli = 0</code>)</div>
@@ -195,6 +231,13 @@
     🎥 <b>Khan Academy Türkçe, Ünite 1</b>: <b>Ohm Kanunu</b> · <b>Kirşof Akım Kanunu</b> · <b>Kirşof Gerilim Kanunu</b> · <b>Seri Dirençler</b> · <b>Paralel Dirençler</b> · <b>Gerilim Bölücü</b> · <b>Akım Bölücü</b> — bu ders bu videoların Türkçe müfredat karşılığı, hepsi izlenebilir.<br>
     📘 İngilizce ileri kaynak (aynı konular, daha fazla worked example): <a href="https://www.khanacademy.org/science/electrical-engineering">Khan EE</a> · <a href="https://spinningnumbers.org/">spinningnumbers.org</a><br>
     🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/ohm-kirchhoff-hizli-basvuru.html">Ohm & Kirchhoff — Hızlı Başvuru</a>
+  </div>
+
+  <div class="src" style="margin-top:.8em">
+    📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
+    Konu: <b>Bölüm 2.2</b> Ohm's Law, <b>2.4</b> Kirchhoff's Laws, <b>2.5-2.6</b> Series/Parallel (kitap s. 30-52, PDF s. 62-84)<br>
+    Çöz: <b>Problem 2.2, 2.3</b> (Ohm) · <b>2.9-2.15</b> (KCL/KVL, 2.15 ve 2.22'de bağımlı kaynak var — Ders 02'yle bağlantılı) · <b>2.26, 2.29, 2.38</b> (R_eş) · <b>2.35, 2.36</b> (gerilim/akım bölücü)<br>
+    <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 2, Solution N".</small>
   </div>
 
   <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>

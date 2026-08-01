@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Süperpozisyon, Thevenin, Norton, Maks. Güç Transferi</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #2e5c7a; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#2e5c7a; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#e9f0f4; border-left:3px solid #2e5c7a; padding:.5em .9em; border-radius:4px; }
+  .warn{ background:#fbf1e6; border-left:3px solid #b5762a; padding:.5em .9em; border-radius:4px; margin:.6em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table{ border-collapse:collapse; margin:.6em auto; font-size:.92rem; width:100%; }
+  th, td{ border:1px solid #e2ded5; padding:.35em .6em; text-align:center; font-family:Consolas,monospace; }
+  th{ background:#e9f0f4; font-family:inherit; }
+  td.l{ text-align:left; font-family:inherit; }
+  a{ color:#2e5c7a; }
+  small{ color:#6b6b6b; }
+  @media print{ body{background:#fff} h2{page-break-after:avoid} .card,.rule,.warn,table{page-break-inside:avoid} }
+</style>
+</head>
+<body>
+  <h1>Süperpozisyon · Thevenin · Norton · Maks. Güç Transferi</h1>
+  <p style="color:#6b6b6b;font-style:italic">Elektrik Devre Temelleri (BM107) · Hafta 2-3 · <a href="../../lessons/elektrik-devre-temelleri/0006-superpozisyon-teoremi.html">Ders 06-09</a> özeti.</p>
+
+  <h2>Süperpozisyon</h2>
+  <div class="rule">Bir kaynak hariç hepsini söndür → basit devrede katkıyı bul → her kaynak için tekrarla → topla</div>
+  <table>
+    <tr><th>Kaynak</th><th>Söndürülünce</th></tr>
+    <tr><td class="l">Bağımsız gerilim kaynağı</td><td class="l">Kısa devre (V=0)</td></tr>
+    <tr><td class="l">Bağımsız akım kaynağı</td><td class="l">Açık devre (I=0)</td></tr>
+    <tr><td class="l">Bağımlı kaynak</td><td class="l">Asla söndürülmez</td></tr>
+  </table>
+  <div class="warn">⚠️ Süperpozisyon <b>güçte geçersiz</b> (P=I²R karesel, doğrusal değil) — önce akım/gerilimi topla, güç hesabını en son yap.</div>
+
+  <h2>Thevenin Teoremi</h2>
+  <div class="rule">
+    1) Yükü çıkar · 2) a-b açık devre gerilimi = <code>V_TH</code> · 3) Kaynakları söndür, a-b'den bakılan direnç = <code>R_TH</code> · 4) Yükü <code>V_TH</code>+seri <code>R_TH</code>'a bağla
+  </div>
+  <div class="card">Bağımlı kaynak varsa (Adım 3): a-b'ye 1V test kaynağı bağla, çekilen akım <code>i₀</code>'dan <code>R_TH=1/i₀</code></div>
+
+  <h2>Norton Teoremi</h2>
+  <div class="rule">
+    1) Yükü çıkar · 2) a-b kısa devre akımı = <code>I_N</code> · 3) <code>R_N = R_TH</code> (aynı hesap) · 4) Yükü <code>I_N</code>+paralel <code>R_N</code>'e bağla
+  </div>
+  <div class="card">
+    Dönüşüm: <code>V_TH = I_N·R_N</code> ⟺ <code>I_N = V_TH/R_TH</code> (Ders 02 kaynak dönüşümüyle aynı formül)
+  </div>
+
+  <h2>Maksimum Güç Transferi</h2>
+  <div class="rule">
+    <code>R_L = R_TH = R_N</code> iken yük maksimum güç çeker
+  </div>
+  <div class="card">
+    <code>P_max = V_TH²/(4·R_TH)</code> ⟺ <code>P_max = I_N²·R_N/4</code>
+  </div>
+  <div class="warn">⚠️ Maks. güç noktası ≠ maks. verim. O noktada verim her zaman <b>%50</b> — güç sistemlerinde <code>R_L≫R_TH</code> tercih edilir (verim için), sinyal devrelerinde <code>R_L=R_TH</code> (güç için).</div>
+
+  <h2>Üç teoremin bağlantısı (tek örnek)</h2>
+  <div class="card">
+    <code>V_TH=12V, R_TH=4Ω</code> (Ders 07) → <code>I_N=3A, R_N=4Ω</code> (Ders 08) → <code>R_L=4Ω</code>'da <code>P_max=9W</code> (Ders 09)
+  </div>
+
+  <p style="border-top:1px solid #e2ded5;margin-top:2em;padding-top:.8em;font-size:.9rem;color:#6b6b6b">
+    📄 Ders 06: <a href="../../lessons/elektrik-devre-temelleri/0006-superpozisyon-teoremi.html">Süperpozisyon</a> · Ders 07: <a href="../../lessons/elektrik-devre-temelleri/0007-thevenin-teoremi.html">Thevenin</a> · Ders 08: <a href="../../lessons/elektrik-devre-temelleri/0008-norton-teoremi.html">Norton</a> · Ders 09: <a href="../../lessons/elektrik-devre-temelleri/0009-maksimum-guc-transferi.html">Maks. Güç Transferi</a>
+  </p>
+</body>
+</html>

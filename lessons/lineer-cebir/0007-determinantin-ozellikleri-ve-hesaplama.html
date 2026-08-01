@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ders 03 — Determinantın Özellikleri ve Hesaplama Yöntemleri</title>
+<title>Ders 07 — Determinantın Özellikleri ve Hesaplama Yöntemleri</title>
 <style>
   :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
   *{box-sizing:border-box}
@@ -48,14 +48,14 @@
 <body>
 <div class="wrap">
 
-  <div class="kicker">Lineer Cebir · Ders 03 · Hafta 4</div>
+  <div class="kicker">Lineer Cebir · Ders 07 · Bölüm 3.3-3.4</div>
   <h1>Determinantın Özellikleri ve Hesaplama Yöntemleri</h1>
   <p class="lead">Bu dersin sonunda: <span class="hi">üçgen matrisin</span> determinantını gözle görebilecek, satır işlemlerinin determinanta ne yaptığını bilecek, ve bunları kullanarak <span class="hi">4×4 ve daha büyük</span> matrislerin determinantını (Sarrus'a hiç ihtiyaç duymadan) hesaplayabileceksin.</p>
 
   <p class="mission">🎯 <b>Neden bu?</b> Sarrus sadece 3×3'te işe yarıyordu, permütasyon formülü ise 4×4'te 24 terim gerektiriyordu — elle yapılamayacak kadar çok. Bu ders, büyük matrislerin determinantını **pratik ve hızlı** hesaplamanın yolunu açıyor: Gauss'la (zaten bildiğin) üçgen forma indirip, sadece köşegeni çarpmak.</p>
 
   <h2>1. Neden yeni bir yönteme ihtiyacımız var?</h2>
-  <p>Ders 02'de gördün: n×n determinant formülünde <code>n!</code> terim var. n büyüdükçe bu sayı patlıyor:</p>
+  <p>Ders 06'da gördün: n×n determinant formülünde <code>n!</code> terim var. n büyüdükçe bu sayı patlıyor:</p>
   <div class="eq"><code>3! = 6</code> &nbsp;&nbsp; <code>4! = 24</code> &nbsp;&nbsp; <code>5! = 120</code> &nbsp;&nbsp; <code>10! = 3.628.800</code></div>
   <p>4×4'ü bile elle 24 terimle hesaplamak pratik değil. İhtiyacımız olan şey: büyük matrisi, determinantı **kolay hesaplanan bir forma** dönüştürmek. O form: <span class="hi">üçgen matris</span>.</p>
 
@@ -88,7 +88,7 @@
   <p>Bu ispat <b>her boyutta</b> (4×4, 10×10, ...) aynı şekilde çalışır — üçgen matriste her zaman tek hayatta kalan permütasyon "hiç karıştırmama"dır, ve determinant her zaman köşegen çarpımına eşittir.</p>
 
   <h2>3. Satır işlemlerinin determinanta etkisi</h2>
-  <p>Ders 02'de determinantın <span class="hi">hacim/alan ölçeği</span> olduğunu görmüştük (yön vektörlerinin oluşturduğu paralelkenar/paralel yüzlü hacmi). Satır işlemleri, bu vektörleri değiştirir — determinant da buna göre değişir.</p>
+  <p>Ders 06'da determinantın <span class="hi">hacim/alan ölçeği</span> olduğunu görmüştük (yön vektörlerinin oluşturduğu paralelkenar/paralel yüzlü hacmi). Satır işlemleri, bu vektörleri değiştirir — determinant da buna göre değişir.</p>
 
   <h3>Kural 1 — iki satırı yer değiştirmek: işaret ters döner</h3>
   <div class="case"><div><code>det(satır değişmiş) = −det(orijinal)</code><br>Büyüklük (mutlak değer) aynı kalır, sadece işaret değişir.</div></div>
@@ -227,15 +227,15 @@
   <div class="src">
     🎥 Satır işlemlerinin geometrik etkisi: <a href="https://www.youtube.com/watch?v=Ip3X9LOh2dk">3Blue1Brown — The determinant</a>.<br>
     📚 Derinlemesine determinantlar: <a href="https://www.khanacademy.org/math/linear-algebra/matrix-transformations">Khan Academy — Matrix Transformations ünitesi</a> ("Derinlemesine Determinantlar" bölümü).<br>
-    🗂️ Önceki dersler: <a href="0001-sistemler-gauss-determinant.html">Ders 01</a> · <a href="0002-geometrik-yorum-n-boyutlu-determinant.html">Ders 02</a> · Notasyon: <a href="../on-bilgi/0002-matematik-notasyonu.html">Ön Bilgi 02</a>.<br>
+    🗂️ Önceki dersler: <a href="0001-sistemler-gauss-determinant.html">Ders 01</a> · <a href="0006-geometrik-yorum-n-boyutlu-determinant.html">Ders 06</a> · Notasyon: <a href="../on-bilgi/0002-matematik-notasyonu.html">Ön Bilgi 02</a>.<br>
     📝 <b>Pratik yap:</b> <code>DersNotlari/LineerCebir/4-5-6.pdf</code> — Determinant Bölümü Değerlendirme Soruları 5-7 (üst/alt üçgen hale dönüştürüp hesaplama).
   </div>
 
   <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
 
   <div class="nav">
-    <span>← <a href="0002-geometrik-yorum-n-boyutlu-determinant.html">Ders 02</a></span>
-    <span>Sıradaki: <a href="0008-kofaktor-acilimi.html">Kofaktör Açılımı</a></span>
+    <span>← <a href="0006-geometrik-yorum-n-boyutlu-determinant.html">Ders 06</a></span>
+    <span>Sıradaki: <a href="0008-kofaktor-acilimi.html">Ders 08 — Kofaktör Açılımı</a></span>
   </div>
 
 </div>

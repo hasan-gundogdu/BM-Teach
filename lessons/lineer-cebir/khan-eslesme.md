@@ -1,4 +1,6 @@
-# Khan Academy → BM213 Eşleştirmesi (izleme sırası)
+> ⚠️ **SÜPERSEDE (2026-07-18):** Bu dosya eski Ders01-13 (Hafta1-14) numaralandırmasına göreydi. Gerçek PDF notları okunduktan sonra ders numaraları ve sırası tamamen değişti (bkz. `ROADMAP.md`) — buradaki "Ders 04 = Hafta 5" gibi eşlemeler **artık gerçek dosya adlarıyla uyuşmuyor**. Güncel Khan video eşlemesi artık her dersin kendi HTML dosyasındaki "Birincil kaynak" bölümünde ve `GIDIS-SIRASI.md`'de. Bu dosya sadece tarihsel kayıt.
+
+# Khan Academy → BM213 Eşleştirmesi (izleme sırası) [ESKİ/GEÇERSİZ]
 
 > Khan "Doğrusal (Lineer) Cebir" videolarını **BM213 syllabus sırasına** göre dizdik (Khan'ın kendi sırasına göre DEĞİL — Khan vektör/uzayla başlar, o sende Hafta 10).
 > Gündüz sıradaki dersin videolarını izle, akşam teach ile pekiştir. ⚠️ = Khan kapsamıyor/zayıf → teach dersi + Strang/3B1B ile kapatılır.

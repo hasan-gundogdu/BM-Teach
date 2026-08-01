@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 04 — Düğüm Gerilimleri Yöntemi (DGY)</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
+  .analogy b.tag{ color:#8a6d2f; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
+  .eq code{ font-size:1.15rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
+  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
+  table.tbl th{ background:var(--note); }
+  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
+          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
+  .cite{ font-size:.85rem; color:var(--soft); }
+  .cite a{ color:var(--soft); }
+  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
+         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 04 · Hafta 1 (devam)</div>
+  <h1>Düğüm Gerilimleri Yöntemi (DGY)</h1>
+  <p class="lead">Bu dersin sonunda: <span class="hi">herhangi bir karmaşık direnç devresini</span>, düğümlerin gerilimlerini bilinmeyen kabul edip <span class="hi">sistematik bir denklem takımı</span> kurarak çözebileceksin. Ders 03'teki KCL'nin ileri, ölçeklenebilir hali burası.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Ders 03'te 2-3 elemanlı basit devrelerde KCL/KVL'yi sezgiyle uyguladık. Karışık devrelerde (çok düğüm, çok kaynak) sezgi yetmez — <b>sistematik bir yöntem</b> gerekir. DGY tam bu: her devreye aynı 3 adımı uygulayarak, ne kadar karmaşık olursa olsun çözüme ulaşırsın. Gerçek ders notunuzda bu yöntem Hafta 1'in devamında ayrı bir bölüm olarak işlenmiş — BM107'nin en sık kullanılan analiz aracı.</p>
+
+  <h2>1. Fikir: KCL'nin sistematik uygulaması</h2>
+  <p>DGY, Ders 03'teki Kirchhoff Akım Kanunu'nun (KCL) her düğüme sırayla uygulanmasından ibarettir. Tek yeni kavram: <b>referans düğüm</b> — gerilimi <b>0 V kabul edilen</b> düğüm (toprak sembolüyle gösterilir). Devredeki her <b>diğer</b> düğümün gerilimi, bu referansa göre ölçülür.</p>
+
+  <div class="analogy">
+    <b class="tag">🚰 Su analojisi:</b> Bir su tesisatında her kavşağın bir "yükseklik" değeri olduğunu düşün — ama mutlak yükseklik değil, <b>deniz seviyesine (referans) göre</b> yükseklik. Deniz seviyesini 0 kabul edersin, sonra her kavşağın yüksekliğini ona göre söylersin. DGY'de "deniz seviyesi" = referans düğüm (toprak), "yükseklik" = düğüm gerilimi.
+  </div>
+
+  <h2>2. Üç adım</h2>
+  <ol>
+    <li><b>Referans düğümü seç.</b> Genelde en çok dalın birleştiği düğüm veya devrenin "alt" hattı seçilir (keyfi bir seçim, sonuç değişmez). Kalan <code>n−1</code> düğüm için <code>v1, v2, ..., v_{n-1}</code> gerilimlerini bulacaksın (bkz. Ders 02, <code>b=l+n−1</code> formülü — aynı <code>n−1</code> mantığı).</li>
+    <li><b>Referans dışındaki her düğüme KCL uygula.</b> Dal akımlarını, düğüm gerilimleri cinsinden <b>Ohm Kanunu</b> ile ifade et. Kolaylık için: <i>her düğümden akımın dışarı çıktığını varsay</i> (keyfi ama tutarlı bir kural) — bu, işaret hatalarını önler.</li>
+    <li><b>Elde edilen (n−1) bağımsız denklemi çöz.</b> 2 bilinmeyende yok etme yöntemi yeterli; 3+ bilinmeyende matris/Cramer kuralı (BM213'te göreceğin yöntem, bkz. Ders 05) devreye girer.</li>
+  </ol>
+
+  <h3>Dal akımını düğüm gerilimleriyle yazma kuralı</h3>
+  <p>Bir dalın iki ucundaki düğüm gerilimleri <code>v_a</code> ve <code>v_b</code>, aralarındaki direnç <code>R</code> ise, a'dan b'ye akan akım:</p>
+  <div class="eq"><code>I_{a→b} = (v_a − v_b) / R</code></div>
+  <p>Bu, Ohm Kanunu'nun (<code>V=IR</code>) düğüm diline çevrilmiş hali — "büyük gerilimden küçük gerilime doğru akar" sezgisiyle birebir örtüşüyor (Ders 01'deki su kulesi analojisi: yüksekten alçağa akış).</p>
+
+  <p class="mission">⚠️ <b>Polariteye dikkat!</b> Gerçek ders notunun vurguladığı en kritik nokta budur: dal akımı ifadesinde payın sırası (<code>v_a − v_b</code> mi, <code>v_b − v_a</code> mı) akımın <b>hangi yöne aktığını</b> tanımladığın yönle tutarlı olmalı. Bir kaynağın polaritesi ters bağlıysa (− ucu üstte gibi), denklemine bu tersliği eksi işaretle yansıtman gerekir — aksi halde tüm çözüm yanlış çıkar.</p>
+
+  <h3>Akım kaynağı varsa iş kolaylaşır</h3>
+  <p>Bir dalda direnç yerine <b>akım kaynağı</b> varsa, o dalın akımı zaten <b>bilinen bir sayıdır</b> — Ohm Kanunu'na gerek yok, KCL denklemine doğrudan yazılır. Bu yüzden akım kaynaklı devrelerde DGY genelde daha az işlem gerektirir.</p>
+
+  <div class="pause">
+    ☕ <b>Doğal duraklama noktası.</b> Buraya kadar yöntemin mantığını ve kurallarını gördün. Devamı tam bir sayısal örnek — istersen burada bir ara ver.
+  </div>
+
+  <h2>3. Tam örnek — 2 bilinmeyenli devre</h2>
+  <p>A düğümü referans (0V). B düğümüne 3A'lik bir akım kaynağı doğrudan giriyor. B ile referans arasında R1=1Ω, B ile C arasında R2=1Ω, C ile referans arasında R3=2Ω var:</p>
+  <div class="circ">        B ●──────/\/\──────● C
+        │  R2=1Ω           │
+       R1=1Ω              R3=2Ω
+        │                   │
+   3A ─▶│                   │
+        A ●─────────────────┴──● (referans, 0V)</div>
+
+  <p><b>Adım 2 — B düğümüne KCL (çıkan akımlar = giren akımlar):</b> B'ye giren 3A, R1 ve R2 üzerinden dışarı çıkıyor:</p>
+  <div class="eq"><code>3 = v_B/R1 + (v_B − v_C)/R2 = v_B/1 + (v_B − v_C)/1</code></div>
+  <p>Sadeleştirince: <code>2v_B − v_C = 3</code> &nbsp;&nbsp;<b>(Denklem 1)</b></p>
+
+  <p><b>C düğümüne KCL:</b> C'den çıkan tek yollar R2 (B'ye geri) ve R3 (referansa):</p>
+  <div class="eq"><code>(v_C − v_B)/R2 + v_C/R3 = 0</code> &nbsp;→&nbsp; <code>(v_C − v_B)/1 + v_C/2 = 0</code></div>
+  <p>2 ile çarpıp sadeleştirince: <code>−2v_B + 3v_C = 0</code> &nbsp;→&nbsp; <code>v_C = (2/3)v_B</code> &nbsp;&nbsp;<b>(Denklem 2)</b></p>
+
+  <p><b>Adım 3 — çöz:</b> Denklem 2'yi Denklem 1'e yerine koy:</p>
+  <div class="eq"><code>2v_B − (2/3)v_B = 3 → (4/3)v_B = 3 → v_B = 2.25 V</code></div>
+  <div class="eq"><code>v_C = (2/3)(2.25) = 1.5 V</code></div>
+
+  <p><b>Doğrulama (KCL ile):</b> R1'den geçen akım <code>2.25/1 = 2.25A</code>, R2'den <code>(2.25−1.5)/1 = 0.75A</code>, R3'ten <code>1.5/2 = 0.75A</code>. B düğümünde: <code>3 = 2.25 + 0.75</code> ✅. C düğümünde: giren <code>0.75A</code> (R2'den) = çıkan <code>0.75A</code> (R3'e) ✅.</p>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Yukarıdaki devrede R3 üzerindeki gerilim düşümü kaç Volt?</p>
+    <details><summary>Çözümü göster</summary>
+      <p>R3'ün bir ucu C düğümü (<code>v_C=1.5V</code>), diğer ucu referans (0V). Gerilim düşümü doğrudan düğüm gerilimi: <b>1.5V</b>.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (kavram).</b> Bir devrede 4 düğüm var (biri referans). DGY ile kaç bağımsız denklem yazman gerekir?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>n−1 = 4−1 = 3</code> denklem. Referans düğüm zaten 0V olarak bilindiği için ona denklem yazılmaz.</p>
+    </details>
+  </div>
+
+  <h2>Özet tablo</h2>
+  <table class="tbl">
+    <tr><th>Adım</th><th>Ne yapılır</th></tr>
+    <tr><td>1</td><td>Referans düğüm seç (0V), kalan <code>n−1</code> düğüme isim ver</td></tr>
+    <tr><td>2</td><td>Her düğüme KCL uygula, dal akımlarını <code>(v_a−v_b)/R</code> ile yaz</td></tr>
+    <tr><td>3</td><td><code>n−1</code> denklemi çöz (2 bilinmeyen → yok etme, 3+ → matris/Cramer)</td></tr>
+  </table>
+  <table class="tbl">
+    <tr><th>İpucu</th><th>Neden</th></tr>
+    <tr><td>Akım kaynaklı dal → akım zaten bilinir, Ohm'a gerek yok</td><td>İşlemi azaltır</td></tr>
+    <tr><td>"Her düğümden akım çıkıyor" varsayımını sabit tut</td><td>İşaret hatasını önler</td></tr>
+    <tr><td>Kaynak polaritesi ters ise denklemde eksi işaretle yansıt</td><td>Polarite hatası tüm çözümü bozar</td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📘 Bu ders, gerçek BM107 ders notunuzun "1. Hafta-Devam" bölümündeki <b>Düğüm Gerilimleri Yöntemi</b> konusunu birebir işliyor (KCL uygulaması, referans düğüm, polarite uyarısı, akım kaynaklı basitleştirme).<br>
+    🎥 İngilizce görsel pekiştirme: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering, Circuit Analysis</a> (node/mesh analysis bölümü).<br>
+    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/dgy-cevre-akimlari-hizli-basvuru.html">DGY & Çevre Akımları — Hızlı Başvuru</a>
+  </div>
+
+  <div class="src" style="margin-top:.8em">
+    📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
+    Konu: <b>Bölüm 3.2-3.3</b> Nodal Analysis (kitap s. 82-92, PDF s. 114-124)<br>
+    Çöz: <b>Problem 3.2, 3.5</b> (temel düğüm denklemleri) · <b>3.9, 3.13</b> (bağımlı kaynaklı düğüm analizi — ileri seviye)<br>
+    <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 3, Solution N".</small>
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← <a href="0003-ohm-kirchhoff-seri-paralel.html">Ders 03 — Ohm, Kirchhoff, Seri-Paralel</a></span>
+    <span><a href="../../reference/elektrik-devre-temelleri/dgy-cevre-akimlari-hizli-basvuru.html">🗂️ Referans kartı</a></span>
+    <span>Sıradaki: Ders 05 — Çevre Akımları Yöntemi</span>
+  </div>
+
+</div>
+</body>
+</html>
