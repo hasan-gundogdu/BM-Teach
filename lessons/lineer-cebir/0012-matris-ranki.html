@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders — Matris Rankı ve Denk Matrisler Yöntemi</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Bölüm 6.1</div>
+  <h1>Matris Rankı ve Denk Matrisler Yöntemi</h1>
+  <p class="lead">Bu dersin sonunda: bir matrisin <span class="hi">rankını</span> hem determinant tanımıyla hem de çok daha hızlı olan <span class="hi">denk matrisler (satır indirgeme) yöntemiyle</span> bulabileceksin. Rank, ileride sistem çözümünün kaç çözümlü olduğunu belirleyen anahtar sayı.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Hocanın "Bölüm 6" başlığı zaten "Rank Kavramı" — bu, Hafta 7-9'un ikinci yarısı ve sistem çözümünün (sıradaki ders) temeli. Rank olmadan "bu sistemin kaç çözümü var" sorusuna cevap veremeyiz.</p>
+
+  <h2>1. Rank tanımı (determinant üzerinden)</h2>
+  <p><code>m×n</code> boyutlu bir <code>A</code> matrisini ele alalım. Bazı satır/sütunlarını silerek elde edilen <code>r×r</code> boyutlu kare matrislerden <b>en az birinin</b> determinantı sıfırdan farklı, ama <code>r</code>'den <b>daha büyük</b> boyutlu kare matrislerin hepsinin determinantı sıfırsa, <code>r</code> sayısına <code>A</code>'nın <b>rankı</b> denir (<code>r(A)</code>).</p>
+  <p style="font-size:.95rem;color:var(--soft)">Basitçe: rank, "içinden çıkarabildiğin en büyük, determinantı sıfır olmayan kare matrisin boyutu."</p>
+
+  <h3>Örnek — rank belirleme (küçükten büyüğe)</h3>
+  <div class="eq">A = <table class="m"><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>3</td><td>2</td></tr><tr><td>2</td><td>0</td><td>1</td></tr></table></div>
+  <p class="step"><b>Adım 1 — en büyük boyuttan (3×3) başla:</b> <code>det(A) = 1(3−0) − 1(1−4) + 1(0−6) = 3+3−6 = 0</code>. Sıfır çıktı → rank <b>3 olamaz</b>.</p>
+  <p class="step"><b>Adım 2 — 2×2 boyutlu bir alt matrise bak:</b> sol üstteki <code>[[1,1],[1,3]]</code> → <code>det = 1·3−1·1 = 2 ≠ 0</code>.</p>
+  <p>Sıfırdan farklı bir <b>2×2</b> bulduğumuz için ve 3×3 sıfır olduğu için:</p>
+  <div class="eq"><b>r(A) = 2</b></div>
+  <p style="font-size:.9rem;color:var(--soft)">Sıfırdan farklı bir 2×2 bulur bulmaz durabilirsin — diğer 2×2'lerin determinantını hesaplamana gerek yok.</p>
+
+  <h2>2. Denk matrisler yöntemi (çok daha hızlı)</h2>
+  <p><b>Kilit gerçek:</b> elementer satır/sütun dönüşümleri (Ders 0005'teki (a),(b),(c) işlemleri) bir matrisin <b>rankını değiştirmez</b>. Yani <code>A</code>'yı satır indirgenmiş forma getirip, oradaki <b>sıfır olmayan satır sayısını</b> saymak, rankı direkt verir — büyük determinantlarla uğraşmaya gerek kalmaz.</p>
+
+  <h3>Örnek — 3×4 boyutlu bir matrisin rankı</h3>
+  <div class="eq">A = <table class="m"><tr><td>1</td><td>2</td><td>-1</td><td>4</td></tr><tr><td>2</td><td>4</td><td>3</td><td>5</td></tr><tr><td>-1</td><td>-2</td><td>6</td><td>-7</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Bu matris kare değil (3×4) — rankı en fazla 3 olabilir, ama 4×4 determinant zaten <b>mevcut değil</b>. Denk matrisler yöntemiyle hızlıca bulalım.</p>
+  <p class="step"><b>Adım 1:</b> <code>R2 → R2 − 2R1</code>, <code>R3 → R3 + R1</code>: R2=(0,0,5,−3), R3=(0,0,5,−3)</p>
+  <p class="step"><b>Adım 2:</b> <code>R3 → R3 − R2</code> (aynı satırlar, fark sıfır): R3=(0,0,0,0)</p>
+  <p class="step"><b>Adım 3:</b> <code>R2 → (1/5)R2</code>: R2=(0,0,1,−3/5)</p>
+  <p class="step"><b>Adım 4:</b> <code>R1 → R1 + R2</code>: R1=(1,2,0,17/5)</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>2</td><td>0</td><td>17/5</td></tr><tr><td>0</td><td>0</td><td>1</td><td>-3/5</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></div>
+  <p><b>2 tane sıfır olmayan satır</b> kaldı (3. satır tamamen sıfır) → <code>r(A) = 2</code>.</p>
+  <p style="font-size:.9rem;color:var(--soft)">Kontrol: 1. ve 2. satırların sütun 1,3'ten oluşan alt matrisi <code>[[1,0],[0,1]]</code>, determinantı <code>1≠0</code> — rank gerçekten 2, 3 değil (3. satır tamamen sıfırlandığı için 3×3'lük hiçbir alt matris sıfırdan farklı olamaz).</p>
+
+  <h2>3. Lineer bağımsızlık ve rank ilişkisi</h2>
+  <p>Bir <code>A</code> matrisinin <b>lineer bağımsız satır (veya sütun) vektörlerinin maksimum sayısına</b>, <code>A</code>'nın rankı denir — bu, Ders 0011'deki lineer bağımsızlık kavramıyla rankı doğrudan birleştiren tanım.</p>
+  <p style="font-size:.95rem;color:var(--soft)">Örnekteki 2. matriste 3. satır, 1. ve 2. satırların bir kombinasyonu olduğu için (bağımlı), sadece 2 satır gerçekten "bağımsız yön" taşıyor — rank=2 bunu doğruluyor.</p>
+
+  <h2>4. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Bir 4×4 kare matrisin determinantı sıfırdan farklı ise rankı kaçtır?</p>
+    <details><summary>Cevabı göster</summary><p><b>4</b> — determinantı sıfırdan farklı en büyük kare alt matris kendisi (4×4).</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> Denk matrisler yönteminde rank neyi sayarak bulunur?</p>
+    <details><summary>Cevabı göster</summary><p>Satır indirgenmiş formdaki <b>sıfır olmayan satır sayısını</b>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Elementer satır dönüşümleri bir matrisin hangi özelliğini <b>değiştirmez</b>?</p>
+    <details><summary>Cevabı göster</summary><p><b>Rankını</b> (boyutunu değiştirebilir gibi görünse de rank aynı kalır — Ders 0005'teki işlemler sadece görünümü değiştirir).</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4 (kavram).</b> 3×5 boyutlu bir matrisin rankı en fazla kaç olabilir?</p>
+    <details><summary>Cevabı göster</summary><p><b>3</b> — rank, satır sayısı ile sütun sayısından küçük olanı geçemez (burada satır sayısı 3, daha küçük).</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Khan Academy — "Sütun Uzayı ya da Rank'ın Boyutu", "Boşluğun ya da Boş Uzayın Boyutu".<br>
+    🗂️ Önceki ders: <a href="0011-vektorel-carpim-lineer-bagimsizlik.html">Vektörler II — Lineer Bağımsızlık</a>.<br>
+    📝 <b>Pratik yap:</b> <code>DersNotlari/LineerCebir/7-8-9.pdf</code> — Rank Bölümü Değerlendirme Soruları 1-4 (rank belirleme, denk matris yöntemi).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0011-vektorel-carpim-lineer-bagimsizlik.html">Vektörler II</a></span>
+    <span>Sıradaki: <a href="0013-rank-ile-sistem-cozumu.html">Rank ile Sistem Çözümü + Homojen Sistemler</a></span>
+  </div>
+
+</div>
+</body>
+</html>

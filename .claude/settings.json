@@ -8,7 +8,8 @@
       "WebSearch",
       "Bash(start \"\" \"lessons/lineer-cebir/0003-determinantin-ozellikleri-ve-hesaplama.html\")",
       "Bash(start \"\" \"lessons/lineer-cebir/0001-sistemler-gauss-determinant.html\")",
-      "Bash(start \"\" \"lessons/lineer-cebir/0002-geometrik-yorum-n-boyutlu-determinant.html\")"
+      "Bash(start \"\" \"lessons/lineer-cebir/0002-geometrik-yorum-n-boyutlu-determinant.html\")",
+      "Bash(git status *)"
     ]
   }
 }

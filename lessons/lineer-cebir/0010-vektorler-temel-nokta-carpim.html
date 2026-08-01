@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders — Vektörler I: Temel İşlemler ve Nokta Çarpım</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .case{ display:flex; gap:1em; flex-wrap:wrap; margin:.8em 0; }
+  .case > div{ flex:1; min-width:180px; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.7em .9em; font-size:.92rem; }
+  .diagram{ text-align:center; margin:1em auto; max-width:260px; }
+  .diagram svg{ width:100%; height:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Bölüm 5.1-5.4.7</div>
+  <h1>Vektörler I: Temel İşlemler ve Nokta Çarpım</h1>
+  <p class="lead">Bu dersin sonunda: bir vektörü bileşenlerine çevirebilecek, modülünü hesaplayabilecek, birim vektör bulabilecek, ve iki vektörün <span class="hi">nokta çarpımı</span> ile aralarındaki <span class="hi">açıyı</span> hesaplayabileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Bu, hocanın notlarında "Bölüm 5: Vektörler" — Hafta 7-9'un yarısı ve şu ana kadarki derslerimizde (matris/determinant) hiç değinmediğimiz, tamamen ayrı bir konu. Nokta çarpım ve açı formülleri Khan Academy'deki alıştırmalarda zaten karşına çıkmıştı — burada resmi tanımlarını görüyoruz.</p>
+
+  <h2>1. Skaler ve vektörel büyüklük</h2>
+  <div class="case">
+    <div><b>Skaler büyüklük</b><br>Tek bir sayıyla ifade edilir: kütle, sıcaklık, hacim.</div>
+    <div><b>Vektörel büyüklük</b><br>Sayı yetmez — <b>doğrultu ve yön</b> de gerekir: kuvvet, hız, yer değiştirme.</div>
+  </div>
+  <p>Vektörel büyüklükler <b>vektör</b> denen yönlü doğru parçalarıyla gösterilir: <code>A</code> başlangıç noktası, <code>B</code> uç noktası olan vektör <code>AB</code> (üzerinde ok) ile yazılır. Başlangıç-uç arası uzunluğa <b>modül</b> (<code>|AB|</code>) denir.</p>
+
+  <h2>2. Vektör eşitliği, toplama, fark</h2>
+  <p><b>Eşitlik:</b> İki vektörün başlangıç noktaları farklı olsa da, doğrultu/yön/modülleri aynıysa eşittirler (<code>a=b</code>).</p>
+  <p><b>Toplama (üçgen kuralı):</b> <code>b</code>'nin başlangıcını <code>a</code>'nın ucuna getir; <code>a</code>'nın başlangıcından <code>b</code>'nin ucuna çizilen vektör, toplamları (<code>c=a+b</code>).</p>
+  <p><b>Fark:</b> <code>a−b = a+(−b)</code> — yani <code>b</code>'nin tersini alıp topla.</p>
+
+  <h2>3. Bir vektörün skalerle çarpımı, birim vektör</h2>
+  <p><code>m·a</code> vektörü, <code>a</code> ile <b>aynı doğrultuda</b>, modülü <code>m</code> katı. <code>m&lt;0</code> ise yön <b>tam ters</b>.</p>
+  <p><b>Sıfır vektör:</b> modülü <code>0</code> olan vektör (<code>m=0</code> alındığında ortaya çıkan özel durum: <code>0·a = sıfır vektör</code>).</p>
+  <p><b>Bir vektörün tersi (<code>−a</code>):</b> <code>a</code> ile <b>aynı modül ve doğrultuda</b>, ama <b>tamamen ters yönde</b> olan vektör (<code>m=−1</code> alınmış hâli). Bölüm 2'deki fark işlemi (<code>a−b=a+(−b)</code>) bu terslik kavramını kullanıyordu.</p>
+  <p><b>Birim vektör:</b> <code>a</code> ile aynı doğrultu/yönde, modülü <b>tam 1</b> olan vektör. Formül: <code>u = a / |a|</code> (yani <code>a</code>'yı kendi modülüne böl).</p>
+
+  <h2>4. Vektörlerin Oxyz eksen takımında tanımlanması, i-j-k birim vektörleri</h2>
+  <p>Ox, Oy, Oz eksenleri doğrultusundaki birim vektörler: <code>i=(1,0,0)</code>, <code>j=(0,1,0)</code>, <code>k=(0,0,1)</code>.</p>
+  <p>Bir <code>a=(a₁,a₂,a₃)</code> vektörü, bu üç birim vektörün toplamı (lineer kombinasyonu) olarak yazılabilir:</p>
+  <div class="eq"><code>a = a₁i + a₂j + a₃k</code></div>
+  <p><b>Modül formülü:</b></p>
+  <div class="eq"><code>|a| = √(a₁² + a₂² + a₃²)</code></div>
+
+  <h3>Örnek — modül hesabı</h3>
+  <p><code>a = 3i − 2j + k</code> (yani <code>(3,−2,1)</code>) vektörünün modülünü bul.</p>
+  <div class="eq"><code>|a| = √(3² + (−2)² + 1²) = √(9+4+1) = √14</code></div>
+
+  <h3>Örnek — bir vektöre paralel birim vektör</h3>
+  <p><code>a = 3i + 4j</code> vektörüne paralel birim vektörü bul.</p>
+  <p class="step"><b>Adım 1:</b> <code>|a| = √(9+16) = √25 = 5</code>.</p>
+  <p class="step"><b>Adım 2:</b> <code>u = a/|a| = (3/5)i + (4/5)j</code>.</p>
+  <p style="font-size:.9rem;color:var(--soft)">Kontrol: <code>|u| = √((3/5)²+(4/5)²) = √(9/25+16/25) = √(25/25) = 1</code> ✓ — gerçekten birim vektör.</p>
+
+  <h2>5. P₁P₂ vektörünün bileşenleri</h2>
+  <p>Başlangıç noktası <code>P₁(x₁,y₁,z₁)</code>, uç noktası <code>P₂(x₂,y₂,z₂)</code> olan vektörün bileşenleri:</p>
+  <div class="eq"><code>P₁P₂ = (x₂−x₁, y₂−y₁, z₂−z₁)</code></div>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Akılda tutma kolaylığı:</b> her zaman "uç eksi başlangıç" — Ders 02'deki vektör mantığının aynısı.</p>
+
+  <h3>Örnek</h3>
+  <p><code>P₁(−1,0,2)</code>, <code>P₂(0,−1,0)</code> ise <code>P₁P₂</code>'nin bileşenleri:</p>
+  <div class="eq"><code>P₁P₂ = (0−(−1), −1−0, 0−2) = (1, −1, −2)</code></div>
+
+  <h2>6. İki vektörün nokta (skaler) çarpımı</h2>
+  <p><b>Geometrik tanım:</b> <code>a·b = |a||b|cosθ</code> (θ = aralarındaki açı).</p>
+  <p><b>Bileşen formülü:</b> <code>a=(a₁,a₂,a₃)</code>, <code>b=(b₁,b₂,b₃)</code> ise:</p>
+  <div class="eq"><code>a·b = a₁b₁ + a₂b₂ + a₃b₃</code></div>
+  <p style="font-size:.95rem;color:var(--soft)">Sonuç bir <b>sayı</b> (skaler) — vektör değil. <code>i·i=j·j=k·k=1</code>, <code>i·j=j·k=k·i=0</code> (birim vektörler birbirine dik).</p>
+  <p><b>Dik olma testi:</b> <code>a·b=0</code> ve ikisi de sıfır vektör değilse, <code>a</code> ve <code>b</code> birbirine <b>diktir</b>.</p>
+
+  <h2>7. İki vektör arasındaki açı</h2>
+  <div class="eq"><code>cosθ = (a·b)/(|a||b|) = (a₁b₁+a₂b₂+a₃b₃) / (√(a₁²+a₂²+a₃²)·√(b₁²+b₂²+b₃²))</code></div>
+
+  <h3>Tam örnek</h3>
+  <p><code>a = 2i+4j+6k</code>, <code>b = i−3j+2k</code> arasındaki açıyı bul.</p>
+  <p class="step"><b>Adım 1 — nokta çarpım:</b> <code>a·b = 2·1 + 4·(−3) + 6·2 = 2−12+12 = 2</code>.</p>
+  <p class="step"><b>Adım 2 — modüller:</b> <code>|a| = √(4+16+36) = √56</code>, <code>|b| = √(1+9+4) = √14</code>.</p>
+  <p class="step"><b>Adım 3 — çarpım:</b> <code>|a||b| = √56·√14 = √784 = 28</code>.</p>
+  <p class="step"><b>Adım 4:</b> <code>cosθ = 2/28 = 1/14 ≈ 0.0714</code>.</p>
+  <p class="step"><b>Adım 5 (Ön Bilgi 01'deki hesap makinesi/tablo mantığıyla):</b> <code>arccos(0.0714) ≈ 85°54'</code>.</p>
+  <div class="eq"><b>θ ≈ 85°54'</b></div>
+
+  <h2>8. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> <code>a = 4i − 3j + 12k</code> vektörünün modülünü bul.</p>
+    <details><summary>Cevabı göster</summary><p><code>√(16+9+144) = √169 = 13</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> <code>P₁(2,−1,4)</code>, <code>P₂(7,5,−8)</code> ise <code>P₁P₂</code>'nin bileşenleri nedir?</p>
+    <details><summary>Cevabı göster</summary><p><code>(7−2, 5−(−1), −8−4) = (5, 6, −12)</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> <code>k·(i+j)</code> nokta çarpımının sonucu nedir?</p>
+    <details><summary>Cevabı göster</summary><p><code>k·i + k·j = 0 + 0 = 0</code> — birim vektörler birbirine dik olduğu için.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4 (kavram).</b> <code>a·b = 0</code> çıktı ve ikisi de sıfır vektör değil. Bu geometrik olarak ne demek?</p>
+    <details><summary>Cevabı göster</summary><p><code>a</code> ve <code>b</code> birbirine <b>diktir</b> (<code>cosθ=0 → θ=90°</code>).</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Khan Academy — "Vektör Nokta Çarpım ve Vektör Uzunluğu", "İki Vektör Arasındaki Açıların Tanımlanması".<br>
+    🗂️ Ön bilgi: <a href="../on-bilgi/0001-temel-trigonometri.html">Temel Trigonometri</a> (açı hesabı için).<br>
+    📝 <b>Pratik yap:</b> <code>DersNotlari/LineerCebir/7-8-9.pdf</code> — 5. Bölüm Değerlendirme Soruları 1-11 (modül, birim vektör, bileşke vektör, P1P2, nokta çarpım, açı).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0009-cramer-adjoint.html">Cramer + Adjoint</a></span>
+    <span>Sıradaki: Vektörler II — Vektörel Çarpım & Lineer Bağımsızlık</span>
+  </div>
+
+</div>
+</body>
+</html>

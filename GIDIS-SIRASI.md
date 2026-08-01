@@ -7,69 +7,75 @@
 ---
 
 # BM213 — Lineer Cebir · sınav 5 Ağustos
-Kaynak sıralaması: determinant-önce (Düzce syllabus). Detay: `lessons/lineer-cebir/ROADMAP.md`, Khan tam liste: `lessons/lineer-cebir/khan-eslesme.md`.
+> ⚠️ **2026-07-18'de tamamen düzeltildi.** Eski sıralama (aşağıdaki, artık geçersiz) EBS'nin genel haftalık başlıklarına dayanıyordu. Kullanıcı hocanın gerçek ders notu PDF'lerini (`DersNotlari/LineerCebir/*.pdf`) paylaştı — gerçek içerik Bölüm bazlı ilerliyor ve haftalarla farklı eşleşiyor. **Tek doğru kaynak artık `lessons/lineer-cebir/ROADMAP.md`** (PDF'lere birebir bağlı). Aşağıdaki liste o dosyanın özeti — detay için ROADMAP.md'ye bak.
 
-### 1 · Ders 01 — Sistemler, Gauss, 2×2 & 3×3 determinant ✅
-- **1.1 Ders:** `lessons/lineer-cebir/0001-sistemler-gauss-determinant.html`
-- **1.2 Referans:** `reference/lineer-cebir/determinant-ve-sistemler.html`
-- **1.3 Khan:** Eliminasyon Yöntemi ile Denklem Takımları · Matris Kademeli Form (4 bilinmeyenli 3 denklem) · Doğrusal Sistemleri Matrislerle Çözme · 3x3 Determinant · Sarrus Kuralı · 2x2 Ters Matris Formülü (2×2 det)
+### 1 · 0001 — Lineer eşitlik tanımı, Gauss, 2×2/3×3 determinant (Sarrus) ✅
+- **Ders:** `lessons/lineer-cebir/0001-sistemler-gauss-determinant.html` · **Referans:** `reference/lineer-cebir/determinant-ve-sistemler.html`
+- Bölüm 1.1, 1.2, 3.1-3.2
 
-### 2 · Ders 02 — Geometrik yorum, n-boyutlu determinant (minör/kofaktör) ✅
-- **2.1 Ders:** `lessons/lineer-cebir/0002-geometrik-yorum-n-boyutlu-determinant.html`
-- **2.2 Referans:** `reference/lineer-cebir/n-boyutlu-determinant.html`
-- **2.3 Khan:** n x n Determinantı · Determinant ve Paralelkenarın Alanı
-- **2.4 Ön bilgi:** Matematiksel notasyon (Σ, alt indis, σ, permütasyon) — `lessons/on-bilgi/0002-matematik-notasyonu.html` ✅
+### 2 · 0004 — Matrisler ve Özel Matrisler ✅
+- **Ders:** `lessons/lineer-cebir/0004-matrisler-ve-ozel-matrisler.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 1.3 — matris tanımı, eşitlik, özel matrisler (sıfır, transpoze, köşegen, skalar, birim, üç köşegenli, üst/alt üçgen, simetrik, antisimetrik)
+- **Khan:** "Bir Matrisin Transpozu"
 
-### 3 · Ders 03 — Determinantın özellikleri ve hesaplama ✅
-- **3.1 Ders:** `lessons/lineer-cebir/0003-determinantin-ozellikleri-ve-hesaplama.html`
-- **3.2 Referans:** `reference/lineer-cebir/determinant-ozellikleri.html`
-- **3.3 Khan:** Derinlemesine Determinantlar · Satırların Reel Sayı ile Çarpımı · Satırın Skalerle Çarpımı (Düzeltme) · Satırları Toplarken Determinant · Satır Çarpımlarında Determinant · Satır İşlemlerinden Sonra Determinantlar · Üst Üçgensel Determinant · 4x4 Determinantı · Devrik Matrisin Determinantı
+### 3 · 0006 — Matris toplama, skalerle çarpım, matris çarpımı ✅
+- **Ders:** `lessons/lineer-cebir/0006-matrisler-ve-temel-islemler.html` · **Referans:** `reference/lineer-cebir/matris-islemleri.html`
+- Bölüm 1.3 (devam)
+- **Khan:** Matris Vektör Çarpımı · Matris Toplamları ve Çarpımları · Birleşme/Dağılma Özelliği
 
-### 4 · Ders 04 — Özel determinantlar (üçgen, Vandermonde, üç köşegen) ⬅️ SIRADAKİ
-- **4.1 Ders:** ⬜
-- **4.2 Referans:** ⬜
-- **4.3 Khan:** Üst Üçgensel Determinant · ⚠️ Vandermonde & üç köşegen (Khan'da yok → teach)
+### 4 · 0005 — Satır Eşdeğer Matris + Gauss-Jordan Eliminasyonu ✅
+- **Ders:** `lessons/lineer-cebir/0005-satir-esdeger-matris-gauss-jordan.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 2.1-2.3 — arttırılmış matris, satır eşdeğer/indirgenmiş matris tanımı, Gauss & Gauss-Jordan formal
+- **Khan:** Doğrusal Sistemleri Matrislerle Çözme · Matris Sırası-Kademeli Form
 
-### 5 · Ders 05 — Laplace/anti-Laplace açılımı, Cramer teoremi ⬜
-- **5.1 Ders:** ⬜
-- **5.2 Referans:** ⬜
-- **5.3 Khan:** ⚠️ Laplace (isim olarak yok) · ⚠️ Cramer (yok) → teach
+### 5 · 0007 — Ters Matris + Matris Tersi ile Sistem Çözümü ✅
+- **Ders:** `lessons/lineer-cebir/0007-ters-matris.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 2.4-2.5 — [A:I]→[I:A⁻¹] yöntemi, X=A⁻¹B
+- **Khan:** Ters Matris Bulma Örneği · 2×2 Ters Matris Formülü
 
-### 6 · Ders 06 — Matrisler ve temel işlemler, ters matris ✅
-- **6.1 Ders:** `lessons/lineer-cebir/0006-matrisler-ve-temel-islemler.html`
-- **6.2 Referans:** `reference/lineer-cebir/matris-islemleri.html`
-- **6.3 Khan:** Matris Vektör Çarpımı · Matris Toplamları ve Çarpımları · Birleşme/Dağılma Özelliği · Ters Matris Bulma Örneği · 2x2 Ters Formül · Matris Transpozu
+### 6 · 0002 — Geometrik yorum, n-boyutlu determinant (permütasyon) ✅
+- **Ders:** `lessons/lineer-cebir/0002-geometrik-yorum-n-boyutlu-determinant.html` · **Referans:** `reference/lineer-cebir/n-boyutlu-determinant.html`
+- Ek derinlik (resmi notların ötesinde) + Bölüm 3.1 formal permütasyon tanımı
+- **Ön bilgi:** Matematiksel notasyon (Σ, alt indis, σ, permütasyon) — `lessons/on-bilgi/0002-matematik-notasyonu.html` ✅
 
-### 7 · Ders 07 — Kare sistemin ters matris yöntemiyle çözümü ⬜
-- **7.1 Ders:** ⬜  · **7.2 Referans:** ⬜
-- **7.3 Khan:** Ax = b'nin Çözüm Kümesi (+ Ders 06 ters matris videoları)
+### 7 · 0003 — Determinant özellikleri (6 özellik) + üçgen matris ile hesaplama ✅
+- **Ders:** `lessons/lineer-cebir/0003-determinantin-ozellikleri-ve-hesaplama.html` · **Referans:** `reference/lineer-cebir/determinant-ozellikleri.html`
+- Bölüm 3.3-3.4
 
-### 8 · Ders 08 — Matris rankı, genişletilmiş matris, Kronecker-Capelli ⬜
-- **8.1 Ders:** ⬜ · **8.2 Referans:** ⬜
-- **8.3 Khan:** Sütun Uzayı/Rank Boyutu · Boş Uzay Boyutu · Pivot Sütunlar · Rank(A)=Rank(Aᵀ) · ⚠️ Kronecker-Capelli (isim → teach)
+### 8 · 0008 — Kofaktör Açılımı (Minör, Kofaktör) ✅
+- **Ders:** `lessons/lineer-cebir/0008-kofaktor-acilimi.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 3.5
+- **Khan:** n×n Determinantı · Derinlemesine Determinantlar
 
-### 9 · Ders 09 — Vektör uzayları, lineer bağımsızlık, baz, koordinatlar ⬜
-- **9.1 Ders:** ⬜ · **9.2 Referans:** ⬜
-- **9.3 Khan:** Doğrusal Alt Uzaylar · Alt Uzayın Doğurayı · Lineer Birleşimler ve Germe · Bağımlılık/Bağımsızlık 1-2 · Alt Uzay Tabanı
-- **9.4 Ön bilgi:** Temel Trigonometri (Khan'ın vektör videoları büyüklük+açı gösterimini kullanıyor) — `lessons/on-bilgi/0001-temel-trigonometri.html` ✅ · ⚠️ Kompleks sayılar (reel/kompleks vektör uzayı ayrımı için) — henüz yazılmadı
+### 9 · 0009 — Cramer Kuralı + Adjoint Matris ✅
+- **Ders:** `lessons/lineer-cebir/0009-cramer-adjoint.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 4.1-4.2 — A⁻¹=adj(A)/det(A)
+- ⚠️ Cramer/adjoint isim olarak Khan'da net karşılığı yok → teach ile hazırlandı
 
-### 10 · Ders 10 — Lineer dönüşüm ve matrisi, baz değişimi ⬜
-- **10.1 Ders:** ⬜ · **10.2 Referans:** ⬜
-- **10.3 Khan:** Fonksiyonlar ve Doğrusal Dönüşümler · Görselleştirme · Dönüşüm örnekleri (ölçekleme/dönme) · Dönüşümler ve Matris Çarpımı · ⚠️ Baz değişimi (→ teach)
+### 10 · 0010 — Vektörler I: tanım, işlemler, nokta çarpım, açı ✅ ⬅️ SON İZLENEN
+- **Ders:** `lessons/lineer-cebir/0010-vektorler-temel-nokta-carpim.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 5.1-5.4.7 — vektör tanımı, birim vektörler, P1P2 bileşenleri, nokta çarpım, açı
+- **Ön bilgi:** Temel Trigonometri — `lessons/on-bilgi/0001-temel-trigonometri.html` ✅
+- **Khan:** Vektör Nokta Çarpım ve Vektör Uzunluğu · İki Vektör Arasındaki Açıların Tanımlanması
 
-### 11 · Ders 11 — Özdeğer/özvektör, Hamilton-Cayley, Sylvester ⬜
-- **11.1 Ders:** ⬜ · **11.2 Referans:** ⬜
-- **11.3 Khan:** Özdeğer ve Özvektörler · Kare Matris Özdeğeri · Özvektör/Özuzay · 3x3 özdeğer/özvektör · ⚠️ Hamilton-Cayley & Sylvester (→ teach)
-- **11.4 Ön bilgi:** ⚠️ Polinom kökü bulma (karakteristik polinom için) — henüz yazılmadı, gerekecek
+### 11 · 0011 — Vektörel Çarpım, Karışık Çarpım, Lineer Bağımsızlık ✅
+- **Ders:** `lessons/lineer-cebir/0011-vektorel-carpim-lineer-bagimsizlik.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 5.4.8-5.5 — çapraz çarpım (sağ el kuralı, determinant yöntemi), karışık çarpım, lineer kombinasyon, lineer bağımlılık/bağımsızlık
+- **Khan:** Çapraz Çarpım · Doğrusal Bağımsızlık 1-2
 
-### 12 · Ders 12 — Jordan formu, benzerlik, köşegenleştirme ⬜
-- **12.1 Ders:** ⬜ · **12.2 Referans:** ⬜
-- **12.3 Khan:** Öz Tabanın İyi Koordinat Sistemi (köşegenleştirme) · ⚠️ Jordan formu & benzerlik (→ teach)
+### 12 · 0012 — Matris Rankı + Denk Matrisler Yöntemi ✅
+- **Ders:** `lessons/lineer-cebir/0012-matris-ranki.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 6.1
+- **Khan:** Sütun Uzayı ya da Rank'ın Boyutu
 
-### 13 · Ders 13 — Metrik/normlu/Öklid uzayları, kuadratik formlar ⬜
-- **13.1 Ders:** ⬜ · **13.2 Referans:** ⬜
-- **13.3 Khan:** Nokta Çarpım ve Uzunluk · Açılar · Cauchy-Schwarz · Üçgen Eşitsizliği · Ortogonal Tümleyen · Gram-Schmidt · ⚠️ Kuadratik formlar (→ teach)
-- **13.4 Ön bilgi:** Temel Trigonometri (açı/nokta çarpım ilişkisi) — `lessons/on-bilgi/0001-temel-trigonometri.html` ✅
+### 13 · 0013 — Rank ile Sistem Çözümü + Homojen Sistemler ✅ ⬅️ HAFTA 1-9 İÇERİĞİNİN SONU
+- **Ders:** `lessons/lineer-cebir/0013-rank-ile-sistem-cozumu.html` · **Referans:** ⬜ (yazılacak)
+- Bölüm 6.2-6.3.2 — r(A)=r(AB) kuralı, homojen sistem 4 kuralı
+- **Khan:** Doğrusal Bir Sistemin Gösterilmesi İçin Matris Satır Sıralı Formun Kullanılması: Çözüm Olmaz
+
+> **Not (2026-07-18):** Ders 0004-0013'ün referans kartları (hızlı başvuru sayfaları) henüz yazılmadı — dersler tamamlandığı için kullanıcı çalışmaya başlayabilir, referans kartları sonradan eklenecek.
+
+⬜ **Hafta 10-12 ve 13-14 PDF'leri henüz okunmadı** — bu bölüme geldiğimizde `10-11-12.pdf` ve `13-14.pdf` açılıp gerçek içerik doğrulanacak (muhtemelen özdeğer/özvektör/Jordan/kuadratik form konuları farklı sırada/derinlikte çıkabilir — varsayım yapılmayacak).
 
 ---
 
@@ -106,7 +112,7 @@ Henüz başlanmadı. EBS haftalık konuları alınınca eklenecek. (Ayrık kıs�
 ---
 
 ## Ön Bilgi (derse özel değil)
-- Temel Trigonometri: `lessons/on-bilgi/0001-temel-trigonometri.html` + `reference/on-bilgi/trigonometri-hizli-basvuru.html` ✅ (Ders 09, 13 için gerekli · bölge işaretleri/çözüm adımları bu kartın içinde, ayrı dosya değil)
-- Matematiksel Notasyon (Σ, alt indis, σ, permütasyon): `lessons/on-bilgi/0002-matematik-notasyonu.html` ✅ (Ders 02 için gerekli)
-- ⚠️ Kompleks sayılar — henüz yazılmadı (Ders 09 için gerekecek)
-- ⚠️ Polinom kökü bulma — henüz yazılmadı (Ders 11 için gerekecek)
+- Temel Trigonometri: `lessons/on-bilgi/0001-temel-trigonometri.html` + `reference/on-bilgi/trigonometri-hizli-basvuru.html` ✅ (Lineer Cebir 0010 — Vektörler için gerekli)
+- Matematiksel Notasyon (Σ, alt indis, σ, permütasyon): `lessons/on-bilgi/0002-matematik-notasyonu.html` ✅ (Lineer Cebir 0002 için gerekli)
+- ⚠️ Kompleks sayılar — henüz yazılmadı (Lineer Cebir Hafta 10-12 içeriği okunduğunda netleşecek)
+- ⚠️ Polinom kökü bulma — henüz yazılmadı (Lineer Cebir Hafta 13-14 içeriği okunduğunda netleşecek)

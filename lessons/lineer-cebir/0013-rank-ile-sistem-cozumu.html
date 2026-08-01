@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders — Rank ile Sistem Çözümü ve Homojen Sistemler</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .case{ display:flex; gap:1em; flex-wrap:wrap; margin:.8em 0; }
+  .case > div{ flex:1; min-width:180px; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.7em .9em; font-size:.92rem; }
+  ol.rules{ padding-left:1.4em; } ol.rules li{ margin:.5em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Bölüm 6.2-6.3.2</div>
+  <h1>Rank ile Sistem Çözümü ve Homojen Sistemler</h1>
+  <p class="lead">Bu dersin sonunda: bir sistemin <span class="hi">kaç çözümü olduğunu</span> (tek/sonsuz/hiç) sadece rank karşılaştırmasıyla önceden bileceksin — hiç çözmeden. Bu, Ders 01-02'deki geometrik yorumun (kesişen/paralel/çakışık doğrular) <b>rank diliyle</b> ifadesi.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Bu, "Bölüm 6"nın asıl amacı — hocanın notu bu yüzden "Rank Kavramı" başlığını taşıyor. Determinant sadece kare (n×n) sistemlerde işe yarıyordu; rank, <b>her boyuttaki</b> sistem için (kare olmayanlar dahil) çalışır.</p>
+
+  <h2>1. Temel kural: r(A) = r([A:B]) mi?</h2>
+  <p><code>AX=B</code> sisteminin <b>çözümünün mevcut olması</b> için gerek ve yeter şart: katsayılar matrisi <code>A</code>'nın rankı ile arttırılmış matris <code>[A:B]</code>'nin rankının <b>eşit</b> olmasıdır.</p>
+  <div class="case">
+    <div><b>r(A) = r(AB) = n</b><br>(n = bilinmeyen sayısı) → <b>tek çözüm</b> vardır.</div>
+    <div><b>r(A) = r(AB) &lt; n</b><br>→ <b>sonsuz çözüm</b> vardır (<code>n−r</code> tane keyfi sabit).</div>
+    <div><b>r(A) ≠ r(AB)</b><br>→ sistemin <b>çözümü yoktur</b>.</div>
+  </div>
+
+  <h3>Örnek 1 — tek çözüm (r(A)=r(AB)=n)</h3>
+  <p>Ders 01'deki tanıdık sistemi hatırla: <code>x+y+z=6</code>, <code>2x+3y+2z=14</code>, <code>x+2y+4z=17</code> — çözümü <code>(1,2,3)</code> idi. Katsayılar matrisinin determinantı <code>det(A)=3≠0</code> olduğundan <code>r(A)=3</code>. Arttırılmış matrisin rankı da (fazladan sütun çözümü bozmadığı için) <code>r(AB)=3</code>. <code>r(A)=r(AB)=3=n</code> → <b>tek çözüm</b> — zaten bildiğimiz cevap.</p>
+
+  <h3>Örnek 2 — sonsuz çözüm (r(A)=r(AB)<n)</h3>
+  <div class="eq"><code>x + y = 2</code> · <code>2x + 2y = 4</code></div>
+  <p class="step"><b>A</b> = <table class="m"><tr><td>1</td><td>1</td></tr><tr><td>2</td><td>2</td></tr></table>, <code>det(A)=1·2−1·2=0</code> → rank 2 değil. <code>a₁₁=1≠0</code> → <code>r(A)=1</code>.</p>
+  <p class="step"><b>[A:B]</b> = <table class="m"><tr><td>1</td><td>1</td><td>|</td><td>2</td></tr><tr><td>2</td><td>2</td><td>|</td><td>4</td></tr></table> — 2. satır = 2×(1. satır) → bağımlı, <code>r(AB)=1</code> de.</p>
+  <p><code>r(A)=r(AB)=1 < n=2</code> → <b>sonsuz çözüm</b>. <code>n−r=1</code> keyfi sabit var: <code>x=t</code> dersek, <code>y=2−t</code>.</p>
+
+  <h3>Örnek 3 — çözümsüz (r(A) ≠ r(AB))</h3>
+  <div class="eq"><code>x + y = 2</code> · <code>2x + 2y = 5</code></div>
+  <p class="step">Aynı <code>A</code>, yine <code>r(A)=1</code>. Ama <code>[A:B]</code> = <table class="m"><tr><td>1</td><td>1</td><td>|</td><td>2</td></tr><tr><td>2</td><td>2</td><td>|</td><td>5</td></tr></table>: <code>R2 → R2−2R1</code>: <code>(0,0|1)</code> — sıfır olmayan bir satır çıktı → <code>r(AB)=2</code>.</p>
+  <p><code>r(A)=1 ≠ r(AB)=2</code> → <b>çözüm yok</b>. (Bu, Ders 01'deki "paralel ama çakışmayan doğrular" durumunun rank karşılığı.)</p>
+
+  <h2>2. Lineer Homojen Denklem Sistemi (AX=0)</h2>
+  <p><code>AX=0</code> sisteminde <code>[A:0]</code>'ın rankı her zaman <code>A</code>'nın rankına eşittir (sıfır sütunu rankı asla artıramaz) — yani <b>her homojen sistemin en az bir çözümü vardır</b>: <code>x₁=x₂=...=xₙ=0</code>. Buna <b>sıfır çözüm</b> (trivial solution) denir.</p>
+  <p>Asıl soru: <b>sıfırdan başka</b> çözüm var mı? 4 kural:</p>
+
+  <ol class="rules">
+    <li><b>r(A) = n</b> ise sistemin <b>sadece</b> sıfır çözümü vardır.</li>
+    <li><b>r(A) &lt; n</b> ise sıfır çözümden başka çözümler de vardır — <code>n−r</code> keyfi sabit.</li>
+    <li><b>m = n</b> (denklem sayısı = bilinmeyen sayısı) ise, sıfır olmayan çözümün varlığı <b>tam olarak</b> <code>det(A)=0</code> şartına denktir.</li>
+    <li><b>m &lt; n</b> (denklem sayısı bilinmeyenden az) ise, <code>r ≤ m &lt; n</code> otomatik sağlandığından, sistemin <b>her zaman</b> sıfır olmayan çözümü de vardır.</li>
+  </ol>
+
+  <h3>Örnek — Kural 1 (r(A)=n → sadece sıfır çözüm)</h3>
+  <div class="eq"><code>x+y+z=0</code> · <code>2x+3y+2z=0</code> · <code>x+2y+4z=0</code></div>
+  <p>Aynı katsayılar matrisi (<code>det(A)=3≠0</code>) → <code>r(A)=3=n</code> → <b>sadece</b> <code>x=y=z=0</code>.</p>
+
+  <h3>Örnek — Kural 2/4 (r(A)<n → sonsuz çözüm)</h3>
+  <div class="eq"><code>x + y = 0</code> · <code>2x + 2y = 0</code></div>
+  <p><code>r(A)=1 < n=2</code> → sıfırdan başka çözümler var: <code>x=t</code>, <code>y=−t</code> (<code>n−r=1</code> keyfi sabit). Örneğin <code>t=1 → (1,−1)</code> de bir çözüm, sadece <code>(0,0)</code> değil.</p>
+
+  <h2>3. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> <code>r(A)=2</code>, <code>r(AB)=2</code>, bilinmeyen sayısı <code>n=2</code>. Kaç çözüm var?</p>
+    <details><summary>Cevabı göster</summary><p><b>Tek çözüm</b> — <code>r(A)=r(AB)=n</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> <code>r(A)=1</code>, <code>r(AB)=2</code>. Ne olur?</p>
+    <details><summary>Cevabı göster</summary><p><b>Çözüm yok</b> — ranklar eşit değil.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Bir homojen sistemde <code>m &lt; n</code> (denklem, bilinmeyenden az). Sadece sıfır çözüm olabilir mi?</p>
+    <details><summary>Cevabı göster</summary><p><b>Hayır</b> — Kural 4 gereği <code>m&lt;n</code> ise her zaman sıfırdan başka çözüm de vardır.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4 (kavram).</b> Kare (m=n) bir homojen sistemde sıfırdan başka çözüm olması için hangi tek şart yeterli ve gereklidir?</p>
+    <details><summary>Cevabı göster</summary><p><code>det(A) = 0</code> (Kural 3) — bu, <code>r(A)&lt;n</code> ile aynı şey, sadece kare matriste determinant üzerinden ifade edilmiş hâli.</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Khan Academy — "Doğrusal Bir Sistemin Gösterilmesi İçin Matris Satır Sıralı Formun Kullanılması: Çözüm Olmaz", "Sütun Uzayı ya da Rank'ın Boyutu".<br>
+    🗂️ Önceki ders: <a href="0012-matris-ranki.html">Matris Rankı ve Denk Matrisler Yöntemi</a>.<br>
+    📝 <b>Pratik yap:</b> <code>DersNotlari/LineerCebir/7-8-9.pdf</code> — Rank Bölümü Değerlendirme Soruları 5-20 (rank ile sistem çözümü, Cramer/matris tersi tekrarı, homojen sistemler).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0012-matris-ranki.html">Matris Rankı</a></span>
+    <span>Bu, Hafta 1-9 (Bölüm 1-6) içeriğinin sonu — sıradaki: Hafta 10-12 PDF'i okunacak</span>
+  </div>
+
+</div>
+</body>
+</html>

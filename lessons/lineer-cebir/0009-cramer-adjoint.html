@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders — Cramer Kuralı ve Adjoint Matris</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.hi-col{ color:var(--accent); font-weight:700; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Bölüm 4.1-4.2</div>
+  <h1>Cramer Kuralı ve Adjoint Matris</h1>
+  <p class="lead">Bu dersin sonunda: <span class="hi">Cramer kuralıyla</span> bir sistemi tek tek determinant hesaplayarak çözebilecek, ve <span class="hi">adjoint matris</span> yoluyla ters matris bulmanın (Ders 0007'deki [A:I] yönteminin alternatifi) nasıl işlediğini göreceksin. Üstelik ikisini de <b>aynı sistemle</b> deneyip Ders 0007'deki cevapla karşılaştıracağız.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Hocanın notlarında Cramer ve adjoint matris, ters matris yönteminin (Ders 0007) resmi tamamlayıcıları. Aynı soruyu 3 farklı yöntemle (satır indirgeme, Cramer, adjoint) çözüp hep aynı cevaba ulaştığını görmek, hangisini seçersen seç güvenle kullanabileceğini gösterir.</p>
+
+  <h2>1. Cramer Kuralı (tanım)</h2>
+  <p><code>n</code> denklem, <code>n</code> bilinmeyenli <code>AX=B</code> sisteminde, eğer <code>det(A) ≠ 0</code> ise sistemin <b>tek</b> çözümü vardır ve:</p>
+  <div class="eq"><code>x₁ = det(A₁)/det(A)</code>, &nbsp; <code>x₂ = det(A₂)/det(A)</code>, &nbsp; ..., &nbsp; <code>xₙ = det(Aₙ)/det(A)</code></div>
+  <p>Burada <code>Aᵢ</code>, <code>A</code>'nın <b>i. sütununu</b> <code>B</code> ile değiştirerek elde edilen matris.</p>
+
+  <h3>Örnek — Ders 0007'deki aynı sistem</h3>
+  <div class="eq"><code>x + y = 3</code> · <code>y + z = 3</code> · <code>x + z = 3</code></div>
+  <p><code>A</code> = <table class="m"><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr></table>, &nbsp; <code>B = (3,3,3)</code>. Önce <code>det(A)</code>:</p>
+  <p class="step"><code>det(A) = 1(1·1−1·0) − 1(0·1−1·1) + 0 = 1(1) − 1(−1) = 1+1 = 2</code></p>
+
+  <p class="step"><b>A₁</b> (1. sütun → B): <table class="m"><tr><td class="hi-col">3</td><td>1</td><td>0</td></tr><tr><td class="hi-col">3</td><td>1</td><td>1</td></tr><tr><td class="hi-col">3</td><td>0</td><td>1</td></tr></table> → <code>det(A₁) = 3(1−0) − 1(3−3) + 0 = 3</code> → <code>x₁ = 3/2</code></p>
+
+  <p class="step"><b>A₂</b> (2. sütun → B): <table class="m"><tr><td>1</td><td class="hi-col">3</td><td>0</td></tr><tr><td>0</td><td class="hi-col">3</td><td>1</td></tr><tr><td>1</td><td class="hi-col">3</td><td>1</td></tr></table> → <code>det(A₂) = 1(3−3) − 3(0−1) + 0 = 3</code> → <code>x₂ = 3/2</code></p>
+
+  <p class="step"><b>A₃</b> (3. sütun → B): <table class="m"><tr><td>1</td><td>1</td><td class="hi-col">3</td></tr><tr><td>0</td><td>1</td><td class="hi-col">3</td></tr><tr><td>1</td><td>0</td><td class="hi-col">3</td></tr></table> → <code>det(A₃) = 1(3−0) − 1(0−3) + 3(0−1) = 3+3−3 = 3</code> → <code>x₃ = 3/2</code></p>
+
+  <div class="eq"><b>Çözüm: x=y=z=3/2</b></div>
+  <p style="font-size:.9rem;color:var(--soft)"><b>Tam olarak Ders 0007'de ters matris ile bulduğumuz cevabın aynısı</b> — farklı yol, aynı varış noktası.</p>
+
+  <h2>2. Determinant ile tersin mevcudiyeti</h2>
+  <p><code>A</code>, <code>n×n</code> kare matris olsun. <code>det(A) ≠ 0</code> şartı gerçekleşiyorsa <code>A</code>'nın tersi alınabilir (<code>A⁻¹</code> mevcuttur). Yukarıda <code>det(A)=2≠0</code> olduğundan, Ders 0007'de bulduğumuz tersin var olacağını buradan da bilebilirdik.</p>
+
+  <h2>3. Adjoint matris</h2>
+  <p><code>A</code>'nın her elemanına ilişkin kofaktörleri (Ders 0008) bir matrise <code>C</code> olarak yaz. <code>C</code>'nin <b>transpozesi</b>ne <code>A</code>'nın <b>adjoint</b>i denir: <code>adj(A) = Cᵀ</code>.</p>
+
+  <h3>Aynı A için kofaktör matrisini çıkaralım</h3>
+  <p class="step"><code>C₁₁</code>: kalan <code>[[1,1],[0,1]]</code>, det=1 → <code>C₁₁=+1</code></p>
+  <p class="step"><code>C₁₂</code>: kalan <code>[[0,1],[1,1]]</code>, det=−1 → <code>C₁₂=−(−1)=1</code></p>
+  <p class="step"><code>C₁₃</code>: kalan <code>[[0,1],[1,0]]</code>, det=−1 → <code>C₁₃=+(−1)=−1</code></p>
+  <p class="step"><code>C₂₁</code>: kalan <code>[[1,0],[0,1]]</code>, det=1 → <code>C₂₁=−1</code></p>
+  <p class="step"><code>C₂₂</code>: kalan <code>[[1,0],[1,1]]</code>, det=1 → <code>C₂₂=+1</code></p>
+  <p class="step"><code>C₂₃</code>: kalan <code>[[1,1],[1,0]]</code>, det=−1 → <code>C₂₃=−(−1)=1</code></p>
+  <p class="step"><code>C₃₁</code>: kalan <code>[[1,0],[1,1]]</code>, det=1 → <code>C₃₁=+1</code></p>
+  <p class="step"><code>C₃₂</code>: kalan <code>[[1,0],[0,1]]</code>, det=1 → <code>C₃₂=−1</code></p>
+  <p class="step"><code>C₃₃</code>: kalan <code>[[1,1],[0,1]]</code>, det=1 → <code>C₃₃=+1</code></p>
+
+  <div class="eq">C = <table class="m"><tr><td>1</td><td>1</td><td>-1</td></tr><tr><td>-1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>-1</td><td>1</td></tr></table>
+  &nbsp;&nbsp;→&nbsp;&nbsp;
+  adj(A) = Cᵀ = <table class="m"><tr><td>1</td><td>-1</td><td>1</td></tr><tr><td>1</td><td>1</td><td>-1</td></tr><tr><td>-1</td><td>1</td><td>1</td></tr></table></div>
+
+  <h2>4. Adjoint ile ters matris: A⁻¹ = adj(A) / det(A)</h2>
+  <p><code>det(A)=2</code> idi. Her elemanı 2'ye böl:</p>
+  <div class="eq">A⁻¹ = <table class="m"><tr><td>1/2</td><td>-1/2</td><td>1/2</td></tr><tr><td>1/2</td><td>1/2</td><td>-1/2</td></tr><tr><td>-1/2</td><td>1/2</td><td>1/2</td></tr></table></div>
+  <p style="font-size:.9rem;color:var(--soft)"><b>Ders 0007'de [A:I] yöntemiyle bulduğumuz tersle birebir aynı!</b> İki farklı yöntem (satır indirgeme, adjoint), aynı sonuca ulaştı.</p>
+
+  <h2>5. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Cramer kuralını kullanabilmek için ilk kontrol etmen gereken şart nedir?</p>
+    <details><summary>Cevabı göster</summary><p><code>det(A) ≠ 0</code> — sıfırsa Cramer uygulanamaz (sistemin tek çözümü yoktur).</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> <code>A₂</code> matrisi nasıl oluşturulur?</p>
+    <details><summary>Cevabı göster</summary><p><code>A</code>'nın <b>2. sütununu</b>, <code>B</code> (sağ taraf sabitleri) ile değiştirerek.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Kofaktör matrisi <code>C</code> ile adjoint matris <code>adj(A)</code> arasındaki ilişki nedir?</p>
+    <details><summary>Cevabı göster</summary><p><code>adj(A) = Cᵀ</code> — adjoint, kofaktör matrisinin transpozesidir.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4 (kavram).</b> Ders 0007 (satır indirgeme), Cramer ve adjoint — üç yöntem de aynı <code>A⁻¹</code>'i (veya aynı çözümü) verdi. Bu neden şaşırtıcı değil?</p>
+    <details><summary>Cevabı göster</summary><p>Çünkü ters matris (veya sistemin çözümü) <b>tek</b>dir (Ders 0007, Özellik 2) — hangi yöntemle bulursan bul, aynı matematiksel nesneyi arıyorsun, farklı yollar sadece hesaplama tarzını değiştiriyor.</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Khan Academy — "Ters Matris Bulma Örneği" (Cramer ve adjoint resmi olarak Khan'da farklı isimlerle geçmeyebilir — bu ders teach ile hazırlandı).<br>
+    🗂️ Önceki dersler: <a href="0007-ters-matris.html">Ters Matris</a> · <a href="0008-kofaktor-acilimi.html">Kofaktör Açılımı</a>.<br>
+    📝 <b>Pratik yap:</b> <code>DersNotlari/LineerCebir/4-5-6.pdf</code> — 4. Bölüm Değerlendirme Soruları 1-20 (determinant, Cramer, adjoint, ters matris — hepsi bu ders için).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0008-kofaktor-acilimi.html">Kofaktör Açılımı</a></span>
+    <span>Sıradaki: <a href="0010-vektorler-temel-nokta-carpim.html">Vektörler I — Temel İşlemler & Nokta Çarpım</a></span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders — Vektörler II: Vektörel Çarpım ve Lineer Bağımsızlık</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.det{ font-family:"SF Mono",Consolas,monospace; border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .15em; position:relative; }
+  table.det td{ padding:.18em .55em; text-align:center; }
+  table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; width:0; border-left:1.6px solid var(--ink); }
+  table.det::before{ left:-1px; } table.det::after{ right:-1px; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .case{ display:flex; gap:1em; flex-wrap:wrap; margin:.8em 0; }
+  .case > div{ flex:1; min-width:180px; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.7em .9em; font-size:.92rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Bölüm 5.4.8-5.5</div>
+  <h1>Vektörler II: Vektörel Çarpım ve Lineer Bağımsızlık</h1>
+  <p class="lead">Bu dersin sonunda: iki vektörün <span class="hi">vektörel (çapraz) çarpımını</span> determinant yöntemiyle bulabilecek, <span class="hi">karışık çarpımı</span> hesaplayabilecek, ve bir vektör kümesinin <span class="hi">lineer bağımlı mı bağımsız mı</span> olduğunu test edebileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Lineer bağımsızlık, ileride (Hafta 9, rank konusunda) sürekli karşımıza çıkacak bir kavram — "kaç tane gerçekten farklı yön var" sorusunun cevabı. Vektörel çarpım da Ders 0002'deki "vektörlerin oluşturduğu hacim" sezgisinin somut hesaplama aracı.</p>
+
+  <h2>1. Vektörel (çapraz) çarpım — tanım</h2>
+  <p>İki vektörün vektörel çarpımı <code>a×b</code>, öyle bir <b>vektördür</b> ki:</p>
+  <ul>
+    <li><b>Büyüklüğü:</b> <code>|a×b| = |a||b|sinθ</code></li>
+    <li><b>Doğrultusu:</b> <code>a</code> ve <code>b</code>'nin oluşturduğu düzleme <b>dik</b></li>
+    <li><b>Yönü:</b> <span class="hi">sağ el kuralı</span> ile belirlenir — sağ elin dört parmağı <code>a</code>'dan <code>b</code>'ye dönüş yönünü gösterirse, baş parmak <code>a×b</code>'nin yönünü verir.</li>
+  </ul>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Nokta çarpımdan farkı:</b> nokta çarpım bir <b>sayı</b> verir, vektörel çarpım bir <b>vektör</b> verir.</p>
+
+  <h2>2. Determinant yöntemiyle hesaplama</h2>
+  <p><code>a = a₁i+a₂j+a₃k</code>, <code>b = b₁i+b₂j+b₃k</code> ise:</p>
+  <div class="eq">
+    a×b =
+    <table class="det"><tr><td>i</td><td>j</td><td>k</td></tr><tr><td>a₁</td><td>a₂</td><td>a₃</td></tr><tr><td>b₁</td><td>b₂</td><td>b₃</td></tr></table>
+  </div>
+  <p>Bu "determinantı" 1. satırdan kofaktör açılımıyla (Ders 0008) açarsın — sonuç bir sayı değil, <code>i,j,k</code> cinsinden bir <b>vektör</b> çıkar.</p>
+
+  <h3>Tam örnek</h3>
+  <p><code>a = i+2j−2k</code>, <code>b = 3i+k</code> vektörlerinin çapraz çarpımını bul.</p>
+  <div class="eq">
+    a×b =
+    <table class="det"><tr><td>i</td><td>j</td><td>k</td></tr><tr><td>1</td><td>2</td><td>-2</td></tr><tr><td>3</td><td>0</td><td>1</td></tr></table>
+  </div>
+  <p class="step"><b>i katsayısı</b> (1. satır 1. sütun kofaktörü): kalan <code>[[2,-2],[0,1]]</code> → <code>2·1−(−2)·0 = 2</code></p>
+  <p class="step"><b>j katsayısı</b> (işaret ters, çünkü kofaktör): kalan <code>[[1,-2],[3,1]]</code> → <code>1·1−(−2)·3 = 1+6 = 7</code> → <code>−7</code></p>
+  <p class="step"><b>k katsayısı</b>: kalan <code>[[1,2],[3,0]]</code> → <code>1·0−2·3 = −6</code></p>
+  <div class="eq"><b>a×b = 2i − 7j − 6k</b></div>
+
+  <h2>3. Vektörel çarpımın özellikleri</h2>
+  <div class="case">
+    <div><b>1.</b> <code>a×b = −b×a</code> (sıra değişince yön ters döner!)</div>
+    <div><b>2.</b> <code>i×j=k</code>, <code>j×k=i</code>, <code>k×i=j</code> (dairesel sıra)</div>
+    <div><b>3.</b> <code>i×i=j×j=k×k=0</code> (kendisiyle çarpım sıfır)</div>
+    <div><b>4.</b> Eğer <code>a×b=0</code> ve ikisi de sıfır değilse, <code>a</code> ve <code>b</code> <b>paraleldir</b>.</div>
+  </div>
+
+  <h2>4. Karışık (üçlü) çarpım</h2>
+  <p><code>a·(b×c)</code> ifadesine <b>karışık çarpım</b> denir — sonuç bir sayı (skaler). Determinantla direkt hesaplanır:</p>
+  <div class="eq">
+    a·(b×c) =
+    <table class="det"><tr><td>a₁</td><td>a₂</td><td>a₃</td></tr><tr><td>b₁</td><td>b₂</td><td>b₃</td></tr><tr><td>c₁</td><td>c₂</td><td>c₃</td></tr></table>
+  </div>
+  <p style="font-size:.95rem;color:var(--soft)">Yani önce <code>b×c</code>'yi bulup <code>a</code> ile nokta çarpmana bile gerek yok — üç vektörün bileşenlerini satır satır yazıp direkt determinantını al, aynı sonucu verir.</p>
+
+  <h2>5. Lineer kombinasyon</h2>
+  <p><code>a₁, a₂, ..., aₘ</code> vektörleri verilsin. Eğer bir <code>a</code> vektörü <code>a = k₁a₁ + k₂a₂ + ... + kₘaₘ</code> şeklinde (bazı gerçel sayılar <code>k₁,...,kₘ</code> için) yazılabiliyorsa, <code>a</code>'ya bu vektörlerin <b>lineer kombinasyonu</b> denir.</p>
+
+  <h2>6. Lineer bağımlılık ve bağımsızlık</h2>
+  <p><code>a₁, a₂, ..., aₘ</code> vektörleri için şu denklemi kur:</p>
+  <div class="eq"><code>k₁a₁ + k₂a₂ + ... + kₘaₘ = 0</code></div>
+  <div class="case">
+    <div><b>Lineer bağımlı</b><br>Bu denklemi sağlayan, <b>en az biri sıfırdan farklı</b> <code>k</code> değerleri varsa.</div>
+    <div><b>Lineer bağımsız</b><br>Denklem <b>sadece</b> <code>k₁=k₂=...=kₘ=0</code> için sağlanıyorsa (başka çözüm yoksa).</div>
+  </div>
+
+  <h3>Örnek 1 — bağımsız mı bağımlı mı?</h3>
+  <p><code>a₁=(1,2)</code>, <code>a₂=(2,1)</code> vektörleri için <code>k₁a₁+k₂a₂=0</code> kur:</p>
+  <div class="eq"><code>k₁ + 2k₂ = 0</code> &nbsp; ve &nbsp; <code>2k₁ + k₂ = 0</code></div>
+  <p class="step">1. denklemden <code>k₁=−2k₂</code>. 2. denklemde yerine koy: <code>2(−2k₂)+k₂=0 → −4k₂+k₂=−3k₂=0 → k₂=0</code>. O zaman <code>k₁=0</code> da.</p>
+  <p><b>Tek çözüm <code>k₁=k₂=0</code></b> → <code>a₁, a₂</code> <b>lineer bağımsız</b>.</p>
+
+  <h3>Örnek 2 — 3 vektörle bağımlılık testi</h3>
+  <p><code>a₁=(1,2,1)</code>, <code>a₂=(0,1,1)</code>, <code>a₃=(1,0,−1)</code> vektörleri için <code>k₁a₁+k₂a₂+k₃a₃=0</code> kur:</p>
+  <div class="eq"><code>k₁ + k₃ = 0</code> · <code>2k₁ + k₂ = 0</code> · <code>k₁ + k₂ − k₃ = 0</code></div>
+  <p class="step"><b>1. denklemden:</b> <code>k₁ = −k₃</code>.</p>
+  <p class="step"><b>2. denklemden:</b> <code>k₂ = −2k₁ = 2k₃</code>.</p>
+  <p class="step"><b>3. denklemde yerine koy:</b> <code>−k₃ + 2k₃ − k₃ = 0 → 0 = 0</code> — <b>her zaman doğru</b>, yani <code>k₃</code> serbestçe seçilebilir!</p>
+  <p><code>k₃=1</code> seçersek: <code>k₁=−1, k₂=2, k₃=1</code> — <b>sıfırdan farklı</b> bir çözüm bulduk.</p>
+  <div class="eq"><b>a₁, a₂, a₃ lineer bağımlıdır</b> (örneğin <code>−a₁+2a₂+a₃=0</code>)</div>
+  <p style="font-size:.9rem;color:var(--soft)">Kontrol: <code>−(1,2,1)+2(0,1,1)+(1,0,−1) = (−1,−2,−1)+(0,2,2)+(1,0,−1) = (0,0,0)</code> ✓</p>
+
+  <h2>7. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> <code>a×b = c</code> ise <code>b×a</code> nedir?</p>
+    <details><summary>Cevabı göster</summary><p><code>−c</code> — vektörel çarpım sıra değişince işaret (yön) değiştirir.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> <code>a×b = 0</code> (sıfır vektör) çıktı, ikisi de sıfır vektör değil. Bu ne anlama gelir?</p>
+    <details><summary>Cevabı göster</summary><p><code>a</code> ve <code>b</code> <b>paraleldir</b>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Lineer bağımlılık denklemi <code>k₁a₁+k₂a₂+k₃a₃=0</code>'ın <b>tek</b> çözümü <code>k₁=k₂=k₃=0</code> ise vektörler ne olur?</p>
+    <details><summary>Cevabı göster</summary><p><b>Lineer bağımsız</b>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4 (kavram).</b> Karışık çarpım <code>a·(b×c)</code> neden tek bir determinantla (üç vektörü satır satır yazarak) direkt hesaplanabilir?</p>
+    <details><summary>Cevabı göster</summary><p>Çünkü <code>b×c</code>'nin i,j,k bileşenleri zaten bir determinant açılımından geliyor; onu <code>a</code> ile nokta çarparsan, üç vektörün bileşenlerini içeren 3×3 determinantın kendisini elde edersin — ara adımı atlamış olursun.</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Khan Academy — "Çapraz Çarpım", "İzdüşüm ve Çapraz Çarpım", "Doğrusal Bağımsızlık 1-2".<br>
+    🗂️ Önceki ders: <a href="0010-vektorler-temel-nokta-carpim.html">Vektörler I — Temel İşlemler & Nokta Çarpım</a>.<br>
+    📝 <b>Pratik yap:</b> <code>DersNotlari/LineerCebir/7-8-9.pdf</code> — 5. Bölüm Değerlendirme Soruları 12-20 (çapraz çarpım, karışık çarpım, lineer bağımlılık/bağımsızlık).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0010-vektorler-temel-nokta-carpim.html">Vektörler I</a></span>
+    <span>Sıradaki: Matris Rankı + Denk Matrisler Yöntemi</span>
+  </div>
+
+</div>
+</body>
+</html>

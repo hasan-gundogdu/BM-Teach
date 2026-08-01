@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders — Satır Eşdeğer Matris ve Gauss-Jordan</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  ol.rules{ padding-left:1.4em; }
+  ol.rules li{ margin:.4em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Bölüm 2.1-2.3</div>
+  <h1>Satır Eşdeğer Matris ve Gauss-Jordan Eliminasyonu</h1>
+  <p class="lead">Bu dersin sonunda: bir matrisin <span class="hi">satır eşdeğer</span> (row echelon) mi yoksa <span class="hi">satır indirgenmiş</span> (row reduced echelon) mi olduğunu tanıyabilecek, Gauss ve Gauss-Jordan yöntemlerinin <b>resmi tanımını</b> ve aralarındaki farkı bileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Ders 01'de Gauss'u sezgisel olarak (denklem yok etme) öğrendik. Bu ders, aynı işlemi matris diliyle <b>resmileştiriyor</b> — hocanın notlarındaki tam terminoloji ve "hangi matris hazır sayılır" kuralları burada.</p>
+
+  <h2>1. Arttırılmış matris (hatırlatma)</h2>
+  <p><code>m</code> denklem, <code>n</code> bilinmeyenden oluşan bir sistemin katsayılar matrisi <code>A</code> ile sabitler sütunu <code>B</code>'yi yan yana yazınca <b>arttırılmış matris</b> <code>[A:B]</code> elde edilir. Ders 01'de "genişletilmiş matris" dediğimiz şeyin resmi adı bu.</p>
+
+  <h2>2. Elementer satır işlemleri (resmi 3 kural)</h2>
+  <p>Bir matrise uygulayabileceğin 3 işlem:</p>
+  <ol class="rules">
+    <li><b>(a)</b> Bir satırı sıfırdan farklı bir sabit <code>k</code> ile çarpmak: <code>Rᵢ → k·Rᵢ</code></li>
+    <li><b>(b)</b> İki satırın yerini değiştirmek: <code>Rᵢ ↔ Rⱼ</code></li>
+    <li><b>(c)</b> Bir satırın <code>k</code> katını başka bir satıra eklemek: <code>Rᵢ → Rᵢ + k·Rⱼ</code></li>
+  </ol>
+  <p style="font-size:.95rem;color:var(--soft)">Bunlar tam olarak Ders 01'de kullandığın işlemler — burada sadece resmi (a)/(b)/(c) etiketleriyle tanımlandı.</p>
+
+  <h2>3. Satır eşdeğer matris (Row Echelon Form)</h2>
+  <p>Bir matris şu 3 şartı sağlıyorsa <b>satır eşdeğer matris</b> denir:</p>
+  <ol class="rules">
+    <li>Sadece sıfırlardan oluşan satırlar varsa, bunlar matrisin <b>en altında</b>.</li>
+    <li>Sıfır olmayan her satırda, <b>ilk sıfırdan farklı eleman 1</b>'dir (buna "öncü 1" denir).</li>
+    <li>Her satırdaki öncü 1, bir önceki satırdaki öncü 1'in <b>sağında</b> yer alır (basamak gibi iniyor).</li>
+  </ol>
+
+  <div class="eq">
+    <table class="m"><tr><td>1</td><td>5</td><td>3</td></tr><tr><td>0</td><td>1</td><td>-2</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+  </div>
+  <p style="font-size:.95rem;color:var(--soft)">Kontrol: 1. satırın öncü 1'i sütun 1'de, 2. satırınki sütun 2'de (sağda), 3. satırınki sütun 3'te (daha sağda) — basamak düzeninde iniyor. <b>Satır eşdeğer</b> ✓.</p>
+
+  <h3>Satır indirgenmiş matris (Row Reduced Echelon Form) — bir kural daha</h3>
+  <p>Yukarıdaki 3 şarta ek olarak, eğer <b>her öncü 1'in bulunduğu sütunda diğer tüm elemanlar da sıfırsa</b>, matris <b>satır indirgenmiş matris</b> (daha "temiz" bir form) olur.</p>
+
+  <div class="eq">
+    <table class="m"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+    &nbsp;&nbsp;<span class="hi">✓ satır indirgenmiş</span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <table class="m"><tr><td>1</td><td>-2</td><td>0</td></tr><tr><td>0</td><td>1</td><td>3</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+    &nbsp;&nbsp;<span style="color:#9c3f2a">✗ sadece satır eşdeğer</span>
+  </div>
+  <p style="font-size:.95rem;color:var(--soft)">Sağdaki matris satır eşdeğer (3 şartı sağlıyor) ama satır indirgenmiş <b>değil</b> — 2. satırın öncü 1'i (sütun 2), yukarısında <code>-2</code> bırakmış, o da sıfır olmalıydı.</p>
+
+  <h2>4. Gauss Eliminasyon Yöntemi (resmi tanım)</h2>
+  <p>Arttırılmış matris <code>[A:B]</code>'yi, elementer satır işlemleriyle, <b>A kısmı köşegeni 1 olan üst üçgen matris</b> hâline getirip, sonra <span class="hi">geri yerine koyarak</span> çözüme ulaşma işlemi <b>Gauss Eliminasyon Yöntemi</b> olarak bilinir.</p>
+
+  <h3>Örnek — Gauss ile çöz</h3>
+  <div class="eq"><code>x − 2y − z = 2</code> · <code>3x − y + 4z = −1</code> · <code>−2x − 3y + 2z = 3</code></div>
+  <p class="step"><b>Arttırılmış matris:</b></p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>-2</td><td>-1</td><td>|</td><td>2</td></tr><tr><td>3</td><td>-1</td><td>4</td><td>|</td><td>-1</td></tr><tr><td>-2</td><td>-3</td><td>2</td><td>|</td><td>3</td></tr></table></div>
+  <p class="step"><b>Adım 1:</b> <code>R2 → R2 − 3·R1</code>, <code>R3 → R3 + 2·R1</code>: R2=(0,5,7|−7), R3=(0,−7,0|7)</p>
+  <p class="step"><b>Adım 2:</b> <code>R2 → (1/5)·R2</code>: R2=(0,1,7/5|−7/5)</p>
+  <p class="step"><b>Adım 3:</b> <code>R3 → R3 + 7·R2</code>: R3=(0,0,49/5|−14/5)</p>
+  <p class="step"><b>Adım 4:</b> <code>R3 → (5/49)·R3</code>: R3=(0,0,1|−2/7)</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>-2</td><td>-1</td><td>|</td><td>2</td></tr><tr><td>0</td><td>1</td><td>7/5</td><td>|</td><td>-7/5</td></tr><tr><td>0</td><td>0</td><td>1</td><td>|</td><td>-2/7</td></tr></table></div>
+  <p><b>Geri yerine koy:</b> <code>x₃ = −2/7</code>. 2. satır: <code>x₂ + (7/5)(−2/7) = −7/5 → x₂ = −1</code>. 1. satır: <code>x₁ − 2(−1) − (−2/7) = 2 → x₁ = −2/7</code>.</p>
+  <div class="eq"><b>Çözüm: (−2/7, −1, −2/7)</b></div>
+
+  <h2>5. Gauss-Jordan Eliminasyon Yöntemi</h2>
+  <p>Aynı arttırılmış matrisi, elementer satır işlemleriyle <b>A kısmı doğrudan birim matris</b> (<code>I</code>) olacak şekilde (yani <b>satır indirgenmiş</b> forma kadar) götürme işlemi <b>Gauss-Jordan Eliminasyon Yöntemi</b> olarak bilinir. Fark: Gauss'ta durup geri yerine koyuyorsun; Gauss-Jordan'da <b>köşegenin üstünü de sıfırlayıp</b> geri yerine koymaya hiç gerek kalmıyor, cevap doğrudan sağ sütunda okunuyor.</p>
+
+  <h3>Aynı örneği Gauss-Jordan ile bitirelim</h3>
+  <p>Gauss'un son adımından devam: <code>R1 → R1 + R3</code> (köşegenin üstündeki <code>z</code> katsayısını sıfırla), <code>R2 → R2 − (7/5)·R3</code>, sonra <code>R1 → R1 + 2·R2</code>:</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>0</td><td>0</td><td>|</td><td>-2/7</td></tr><tr><td>0</td><td>1</td><td>0</td><td>|</td><td>-1</td></tr><tr><td>0</td><td>0</td><td>1</td><td>|</td><td>-2/7</td></tr></table></div>
+  <p>Sağ sütun doğrudan çözümü veriyor: <code>x₁=−2/7, x₂=−1, x₃=−2/7</code> — Gauss'la bulduğumuzla aynı, ama geri yerine koymaya hiç gerek kalmadı.</p>
+
+  <h2>6. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> <table class="m"><tr><td>1</td><td>2</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table> matrisi satır eşdeğer mi?</p>
+    <details><summary>Cevabı göster</summary><p><b>Evet</b> — sıfır satır en altta, öncü 1'ler (sütun 1, sonra sütun 3) sağa doğru ilerliyor.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> Yukarıdaki matris satır indirgenmiş mi?</p>
+    <details><summary>Cevabı göster</summary><p><b>Evet.</b> Öncü 1'ler sütun 1 (1. satır) ve sütun 3 (2. satır)'te. Sütun 1'in diğer elemanları: <code>0, 0</code> — temiz. Sütun 3'ün diğer elemanları: <code>0, 0</code> — temiz. <code>a₁₂=2</code> sorun değil, çünkü sütun 2 bir öncü 1 sütunu değil (kuralın kapsamadığı bir sütun).</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (kavram).</b> Gauss ile Gauss-Jordan arasındaki temel fark nedir?</p>
+    <details><summary>Cevabı göster</summary><p>Gauss, köşegenin altını sıfırlayıp <b>geri yerine koyarak</b> biter. Gauss-Jordan, köşegenin <b>hem altını hem üstünü</b> sıfırlayıp cevabı doğrudan sağ sütunda okur — geri yerine koymaya gerek kalmaz.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4.</b> <code>Rᵢ → Rᵢ + k·Rⱼ</code> hangi harfle etiketlenen elementer satır işlemidir?</p>
+    <details><summary>Cevabı göster</summary><p><b>(c)</b> — bir satırın k katını başka satıra eklemek.</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Khan Academy — "Doğrusal Sistemleri Matrislerle Çözme", "Matris Sırası-Kademeli Form" videoları.<br>
+    🗂️ Önceki dersler: <a href="0001-sistemler-gauss-determinant.html">Ders 01 — Sistemler ve Gauss</a> · <a href="0006-matrisler-ve-temel-islemler.html">Matris toplama/çarpma</a>.<br>
+    📝 <b>Pratik yap:</b> <code>DersNotlari/LineerCebir/1-2-3.pdf</code> — 2. Bölüm Değerlendirme Soruları 1-8 (satır eşdeğer/indirgenmiş matris tanıma, Gauss/Gauss-Jordan çözümü).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0006-matrisler-ve-temel-islemler.html">Matris toplama/çarpma</a></span>
+    <span>Sıradaki: <a href="0007-ters-matris.html">Ters Matris</a></span>
+  </div>
+
+</div>
+</body>
+</html>

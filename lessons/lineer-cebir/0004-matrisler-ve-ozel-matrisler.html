@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders — Matrisler ve Özel Matrisler</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.diag{ color:var(--accent); font-weight:700; }
+  table.m td.zero{ color:#c9c2b2; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:.8em; margin:.8em 0; }
+  .grid2 > div{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.7em .9em; font-size:.95rem; text-align:center; }
+  .grid2 b{ display:block; color:var(--accent); margin-bottom:.3em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Bölüm 1.3</div>
+  <h1>Matrisler ve Özel Matrisler</h1>
+  <p class="lead">Bu dersin sonunda: bir matrisin <span class="hi">asal köşegenini</span> bulabilecek, 8 farklı özel matris türünü (köşegen, birim, üçgen, simetrik, ...) tanıyabilecek ve <span class="hi">transpoze</span> alabileceksin. Bunlar ileride determinant, ters matris ve rank konularının temel kelime dağarcığı.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Hocanın resmi ders notu, matris çarpımından (Ders 0006) hemen sonra bu özel matris türlerini tanımlıyor — ve bunlardan biri (üst/alt üçgen matris) Ders 0003'te determinant hesaplamak için zaten kullandığın kavram. Şimdi resmi isimlerini ve tam tanımlarını öğreniyoruz.</p>
+
+  <h2>1. Matris, boyut, asal köşegen (hatırlatma)</h2>
+  <p>Ders 0006'da gördüğün gibi bir matris <code>m × n</code> boyutunda (m satır, n sütun) bir sayı tablosu. <b>Kare matris:</b> satır sayısı sütun sayısına eşitse (<code>m = n</code>).</p>
+  <div class="eq">
+    A =
+    <table class="m"><tr><td class="diag">1</td><td>2</td><td>3</td></tr><tr><td>4</td><td class="diag">5</td><td>6</td></tr><tr><td>7</td><td>8</td><td class="diag">9</td></tr></table>
+  </div>
+  <p><b>Asal köşegen:</b> <code>a₁₁, a₂₂, a₃₃, ..., aₙₙ</code> elemanları — yukarıda kalın/renkli gösterilen <code>1, 5, 9</code>. Bütün özel matris tanımları bu köşegene göre yapılıyor.</p>
+
+  <h2>2. Transpoze matris (Aᵀ)</h2>
+  <p>Bir matrisin <b>transpozesini</b> almak, satırları ve sütunları yer değiştirmek demek. <code>A</code>'nın transpozesi <code>Aᵀ</code> ile gösterilir: <code>A</code>'nın 1. satırı, <code>Aᵀ</code>'nin 1. sütunu olur; 2. satırı, 2. sütunu olur, vs.</p>
+  <div class="eq">
+    A =
+    <table class="m"><tr><td>2</td><td>3</td><td>-1</td></tr><tr><td>4</td><td>-2</td><td>5</td></tr></table>
+    &nbsp;&nbsp;→&nbsp;&nbsp;
+    Aᵀ =
+    <table class="m"><tr><td>2</td><td>4</td></tr><tr><td>3</td><td>-2</td></tr><tr><td>-1</td><td>5</td></tr></table>
+  </div>
+  <p style="font-size:.95rem;color:var(--soft)">Dikkat: <code>A</code>, 2×3 boyutundaydı; <code>Aᵀ</code> 3×2 oldu — boyut da "döndü". <code>A</code>'nın 1. satırı <code>(2,3,-1)</code>, <code>Aᵀ</code>'nin 1. sütunu oldu — birebir aynı sayılar, sadece yatay yerine dikey.</p>
+
+  <h2>3. Özel matrisler</h2>
+  <p>Aşağıdaki türlerin hepsi <b>kare matris</b> üzerinden tanımlanıyor (aksi belirtilmedikçe). Her biri, asal köşegene göre bir kısıtlama:</p>
+
+  <h3>Sıfır matris</h3>
+  <p>Tüm elemanları sıfır olan matris. <code>m×n</code> boyutlu sıfır matris <code>ₘ0ₙ</code> ile gösterilir.</p>
+
+  <h3>Kare matris</h3>
+  <p>Satır sayısı = sütun sayısı (<code>m = n</code>). Yukarıdaki bölüm 1'i hatırla.</p>
+
+  <h3>Köşegen matris</h3>
+  <p>Asal köşegen <b>dışındaki</b> tüm elemanları sıfır olan kare matris.</p>
+  <div class="eq"><table class="m"><tr><td class="diag">1</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="diag">5</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td class="diag">9</td></tr></table></div>
+
+  <h3>Skalar matris</h3>
+  <p>Köşegen matris <b>ve</b> asal köşegen elemanlarının hepsi <b>birbirine eşit</b>.</p>
+  <div class="eq"><table class="m"><tr><td class="diag">3</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="diag">3</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td class="diag">3</td></tr></table></div>
+
+  <h3>Birim matris (Iₙ)</h3>
+  <p>Skalar matris <b>ve</b> asal köşegen elemanlarının hepsi <b>1</b>. <code>n×n</code> birim matris <code>Iₙ</code> ile gösterilir.</p>
+  <div class="eq"><table class="m"><tr><td class="diag">1</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="diag">1</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td class="diag">1</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Bu, sayılardaki "1" gibi davranır: <code>A · I = I · A = A</code> (ileride Ters Matris dersinde çok kullanacağız).</p>
+
+  <h3>Üç köşegenli matris (tridiagonal)</h3>
+  <p>Asal köşegen <b>ve ona bitişik</b> (bir üstü + bir altı) iki köşegen dışında her yer sıfır.</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>-1</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td>2</td><td>2</td><td>-2</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td>-1</td><td>3</td><td>1</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td>-2</td><td>4</td></tr></table></div>
+
+  <h3>Üst üçgen matris</h3>
+  <p>Asal köşegenin <b>altındaki</b> tüm elemanlar sıfır. (Ders 0003'te determinant hesaplarken hedeflediğimiz form — hatırlarsın: "köşegenin altı sıfır olsun.")</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>3</td><td>-5</td></tr><tr><td class="zero">0</td><td>4</td><td>2</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td>-7</td></tr></table></div>
+
+  <h3>Alt üçgen matris</h3>
+  <p>Asal köşegenin <b>üstündeki</b> tüm elemanlar sıfır (üst üçgenin aynadaki hâli).</p>
+  <div class="eq"><table class="m"><tr><td>3</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td>-5</td><td>9</td><td class="zero">0</td></tr><tr><td>2</td><td class="zero">0</td><td>7</td></tr></table></div>
+
+  <h3>Simetrik matris</h3>
+  <p><code>Aᵀ = A</code> ise matris simetriktir. Pratikte: asal köşegene göre "yansıyan" elemanlar birbirine eşit (<code>a₁₂ = a₂₁</code> gibi).</p>
+  <div class="eq"><table class="m"><tr><td>2</td><td>5</td><td>7</td></tr><tr><td>5</td><td>-3</td><td>6</td></tr><tr><td>7</td><td>6</td><td>8</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Kontrol: <code>a₁₂=5=a₂₁</code>, <code>a₁₃=7=a₃₁</code>, <code>a₂₃=6=a₃₂</code> — hepsi eşit, simetrik.</p>
+
+  <h3>Antisimetrik (skew-symmetric) matris</h3>
+  <p><code>Aᵀ = −A</code> ise matris antisimetriktir. Yansıyan elemanlar <b>mutlak değerce eşit ama ters işaretli</b>. Bunun otomatik bir sonucu: <b>asal köşegen her zaman sıfırdır</b> (bir sayı kendi negatifine ancak sıfırsa eşit olabilir).</p>
+  <div class="eq"><table class="m"><tr><td class="diag">0</td><td>-2</td><td>6</td></tr><tr><td>2</td><td class="diag">0</td><td>8</td></tr><tr><td>-6</td><td>-8</td><td class="diag">0</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Kontrol: <code>a₁₂=-2</code>, <code>a₂₁=2</code> — mutlak değerce eşit (2), işaret ters. Aynısı diğer çiftlerde de geçerli.</p>
+
+  <h2>4. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1.</b> <table class="m"><tr><td>4</td><td>1</td></tr><tr><td>7</td><td>-2</td></tr><tr><td>0</td><td>3</td></tr></table> matrisinin transpozesini bul.</p>
+    <details><summary>Cevabı göster</summary>
+      <table class="m"><tr><td>4</td><td>7</td><td>0</td></tr><tr><td>1</td><td>-2</td><td>3</td></tr></table>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2.</b> <table class="m"><tr><td>0</td><td>-4</td></tr><tr><td>4</td><td>0</td></tr></table> matrisi hangi özel türe girer?</p>
+    <details><summary>Cevabı göster</summary><p><b>Antisimetrik</b> — asal köşegen sıfır, <code>a₁₂=-4</code> ve <code>a₂₁=4</code> mutlak değerce eşit ters işaretli.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3.</b> Bir matris hem üst üçgen hem alt üçgen ise ne olur?</p>
+    <details><summary>Cevabı göster</summary><p><b>Köşegen matris</b> olur — hem köşegenin altı hem üstü sıfırsa, sadece köşegen kalır.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 4 (kavram).</b> <code>I₃ · A = A</code> olduğunu biliyoruz. Bu, sayılarda hangi özelliğe benzer?</p>
+    <details><summary>Cevabı göster</summary><p><code>1 · x = x</code> özelliğine benzer — birim matris, matris çarpımında "1" gibi davranıyor (çarpımsal birim eleman).</p></details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📚 Khan Academy — Matrix Transformations ünitesi ("Bir Matrisin Transpozu" bölümü).<br>
+    🗂️ Sıradaki ders: <a href="0006-matrisler-ve-temel-islemler.html">Matris toplama/çarpma</a>.<br>
+    📝 <b>Pratik yap:</b> <code>DersNotlari/LineerCebir/1-2-3.pdf</code> — 1. Bölüm Değerlendirme Soruları 16-18 (transpoze, simetrik matris).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0001-sistemler-gauss-determinant.html">Ders 01</a></span>
+    <span>Sıradaki: <a href="0006-matrisler-ve-temel-islemler.html">Matris toplama/çarpma</a></span>
+  </div>
+
+</div>
+</body>
+</html>
