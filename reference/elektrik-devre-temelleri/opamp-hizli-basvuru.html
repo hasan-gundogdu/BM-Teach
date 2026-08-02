@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — İdeal Opamp</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #2e5c7a; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#2e5c7a; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#e9f0f4; border-left:3px solid #2e5c7a; padding:.5em .9em; border-radius:4px; }
+  .warn{ background:#fbf1e6; border-left:3px solid #b5762a; padding:.5em .9em; border-radius:4px; margin:.6em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table{ border-collapse:collapse; margin:.6em auto; font-size:.92rem; width:100%; }
+  th, td{ border:1px solid #e2ded5; padding:.35em .6em; text-align:center; font-family:Consolas,monospace; }
+  th{ background:#e9f0f4; font-family:inherit; }
+  td.l{ text-align:left; font-family:inherit; }
+  a{ color:#2e5c7a; }
+  small{ color:#6b6b6b; }
+  @media print{ body{background:#fff} h2{page-break-after:avoid} .card,.rule,.warn,table{page-break-inside:avoid} }
+</style>
+</head>
+<body>
+  <h1>İdeal Opamp — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Elektrik Devre Temelleri (BM107) · Hafta 3 (3.2) · <a href="../../lessons/elektrik-devre-temelleri/0010-ideal-opamp.html">Ders 10</a> özeti.</p>
+
+  <h2>İdeal opamp — iki kural</h2>
+  <div class="rule">
+    <code>i₋ = i₊ = 0</code> — giriş uçlarından akım geçmez<br>
+    <code>v₋ = v₊</code> — "sanal kısa devre" (sadece geri besleme varken)
+  </div>
+
+  <h2>Eviren (inverting) yükselteç</h2>
+  <div class="card">
+    Giriş R1 ile (−) uca, geri besleme R2 (−)'den çıkışa, (+) uç toprakta.<br>
+    <code>A_v = Vo/Vi = −R2/R1</code> — negatif, ters çevirir
+  </div>
+
+  <h2>Evirmeyen (noninverting) yükselteç</h2>
+  <div class="card">
+    Giriş doğrudan (+) uca, (−) uç R1 ile toprağa, R2 ile çıkışa.<br>
+    <code>A_v = Vo/Vi = 1 + R2/R1</code> — pozitif, her zaman ≥1
+  </div>
+
+  <h2>Gerilim izleyici (voltage follower)</h2>
+  <div class="card"><code>A_v = 1</code> (R2=0, R1=∞ özel durumu) — sinyali değiştirmez, sadece tamponlar</div>
+
+  <h2>Akım hesabı</h2>
+  <div class="warn">⚠️ Opamp girişine akım girmediği için, giriş direncinden (R1) geçen akımın <b>tamamı</b> geri besleme direncine (R2) gider. Ara düğümdeki akımı bulmak için Ders 04'ün (DGY) KCL tekniğini kullan.</div>
+
+  <h2>Sınav kapsamı (hoca notu, 02/08)</h2>
+  <div class="warn">✅ Sadece akım, gerilim, kazanç (eviren/evirmeyen). Toplayıcı, fark alıcı, kademeli opamp devreleri kapsam dışı.</div>
+
+  <p style="border-top:1px solid #e2ded5;margin-top:2em;padding-top:.8em;font-size:.9rem;color:#6b6b6b">
+    📄 Ders: <a href="../../lessons/elektrik-devre-temelleri/0010-ideal-opamp.html">Ders 10 — İdeal Opamp</a>
+  </p>
+</body>
+</html>

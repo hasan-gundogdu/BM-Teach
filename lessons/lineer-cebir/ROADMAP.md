@@ -9,8 +9,8 @@
 | `1-2-3.pdf` (Hafta 1-3) | Bölüm 1 (Lineer Eşitlikler, Matrisler) + Bölüm 2 (Matrisle Sistem Çözümü, Ters Matris) |
 | `4-5-6.pdf` (Hafta 4-6) | Bölüm 3 (Determinantlar) + Bölüm 4 (Cramer, Adjoint Matris) |
 | `7-8-9.pdf` (Hafta 7-9) | Bölüm 5 (Vektörler) + Bölüm 6 (Rank, Sistem Çözümü) |
-| `10-11-12.pdf` (Hafta 10-12) | ⬜ henüz okunmadı |
-| `13-14.pdf` (Hafta 13-14) | ⬜ henüz okunmadı |
+| `10-11-12.pdf` (Hafta 10-12) | Bölüm 7 (Eigen Değer/Vektör, Baz, Diyagonalizasyon) — **final sınavı kapsamı, bu sınavda (yaz okulu, 5 Ağustos) sorumlu değiliz** (2026-08-01, kullanıcı teyidi) |
+| `13-14.pdf` (Hafta 13-14) | Bölüm 7 devamı (Örnek 20'ye kadar) + Bölüm 6 değerlendirme soruları — **final sınavı kapsamı, bu sınavda sorumlu değiliz** |
 
 ## Ders sırası (= dosya numarası sırası)
 
@@ -39,6 +39,12 @@
 
 Hafta 1-9 (Bölüm 1-6), sistemler + matris + determinant + vektör + rank konularının **tamamını** kapsıyor — sınavın en yoğun kısmı. Kofaktör açılımı ve Cramer kuralı resmi notlarda ayrıntılı işlenmiş, sınavda büyük ihtimalle sorulacak. Adjoint matris de yeni ama önemli bir kavram.
 
+**Kapsam teyidi (2026-08-01):** Ders 1-13 (Bölüm 1-6, Hafta 1-9) = **bu sınavın (yaz okulu, 5 Ağustos) tam kapsamı** — kullanıcı teyit etti. Bölüm 7 (Eigen değer/vektör vb., `10-11-12.pdf`/`13-14.pdf`) final sınavına ait, bu sınav için ekstra ders gerekmiyor.
+
 ## Referans kartları
 
 Ders 01, 06, 07, 03 için referans kartı mevcut (`reference/lineer-cebir/`). Ders 02, 04, 05, 08, 09, 10, 11, 12, 13 için henüz yazılmadı — istenirse sonradan eklenir.
+
+## Genel tekrar dosyası
+
+`0014-genel-tekrar-1-13.html` (2026-08-02) — Ders 01-13'ün **tüm kural ve kavramlarını** tek dosyada, sırayla toplayan kapsamlı tekrar sayfası. Sıralı çalışma dizisinin bir parçası değil (yeni içerik değil, sadece tekrar) — o yüzden GIDIS-SIRASI.md'deki ders listesine eklenmedi, sadece burada not düşüldü.

@@ -41,6 +41,9 @@
   .cite a{ color:var(--soft); }
   .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
          padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .skip{ position:relative; opacity:.7; border:1px dashed #b9b2a0 !important; background:#f4f2ec !important; }
+  .skip::before{ content:"⏭️ SINAVDA ATLANABİLİR"; display:block; font-size:.72rem; letter-spacing:.08em;
+                 text-transform:uppercase; color:#8a6d2f; font-weight:700; margin-bottom:.4em; }
 </style>
 </head>
 <body>
@@ -72,7 +75,9 @@
     <li><b>Yükü Thevenin eşdeğerine geri bağla</b> ve istediğin hesabı yap.</li>
   </ol>
 
-  <p class="mission">💡 <b>Bağımlı kaynak varsa:</b> Adım 3'te devrede sadece bağımlı kaynak kalırsa (bağımsız kaynak söndürüldüğü için), a-b'ye <b>elle 1V'luk bir test kaynağı</b> bağlanır, o kaynaktan çekilen akım <code>i₀</code> hesaplanır, ve <code>R_TH = 1V/i₀</code> ile bulunur — çünkü bağımlı kaynak "kendi kendine" gerilim üretemez, dışarıdan bir uyarana ihtiyaç duyar.</p>
+  <p class="mission">✅ <b>Sınav notu (hoca duyurusu):</b> Thevenin/Norton/Maks. Güç Transferi sorularında <b>bağımlı kaynak olmayacak</b> — yani a-b'den bakılan direnç her zaman Ders 03'ün seri/paralel kısayollarıyla doğrudan bulunabilecek, aşağıdaki test-kaynağı yöntemine ihtiyaç duymayacaksın. Yine de mantığı bilmek genel anlayışını güçlendirir, bu yüzden kısaca gösteriyoruz.</p>
+
+  <p class="mission skip">💡 <b>Bağımlı kaynak varsa:</b> Adım 3'te devrede sadece bağımlı kaynak kalırsa (bağımsız kaynak söndürüldüğü için), a-b'ye <b>elle 1V'luk bir test kaynağı</b> bağlanır, o kaynaktan çekilen akım <code>i₀</code> hesaplanır, ve <code>R_TH = 1V/i₀</code> ile bulunur — çünkü bağımlı kaynak "kendi kendine" gerilim üretemez, dışarıdan bir uyarana ihtiyaç duyar.</p>
 
   <div class="pause">
     ☕ <b>Doğal duraklama noktası.</b> Kuralları gördün. Şimdi tam bir örnek — bu örneği Ders 08 (Norton) ve Ders 09'da (Maksimum Güç) da aynı devre üzerinden tekrar kullanacağız, böylece üç teoremin birbirine nasıl bağlandığını göreceksin.

@@ -2,7 +2,7 @@
 
 > **2026-08-01 güncellemesi:** Kullanıcı gerçek ders notu PDF'lerini (`DersNotlari/ElektrikDevreTemelleri/`, Dr. Öğr. Üyesi Ekrem BAŞER) paylaştı. Bu dosyalar artık **tek doğru kaynak** — aşağıdaki `bm107-haftalik-konular.md` (EBS'nin jenerik 14 haftalık taslağı) **süperlendi**. Gerçek ders çok daha hızlı ilerliyor ve farklı bir sırayla: Hafta 1'in devamında düğüm/çevre analizi işleniyor, Hafta 5-6'daki Wheatstone/Y-Δ ve Hafta 10'daki Millman/Kapasitör/Bobin gerçek notlarda **hiç yok** (bu dönem işlenmemiş veya OPAMP sonrasına kaymış — kullanıcının kendi ifadesiyle kapsam dışı).
 >
-> **Kapsam sınırı (kullanıcı onayı):** "Opampa kadar sorumluyuz, opamp dahil değil." Yani sorumluluk tam olarak `1. Hafta-1.pdf` + `1. Hafta-Devam.pptx` + `2.1` + `2.2` + `3.1 (Maksimum Güç Transferi)` — `3.2 (İdeal Opamp)` **kapsam dışı**.
+> **Kapsam güncellemesi (2026-08-02, hoca duyurusu — sınıf grubunda):** "Vizede opamptan da soru hazırlıyorum, opamp da dahil diyelim. Sadece Thevenin, Norton ve maksimum güç teoremleri için bağımlı kaynak olmayacak. Opampda akım, gerilim ve kazanç buluyoruz en fazla, bildiğiniz gibi." Yani **OPAMP artık kapsamda** (temel seviye: eviren/evirmeyen kazanç, KCL ile akım/gerilim — toplayıcı/fark alıcı/kademeli devreler değil). Buna karşılık Thevenin/Norton/Maks.Güç'te bağımlı kaynaklı sorular **çıkmayacak** — bu üç derste bağımlı-kaynak test-yöntemi sadece genel anlayış için kalıyor, sınav odaklı değil.
 
 ## Gerçek ders notu → ders eşlemesi
 
@@ -17,7 +17,7 @@
 | 0007 | 2.2 Ders Notu | Thevenin Teoremi | ✅ yazıldı |
 | 0008 | 2.2 Ders Notu | Norton Teoremi | ✅ yazıldı |
 | 0009 | 3.1 Ders Notu | Maksimum Güç Transferi | ✅ yazıldı |
-| — | 3.2 Ders Notu (İdeal Opamp) | **Kapsam dışı** — kullanıcı onayı | ⛔ atlandı |
+| 0010 | 3.2 Ders Notu | İdeal Opamp (akım, gerilim, kazanç — eviren/evirmeyen) | ✅ yazıldı |
 
 ## Notlar
 - Kullanıcının EDT'de belirgin bir alt yapısı var (bkz. [[edt-altyapi-var]] öğrenme kaydı) — hızlı kavradıkça tempo artırıldı, sıfırdan değil orta hızda anlatıldı.

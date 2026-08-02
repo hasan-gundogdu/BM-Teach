@@ -41,6 +41,9 @@
   .cite a{ color:var(--soft); }
   .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
          padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .skip{ position:relative; opacity:.7; border:1px dashed #b9b2a0 !important; background:#f4f2ec !important; }
+  .skip::before{ content:"⏭️ SINAVDA ATLANABİLİR"; display:block; font-size:.72rem; letter-spacing:.08em;
+                 text-transform:uppercase; color:#8a6d2f; font-weight:700; margin-bottom:.4em; }
 </style>
 </head>
 <body>
@@ -64,6 +67,8 @@
   <div class="analogy">
     <b class="tag">🚰 Su analojisi:</b> Thevenin, devreyi sabit basınçlı bir su kulesi + dar boru (seri direnç) gibi tanımlar. Norton, <b>aynı</b> devreyi sabit debili bir pompa + o pompaya paralel bağlı bir "sızıntı" borusu (paralel direnç) gibi tanımlar. İkisi de dışarıya aynı su davranışını sunar — Ders 02'deki kaynak dönüşümünü hatırla, Thevenin↔Norton geçişi tam olarak o dönüşümün ta kendisi.
   </div>
+
+  <p class="mission">✅ <b>Sınav notu (hoca duyurusu):</b> Norton sorularında da (Thevenin ve Maks. Güç gibi) <b>bağımlı kaynak olmayacak</b> — a-b'den bakılan direnç doğrudan Ders 03'ün seri/paralel kısayollarıyla bulunur.</p>
 
   <h2>2. Norton ↔ Thevenin dönüşümü</h2>
   <p>İki eşdeğer arasında geçiş, Ders 02'deki kaynak dönüşümü formülüyle birebir aynıdır:</p>
@@ -108,7 +113,7 @@
     </details>
   </div>
 
-  <div class="q">
+  <div class="q skip">
     <p><b>Soru 2 (kavram).</b> Bir devrede sadece bağımlı kaynak varsa (bağımsız kaynak söndürüldükten sonra), Norton akımı <code>I_N</code> nasıl bulunur?</p>
     <details><summary>Çözümü göster</summary>
       <p>Thevenin'deki gibi: a-b'ye <b>1A'lik test akım kaynağı</b> bağlanır (veya 1V test gerilimi), oluşan gerilim/akım ölçülür, oradan <code>R_N</code> bulunur. Bağımlı-kaynak-tek durumda genelde <code>I_N=0</code> çıkar (kısa devrede sürücü bağımsız kaynak olmadığı için akım akmaz) — asıl bilgi <code>R_N</code>'de saklıdır.</p>
@@ -134,7 +139,7 @@
   <div class="src" style="margin-top:.8em">
     📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
     Konu: <b>Bölüm 4.6</b> Norton's Theorem (kitap s. 145-149, PDF s. 177-181)<br>
-    Çöz: <b>Problem 4.37</b> (temel Norton) · <b>4.45, 4.48</b> (bağımlı kaynaklı — test kaynağı yöntemi) · <b>4.53</b> (ileri seviye)<br>
+    Çöz: <b>Problem 4.37</b> (temel Norton, öncelik bu) · <s>4.45, 4.48</s> ⏭️ bağımlı kaynaklı — sınavda çıkmayacak, atlayabilirsin · <b>4.53</b> yerine benzer bağımsız-kaynaklı bir problem tercih et<br>
     <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 4, Solution N".</small>
   </div>
 

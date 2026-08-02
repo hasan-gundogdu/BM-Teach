@@ -80,7 +80,7 @@
 ---
 
 # BM107 — Elektrik Devre Temelleri · sınav 4 Ağustos
-> ⚠️ **2026-08-01'de tamamen düzeltildi.** Kullanıcı gerçek ders notu PDF'lerini (`DersNotlari/ElektrikDevreTemelleri/*.pdf`, Dr. Öğr. Üyesi Ekrem BAŞER) paylaştı. Gerçek ders çok daha hızlı ve farklı sırayla ilerliyor — Wheatstone/Y-Δ/Millman/Kapasitör/Bobin gerçek notlarda **yok**. **Kapsam: opampa kadar, opamp hariç** (kullanıcı onayı). Tek doğru kaynak artık `lessons/elektrik-devre-temelleri/ROADMAP.md`.
+> ⚠️ **2026-08-01'de tamamen düzeltildi**, **2026-08-02'de kapsam güncellendi.** Kullanıcı gerçek ders notu PDF'lerini (`DersNotlari/ElektrikDevreTemelleri/*.pdf`, Dr. Öğr. Üyesi Ekrem BAŞER) paylaştı. Gerçek ders çok daha hızlı ve farklı sırayla ilerliyor — Wheatstone/Y-Δ/Millman/Kapasitör/Bobin gerçek notlarda **yok**. Hoca sınıf grubunda **OPAMP'ın da sınava dahil olduğunu** duyurdu (temel seviye: akım/gerilim/kazanç) — buna karşılık Thevenin/Norton/Maks.Güç'te bağımlı kaynak **çıkmayacak**. Tek doğru kaynak artık `lessons/elektrik-devre-temelleri/ROADMAP.md`.
 
 ### 1 · Ders 01 — Elektriksel temel kavramlar (akım, voltaj, güç, enerji) ✅
 - **Ders:** `lessons/elektrik-devre-temelleri/0001-akim-voltaj-guc-enerji.html` · **Referans:** `reference/elektrik-devre-temelleri/temel-kavramlar-hizli-basvuru.html`
@@ -114,12 +114,16 @@
 - **Ders:** `lessons/elektrik-devre-temelleri/0008-norton-teoremi.html` · **Referans:** `reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html`
 - Kaynak: 2.2 Ders Notu
 
-### 9 · Ders 09 — Maksimum Güç Transferi ✅ ⬅️ KAPSAMIN SONU
+### 9 · Ders 09 — Maksimum Güç Transferi ✅
 - **Ders:** `lessons/elektrik-devre-temelleri/0009-maksimum-guc-transferi.html` · **Referans:** `reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html`
 - Kaynak: 3.1 Ders Notu
-- ⛔ **3.2 (İdeal Opamp) kapsam dışı** — kullanıcı onayı ("opampa kadar sorumluyuz, opamp dahil değil")
+- Ders 07-08-09'da bağımlı kaynak yöntemine "sınavda çıkmayacak, mantık için var" notu eklendi (02/08 hoca duyurusu)
 
-**Tüm BM107 dersleri tamamlandı (0001-0009).** Sıradaki adım: kullanıcının tekrar/pratik yapması, gerekirse ek soru/pekiştirme.
+### 10 · Ders 10 — İdeal Opamp (akım, gerilim, kazanç) ✅ ⬅️ KAPSAMIN SONU
+- **Ders:** `lessons/elektrik-devre-temelleri/0010-ideal-opamp.html` · **Referans:** ⬜ (henüz yazılmadı)
+- Kaynak: 3.2 Ders Notu — hoca "akım, gerilim, kazanç buluyoruz en fazla" dediği için toplayıcı/fark alıcı/kademeli opamp devreleri **kapsam dışı** bırakıldı, sadece eviren/evirmeyen temel kazanç + KCL
+
+**Tüm BM107 dersleri tamamlandı (0001-0010).** Sıradaki adım: kullanıcının tekrar/pratik yapması, gerekirse ek soru/pekiştirme.
 
 # BM106 — Olasılık ve İstatistik · sınav 6 Ağustos ⬜
 Henüz başlanmadı. EBS haftalık konuları alınınca eklenecek. (Ayrık kısım calculus'suz; sürekli kısım için mini integral ön-bilgisi.)

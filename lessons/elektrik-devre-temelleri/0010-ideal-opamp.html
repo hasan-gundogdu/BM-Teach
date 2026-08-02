@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 10 — İdeal Opamp (Akım, Gerilim, Kazanç)</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
+  .analogy b.tag{ color:#8a6d2f; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
+  .eq code{ font-size:1.15rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
+  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
+  table.tbl th{ background:var(--note); }
+  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
+          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
+  .cite{ font-size:.85rem; color:var(--soft); }
+  .cite a{ color:var(--soft); }
+  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
+         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 10 · Hafta 3 (3.2)</div>
+  <h1>İdeal Opamp — Akım, Gerilim, Kazanç</h1>
+  <p class="lead">Bu dersin sonunda: bir opamp devresinde <span class="hi">ideal opamp kurallarını</span> kullanarak çıkış gerilimini, kazancı ve akımları bulabileceksin.</p>
+
+  <p class="mission">🎯 <b>Kapsam güncellemesi (hocanın duyurusu):</b> "Vizede opamptan da soru hazırlıyorum, opamp da dahil. Sadece Thevenin, Norton ve maksimum güç teoremleri için bağımlı kaynak olmayacak. Opampda akım, gerilim ve kazanç buluyoruz en fazla." Yani bu ders <b>sınav kapsamına girdi</b> — ama hoca sınırı da çizdi: karmaşık opamp devreleri (toplayıcı, fark alıcı, kademeli) değil, <b>temel eviren/evirmeyen kazanç + KCL ile akım/gerilim</b> isteniyor. Bu ders tam o seviyede.</p>
+
+  <h2>1. Opamp nedir? Gerçek hayat analojisi</h2>
+  <p>İşlemsel yükselteç (opamp), giriş sinyalini <b>büyüten</b> (yükselten) bir devre elemanı — 3 ucu var: <b>eviren giriş (−)</b>, <b>evirmeyen giriş (+)</b>, <b>çıkış</b>.</p>
+
+  <div class="analogy">
+    <b class="tag">🔊 Analoji:</b> Bir mikrofon çok zayıf bir elektrik sinyali üretir (milivolt seviyesinde). Hoparlörü çalıştırmak için bu sinyalin <b>binlerce kat büyütülmesi</b> gerekir — işte bunu yapan devre bir opamp temelli yükselteçtir. Ses sistemlerindeki "volume" düğmesi, aslında opamp devresindeki bir direnç oranını (kazancı) değiştirir.
+  </div>
+
+  <h2>2. İdeal opamp kuralları — sadece iki kural</h2>
+  <p>Gerçek opamplar karmaşıktır (sonlu kazanç, giriş/çıkış direnci) ama <b>ideal opamp</b> modeli, hesaplamaları inanılmaz basitleştiren iki varsayıma dayanır:</p>
+  <table class="tbl">
+    <tr><th>Kural</th><th>Anlamı</th></tr>
+    <tr><td><b>1) Giriş akımları sıfır</b></td><td><code>i₋ = i₊ = 0</code> — giriş direnci sonsuz kabul edilir, giriş uçlarından hiç akım çekilmez.</td></tr>
+    <tr><td><b>2) Giriş gerilimleri eşit</b></td><td><code>v₋ = v₊</code> — "sanal kısa devre" (virtual short). Gerçekte tel değildir, ama gerilimleri birbirine <b>eşitmiş gibi</b> davranır (yalnızca negatif geri besleme varken geçerlidir).</td></tr>
+  </table>
+
+  <div class="analogy">
+    <b class="tag">⚖️ Analoji — sanal kısa devre:</b> İki kişinin bir terazinin iki kefesinde durup, terazinin sürekli <b>dengede kalmasını</b> sağlayan görünmez bir mekanizma olduğunu düşün. İki kefe fiziksel olarak birbirine bağlı değil (tel yok) ama sistem onları hep aynı seviyede tutuyor. Opampın çıkışı, geri besleme sayesinde tam olarak <code>v₋=v₊</code> olacak şekilde kendini ayarlar.
+  </div>
+
+  <p class="mission">⚠️ <b>Kural 1'in sonucu:</b> Giriş uçlarından akım geçmediği için, bir opamp devresindeki <b>tüm akım hesapları</b> dışarıdaki dirençler arasında KCL ile yapılır — Ders 04'teki (DGY) tekniğin birebir aynısı, tek fark giriş ucuna "akım gelmiyor" bilgisini eklemek.</p>
+
+  <div class="pause">
+    ☕ <b>Doğal duraklama noktası.</b> İki kuralı gördün. Devamı bu kuralların iki standart devrede (eviren/evirmeyen yükselteç) nasıl kazanç formülüne dönüştüğü.
+  </div>
+
+  <h2>3. Eviren (inverting) yükselteç</h2>
+  <p>Giriş sinyali <b>eviren (−)</b> uca R1 üzerinden bağlanır; <b>evirmeyen (+)</b> uç doğrudan toprağa (0V) bağlanır; çıkıştan eviren uca R2 geri besleme direnci vardır.</p>
+  <div class="circ">   Vi ──[R1]──●───[R2]──┐
+             │  (−)         │
+             │  opamp ──────┴── Vo
+        0V ──┘  (+)</div>
+  <p>Kural 2'den: <code>v₋ = v₊ = 0</code> (evirmeyen uç topraklı). Eviren uca KCL uygula (Kural 1: içeri akım girmiyor, R1'den gelen akım tamamen R2'ye gitmeli):</p>
+  <div class="eq"><code>(Vi − 0)/R1 = (0 − Vo)/R2</code></div>
+  <div class="eq"><b>A_v = Vo/Vi = −R2/R1</b></div>
+  <p>Eksi işareti "eviren" adının kaynağı — çıkış, girişin tersine dönmüş (ters işaretli) halidir.</p>
+
+  <div class="q">
+    <p><b>Soru 1.</b> Eviren yükselteçte R1=4kΩ, R2=12kΩ, Vi=2V. Vo kaç Volt?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>A_v = −R2/R1 = −12/4 = −3</code></p>
+      <p><code>Vo = A_v · Vi = −3 · 2 = −6V</code></p>
+    </details>
+  </div>
+
+  <h2>4. Evirmeyen (noninverting) yükselteç</h2>
+  <p>Giriş sinyali doğrudan <b>evirmeyen (+)</b> uca bağlanır; eviren (−) uç, biri toprağa (R1) biri çıkışa (R2) giden iki dirençle bir düğüm oluşturur.</p>
+  <div class="circ">        Vi ──● (+)
+             │  opamp ── Vo
+   0V──[R1]──●──[R2]──┐
+             │(−)      │
+             └─────────┘ (Vo'ya geri besleme)</div>
+  <p>Kural 2'den: <code>v₋ = v₊ = Vi</code>. Eviren uca KCL uygula:</p>
+  <div class="eq"><code>(Vi − 0)/R1 = (Vo − Vi)/R2</code></div>
+  <p>Düzenlersen:</p>
+  <div class="eq"><b>A_v = Vo/Vi = (R1+R2)/R1 = 1 + R2/R1</b></div>
+  <p>Kazanç her zaman <b>pozitif ve en az 1</b> — çıkış girişle aynı işarette, hiçbir zaman girişten küçük olmaz.</p>
+
+  <div class="q">
+    <p><b>Soru 2.</b> Evirmeyen yükselteçte R1=2kΩ, R2=8kΩ, Vi=3V. Vo kaç Volt?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>A_v = 1 + R2/R1 = 1 + 8/2 = 5</code></p>
+      <p><code>Vo = 5 · 3 = 15V</code></p>
+    </details>
+  </div>
+
+  <p class="mission">💡 <b>Özel durum — gerilim izleyici (voltage follower):</b> R2=0 (doğrudan tel) ve R1=∞ (bağlantı yok) olursa evirmeyen formülde <code>A_v=1</code> çıkar, yani <code>Vo=Vi</code>. Bu, sinyali değiştirmeden ama <b>yüksek giriş direnci / düşük çıkış direnci</b> sağlayarak "tampon" (buffer) görevi gören özel bir devre — iki devre bloğunu birbirini etkilemeden bağlamak için kullanılır.</p>
+
+  <h2>5. Genel KCL yaklaşımı (standart formüle uymayan devreler)</h2>
+  <p>Hoca "akım, gerilim, kazanç buluyoruz" dediği için, her zaman yukarıdaki iki hazır formülü ezbere uygulayamayacağın devreler de çıkabilir. O zaman doğrudan <b>Ders 04'ün DGY tekniğine</b> dön — tek fark, opamp giriş ucuna "<code>i=0</code>" bilgisini eklemek:</p>
+
+  <div class="q">
+    <p><b>Soru 3 (genel KCL).</b> Bir eviren yükselteç devresinde R1=5kΩ, R2=10kΩ. Girişteki kaynak Vi=1V. Ayrıca R1 üzerinden geçen akımı (I) bul.</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>A_v = −R2/R1 = −10/5 = −2 → Vo = −2V</code></p>
+      <p>R1 üzerindeki akım (eviren uç 0V olduğu için): <code>I = Vi/R1 = 1/5k = 0.2mA</code>. Kural 1 gereği bu akımın <b>tamamı</b> R2'ye gider (opamp girişine hiç akım girmez) — yani R2 üzerinden geçen akım da <code>0.2mA</code>.</p>
+    </details>
+  </div>
+
+  <h2>Özet tablo</h2>
+  <table class="tbl">
+    <tr><th>Devre</th><th>Kazanç formülü</th><th>İşaret</th></tr>
+    <tr><td>Eviren (inverting)</td><td><code>A_v = −R2/R1</code></td><td>Negatif (ters çevirir)</td></tr>
+    <tr><td>Evirmeyen (noninverting)</td><td><code>A_v = 1 + R2/R1</code></td><td>Pozitif, ≥1</td></tr>
+    <tr><td>Gerilim izleyici</td><td><code>A_v = 1</code></td><td>Değiştirmez, sadece tamponlar</td></tr>
+  </table>
+  <table class="tbl">
+    <tr><th>İdeal opamp kuralı</th><th>Sonucu</th></tr>
+    <tr><td>i₋ = i₊ = 0</td><td>Giriş ucundan hiç akım geçmez — dış dirençlerdeki akım KCL ile bulunur</td></tr>
+    <tr><td>v₋ = v₊</td><td>"Sanal kısa devre" — sadece geri besleme varken geçerli</td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    📘 Bu ders, gerçek BM107 ders notunuzun "3.2 Ders Notu" bölümündeki <b>İdeal Opamp</b> konusunu, hocanın sınırladığı seviyede (akım/gerilim/kazanç, temel eviren-evirmeyen) işliyor.<br>
+    🎥 İngilizce görsel pekiştirme: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering, Op-amps</a>.<br>
+    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/opamp-hizli-basvuru.html">İdeal Opamp — Hızlı Başvuru</a>
+  </div>
+
+  <div class="src" style="margin-top:.8em">
+    📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
+    Konu: <b>Bölüm 5.3</b> Ideal Op Amp (kitap s. 179-181, PDF s. 211-213) · <b>5.4</b> Inverting Amplifier (s. 181-183) · <b>5.5</b> Noninverting Amplifier (s. 183-185)<br>
+    Çöz: <b>Problem 5.8</b> (temel ideal opamp) · <b>5.15</b> (eviren kazanç) · <b>5.19</b> (akım hesabı) · <b>5.25, 5.27</b> (evirmeyen kazanç)<br>
+    <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 5, Solution N". ⚠️ Toplayıcı (5.6 Summing), fark alıcı (5.7 Difference) ve kademeli (5.8 Cascaded) bölümleri hocanın sınırladığı kapsamın <b>dışında</b> — pratik yaparken 5.3-5.5 aralığına odaklan.</small>
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
+
+  <div class="nav">
+    <span>← <a href="0009-maksimum-guc-transferi.html">Ders 09 — Maksimum Güç Transferi</a></span>
+    <span><a href="../../reference/elektrik-devre-temelleri/opamp-hizli-basvuru.html">🗂️ Referans kartı</a></span>
+    <span>Sıradaki: (yok — kapsamın sonu)</span>
+  </div>
+
+</div>
+</body>
+</html>

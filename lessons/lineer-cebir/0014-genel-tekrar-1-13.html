@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Genel Tekrar — Ders 01-13 (Tüm Kurallar ve Kavramlar)</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:760px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.4rem; margin:2.6em 0 .3em; border-bottom:2px solid var(--accent); padding-bottom:.25em; }
+  h3{ font-size:1.1rem; margin:1.6em 0 .4em; color:var(--accent); }
+  h4{ font-size:1rem; margin:1.2em 0 .3em; color:#4a4a4a; }
+  p,li{ font-size:1.04rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  .toc{ background:#fff; border:1px solid var(--rule); border-radius:8px; padding:1em 1.3em; font-size:.92rem; columns:2; column-gap:2em; }
+  .toc a{ color:var(--ink); text-decoration:none; }
+  .toc a:hover{ color:var(--accent); }
+  .toc li{ margin:.15em 0; break-inside:avoid; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.diag{ color:var(--accent); font-weight:700; }
+  table.m td.zero{ color:#c9c2b2; }
+  table.m td.rm{ color:#c9c2b2; text-decoration:line-through; }
+  table.m td.hi-col{ color:var(--accent); font-weight:700; }
+  table.det{ font-family:"SF Mono",Consolas,monospace; border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .15em; position:relative; }
+  table.det td{ padding:.18em .55em; text-align:center; }
+  table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; width:0; border-left:1.6px solid var(--ink); }
+  table.det::before{ left:-1px; } table.det::after{ right:-1px; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .rule-box{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.8em 1em; margin:.7em 0; font-size:.96rem; }
+  .rule-box b{ color:var(--accent); }
+  .case{ display:flex; gap:1em; flex-wrap:wrap; margin:.8em 0; }
+  .case > div{ flex:1; min-width:170px; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.7em .9em; font-size:.92rem; }
+  .case b{ color:var(--accent); }
+  ol.rules{ padding-left:1.4em; } ol.rules li{ margin:.45em 0; }
+  .lesson-tag{ display:inline-block; background:var(--note); color:var(--accent); font-size:.75rem; font-weight:700; padding:.15em .6em; border-radius:10px; margin-left:.4em; vertical-align:middle; }
+  hr.sep{ border:none; border-top:1px dashed var(--rule); margin:2.5em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Genel Tekrar · Ders 01-13'ün Tamamı</div>
+  <h1>Genel Tekrar — Tüm Kurallar ve Kavramlar</h1>
+  <p class="lead">Bu dosya <b>13 dersin tamamını</b>, sırayla, hiçbir kavramı atlamadan tek sayfada topluyor. Dosyalar arası gezinmene gerek yok — takıldığın konuyu burada bul, okuyup hatırla. Sayılar kasıtlı olarak basit tutuldu; asıl amaç kuralları ve mantığı tazelemek.</p>
+
+  <p class="mission">🎯 <b>Nasıl kullanılır?</b> Sırayla oku ya da doğrudan aşağıdaki içindekiler kısmından ihtiyacın olan bölüme atla. Her bölümün yanında hangi ders dosyasından geldiği <span class="lesson-tag">Ders NN</span> etiketiyle belirtiliyor — daha fazla pratik soru istersen o dosyaya bakabilirsin.</p>
+
+  <div class="toc">
+    <ol>
+      <li><a href="#b1">Lineer denklem sistemi ve Gauss</a></li>
+      <li><a href="#b2">Determinant: 2×2, 3×3 (Sarrus)</a></li>
+      <li><a href="#b3">Matris temelleri, transpoze</a></li>
+      <li><a href="#b4">Özel matrisler (8 tür)</a></li>
+      <li><a href="#b5">Matris toplama, skaler, çarpım</a></li>
+      <li><a href="#b6">Satır eşdeğer / indirgenmiş matris</a></li>
+      <li><a href="#b7">Gauss-Jordan eliminasyonu</a></li>
+      <li><a href="#b8">Ters matris</a></li>
+      <li><a href="#b9">Geometrik yorum ve n-boyutlu determinant</a></li>
+      <li><a href="#b10">Determinantın 3 kuralı ve üçgen matris</a></li>
+      <li><a href="#b11">Minör, kofaktör, kofaktör açılımı</a></li>
+      <li><a href="#b12">Cramer kuralı ve adjoint matris</a></li>
+      <li><a href="#b13">Vektörler I: temel işlemler, nokta çarpım</a></li>
+      <li><a href="#b14">Vektörler II: vektörel çarpım, lineer bağımsızlık</a></li>
+      <li><a href="#b15">Matris rankı</a></li>
+      <li><a href="#b16">Rank ile sistem çözümü, homojen sistemler</a></li>
+    </ol>
+  </div>
+
+  <hr class="sep">
+
+  <h2 id="b1">1. Lineer denklem sistemi ve Gauss <span class="lesson-tag">Ders 01, 04</span></h2>
+
+  <h3>Lineer denklem sistemi nedir?</h3>
+  <p>Bilinmeyenlerin yalnızca 1. dereceden (kare/çarpım yok) göründüğü denklemler topluluğu. Örnek:</p>
+  <div class="eq"><code>x + y + z = 6</code> · <code>2x + 3y + 2z = 14</code> · <code>x + 2y + 4z = 17</code></div>
+  <p>Amaç: her üç denklemi de sağlayan <code>(x,y,z)</code> üçlüsünü bulmak.</p>
+
+  <h3>Arttırılmış (genişletilmiş) matris</h3>
+  <p>Katsayılar matrisi <code>A</code> ile sabitler sütunu <code>B</code>'yi yan yana yazmak: <code>[A:B]</code>.</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>6</td></tr><tr><td>2</td><td>3</td><td>2</td><td>|</td><td>14</td></tr><tr><td>1</td><td>2</td><td>4</td><td>|</td><td>17</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Katsayı işareti matrise nasıl girer?</b> Olduğu gibi. <code>x−y=1</code>'deki <code>−y</code>, matriste <code>-1</code> hücresi olur. Formal satır işlemi hep aynı: <code>Rᵢ → Rᵢ − k·Rⱼ</code> — çarpan negatif çıkarsa işlem kendiliğinden toplamaya döner, ayrı bir işaret takibi gerekmez.</p>
+
+  <h3>Elementer satır işlemleri (resmi 3 kural)</h3>
+  <ol class="rules">
+    <li><b>(a)</b> Bir satırı sıfırdan farklı bir sabit <code>k</code> ile çarpmak: <code>Rᵢ → k·Rᵢ</code></li>
+    <li><b>(b)</b> İki satırın yerini değiştirmek: <code>Rᵢ ↔ Rⱼ</code></li>
+    <li><b>(c)</b> Bir satırın <code>k</code> katını başka bir satıra eklemek: <code>Rᵢ → Rᵢ + k·Rⱼ</code></li>
+  </ol>
+
+  <h3>Gauss Eliminasyon Yöntemi — tam örnek</h3>
+  <p><b>Adım 1 — ilk sütunu sıfırla.</b> Pivot, 1. satırın 1. sütunu (<code>1</code>). Diğer satırların ilk sütununu pivota bölüp çarpanı bul:</p>
+  <p class="step">
+    <code>R2</code>'nin ilk sütunu <code>2</code> → çarpan <code>2÷1=2</code> → <code>R2 → R2 − 2·R1</code><br>
+    <code>R3</code>'ün ilk sütunu <code>1</code> → çarpan <code>1÷1=1</code> → <code>R3 → R3 − 1·R1</code>
+  </p>
+  <p class="step">
+    R2: (2−2·1, 3−2·1, 2−2·1 | 14−2·6) = (0, 1, 0 | 2)<br>
+    R3: (1−1, 2−1, 4−1 | 17−6) = (0, 1, 3 | 11)
+  </p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>6</td></tr><tr><td>0</td><td>1</td><td>0</td><td>|</td><td>2</td></tr><tr><td>0</td><td>1</td><td>3</td><td>|</td><td>11</td></tr></table></div>
+
+  <p><b>Adım 2 — ikinci sütunun altını sıfırla.</b> Pivot artık <code>R2</code>'nin 2. sütunu (<code>1</code>). <code>R3</code>'ün 2. sütunu (<code>1</code>) bu pivota bölünür: çarpan <code>1÷1=1</code> → <code>R3 → R3 − 1·R2</code>:</p>
+  <p class="step">R3: (0−0, 1−1, 3−0 | 11−2) = (0, 0, 3 | 9)</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>6</td></tr><tr><td>0</td><td>1</td><td>0</td><td>|</td><td>2</td></tr><tr><td>0</td><td>0</td><td>3</td><td>|</td><td>9</td></tr></table></div>
+  <p>Artık <span class="hi">üst üçgen form</span> (köşegenin altı sıfır).</p>
+
+  <h3>Geri yerine koyma (alttan yukarı)</h3>
+  <p>Alttaki satırda tek bir bilinmeyen kalmıştır — bunu bulup bir üst satırda yerine koyarız, orada da tek bilinmeyen kalır, tekrar bulup bir üste koyarız.</p>
+  <p class="step">
+    <b>Satır 3:</b> <code>3z = 9 → z = 3</code> (zaten biliniyor, tek bilinmeyen kalmış).<br>
+    <b>Satır 2:</b> <code>y + 0·z = 2 → y = 2</code>.<br>
+    <b>Satır 1:</b> <code>x + y + z = 6 → x + 2 + 3 = 6 → x = 1</code>.
+  </p>
+  <div class="eq"><b>Çözüm: (x,y,z) = (1, 2, 3)</b></div>
+
+  <h4>Neden toplama/çıkarma böyle çalışıyor?</h4>
+  <p>Pozitif bir sayıya negatif bir sayı eklemek çıkarmaya dönüşür (<code>2 + (−2/7) = 2 − 2/7</code>), ama sonucun işareti hangisinin mutlak değerce büyük olduğuna bağlı — otomatik olarak negatif çıkmaz.</p>
+
+  <hr class="sep">
+
+  <h2 id="b2">2. Determinant: 2×2, 3×3 (Sarrus) <span class="lesson-tag">Ders 01</span></h2>
+
+  <h3>2×2 determinant</h3>
+  <div class="eq">det<table class="det"><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table> = <code>a·d − b·c</code></div>
+  <div class="eq">Örnek: det<table class="det"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table> = 1·4 − 2·3 = <b>−2</b></div>
+  <p><b>Neden önemli?</b> Determinant ≠ 0 ise sistemin <span class="hi">tek çözümü</span> vardır.</p>
+
+  <h3>3×3 determinant — Sarrus kuralı</h3>
+  <div class="eq">det<table class="det"><tr><td>a</td><td>b</td><td>c</td></tr><tr><td>d</td><td>e</td><td>f</td></tr><tr><td>g</td><td>h</td><td>i</td></tr></table> = <code>aei + bfg + cdh − ceg − bdi − afh</code></div>
+  <p style="font-size:.95rem;color:var(--soft)">6 terim, sırası ezberlemesi zor — Sarrus bunu <b>çizerek</b> yapmanın yolu, sadece 3×3 için geçerli.</p>
+
+  <h4>Adım adım örnek</h4>
+  <div class="eq">det<table class="det"><tr><td>2</td><td>1</td><td>0</td></tr><tr><td>1</td><td>3</td><td>1</td></tr><tr><td>0</td><td>1</td><td>2</td></tr></table></div>
+  <p class="step"><b>Adım 1:</b> ilk iki sütunu sağa kopyala:</p>
+  <div class="eq"><table class="m"><tr><td>2</td><td>1</td><td>0</td><td class="zero">2</td><td class="zero">1</td></tr><tr><td>1</td><td>3</td><td>1</td><td class="zero">1</td><td class="zero">3</td></tr><tr><td>0</td><td>1</td><td>2</td><td class="zero">0</td><td class="zero">1</td></tr></table></div>
+  <p class="step"><b>Adım 2 — 3 artı çapraz (sağa-alta):</b><br>
+    2·3·2 = 12 &nbsp;·&nbsp; 1·1·0 = 0 &nbsp;·&nbsp; 0·1·1 = 0 &nbsp;→&nbsp; toplam = <b>12</b></p>
+  <p class="step"><b>Adım 3 — 3 eksi çapraz (sola-alta):</b><br>
+    0·3·0 = 0 &nbsp;·&nbsp; 1·1·2 = 2 &nbsp;·&nbsp; 2·1·1 = 2 &nbsp;→&nbsp; toplam = <b>4</b></p>
+  <p class="step"><b>Adım 4:</b> 12 − 4 = <b>8</b></p>
+  <div class="eq"><b>det = 8</b></div>
+  <p style="font-size:.9rem;color:var(--soft)"><b>İki farklı işareti karıştırma:</b> (1) matris girişinin kendi işareti (matriste <code>-2</code> varsa hesaba <code>-2</code> girer) ile (2) Sarrus'un yapısal +/− işareti (hangi çaprazda olduğuna göre) — ikisi ayrı şeyler, çarpılır, karıştırılmaz.</p>
+
+  <hr class="sep">
+
+  <h2 id="b3">3. Matris temelleri, transpoze <span class="lesson-tag">Ders 02, 03</span></h2>
+
+  <h3>Matris ve boyut</h3>
+  <p>Sayıların satır ve sütunlara dizildiği tablo. Boyutu <code>satır × sütun</code>. <code>aᵢⱼ</code>: i. satır, j. sütundaki eleman. <b>Kare matris:</b> satır sayısı = sütun sayısı.</p>
+
+  <h3>Asal köşegen</h3>
+  <div class="eq">A = <table class="m"><tr><td class="diag">1</td><td>2</td><td>3</td></tr><tr><td>4</td><td class="diag">5</td><td>6</td></tr><tr><td>7</td><td>8</td><td class="diag">9</td></tr></table></div>
+  <p><code>a₁₁, a₂₂, a₃₃</code> = <code>1, 5, 9</code> — bütün özel matris tanımları bu köşegene göre yapılır.</p>
+
+  <h3>Transpoze (Aᵀ)</h3>
+  <p>Satırları ve sütunları yer değiştirmek. <code>A</code>'nın 1. satırı, <code>Aᵀ</code>'nin 1. sütunu olur.</p>
+  <div class="eq">
+    A = <table class="m"><tr><td>2</td><td>3</td><td>-1</td></tr><tr><td>4</td><td>-2</td><td>5</td></tr></table>
+    &nbsp;→&nbsp;
+    Aᵀ = <table class="m"><tr><td>2</td><td>4</td></tr><tr><td>3</td><td>-2</td></tr><tr><td>-1</td><td>5</td></tr></table>
+  </div>
+  <p style="font-size:.95rem;color:var(--soft)"><code>A</code> 2×3 idi, <code>Aᵀ</code> 3×2 oldu — boyut da "döndü".</p>
+
+  <hr class="sep">
+
+  <h2 id="b4">4. Özel matrisler (8 tür) <span class="lesson-tag">Ders 02</span></h2>
+  <p>Aksi belirtilmedikçe hepsi <b>kare matris</b> üzerinden, asal köşegene göre tanımlanır:</p>
+
+  <h3>Sıfır matris</h3>
+  <p>Tüm elemanları sıfır.</p>
+  <div class="eq"><table class="m"><tr><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td></tr></table></div>
+
+  <h3>Köşegen matris</h3>
+  <p>Asal köşegen <b>dışındaki</b> tüm elemanlar sıfır.</p>
+  <div class="eq"><table class="m"><tr><td class="diag">1</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="diag">5</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td class="diag">9</td></tr></table></div>
+
+  <h3>Skalar matris</h3>
+  <p>Köşegen matris <b>ve</b> köşegen elemanların hepsi birbirine eşit.</p>
+  <div class="eq"><table class="m"><tr><td class="diag">3</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="diag">3</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td class="diag">3</td></tr></table></div>
+
+  <h3>Birim matris (Iₙ)</h3>
+  <p>Skalar matris <b>ve</b> köşegen elemanların hepsi <b>1</b>.</p>
+  <div class="eq"><table class="m"><tr><td class="diag">1</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="diag">1</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td class="diag">1</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Sayılardaki "1" gibi davranır: <code>A·I = I·A = A</code>.</p>
+
+  <h3>Üç köşegenli matris (tridiagonal)</h3>
+  <p>Asal köşegen ve ona bitişik (bir üstü + bir altı) iki köşegen dışında her yer sıfır.</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>-1</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td>2</td><td>2</td><td>-2</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td>-1</td><td>3</td><td>1</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td>-2</td><td>4</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Sıfır olmayan üç şerit var: köşegenin kendisi, bir üstü, bir altı — geri kalan her yer sıfır.</p>
+
+  <h3>Üst üçgen matris</h3>
+  <p>Köşegenin <b>altındaki</b> tüm elemanlar sıfır.</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>3</td><td>-5</td></tr><tr><td class="zero">0</td><td>4</td><td>2</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td>-7</td></tr></table></div>
+
+  <h3>Alt üçgen matris</h3>
+  <p>Köşegenin <b>üstündeki</b> tüm elemanlar sıfır (üst üçgenin aynadaki hâli).</p>
+  <div class="eq"><table class="m"><tr><td>3</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td>-5</td><td>9</td><td class="zero">0</td></tr><tr><td>2</td><td>-6</td><td>7</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Aynı köşegen (<code>3,9,7</code>), ama sıfırlar şimdi <b>üstte</b> — üst üçgenin tam tersi konumda.</p>
+
+  <h3>Simetrik matris</h3>
+  <p><code>Aᵀ = A</code> — köşegene göre yansıyan elemanlar eşit (<code>a₁₂=a₂₁</code> gibi).</p>
+  <div class="eq"><table class="m"><tr><td>2</td><td>5</td><td>7</td></tr><tr><td>5</td><td>-3</td><td>6</td></tr><tr><td>7</td><td>6</td><td>8</td></tr></table></div>
+
+  <h3>Antisimetrik matris</h3>
+  <p><code>Aᵀ = −A</code> — yansıyan elemanlar mutlak değerce eşit, ters işaretli. Otomatik sonuç: <b>asal köşegen her zaman sıfır</b>.</p>
+  <div class="eq"><table class="m"><tr><td class="diag">0</td><td>-2</td><td>6</td></tr><tr><td>2</td><td class="diag">0</td><td>8</td></tr><tr><td>-6</td><td>-8</td><td class="diag">0</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Not: hem üst hem alt üçgen olan bir matris otomatik olarak <b>köşegen matris</b> olur (köşegenin hem altı hem üstü sıfırsa sadece köşegen kalır).</p>
+
+  <hr class="sep">
+
+  <h2 id="b5">5. Matris toplama, skaler, çarpım <span class="lesson-tag">Ders 03</span></h2>
+
+  <h3>Toplama</h3>
+  <p>Yalnızca <span class="hi">aynı boyuttaki</span> matrisler toplanır — karşılıklı elemanlar toplanır.</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table> + <table class="m"><tr><td>5</td><td>6</td></tr><tr><td>7</td><td>8</td></tr></table> = <table class="m"><tr><td>6</td><td>8</td></tr><tr><td>10</td><td>12</td></tr></table></div>
+
+  <h3>Skaler çarpım</h3>
+  <p>Her eleman o sayıyla çarpılır.</p>
+  <div class="eq">3 · <table class="m"><tr><td>1</td><td>2</td></tr><tr><td>0</td><td>4</td></tr></table> = <table class="m"><tr><td>3</td><td>6</td></tr><tr><td>0</td><td>12</td></tr></table></div>
+
+  <h3>Matris çarpımı — kurallar</h3>
+  <ul>
+    <li><b>Boyut uyumu:</b> <code>(m×n)·(n×p)</code> → ortadaki <code>n</code>'ler eşit olmalı; sonuç <code>m×p</code>.</li>
+    <li><b>Kural:</b> sonuç matrisinin <i>(i,j)</i> elemanı = 1. matrisin <b>i. satırı</b> ile 2. matrisin <b>j. sütununun</b> nokta çarpımı (karşılıklı elemanları çarp, topla).</li>
+  </ul>
+
+  <h4>Adım adım örnek</h4>
+  <div class="eq"><table class="m"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table> · <table class="m"><tr><td>5</td><td>6</td></tr><tr><td>7</td><td>8</td></tr></table> = <table class="m"><tr><td>?</td><td>?</td></tr><tr><td>?</td><td>?</td></tr></table></div>
+  <p class="step">
+    Sol-üst: (1. satır)·(1. sütun) = <code>1·5+2·7 = 19</code><br>
+    Sağ-üst: (1. satır)·(2. sütun) = <code>1·6+2·8 = 22</code><br>
+    Sol-alt: (2. satır)·(1. sütun) = <code>3·5+4·7 = 43</code><br>
+    Sağ-alt: (2. satır)·(2. sütun) = <code>3·6+4·8 = 50</code>
+  </p>
+  <div class="eq">Sonuç = <table class="m"><tr><td>19</td><td>22</td></tr><tr><td>43</td><td>50</td></tr></table></div>
+  <p>⚠️ <b>Değişmeli değildir:</b> genelde <code>A·B ≠ B·A</code>. Sıra önemli — o yüzden "satır × sütun" derken hangisinin satırı, hangisinin sütunu olduğuna dikkat.</p>
+
+  <h3>Resmi özellik listesi</h3>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Toplama/skaler:</b> <code>A+B=B+A</code> · <code>(A+B)+C=A+(B+C)</code> · <code>a(A+B)=aA+aB</code> · <code>(a+b)A=aA+bA</code> · <code>a(bA)=(ab)A</code> · <code>A+0=A</code>.<br>
+  <b>Çarpma:</b> <code>A(BC)=(AB)C</code> · <code>A(B+C)=AB+AC</code> · <code>(A+B)C=AC+BC</code> · <code>a(AB)=(aA)B=A(aB)</code>. Tek istisna: <code>AB≠BA</code>.</p>
+
+  <hr class="sep">
+
+  <h2 id="b6">6. Satır eşdeğer / indirgenmiş matris <span class="lesson-tag">Ders 04</span></h2>
+
+  <h3>Satır eşdeğer matris (Row Echelon Form) — 3 şart</h3>
+  <ol class="rules">
+    <li>Sadece sıfırlardan oluşan satırlar varsa, en altta.</li>
+    <li>Sıfır olmayan her satırda, ilk sıfırdan farklı eleman <b>1</b>'dir ("öncü 1").</li>
+    <li>Her satırdaki öncü 1, bir önceki satırdaki öncü 1'in <b>sağında</b> (basamak gibi iniyor).</li>
+  </ol>
+  <div class="eq"><table class="m"><tr><td>1</td><td>5</td><td>3</td></tr><tr><td>0</td><td>1</td><td>-2</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Not: "öncü 1'in sağında" kuralı, ara sütunları atlamana izin verir (örn. sütun 1 → sütun 3, sütun 2'yi atlayarak) — yeter ki sağa doğru gitsin.</p>
+
+  <h3>Satır indirgenmiş matris (RREF) — 1 kural daha</h3>
+  <p>Yukarıdaki 3 şarta ek: <b>her öncü 1'in bulunduğu sütunda diğer tüm elemanlar da sıfır.</b></p>
+  <div class="eq">
+    <table class="m"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+    <span class="hi">✓ satır indirgenmiş</span>
+    &nbsp;&nbsp;
+    <table class="m"><tr><td>1</td><td>-2</td><td>0</td></tr><tr><td>0</td><td>1</td><td>3</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+    <span style="color:#9c3f2a">✗ sadece satır eşdeğer</span>
+  </div>
+  <p style="font-size:.95rem;color:var(--soft)">Sağdaki, 3 şartı sağlıyor (satır eşdeğer) ama indirgenmiş değil — 2. satırın öncü 1'i (sütun 2), yukarısında <code>-2</code> bırakmış.</p>
+  <p style="font-size:.95rem;color:var(--soft)"><b>"Satır indirgenmiş matris" ile "birim matris" farkı:</b> tam köşegen-1'li kare hâl (yukarıdaki soldaki gibi), <b>hem</b> satır indirgenmiş matris tanımına <b>hem de</b> birim matris tanımına uyar — bu özel durumda ikisi çakışır. Ama her satır indirgenmiş matris birim matris değildir (dikdörtgen olabilir, ya da öncü 1 her sütunda olmayabilir).</p>
+
+  <hr class="sep">
+
+  <h2 id="b7">7. Gauss-Jordan Eliminasyonu <span class="lesson-tag">Ders 04</span></h2>
+  <p><b>Gauss:</b> <code>[A:B]</code>'yi, <code>A</code> kısmı köşegeni 1 olan üst üçgen matris olacak şekilde götürüp, sonra geri yerine koyarak çözüme ulaşmak.</p>
+  <p><b>Gauss-Jordan:</b> Aynı arttırılmış matrisi, <code>A</code> kısmı doğrudan <b>birim matris</b> (yani satır indirgenmiş forma kadar) olacak şekilde götürmek — köşegenin <b>hem altı hem üstü</b> sıfırlanır, cevap doğrudan sağ sütunda okunur, geri yerine koymaya gerek kalmaz.</p>
+
+  <h3>Aynı örneği Gauss-Jordan ile bitirelim</h3>
+  <p>Farklı bir sistemle (3 bilinmeyenli, kesirli) baştan sona görelim:</p>
+  <div class="eq"><code>x − 2y − z = 2</code> · <code>3x − y + 4z = −1</code> · <code>−2x − 3y + 2z = 3</code></div>
+  <p class="step"><b>Arttırılmış matris:</b></p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>-2</td><td>-1</td><td>|</td><td>2</td></tr><tr><td>3</td><td>-1</td><td>4</td><td>|</td><td>-1</td></tr><tr><td>-2</td><td>-3</td><td>2</td><td>|</td><td>3</td></tr></table></div>
+  <p class="step"><b>Gauss adımları:</b> <code>R2→R2−3·R1</code>, <code>R3→R3+2·R1</code> → R2=(0,5,7|−7), R3=(0,−7,0|7)<br>
+    <code>R2→(1/5)·R2</code> → R2=(0,1,7/5|−7/5)<br>
+    <code>R3→R3+7·R2</code> → R3=(0,0,49/5|−14/5)<br>
+    <code>R3→(5/49)·R3</code> → R3=(0,0,1|−2/7)</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>-2</td><td>-1</td><td>|</td><td>2</td></tr><tr><td>0</td><td>1</td><td>7/5</td><td>|</td><td>-7/5</td></tr><tr><td>0</td><td>0</td><td>1</td><td>|</td><td>-2/7</td></tr></table></div>
+  <p class="step"><b>Gauss ile geri yerine koy (kontrol için):</b> <code>x₃=−2/7</code>. Satır 2: <code>x₂+(7/5)(−2/7)=−7/5 → x₂=−1</code>. Satır 1: <code>x₁−2(−1)−(−2/7)=2 → x₁=−2/7</code>.</p>
+
+  <p class="step"><b>Şimdi Gauss-Jordan ile devam (köşegenin üstünü de sıfırla):</b><br>
+    <code>R1 → R1 + R3</code>: R1'in son sütunu <code>2 + (−2/7) = 12/7</code>, x3 katsayısı <code>−1+1=0</code> → R1=(1,−2,0|12/7)<br>
+    <code>R2 → R2 − (7/5)·R3</code>: R2'nin son sütunu <code>−7/5 − (7/5)(−2/7) = −7/5+2/5 = −1</code> → R2=(0,1,0|−1)<br>
+    <code>R1 → R1 + 2·R2</code>: R1'in son sütunu <code>12/7 + 2·(−1) = 12/7−14/7 = −2/7</code>, y katsayısı <code>−2+2=0</code> → R1=(1,0,0|−2/7)</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>0</td><td>0</td><td>|</td><td>-2/7</td></tr><tr><td>0</td><td>1</td><td>0</td><td>|</td><td>-1</td></tr><tr><td>0</td><td>0</td><td>1</td><td>|</td><td>-2/7</td></tr></table></div>
+  <p>Sağ sütun doğrudan çözümü veriyor: <code>x₁=−2/7, x₂=−1, x₃=−2/7</code> — Gauss'la bulduğumuzla birebir aynı.</p>
+
+  <hr class="sep">
+
+  <h2 id="b8">8. Ters matris <span class="lesson-tag">Ders 05</span></h2>
+
+  <h3>Tanım</h3>
+  <p><code>A</code> ve <code>B</code>, n×n boyutlu olsun. <code>AB=BA=Iₙ</code> ise <code>B=A⁻¹</code> denir. Sayılarda <code>x·(1/x)=1</code> neyse, matriste <code>A·A⁻¹=I</code> odur. Her matrisin tersi yoktur.</p>
+
+  <h3>Köşegen matriste kısayol</h3>
+  <p>Köşegen matriste her köşegen eleman kendi başına ters çevrilir, köşegen dışı sıfırlar öyle kalır:</p>
+  <div class="eq">A = <table class="m"><tr><td class="diag">3</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="diag">2</td></tr></table> &nbsp;→&nbsp; A⁻¹ = <table class="m"><tr><td class="diag">1/3</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td class="diag">1/2</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Neden çalışıyor?</b> Köşegen matriste satırlar birbirinden bağımsız — her satırda tek bir sıfırdan farklı eleman var. <code>A·A⁻¹=I</code> denklemi tek tek, birbirine karışmadan çözülür.</p>
+
+  <h3>Genel yöntem: [A:I] → [I:A⁻¹]</h3>
+  <p>Aynı köşegen örneği genel yöntemle de çözelim (ikisi de aynı cevabı vermeli):</p>
+  <div class="eq"><table class="m"><tr><td>3</td><td>0</td><td>|</td><td>1</td><td>0</td></tr><tr><td>0</td><td>2</td><td>|</td><td>0</td><td>1</td></tr></table></div>
+  <p class="step"><code>R1→(1/3)R1</code>: (1,0|1/3,0). <code>R2→(1/2)R2</code>: (0,1|0,1/2).</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>0</td><td>|</td><td>1/3</td><td>0</td></tr><tr><td>0</td><td>1</td><td>|</td><td>0</td><td>1/2</td></tr></table></div>
+  <p>Sağ taraf: <code>A⁻¹=[[1/3,0],[0,1/2]]</code> — kısayolla aynı sonuç. Genel yöntem <b>her matriste</b> çalışır, kısayol sadece köşegen matriste bir pratiklik.</p>
+
+  <h4>Genel (köşegen olmayan) bir matrisle örnek</h4>
+  <div class="eq">A = <table class="m"><tr><td>2</td><td>1</td></tr><tr><td>1</td><td>1</td></tr></table></div>
+  <p class="step"><b>[A:I]:</b> <table class="m"><tr><td>2</td><td>1</td><td>|</td><td>1</td><td>0</td></tr><tr><td>1</td><td>1</td><td>|</td><td>0</td><td>1</td></tr></table></p>
+  <p class="step"><b>Adım 1:</b> <code>R1↔R2</code> (pivotu kolaylaştır): (1,1|0,1) / (2,1|1,0)</p>
+  <p class="step"><b>Adım 2:</b> <code>R2→R2−2R1</code>: R2=(0,−1|1,−2)</p>
+  <p class="step"><b>Adım 3:</b> <code>R2→−1·R2</code>: R2=(0,1|−1,2)</p>
+  <p class="step"><b>Adım 4:</b> <code>R1→R1−R2</code>: R1=(1,0|1,−1)</p>
+  <div class="eq">A⁻¹ = <table class="m"><tr><td>1</td><td>-1</td></tr><tr><td>-1</td><td>2</td></tr></table></div>
+
+  <h3>Kontrol: A·A⁻¹ = I (satır×sütun ile)</h3>
+  <p>Matris çarpımı kuralıyla (yukarıda Bölüm 5'te gördüğümüz) doğrulayalım:</p>
+  <p class="step">
+    (1,1): <code>2·1+1·(−1) = 2−1 = 1</code><br>
+    (1,2): <code>2·(−1)+1·2 = −2+2 = 0</code><br>
+    (2,1): <code>1·1+1·(−1) = 1−1 = 0</code><br>
+    (2,2): <code>1·(−1)+1·2 = −1+2 = 1</code>
+  </p>
+  <div class="eq">Sonuç = <table class="m"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td></tr></table> = I ✓</div>
+  <p style="font-size:.95rem;color:var(--soft)">Bu kontrol, "bir matrisi kendi tersiyle çarparsan sonuç her zaman I olur" tanımının doğrudan doğrulaması.</p>
+
+  <h3>Ters matris ile sistem çözümü: X = A⁻¹B</h3>
+  <p><code>AX=B</code>'nin her iki tarafını soldan <code>A⁻¹</code> ile çarparsak: <code>A⁻¹AX=A⁻¹B → IX=A⁻¹B → X=A⁻¹B</code>.</p>
+
+  <h3>Ters matrisin özellikleri</h3>
+  <div class="case">
+    <div><b>1.</b> <code>(A⁻¹)⁻¹ = A</code></div>
+    <div><b>2.</b> Tersi (varsa) <b>tektir</b>.</div>
+    <div><b>3.</b> <code>(AB)⁻¹ = B⁻¹A⁻¹</code> (sıra ters döner!)</div>
+    <div><b>4.</b> <code>(Aᵀ)⁻¹ = (A⁻¹)ᵀ</code></div>
+  </div>
+
+  <hr class="sep">
+
+  <h2 id="b9">9. Geometrik yorum ve n-boyutlu determinant <span class="lesson-tag">Ders 06</span></h2>
+
+  <h3>2 değişkenli sistem: iki doğru</h3>
+  <p><code>ax+by=e</code> bir <b>doğru</b>dur. Sistem = iki doğru, çözüm = kesişim noktası.</p>
+  <div class="case">
+    <div><b>det≠0</b><br>Paralel değil → 1 kesişim → tek çözüm.</div>
+    <div><b>det=0, tutarsız</b><br>Paralel ama çakışmıyor → çözüm yok.</div>
+    <div><b>det=0, tutarlı</b><br>Aynı doğru → sonsuz çözüm.</div>
+  </div>
+  <p>Determinant, matrisin satırlarının (yön vektörlerinin) birbirinin katı olup olmadığını ölçer — paralellerse <code>det=0</code>.</p>
+
+  <h3>3 değişkenli sistem: üç düzlem</h3>
+  <p><code>ax+by+cz=e</code> bir <b>düzlem</b>dir. Çözüm = 3 düzlemin ortak kesişimi.</p>
+  <div class="case">
+    <div><b>det≠0</b><br>3 düzlem tam <b>1 noktada</b> kesişir → tek çözüm.</div>
+    <div><b>det=0, tutarsız</b><br>Ortak kesişim yok (örn. paralel düzlemler) → çözüm yok.</div>
+    <div><b>det=0, tutarlı</b><br>3 düzlem ortak bir <b>doğru</b> boyunca kesişir → sonsuz çözüm.</div>
+  </div>
+  <p style="font-size:.95rem;color:var(--soft)">Aynı mantık 2 değişkenlideki gibi: matrisin 3 satırı 3 yön vektörü. Bu vektörler gerçek bir hacim oluşturuyorsa (birbirinin düzlemine düşmüyorlarsa) <code>det≠0</code>; aynı düzleme düşüyorlarsa hacim sıfırlanır, <code>det=0</code>.</p>
+
+  <h3>n-boyutlu determinantın genel tanımı (permütasyon)</h3>
+  <div class="eq"><code>det(A) = Σ<sub>σ</sub> sign(σ) · a<sub>1,σ(1)</sub> · a<sub>2,σ(2)</sub> · ... · a<sub>n,σ(n)</sub></code></div>
+  <ul>
+    <li><b>σ (sigma):</b> <code>{1,...,n}</code>'in bir permütasyonu (sıralaması).</li>
+    <li><b>a₁,σ(1)·a₂,σ(2)·...</b>: her satırdan tam bir eleman — hangi sütundan olduğunu σ belirler.</li>
+    <li><b>sign(σ):</b> kaç takasla elde edildiğine göre +1 (çift) veya −1 (tek).</li>
+    <li><b>Σσ:</b> tüm permütasyonlar üzerinden topla.</li>
+  </ul>
+  <p><b>Kaç terim (n!):</b> n=2→2 terim (2×2 formülü), n=3→6 terim (Sarrus'un 3+3 çaprazı), n=4→24 terim (artık çapraz çizilemez, kofaktör açılımı gerekir).</p>
+
+  <h4>n=2 doğrulama</h4>
+  <p>Permütasyonlar: <code>(1,2)</code> (sign=+1), <code>(2,1)</code> (1 takas, sign=−1).</p>
+  <div class="eq">det<table class="det"><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table> = <code>+1·a₁₁·a₂₂ + (−1)·a₁₂·a₂₁</code> = <code>ad−bc</code></div>
+
+  <hr class="sep">
+
+  <h2 id="b10">10. Determinantın 3 kuralı ve üçgen matris <span class="lesson-tag">Ders 07</span></h2>
+
+  <h3>Üçgen matrisin determinantı = köşegen çarpımı</h3>
+  <p>Üst üçgensel matriste, köşegenin altı sıfır olduğu için, permütasyon formülündeki <b>tek hayatta kalan terim</b>, hiç karıştırmayan (birim) permütasyon — geri kalan tüm terimler otomatik sıfır. Bu her boyutta geçerli.</p>
+
+  <h3>Satır işlemlerinin determinanta etkisi — 3 kural</h3>
+  <div class="rule-box"><b>Kural 1 — takas:</b> iki satırı değiştir → <code>det → −det</code> (işaret ters döner, büyüklük aynı kalır).</div>
+  <p class="step">Örnek: det<table class="det"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>=−2. Satırları değiştir: det<table class="det"><tr><td>3</td><td>4</td></tr><tr><td>1</td><td>2</td></tr></table>=3·2−4·1=2. Tam ters işaret.</p>
+
+  <div class="rule-box"><b>Kural 2 — skaler:</b> <code>Rᵢ→k·Rᵢ</code> → <code>det→k·det</code>.</div>
+  <p class="step">Örnek: det=−2 idi. 1. satırı 5 ile çarp: det<table class="det"><tr><td>5</td><td>10</td></tr><tr><td>3</td><td>4</td></tr></table>=20−30=−10=5×(−2). ✓</p>
+
+  <div class="rule-box"><b>Kural 3 — kat ekleme:</b> <code>Rᵢ→Rᵢ+k·Rⱼ</code> (i≠j) → <code>det değişmez</code>. Bu, Gauss'ta zaten kullandığımız işlem — determinantı bozmadığı için Gauss'u determinant hesaplamak için güvenle kullanabiliriz.</p>
+
+  <h3>Pratik hesaplama tarifi (n≥4 için)</h3>
+  <ol class="rules">
+    <li>Gauss ile (sadece Kural 3 işlemleriyle) üst üçgen forma indir.</li>
+    <li>Pivot sıfırsa satır değiştir, kaç kere değiştirdiğini <b>say</b>.</li>
+    <li>Köşegeni çarp.</li>
+    <li>Tek sayıda swap yaptıysan sonucu <code>−1</code> ile çarp.</li>
+  </ol>
+
+  <h4>Swap gerektiren örnek</h4>
+  <div class="eq">det<table class="det"><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>1</td><td>3</td><td>2</td></tr><tr><td>2</td><td>1</td><td>1</td></tr></table></div>
+  <p class="step"><b>Adım 1:</b> pivot <code>0</code> olamaz → <code>R1↔R2</code> (1 takas):</p>
+  <div class="eq"><table class="det"><tr><td>1</td><td>3</td><td>2</td></tr><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>2</td><td>1</td><td>1</td></tr></table></div>
+  <p class="step"><b>Adım 2:</b> <code>R3→R3−2R1</code>: (0,−5,−3)</p>
+  <p class="step"><b>Adım 3:</b> <code>R3→R3+2.5·R2</code>: (0,0,−0.5)</p>
+  <p class="step"><b>Adım 4:</b> köşegen çarpımı <code>1·2·(−0.5)=−1</code>. 1 takas (tek) → sonucu <code>−1</code> ile çarp: <code>−1×(−1)=1</code>.</p>
+  <div class="eq"><b>det = 1</b></div>
+
+  <hr class="sep">
+
+  <h2 id="b11">11. Minör, kofaktör, kofaktör açılımı <span class="lesson-tag">Ders 08</span></h2>
+
+  <h3>Minör (Mᵢⱼ)</h3>
+  <p><code>i</code>. satır ve <code>j</code>. sütunu <b>sil</b>, kalan matrisin determinantı = <code>aᵢⱼ</code>'nin minörü.</p>
+  <div class="eq">A = <table class="det"><tr><td>4</td><td>3</td><td>2</td></tr><tr><td>1</td><td>-5</td><td>6</td></tr><tr><td>7</td><td>8</td><td>9</td></tr></table></div>
+  <p class="step"><b>M₂₃</b> (2. satır, 3. sütun sil): kalan <table class="det"><tr><td>4</td><td>3</td></tr><tr><td>7</td><td>8</td></tr></table> = <code>4·8−3·7=11</code></p>
+
+  <h3>Kofaktör (Cᵢⱼ)</h3>
+  <div class="eq"><code>Cᵢⱼ = (−1)^(i+j) · Mᵢⱼ</code></div>
+  <p>Minörle aynı, sadece <code>i+j</code> çift→<code>+</code>, tek→<code>−</code> işareti ekleniyor. İşaret satrancı:</p>
+  <div class="eq"><table class="m"><tr><td>+</td><td>-</td><td>+</td></tr><tr><td>-</td><td>+</td><td>-</td></tr><tr><td>+</td><td>-</td><td>+</td></tr></table></div>
+  <p class="step"><b>C₂₃:</b> <code>i+j=5</code> (tek) → <code>C₂₃=(−1)⁵·11=−11</code>.</p>
+
+  <h3>Kofaktör açılımı</h3>
+  <p>Determinant = bir satır (veya sütun) seç, her eleman × kendi kofaktörü, topla:</p>
+  <div class="eq"><code>det(A) = a₁₁C₁₁ + a₁₂C₁₂ + a₁₃C₁₃</code></div>
+
+  <h4>Aynı matrisle tam örnek (1. satırdan)</h4>
+  <p class="step">
+    <code>C₁₁</code>: kalan <code>[[-5,6],[8,9]]</code> → <code>M₁₁=−45−48=−93</code>, çift → <code>C₁₁=−93</code><br>
+    <code>C₁₂</code>: kalan <code>[[1,6],[7,9]]</code> → <code>M₁₂=9−42=−33</code>, tek → <code>C₁₂=33</code><br>
+    <code>C₁₃</code>: kalan <code>[[1,-5],[7,8]]</code> → <code>M₁₃=8+35=43</code>, çift → <code>C₁₃=43</code><br>
+    <code>det(A) = 4·(−93)+3·(33)+2·(43) = −372+99+86 = −187</code>
+  </p>
+  <div class="eq"><b>det(A) = −187</b></div>
+
+  <h3>Sıfır dolu satır/sütun seçmenin gücü</h3>
+  <p>Hangi satır/sütundan açarsan aç sonuç aynı — <b>en çok sıfır içeren</b> satır/sütunu seçmek işi kısaltır.</p>
+  <div class="eq">B = <table class="det"><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>0</td><td>0</td><td>4</td></tr><tr><td>5</td><td>6</td><td>7</td></tr></table></div>
+  <p>2. satırda iki sıfır: <code>det(B)=0·C₂₁+0·C₂₂+4·C₂₃</code> — ilk iki kofaktöre hiç gerek yok.</p>
+  <p class="step"><code>C₂₃</code>: kalan <code>[[1,2],[5,6]]</code> → <code>M₂₃=6−10=−4</code>, tek → <code>C₂₃=4</code>. <code>det(B)=4·4=16</code>.</p>
+
+  <hr class="sep">
+
+  <h2 id="b12">12. Cramer kuralı ve adjoint matris <span class="lesson-tag">Ders 09</span></h2>
+
+  <h3>Cramer Kuralı</h3>
+  <p><code>AX=B</code>, <code>det(A)≠0</code> ise tek çözüm vardır:</p>
+  <div class="eq"><code>xᵢ = det(Aᵢ) / det(A)</code></div>
+  <p><code>Aᵢ</code>: <code>A</code>'nın i. sütununu <code>B</code> ile değiştirerek elde edilen matris.</p>
+
+  <h4>Örnek</h4>
+  <div class="eq"><code>x+y=3</code> · <code>y+z=3</code> · <code>x+z=3</code></div>
+  <p><code>A</code>=<table class="m"><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr></table>, <code>B=(3,3,3)</code>.</p>
+  <p class="step"><code>det(A)=1(1−0)−1(0−1)+0=1+1=2</code></p>
+  <p class="step"><b>A₁</b> (1. sütun→B): <code>det(A₁)=3(1−0)−1(3−3)+0=3</code> → <code>x₁=3/2</code></p>
+  <p class="step"><b>A₂</b>: <code>det(A₂)=1(3−3)−3(0−1)+0=3</code> → <code>x₂=3/2</code></p>
+  <p class="step"><b>A₃</b>: <code>det(A₃)=1(3−0)−1(0−3)+3(0−1)=3+3−3=3</code> → <code>x₃=3/2</code></p>
+  <div class="eq"><b>x=y=z=3/2</b></div>
+
+  <h3>Determinant ile ters mevcudiyeti</h3>
+  <p><code>det(A)≠0</code> → <code>A</code>'nın tersi vardır. Yukarıda <code>det(A)=2≠0</code>.</p>
+
+  <h3>Adjoint matris</h3>
+  <p>Her eleman için kofaktörleri <code>C</code> matrisine yaz; <code>C</code>'nin transpozesi = <code>adj(A)</code>.</p>
+  <p class="step">
+    <code>C₁₁=1, C₁₂=1, C₁₃=−1</code><br>
+    <code>C₂₁=−1, C₂₂=1, C₂₃=1</code><br>
+    <code>C₃₁=1, C₃₂=−1, C₃₃=1</code>
+  </p>
+  <div class="eq">C = <table class="m"><tr><td>1</td><td>1</td><td>-1</td></tr><tr><td>-1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>-1</td><td>1</td></tr></table> &nbsp;→&nbsp; adj(A)=Cᵀ = <table class="m"><tr><td>1</td><td>-1</td><td>1</td></tr><tr><td>1</td><td>1</td><td>-1</td></tr><tr><td>-1</td><td>1</td><td>1</td></tr></table></div>
+
+  <h3>A⁻¹ = adj(A) / det(A)</h3>
+  <p><code>det(A)=2</code>, her elemanı 2'ye böl:</p>
+  <div class="eq">A⁻¹ = <table class="m"><tr><td>1/2</td><td>-1/2</td><td>1/2</td></tr><tr><td>1/2</td><td>1/2</td><td>-1/2</td></tr><tr><td>-1/2</td><td>1/2</td><td>1/2</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Bu 3 yöntem (satır indirgeme/[A:I], Cramer, adjoint) hep <b>aynı</b> sonuca ulaşır — çünkü ters matris (ve sistemin çözümü) her zaman <b>tektir</b>.</p>
+
+  <hr class="sep">
+
+  <h2 id="b13">13. Vektörler I: temel işlemler, nokta çarpım <span class="lesson-tag">Ders 10</span></h2>
+
+  <h3>Skaler ve vektörel büyüklük</h3>
+  <div class="case">
+    <div><b>Skaler</b><br>Tek sayı: kütle, sıcaklık.</div>
+    <div><b>Vektörel</b><br>Doğrultu + yön gerekir: kuvvet, hız.</div>
+  </div>
+
+  <h3>Vektör toplama, fark, skalerle çarpım</h3>
+  <p><b>Toplama (üçgen kuralı):</b> b'nin başlangıcını a'nın ucuna getir. <b>Fark:</b> <code>a−b=a+(−b)</code>. <b>Skalerle çarpım:</b> <code>m·a</code>, aynı doğrultuda modülü <code>m</code> katı (m&lt;0 ise yön ters).</p>
+  <p class="step"><b>Sayılarla (bileşen bileşen):</b> <code>a=(1,2)</code>, <code>b=(3,1)</code> ise <code>a+b=(1+3,2+1)=(4,3)</code>. <code>a−b=(1−3,2−1)=(−2,1)</code>. <code>2·a=(2,4)</code> (aynı doğrultuda, modülü 2 katı).</p>
+
+  <h3>Birim vektör</h3>
+  <div class="eq"><code>u = a / |a|</code></div>
+
+  <h3>i-j-k birim vektörleri ve modül</h3>
+  <p><code>i=(1,0,0)</code>, <code>j=(0,1,0)</code>, <code>k=(0,0,1)</code>. <code>a=a₁i+a₂j+a₃k</code>.</p>
+  <div class="eq"><code>|a| = √(a₁²+a₂²+a₃²)</code></div>
+
+  <h4>Örnek — paralel birim vektör</h4>
+  <p><code>a=3i+4j</code>: <code>|a|=√(9+16)=√25=5</code>. <code>u=(3/5)i+(4/5)j</code>.</p>
+  <p style="font-size:.9rem;color:var(--soft)">Kontrol: <code>√((3/5)²+(4/5)²)=√(9/25+16/25)=√1=1</code> ✓</p>
+
+  <h3>P₁P₂ vektörünün bileşenleri</h3>
+  <div class="eq"><code>P₁P₂ = (x₂−x₁, y₂−y₁, z₂−z₁)</code></div>
+  <p style="font-size:.95rem;color:var(--soft)">Her zaman "uç eksi başlangıç".</p>
+  <p class="step"><b>Örnek:</b> <code>P₁(−1,0,2)</code>, <code>P₂(0,−1,0)</code> → <code>P₁P₂ = (0−(−1), −1−0, 0−2) = (1,−1,−2)</code>.</p>
+
+  <h3>Nokta (skaler) çarpım</h3>
+  <p><b>Geometrik:</b> <code>a·b=|a||b|cosθ</code>. <b>Bileşen:</b> <code>a·b=a₁b₁+a₂b₂+a₃b₃</code> — sonuç bir <b>sayı</b>.</p>
+  <p><code>i·i=j·j=k·k=1</code>, <code>i·j=j·k=k·i=0</code> (birbirine dik). <b>Dik olma testi:</b> <code>a·b=0</code> (ikisi de sıfır değilse) → dik.</p>
+
+  <h3>İki vektör arasındaki açı</h3>
+  <div class="eq"><code>cosθ = (a·b)/(|a||b|)</code></div>
+  <h4>Tam örnek</h4>
+  <p><code>a=2i+4j+6k</code>, <code>b=i−3j+2k</code>.</p>
+  <p class="step">
+    <code>a·b=2·1+4·(−3)+6·2=2−12+12=2</code><br>
+    <code>|a|=√(4+16+36)=√56</code>, <code>|b|=√(1+9+4)=√14</code><br>
+    <code>|a||b|=√56·√14=√784=28</code><br>
+    <code>cosθ=2/28=1/14≈0.0714 → θ≈85°54'</code>
+  </p>
+
+  <hr class="sep">
+
+  <h2 id="b14">14. Vektörler II: vektörel çarpım, lineer bağımsızlık <span class="lesson-tag">Ders 11</span></h2>
+
+  <h3>Vektörel (çapraz) çarpım — tanım</h3>
+  <p><code>a×b</code>, bir <b>vektördür</b>: büyüklüğü <code>|a×b|=|a||b|sinθ</code>, doğrultusu a-b düzlemine dik, yönü <b>sağ el kuralı</b> ile. Nokta çarpımdan farkı: nokta çarpım sayı verir, vektörel çarpım vektör verir.</p>
+
+  <h3>Determinant yöntemiyle hesaplama</h3>
+  <div class="eq">a×b = <table class="det"><tr><td>i</td><td>j</td><td>k</td></tr><tr><td>a₁</td><td>a₂</td><td>a₃</td></tr><tr><td>b₁</td><td>b₂</td><td>b₃</td></tr></table></div>
+
+  <h4>Tam örnek</h4>
+  <p><code>a=i+2j−2k</code>, <code>b=3i+k</code>.</p>
+  <div class="eq">a×b = <table class="det"><tr><td>i</td><td>j</td><td>k</td></tr><tr><td>1</td><td>2</td><td>-2</td></tr><tr><td>3</td><td>0</td><td>1</td></tr></table></div>
+  <p class="step">
+    <b>i katsayısı</b> (1. sütun sil): kalan <code>[[2,-2],[0,1]]</code> → <code>2·1−(−2)·0=2</code><br>
+    <b>j katsayısı</b> (2. sütun sil, işaret ters): kalan <code>[[1,-2],[3,1]]</code> → <code>1·1−(−2)·3=7</code> → <code>−7</code><br>
+    <b>k katsayısı</b> (3. sütun sil): kalan <code>[[1,2],[3,0]]</code> → <code>1·0−2·3=−6</code>
+  </p>
+  <div class="eq"><b>a×b = 2i − 7j − 6k</b></div>
+  <p style="font-size:.95rem;color:var(--soft)">Her katsayı için, o harfin (i/j/k) bulunduğu sütun ve 1. satır silinir; hangi sütunu sildiğin hangi katsayıyı hesapladığına bağlı.</p>
+
+  <h3>Vektörel çarpımın özellikleri</h3>
+  <div class="case">
+    <div><b>1.</b> <code>a×b=−b×a</code></div>
+    <div><b>2.</b> <code>i×j=k, j×k=i, k×i=j</code></div>
+    <div><b>3.</b> <code>i×i=j×j=k×k=0</code></div>
+    <div><b>4.</b> <code>a×b=0</code> (ikisi de sıfır değil) → <b>paralel</b></div>
+  </div>
+
+  <h3>Karışık (üçlü) çarpım</h3>
+  <div class="eq">a·(b×c) = <table class="det"><tr><td>a₁</td><td>a₂</td><td>a₃</td></tr><tr><td>b₁</td><td>b₂</td><td>b₃</td></tr><tr><td>c₁</td><td>c₂</td><td>c₃</td></tr></table></div>
+  <p style="font-size:.95rem;color:var(--soft)">Üç vektörün bileşenlerini satır satır yaz, direkt determinantını al — sonuç bir sayı.</p>
+
+  <h3>Lineer kombinasyon</h3>
+  <p><code>a = k₁a₁+k₂a₂+...+kₘaₘ</code> şeklinde yazılabiliyorsa, <code>a</code> bu vektörlerin lineer kombinasyonudur.</p>
+
+  <h3>Lineer bağımlılık ve bağımsızlık</h3>
+  <div class="eq"><code>k₁a₁+k₂a₂+...+kₘaₘ=0</code></div>
+  <div class="case">
+    <div><b>Lineer bağımlı</b><br>En az bir <code>k</code> sıfırdan farklı olabiliyor.</div>
+    <div><b>Lineer bağımsız</b><br>Sadece <code>k₁=k₂=...=0</code> için sağlanıyor.</div>
+  </div>
+
+  <h4>Örnek — 3 vektörle bağımlılık testi</h4>
+  <p><code>a₁=(1,2,1)</code>, <code>a₂=(0,1,1)</code>, <code>a₃=(1,0,−1)</code>.</p>
+  <div class="eq"><code>k₁+k₃=0</code> · <code>2k₁+k₂=0</code> · <code>k₁+k₂−k₃=0</code></div>
+  <p class="step">1. denklem: <code>k₁=−k₃</code>. 2. denklem: <code>k₂=−2k₁=2k₃</code>. 3. denklemde yerine koy: <code>−k₃+2k₃−k₃=0 → 0=0</code> — her zaman doğru, <code>k₃</code> serbest!</p>
+  <p><code>k₃=1</code> seçersek: <code>k₁=−1,k₂=2,k₃=1</code> — sıfırdan farklı çözüm var.</p>
+  <div class="eq"><b>a₁,a₂,a₃ lineer bağımlıdır</b></div>
+
+  <hr class="sep">
+
+  <h2 id="b15">15. Matris rankı <span class="lesson-tag">Ders 12</span></h2>
+
+  <h3>Rank tanımı (determinant üzerinden)</h3>
+  <p>İçinden çıkarılabilen, determinantı sıfırdan farklı <b>en büyük</b> kare alt matrisin boyutu = <code>r(A)</code>.</p>
+
+  <h4>Örnek — küçükten büyüğe</h4>
+  <div class="eq">A = <table class="m"><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>3</td><td>2</td></tr><tr><td>2</td><td>0</td><td>1</td></tr></table></div>
+  <p class="step"><b>3×3:</b> <code>det(A)=1(3−0)−1(1−4)+1(0−6)=3+3−6=0</code> → rank 3 olamaz.</p>
+  <p class="step"><b>2×2:</b> sol üst <code>[[1,1],[1,3]]</code> → <code>det=3−1=2≠0</code>.</p>
+  <div class="eq"><b>r(A) = 2</b></div>
+
+  <h3>Denk matrisler yöntemi (daha hızlı)</h3>
+  <p>Elementer satır işlemleri rankı değiştirmez. <code>A</code>'yı satır indirgenmiş forma getir, <b>sıfır olmayan satır sayısını</b> say — rank budur.</p>
+
+  <h4>Örnek — 3×4 matris</h4>
+  <div class="eq">A = <table class="m"><tr><td>1</td><td>2</td><td>-1</td><td>4</td></tr><tr><td>2</td><td>4</td><td>3</td><td>5</td></tr><tr><td>-1</td><td>-2</td><td>6</td><td>-7</td></tr></table></div>
+  <p class="step">
+    <code>R2→R2−2R1</code>, <code>R3→R3+R1</code>: R2=(0,0,5,−3), R3=(0,0,5,−3)<br>
+    <code>R3→R3−R2</code> (aynı satırlar, fark sıfır): R3=(0,0,0,0)<br>
+    <code>R2→(1/5)R2</code>: R2=(0,0,1,−3/5)<br>
+    <code>R1→R1+R2</code>: R1=(1,2,0,17/5)
+  </p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>2</td><td>0</td><td>17/5</td></tr><tr><td>0</td><td>0</td><td>1</td><td>-3/5</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></div>
+  <p>2 tane sıfır olmayan satır → <code>r(A)=2</code>.</p>
+
+  <h3>Lineer bağımsızlık ile ilişki</h3>
+  <p>Bir matrisin <b>lineer bağımsız satır (veya sütun) vektörlerinin maksimum sayısı</b> = rank. Örnekteki 3. satır, 1. ve 2. satırın kombinasyonu (bağımlı) olduğu için rank 3 değil 2.</p>
+
+  <hr class="sep">
+
+  <h2 id="b16">16. Rank ile sistem çözümü, homojen sistemler <span class="lesson-tag">Ders 13</span></h2>
+
+  <h3>Temel kural: r(A) vs r([A:B])</h3>
+  <div class="case">
+    <div><b>r(A)=r(AB)=n</b><br>(n=bilinmeyen sayısı) → <b>tek çözüm</b>.</div>
+    <div><b>r(A)=r(AB)&lt;n</b><br>→ <b>sonsuz çözüm</b> (n−r keyfi sabit).</div>
+    <div><b>r(A)≠r(AB)</b><br>→ <b>çözüm yok</b>.</div>
+  </div>
+
+  <h4>Örnek — sonsuz çözüm</h4>
+  <div class="eq"><code>x+y=2</code> · <code>2x+2y=4</code></div>
+  <p class="step"><code>A=[[1,1],[2,2]]</code>, <code>det(A)=2−2=0</code> → <code>r(A)=1</code> (1. satırda sıfırdan farklı eleman var). <code>[A:B]</code>'de 2. satır = 2×(1. satır) → bağımlı, <code>r(AB)=1</code> de.</p>
+  <p><code>r(A)=r(AB)=1&lt;n=2</code> → sonsuz çözüm: <code>x=t, y=2−t</code>.</p>
+
+  <h4>Örnek — çözümsüz</h4>
+  <div class="eq"><code>x+y=2</code> · <code>2x+2y=5</code></div>
+  <p class="step">Aynı <code>A</code>, <code>r(A)=1</code>. <code>[A:B]</code>: <code>R2→R2−2R1</code> → <code>(0,0|1)</code> — sıfır olmayan satır çıktı → <code>r(AB)=2</code>.</p>
+  <p><code>r(A)=1≠r(AB)=2</code> → <b>çözüm yok</b>.</p>
+
+  <h3>Lineer Homojen Sistem (AX=0)</h3>
+  <p><code>[A:0]</code>'ın rankı her zaman <code>A</code>'nın rankına eşit (sıfır sütunu rankı artıramaz) → <b>her homojen sistemin en az bir çözümü vardır</b>: <code>x₁=...=xₙ=0</code> (sıfır/trivial çözüm).</p>
+
+  <h3>Sıfırdan başka çözüm var mı? — 4 kural</h3>
+  <ol class="rules">
+    <li><b>r(A)=n</b> → sistemin <b>sadece</b> sıfır çözümü vardır.</li>
+    <li><b>r(A)&lt;n</b> → sıfır olmayan çözümler de vardır (n−r keyfi sabit).</li>
+    <li><b>m=n</b> (denklem=bilinmeyen) ise, sıfır olmayan çözümün varlığı <b>tam olarak</b> <code>det(A)=0</code> şartına denktir.</li>
+    <li><b>m&lt;n</b> ise, <code>r≤m&lt;n</code> otomatik sağlandığından, sistemin <b>her zaman</b> sıfır olmayan çözümü de vardır.</li>
+  </ol>
+
+  <h4>Örnek — Kural 1 (sadece sıfır çözüm)</h4>
+  <div class="eq"><code>x+y+z=0</code> · <code>2x+3y+2z=0</code> · <code>x+2y+4z=0</code></div>
+  <p>Katsayılar matrisi <code>det(A)=3≠0</code> → <code>r(A)=3=n</code> → <b>sadece</b> <code>x=y=z=0</code>.</p>
+
+  <h4>Örnek — Kural 2/4 (sonsuz çözüm)</h4>
+  <div class="eq"><code>x+y=0</code> · <code>2x+2y=0</code></div>
+  <p><code>r(A)=1&lt;n=2</code> → <code>x=t, y=−t</code> (örn. <code>t=1 → (1,−1)</code> de bir çözüm).</p>
+
+  <hr class="sep">
+
+  <h2>Genel bağlantı haritası (kim neye dayanıyor)</h2>
+  <div class="rule-box">
+    <b>Determinant (Bölüm 2, 9, 10)</b> → tek çözüm var mı testi (Bölüm 1, 9) ve rank tanımının temeli (Bölüm 15).<br>
+    <b>Satır işlemleri (Bölüm 1)</b> → hem Gauss/Gauss-Jordan (Bölüm 1, 7) hem determinant hesaplama (Bölüm 10) hem rank bulma (Bölüm 15) hep aynı 3 işlemi (a,b,c) kullanıyor.<br>
+    <b>Kofaktör (Bölüm 11)</b> → hem büyük determinant hesaplama hem adjoint matris (Bölüm 12) hem vektörel çarpım (Bölüm 14) aynı mekanizmayı kullanıyor.<br>
+    <b>Rank (Bölüm 15)</b> → lineer bağımsızlık (Bölüm 14) ile aynı şeyin iki farklı ifadesi, ve sistem çözüm sayısını (Bölüm 16) belirliyor.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — bu tekrar dosyasındaki herhangi bir bölümü tekrar açıklatabilir, ekstra örnek isteyebilirsin. Hangi bölüm net değilse söyle, yeter.</p>
+
+  <div class="nav">
+    <span>← <a href="0013-rank-ile-sistem-cozumu.html">Ders 13 — Rank ile Sistem Çözümü</a></span>
+    <span>Tüm dersler: Ders 01-13 (bkz. ROADMAP.md)</span>
+  </div>
+
+</div>
+</body>
+</html>
