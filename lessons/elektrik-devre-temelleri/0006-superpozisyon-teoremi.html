@@ -39,8 +39,12 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
-         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
+  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
+  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
+  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
+  .frac .d{ padding:.06em .2em 0; }
 </style>
 </head>
 <body>
@@ -76,24 +80,69 @@
 
   <p class="mission">⚠️ <b>Neden gerilim kaynağı kısa, akım kaynağı açık devre olur?</b> "Söndürmek", o kaynağın değerini <b>sıfıra</b> çekmek demektir. Bir gerilim kaynağının değeri sıfırsa (<code>V=0</code>), uçları arasında hiç potansiyel farkı yok → bu, düz bir telle (kısa devre) aynı şey. Bir akım kaynağının değeri sıfırsa (<code>I=0</code>), o daldan hiç akım geçmiyor → bu da devrenin kesilmesiyle (açık devre) aynı şey. Ders 03'teki kısa/açık devre tanımını hatırla.</p>
 
+  <h3>Bağımsız kaynak ne, bağımlı kaynak ne? (kısa hatırlatma)</h3>
+  <p>Bunu Ders 02'de gördün ama önemli olduğu için sadeleştirerek tekrar edelim, çünkü söndürme kuralı doğrudan bu ayrıma dayanıyor:</p>
+  <ul>
+    <li><b>Bağımsız kaynak</b> = değeri <b>sabit bir sayı</b>. "12V'luk pil", "3A'lik kaynak" — devrede ne olursa olsun bu sayı değişmez. Şemada <b>daire</b> ile çizilir.</li>
+    <li><b>Bağımlı kaynak</b> = değeri <b>sabit bir sayı değil</b>, devredeki başka bir akım/gerilime bağlı bir <b>formül</b>. Örneğin <code>2Iₓ</code> yazan bir kaynak: değeri, devrenin bir yerindeki <code>Iₓ</code> akımının 2 katı — <code>Iₓ</code> değişirse bu kaynağın değeri de değişir. Şemada <b>elmas (◇)</b> ile çizilir. (Bu tip kaynaklar tek başına devrede bulunmaz; transistör/OPAMP gibi elemanların iç modelinde ortaya çıkar.)</li>
+  </ul>
+
+  <h3>Bağımlı kaynak neden hiç söndürülmez? (somut örnek)</h3>
+  <p>Diyelim devrende bir yerde <code>2Iₓ</code> değerinde bağımlı bir gerilim kaynağı var, ve <code>Iₓ</code> devrenin başka bir kolundan geçen akım. Süperpozisyonda "söndürmek" demek, kaynağın değerini <b>önceden</b>, devreyi çözmeden 0 yapmak demekti. Ama <code>2Iₓ</code>'i sıfır yapmak için <code>Iₓ</code>'in sıfır olduğunu bilmen gerekir — <b>ve bunu bilmiyorsun</b>, çünkü <code>Iₓ</code>'in kaç amper olduğu tam olarak çözmeye çalıştığın devrenin sonucu. Yani söndürmek için önce cevaba ihtiyacın var, ama cevabı bulmak için devreyi zaten çözmen lazım — bir tavuk-yumurta çelişkisi. Bu yüzden kural basit: <b>bağımlı kaynak her adımda, değişmeden, formülüyle birlikte devrede kalır.</b> Sadece bağımsız kaynaklar (sabit sayı oldukları, devre sonucuna bağlı olmadıkları için) tek tek söndürülüp açılabilir.</p>
+
   <div class="pause">
     ☕ <b>Doğal duraklama noktası.</b> Buraya kadar kuralları gördün. Devamı tam bir sayısal örnek.
   </div>
 
   <h2>3. Tam örnek</h2>
   <p>12V'luk gerilim kaynağı, R1=4Ω ile seri olarak bir düğüme bağlı. Aynı düğüme 3A'lik bir akım kaynağı doğrudan giriyor. Düğümden R2=2Ω ile referansa (0V) bağlanılıyor. R2 üzerindeki akımı (<code>I</code>) bul.</p>
-  <div class="circ">   12V(+)──[R1=4Ω]──┬──[R2=2Ω]──┐
-                     │            │
-                  3A ─▶           │
-                     └────────────┘ (referans, 0V)</div>
+  <div class="circwrap">
+  <svg viewBox="-30 0 330 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <!-- 12V source, left edge -->
+    <line x1="30" y1="40" x2="30" y2="75" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="75" x2="45" y2="75" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="90" x2="42" y2="90" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="90" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="80" text-anchor="end">+</text>
+    <text x="8" y="100" text-anchor="end">12V</text>
+    <!-- top rail: R1 from left node to middle node M -->
+    <line x1="30" y1="40" x2="65" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="65" y="28" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="92" y="24" text-anchor="middle">R1=4Ω</text>
+    <line x1="120" y1="40" x2="150" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="40" r="4"/>
+    <text x="150" y="24" text-anchor="middle" font-weight="bold">M</text>
+    <!-- M to right node via R2 -->
+    <line x1="150" y1="40" x2="180" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="28" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="24" text-anchor="middle">R2=2Ω</text>
+    <line x1="235" y1="40" x2="265" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="265" y1="40" x2="265" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- 3A current source into M from below -->
+    <line x1="150" y1="150" x2="150" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="70" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="80" x2="150" y2="60" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a7)"/>
+    <line x1="150" y1="54" x2="150" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="172" y="70" text-anchor="start">3A</text>
+    <!-- bottom rail (referans) -->
+    <line x1="30" y1="150" x2="265" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="140" y1="150" x2="140" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="128" y1="160" x2="152" y2="160" stroke="#1a1a1a" stroke-width="2.5"/>
+    <line x1="133" y1="167" x2="147" y2="167" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="137" y1="174" x2="143" y2="174" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="140" y="188" text-anchor="middle" font-size="12" fill="#6b6b6b">referans (0V)</text>
+    <defs><marker id="a7" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+  </svg>
+  <div class="cap">12V kaynağı R1 ile M düğümüne, 3A kaynağı doğrudan M'ye giriyor; M, R2 ile referansa bağlı. İstenen: R2'den geçen akım I.</div>
+  </div>
 
   <h3>Adım 1 — Sadece 12V kaynağı aktif (akım kaynağı açık devre)</h3>
   <p>Akım kaynağı çıkarılınca devre, R1-R2 üzerinden basit bir <b>gerilim bölücü</b> olur (Ders 03):</p>
-  <div class="eq"><code>I' = 12 / (R1+R2) = 12/6 = 2A</code></div>
+  <div class="eq">I' = <span class="frac"><span class="n">12</span><span class="d">R1+R2</span></span> = <span class="frac"><span class="n">12</span><span class="d">6</span></span> = 2A</div>
 
   <h3>Adım 2 — Sadece 3A kaynağı aktif (gerilim kaynağı kısa devre)</h3>
   <p>Gerilim kaynağı kısa devre olunca, R1'in sol ucu da referansa bağlanmış olur — yani R1 ve R2 artık <b>paralel</b> ve 3A bu ikisi arasında <b>akım bölücü</b> ile paylaşılır (Ders 03):</p>
-  <div class="eq"><code>I'' = 3 · R1/(R1+R2) = 3 · 4/6 = 2A</code></div>
+  <div class="eq">I'' = 3 · <span class="frac"><span class="n">R1</span><span class="d">R1+R2</span></span> = 3 · <span class="frac"><span class="n">4</span><span class="d">6</span></span> = 2A</div>
 
   <h3>Adım 3 — Topla</h3>
   <div class="eq"><code>I = I' + I'' = 2 + 2 = 4A</code></div>

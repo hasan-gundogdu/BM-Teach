@@ -18,6 +18,7 @@
 | 0008 | 2.2 Ders Notu | Norton Teoremi | ✅ yazıldı |
 | 0009 | 3.1 Ders Notu | Maksimum Güç Transferi | ✅ yazıldı |
 | 0010 | 3.2 Ders Notu | İdeal Opamp (akım, gerilim, kazanç — eviren/evirmeyen) | ✅ yazıldı |
+| 0011 | (Ders 01-10'un özeti) | Genel Tekrar — tüm dersler tek sıralı dosyada (tanım+formül+"neden"+muhtemel sözlü soru-cevap) | ✅ yazıldı (02/08 eklendi) |
 
 ## Notlar
 - Kullanıcının EDT'de belirgin bir alt yapısı var (bkz. [[edt-altyapi-var]] öğrenme kaydı) — hızlı kavradıkça tempo artırıldı, sıfırdan değil orta hızda anlatıldı.
@@ -25,3 +26,4 @@
 - Ders 05 (Çevre Akımları) BM213 ile kesişiyor (Kramer kuralı/2×2 determinant) — BM213 Ders 05'in (Cramer teoremi, henüz yazılmadı) ön bilgisi burada self-contained verildi.
 - Sınav: 4 Ağustos 2026.
 - Kaynak PDF'ler `DersNotlari/ElektrikDevreTemelleri/` altında saklı — sonraki oturumda içerik netleştirmek için yeniden okunabilir.
+- **02/08/2026 görsel revizyon:** Kullanıcı ASCII-art devre şemalarının bozuk/kaymış olduğunu bildirdi (pil sembolü görünmüyordu, teller kaymıştı) — Ders 02-10'daki tüm şemalar gerçek SVG çizimlere çevrildi. V/R tarzı formüller `.frac` CSS sınıfıyla gerçek üst-alt kesir görünümüne çevrildi. Ders 07-10'da sınav-kapsamında/kapsam-dışı ayrımı `.examnote` (yeşil) / `.skip` (soluk, "SINAVDA ÇIKMAYACAK") sınıflarıyla netleştirildi. Ders 06'ya "bağımlı kaynak neden hiç söndürülmez" sorusuna somut örnekli, sıfırdan bilgi varsaymayan bir açıklama eklendi.

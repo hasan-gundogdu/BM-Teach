@@ -39,8 +39,10 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
-         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
+  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
+  .frac .d{ padding:.06em .2em 0; }
+  .examnote{ background:#eaf5ea !important; border-left:3px solid #2e7d43 !important; }
 </style>
 </head>
 <body>
@@ -54,9 +56,9 @@
 
   <h2>1. Teorem</h2>
   <p>Doğrusal bir devrede, yük direnci <b>Thevenin eşdeğer direncine eşit olduğunda</b> (<code>R_L = R_TH</code>), yük <b>maksimum gücü</b> çeker:</p>
-  <div class="eq"><code>R_L = R_TH</code> &nbsp;&nbsp;→&nbsp;&nbsp; <code>P_max = V_TH² / (4·R_TH)</code></div>
+  <div class="eq">R_L = R_TH &nbsp;&nbsp;→&nbsp;&nbsp; P_max = <span class="frac"><span class="n">V_TH²</span><span class="d">4·R_TH</span></span></div>
   <p>Norton eşdeğeri cinsinden aynı sonuç:</p>
-  <div class="eq"><code>R_L = R_N</code> &nbsp;&nbsp;→&nbsp;&nbsp; <code>P_max = I_N²·R_N / 4</code></div>
+  <div class="eq">R_L = R_N &nbsp;&nbsp;→&nbsp;&nbsp; P_max = <span class="frac"><span class="n">I_N²·R_N</span><span class="d">4</span></span></div>
 
   <h3>Formülün nereden geldiği (sezgi)</h3>
   <p>Yükteki güç <code>P = I²·R_L = (V_TH/(R_TH+R_L))² · R_L</code>'dir. <code>R_L</code>'yi 0'dan sonsuza kadar değiştirirsen:</p>
@@ -78,8 +80,8 @@
 
   <h2>2. Tam örnek — aynı devrenin sonucu</h2>
   <p>Ders 07-08'de Thevenin/Norton eşdeğerini <code>V_TH=12V</code>, <code>R_TH=4Ω</code> (Norton: <code>I_N=3A</code>, <code>R_N=4Ω</code>) bulmuştuk. Bu devreye bağlanacak yük için maksimum güç şartı:</p>
-  <div class="eq"><code>R_L = R_TH = 4Ω</code></div>
-  <div class="eq"><code>P_max = V_TH²/(4·R_TH) = 12²/(4·4) = 144/16 = 9W</code></div>
+  <div class="eq">R_L = R_TH = 4Ω</div>
+  <div class="eq">P_max = <span class="frac"><span class="n">V_TH²</span><span class="d">4·R_TH</span></span> = <span class="frac"><span class="n">12²</span><span class="d">4·4</span></span> = <span class="frac"><span class="n">144</span><span class="d">16</span></span> = 9W</div>
 
   <p><b>Karşılaştırma — Ders 07'deki <code>R_L=8Ω</code> ne kadar güç çekiyordu?</b> Orada <code>I_L=1A</code> bulmuştuk, yani <code>P = I_L²·R_L = 1²·8 = 8W</code>. Bu, maksimumdan (<code>9W</code>) <b>daha az</b> — beklenen sonuç, çünkü <code>8Ω ≠ R_TH(4Ω)</code>.</p>
 
@@ -96,7 +98,7 @@
     <p><b>Soru 2.</b> Bir devrenin Thevenin eşdeğeri <code>V_TH=20V</code>, <code>R_TH=5Ω</code>. Maksimum güç için gereken <code>R_L</code> ve <code>P_max</code> nedir?</p>
     <details><summary>Çözümü göster</summary>
       <p><code>R_L = R_TH = 5Ω</code></p>
-      <p><code>P_max = 20²/(4·5) = 400/20 = 20W</code></p>
+      <p>P_max = <span class="frac"><span class="n">20²</span><span class="d">4·5</span></span> = <span class="frac"><span class="n">400</span><span class="d">20</span></span> = 20W</p>
     </details>
   </div>
 
@@ -126,11 +128,11 @@
   <div class="src" style="margin-top:.8em">
     📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
     Konu: <b>Bölüm 4.8</b> Maximum Power Transfer (kitap s. 150-152, PDF s. 182-184)<br>
-    Çöz: <b>Problem 4.66, 4.67</b> (temel R_L=R_TH pratiği) · <b>4.69</b> (bağımlı kaynaklı) · <b>4.74</b> (köprü devresinde maks. güç — ileri seviye)<br>
+    Çöz: <b>Problem 4.66, 4.67</b> (temel R_L=R_TH pratiği) · <s>4.69</s> ⏭️ bağımlı kaynaklı — sınavda çıkmayacak · <b>4.74</b> (köprü devresinde maks. güç — ileri seviye, isteğe bağlı)<br>
     <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 4, Solution N".</small>
   </div>
 
-  <p class="mission">✅ <b>Kapsam güncellemesi:</b> Hoca sınavda OPAMP'ten de soru olacağını duyurdu — bir sonraki ders (Ders 10) artık kapsamda. Sadece bu üç teorem (Süperpozisyon'dan beri: Thevenin, Norton, Maks. Güç) için "bağımlı kaynak olmayacak" garantisi verildi — yani bu derslerdeki bağımlı-kaynaklı test-kaynağı yöntemi sınavda çıkmayacak, ama mantığını bilmek yine de sağlam anlayış için değerli.</p>
+  <p class="mission examnote">✅ <b>Kapsam güncellemesi:</b> Hoca sınavda OPAMP'ten de soru olacağını duyurdu — bir sonraki ders (Ders 10) artık kapsamda. Sadece bu üç teorem (Süperpozisyon'dan beri: Thevenin, Norton, Maks. Güç) için "bağımlı kaynak olmayacak" garantisi verildi — yani bu derslerdeki bağımlı-kaynaklı test-kaynağı yöntemi sınavda çıkmayacak, ama mantığını bilmek yine de sağlam anlayış için değerli.</p>
 
   <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
 

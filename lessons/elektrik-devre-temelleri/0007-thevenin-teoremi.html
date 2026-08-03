@@ -39,11 +39,16 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
-         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
+  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
+  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
+  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
+  .frac .d{ padding:.06em .2em 0; }
   .skip{ position:relative; opacity:.7; border:1px dashed #b9b2a0 !important; background:#f4f2ec !important; }
-  .skip::before{ content:"⏭️ SINAVDA ATLANABİLİR"; display:block; font-size:.72rem; letter-spacing:.08em;
+  .skip::before{ content:"⏭️ SINAVDA ÇIKMAYACAK — ATLAYABİLİRSİN"; display:block; font-size:.72rem; letter-spacing:.06em;
                  text-transform:uppercase; color:#8a6d2f; font-weight:700; margin-bottom:.4em; }
+  .examnote{ background:#eaf5ea !important; border-left:3px solid #2e7d43 !important; }
 </style>
 </head>
 <body>
@@ -57,10 +62,32 @@
 
   <h2>1. Fikir</h2>
   <p>Kaynaklara (bağımlı/bağımsız) ve dirençlere sahip <b>herhangi bir</b> devre, belirli iki uca (a-b) göre bakıldığında, tek bir gerilim kaynağı (<code>V_TH</code>) ile ona seri bağlı tek bir direnç (<code>R_TH</code>) ile <b>aynı davranışı</b> gösterir.</p>
-  <div class="circ">   [Karmaşık        a●          [ R_TH   a●
-    doğrusal    ≡              ≡    ]──●
-    devre]           b●          V_TH(+) b●
-                                    ]</div>
+  <div class="circwrap">
+  <svg viewBox="0 0 380 130" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <rect x="10" y="20" width="110" height="80" fill="#f4f1e8" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+    <text x="65" y="55" text-anchor="middle">Karmaşık</text>
+    <text x="65" y="72" text-anchor="middle">doğrusal devre</text>
+    <line x1="120" y1="35" x2="150" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="120" y1="85" x2="150" y2="85" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="35" r="4"/><text x="160" y="30" text-anchor="start">a</text>
+    <circle cx="150" cy="85" r="4"/><text x="160" y="90" text-anchor="start">b</text>
+    <text x="185" y="65" text-anchor="middle" font-size="20">≡</text>
+    <!-- eşdeğer: R_TH seri Vth -->
+    <line x1="220" y1="35" x2="245" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="23" width="45" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="267" y="19" text-anchor="middle">R_TH</text>
+    <line x1="290" y1="35" x2="330" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="330" cy="35" r="4"/><text x="342" y="30" text-anchor="start">a</text>
+    <line x1="220" y1="35" x2="220" y2="60" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="205" y1="60" x2="235" y2="60" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="210" y1="75" x2="230" y2="75" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="220" y1="75" x2="220" y2="85" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="220" y1="85" x2="330" y2="85" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="330" cy="85" r="4"/><text x="342" y="90" text-anchor="start">b</text>
+    <text x="198" y="68" text-anchor="end" font-style="italic">+ V_TH</text>
+  </svg>
+  <div class="cap">a-b uçlarına dışarıdan bakıldığında ikisi ayırt edilemez.</div>
+  </div>
   <p>"Aynı davranış" demek: a-b uçlarına ne bağlarsan bağla (direnç, ampul, motor), o yük üzerindeki akım ve gerilim <b>her iki devrede de birebir aynı çıkar</b>. Yükün kendisi Thevenin eşdeğerinin <i>parçası değildir</i> — eşdeğer, yükü çıkardığında geriye kalan her şeyi temsil eder.</p>
 
   <div class="analogy">
@@ -75,7 +102,7 @@
     <li><b>Yükü Thevenin eşdeğerine geri bağla</b> ve istediğin hesabı yap.</li>
   </ol>
 
-  <p class="mission">✅ <b>Sınav notu (hoca duyurusu):</b> Thevenin/Norton/Maks. Güç Transferi sorularında <b>bağımlı kaynak olmayacak</b> — yani a-b'den bakılan direnç her zaman Ders 03'ün seri/paralel kısayollarıyla doğrudan bulunabilecek, aşağıdaki test-kaynağı yöntemine ihtiyaç duymayacaksın. Yine de mantığı bilmek genel anlayışını güçlendirir, bu yüzden kısaca gösteriyoruz.</p>
+  <p class="mission examnote">✅ <b>Sınav notu (hoca duyurusu):</b> Thevenin/Norton/Maks. Güç Transferi sorularında <b>bağımlı kaynak olmayacak</b> — yani a-b'den bakılan direnç her zaman Ders 03'ün seri/paralel kısayollarıyla doğrudan bulunabilecek, aşağıdaki test-kaynağı yöntemine ihtiyaç duymayacaksın. Yine de mantığı bilmek genel anlayışını güçlendirir, bu yüzden kısaca gösteriyoruz.</p>
 
   <p class="mission skip">💡 <b>Bağımlı kaynak varsa:</b> Adım 3'te devrede sadece bağımlı kaynak kalırsa (bağımsız kaynak söndürüldüğü için), a-b'ye <b>elle 1V'luk bir test kaynağı</b> bağlanır, o kaynaktan çekilen akım <code>i₀</code> hesaplanır, ve <code>R_TH = 1V/i₀</code> ile bulunur — çünkü bağımlı kaynak "kendi kendine" gerilim üretemez, dışarıdan bir uyarana ihtiyaç duyar.</p>
 
@@ -85,27 +112,70 @@
 
   <h2>3. Tam örnek</h2>
   <p>18V kaynak, R1=3Ω ile A düğümüne bağlı. A'dan referansa (0V) R2=6Ω var. A'dan R3=2Ω ile a terminaline gidiliyor; b terminali doğrudan referans. a-b arasına bağlanacak yük RL'yi bulmak istiyoruz — önce Thevenin eşdeğerini çıkaralım.</p>
-  <div class="circ">   18V(+)──[R1=3Ω]──A──[R3=2Ω]──● a
-                     │
-                   R2=6Ω
-                     │
-                     ●──────────────● b (referans, 0V)</div>
+  <div class="circwrap">
+  <svg viewBox="-30 0 370 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <!-- 18V source, left edge -->
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">18V</text>
+    <!-- top: R1 to A -->
+    <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="87" y="14" text-anchor="middle">R1=3Ω</text>
+    <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="30" r="4"/><text x="150" y="14" text-anchor="middle" font-weight="bold">A</text>
+    <!-- A down through R2 to bottom rail -->
+    <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="168" y="92" text-anchor="start">R2=6Ω</text>
+    <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- A to a via R3 -->
+    <line x1="150" y1="30" x2="180" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="14" text-anchor="middle">R3=2Ω</text>
+    <line x1="235" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="30" r="4"/><text x="285" y="26" text-anchor="start" font-weight="bold">a</text>
+    <!-- bottom rail (referans / b) -->
+    <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="150" r="4"/><text x="285" y="154" text-anchor="start" font-weight="bold">b</text>
+    <text x="150" y="175" text-anchor="middle" font-size="12" fill="#6b6b6b">referans (0V)</text>
+  </svg>
+  <div class="cap">a-b arası şimdilik açık (yük henüz bağlı değil) — V_TH ve R_TH bunun için hesaplanacak.</div>
+  </div>
 
   <h3>Adım 1-2 — Yükü çıkar, V_TH'ı bul</h3>
   <p>a-b açık olduğu için R3'ten <b>hiç akım geçmez</b> (ucu boşta) — bu yüzden R3 üzerinde gerilim düşümü yok, <code>V_TH</code> doğrudan A düğümünün gerilimine eşit. A düğümü, R1-R2 gerilim bölücüsüyle bulunur (Ders 03):</p>
-  <div class="eq"><code>V_A = 18 · R2/(R1+R2) = 18 · 6/9 = 12V</code></div>
+  <div class="eq">V_A = 18 · <span class="frac"><span class="n">R2</span><span class="d">R1+R2</span></span> = 18 · <span class="frac"><span class="n">6</span><span class="d">9</span></span> = 12V</div>
   <div class="eq"><b>V_TH = 12 V</b></div>
 
   <h3>Adım 3 — R_TH'ı bul</h3>
   <p>18V kaynağını kısa devre yap (R1'in sol ucu artık referansa bağlı). a-b uçlarından bakınca: R3 seri, ona R1∥R2 paralel kombinasyonu ekleniyor:</p>
-  <div class="eq"><code>R_TH = R3 + (R1∥R2) = 2 + (3·6)/(3+6) = 2 + 2 = 4Ω</code></div>
+  <div class="eq">R_TH = R3 + (R1∥R2) = 2 + <span class="frac"><span class="n">3·6</span><span class="d">3+6</span></span> = 2 + 2 = 4Ω</div>
 
   <h3>Adım 4 — Eşdeğer devre ve yük ile hesap</h3>
-  <div class="circ">   [R_TH=4Ω]──● a
-   V_TH=12V(+)
-   ──────────● b</div>
+  <div class="circwrap">
+  <svg viewBox="-30 0 290 150" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="55" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="55" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="82" y="14" text-anchor="middle">R_TH=4Ω</text>
+    <line x1="110" y1="30" x2="230" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="230" cy="30" r="4"/><text x="242" y="26" text-anchor="start" font-weight="bold">a</text>
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">12V</text>
+    <line x1="30" y1="120" x2="230" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="230" cy="120" r="4"/><text x="242" y="124" text-anchor="start" font-weight="bold">b</text>
+  </svg>
+  <div class="cap">Thevenin eşdeğeri: V_TH=12V, R_TH=4Ω — orijinal devrenin iç yapısı artık gerekmiyor.</div>
+  </div>
   <p>Bu uçlara <code>R_L = 8Ω</code> bağlarsak (basit bir seri devre — Ders 03):</p>
-  <div class="eq"><code>I_L = V_TH/(R_TH+R_L) = 12/(4+8) = 1A</code> &nbsp;&nbsp;&nbsp; <code>V_L = I_L·R_L = 1·8 = 8V</code></div>
+  <div class="eq">I_L = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH+R_L</span></span> = <span class="frac"><span class="n">12</span><span class="d">4+8</span></span> = 1A &nbsp;&nbsp;&nbsp; V_L = I_L·R_L = 1·8 = 8V</div>
 
   <div class="q">
     <p><b>Soru 1.</b> Aynı Thevenin eşdeğerine (12V, 4Ω) bu sefer <code>R_L = 4Ω</code> bağlarsak, yük üzerindeki gerilim kaç Volt olur?</p>

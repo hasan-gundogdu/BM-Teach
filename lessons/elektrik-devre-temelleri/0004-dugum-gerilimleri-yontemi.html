@@ -39,8 +39,12 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
-         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
+  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
+  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
+  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
+  .frac .d{ padding:.06em .2em 0; }
 </style>
 </head>
 <body>
@@ -68,7 +72,7 @@
 
   <h3>Dal akımını düğüm gerilimleriyle yazma kuralı</h3>
   <p>Bir dalın iki ucundaki düğüm gerilimleri <code>v_a</code> ve <code>v_b</code>, aralarındaki direnç <code>R</code> ise, a'dan b'ye akan akım:</p>
-  <div class="eq"><code>I_{a→b} = (v_a − v_b) / R</code></div>
+  <div class="eq">I_{a→b} = <span class="frac"><span class="n">v_a − v_b</span><span class="d">R</span></span></div>
   <p>Bu, Ohm Kanunu'nun (<code>V=IR</code>) düğüm diline çevrilmiş hali — "büyük gerilimden küçük gerilime doğru akar" sezgisiyle birebir örtüşüyor (Ders 01'deki su kulesi analojisi: yüksekten alçağa akış).</p>
 
   <p class="mission">⚠️ <b>Polariteye dikkat!</b> Gerçek ders notunun vurguladığı en kritik nokta budur: dal akımı ifadesinde payın sırası (<code>v_a − v_b</code> mi, <code>v_b − v_a</code> mı) akımın <b>hangi yöne aktığını</b> tanımladığın yönle tutarlı olmalı. Bir kaynağın polaritesi ters bağlıysa (− ucu üstte gibi), denklemine bu tersliği eksi işaretle yansıtman gerekir — aksi halde tüm çözüm yanlış çıkar.</p>
@@ -82,20 +86,51 @@
 
   <h2>3. Tam örnek — 2 bilinmeyenli devre</h2>
   <p>A düğümü referans (0V). B düğümüne 3A'lik bir akım kaynağı doğrudan giriyor. B ile referans arasında R1=1Ω, B ile C arasında R2=1Ω, C ile referans arasında R3=2Ω var:</p>
-  <div class="circ">        B ●──────/\/\──────● C
-        │  R2=1Ω           │
-       R1=1Ω              R3=2Ω
-        │                   │
-   3A ─▶│                   │
-        A ●─────────────────┴──● (referans, 0V)</div>
+  <div class="circwrap">
+  <svg viewBox="-30 0 330 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <!-- B-C top: R2 -->
+    <line x1="80" y1="40" x2="120" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="120" y="28" width="60" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="150" y="20" text-anchor="middle">R2 = 1Ω</text>
+    <line x1="180" y1="40" x2="220" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="80" cy="40" r="4"/><text x="80" y="20" text-anchor="middle" font-weight="bold">B</text>
+    <circle cx="220" cy="40" r="4"/><text x="220" y="20" text-anchor="middle" font-weight="bold">C</text>
+    <!-- B down to ref: R1 -->
+    <line x1="80" y1="40" x2="80" y2="80" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="68" y="80" width="24" height="50" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="104" y="108" text-anchor="start">R1 = 1Ω</text>
+    <line x1="80" y1="130" x2="80" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- C down to ref: R3 -->
+    <line x1="220" y1="40" x2="220" y2="80" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="208" y="80" width="24" height="50" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="236" y="108" text-anchor="start">R3 = 2Ω</text>
+    <line x1="220" y1="130" x2="220" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- 3A current source into B, own branch to the left -->
+    <line x1="30" y1="150" x2="30" y2="80" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="30" cy="60" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="30" y1="70" x2="30" y2="50" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a5)"/>
+    <line x1="30" y1="44" x2="30" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="30" y1="40" x2="80" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="60" text-anchor="end">3A</text>
+    <!-- referans (toprak) rail -->
+    <line x1="30" y1="150" x2="220" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="115" y1="150" x2="115" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="103" y1="160" x2="127" y2="160" stroke="#1a1a1a" stroke-width="2.5"/>
+    <line x1="108" y1="167" x2="122" y2="167" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="112" y1="174" x2="118" y2="174" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="115" y="188" text-anchor="middle" font-size="12" fill="#6b6b6b">referans (0V)</text>
+    <defs><marker id="a5" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+  </svg>
+  <div class="cap">3A kaynağı doğrudan B'ye giriyor; R1 B'yi referansa, R2 B'yi C'ye, R3 C'yi referansa bağlıyor.</div>
+  </div>
 
   <p><b>Adım 2 — B düğümüne KCL (çıkan akımlar = giren akımlar):</b> B'ye giren 3A, R1 ve R2 üzerinden dışarı çıkıyor:</p>
-  <div class="eq"><code>3 = v_B/R1 + (v_B − v_C)/R2 = v_B/1 + (v_B − v_C)/1</code></div>
+  <div class="eq">3 = <span class="frac"><span class="n">v_B</span><span class="d">R1</span></span> + <span class="frac"><span class="n">v_B − v_C</span><span class="d">R2</span></span> = <span class="frac"><span class="n">v_B</span><span class="d">1</span></span> + <span class="frac"><span class="n">v_B − v_C</span><span class="d">1</span></span></div>
   <p>Sadeleştirince: <code>2v_B − v_C = 3</code> &nbsp;&nbsp;<b>(Denklem 1)</b></p>
 
   <p><b>C düğümüne KCL:</b> C'den çıkan tek yollar R2 (B'ye geri) ve R3 (referansa):</p>
-  <div class="eq"><code>(v_C − v_B)/R2 + v_C/R3 = 0</code> &nbsp;→&nbsp; <code>(v_C − v_B)/1 + v_C/2 = 0</code></div>
-  <p>2 ile çarpıp sadeleştirince: <code>−2v_B + 3v_C = 0</code> &nbsp;→&nbsp; <code>v_C = (2/3)v_B</code> &nbsp;&nbsp;<b>(Denklem 2)</b></p>
+  <div class="eq"><span class="frac"><span class="n">v_C − v_B</span><span class="d">R2</span></span> + <span class="frac"><span class="n">v_C</span><span class="d">R3</span></span> = 0 &nbsp;→&nbsp; <span class="frac"><span class="n">v_C − v_B</span><span class="d">1</span></span> + <span class="frac"><span class="n">v_C</span><span class="d">2</span></span> = 0</div>
+  <p>2 ile çarpıp sadeleştirince: <code>−2v_B + 3v_C = 0</code> &nbsp;→&nbsp; v_C = <span class="frac"><span class="n">2</span><span class="d">3</span></span>v_B &nbsp;&nbsp;<b>(Denklem 2)</b></p>
 
   <p><b>Adım 3 — çöz:</b> Denklem 2'yi Denklem 1'e yerine koy:</p>
   <div class="eq"><code>2v_B − (2/3)v_B = 3 → (4/3)v_B = 3 → v_B = 2.25 V</code></div>

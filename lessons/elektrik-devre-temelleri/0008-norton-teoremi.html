@@ -39,11 +39,16 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
-         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
+  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
+  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
+  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
+  .frac .d{ padding:.06em .2em 0; }
   .skip{ position:relative; opacity:.7; border:1px dashed #b9b2a0 !important; background:#f4f2ec !important; }
-  .skip::before{ content:"⏭️ SINAVDA ATLANABİLİR"; display:block; font-size:.72rem; letter-spacing:.08em;
+  .skip::before{ content:"⏭️ SINAVDA ÇIKMAYACAK — ATLAYABİLİRSİN"; display:block; font-size:.72rem; letter-spacing:.06em;
                  text-transform:uppercase; color:#8a6d2f; font-weight:700; margin-bottom:.4em; }
+  .examnote{ background:#eaf5ea !important; border-left:3px solid #2e7d43 !important; }
 </style>
 </head>
 <body>
@@ -57,22 +62,44 @@
 
   <h2>1. Fikir</h2>
   <p>Doğrusal aktif bir devre, a-b uçlarından bakıldığında, tek bir <b>akım kaynağı</b> (<code>I_N</code>) ile ona <b>paralel</b> bağlı tek bir direnç (<code>R_N</code>) ile aynı davranışı gösterir:</p>
-  <div class="circ">   [Karmaşık        a●               a●
-    doğrusal    ≡              ≡    ┬
-    devre]           b●         I_N(↑)  R_N
-                                     ┴
-                                     b●</div>
+  <div class="circwrap">
+  <svg viewBox="0 0 380 130" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <rect x="10" y="20" width="110" height="80" fill="#f4f1e8" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+    <text x="65" y="55" text-anchor="middle">Karmaşık</text>
+    <text x="65" y="72" text-anchor="middle">doğrusal devre</text>
+    <line x1="120" y1="35" x2="150" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="120" y1="85" x2="150" y2="85" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="35" r="4"/><text x="160" y="30" text-anchor="start">a</text>
+    <circle cx="150" cy="85" r="4"/><text x="160" y="90" text-anchor="start">b</text>
+    <text x="185" y="65" text-anchor="middle" font-size="20">≡</text>
+    <!-- Norton eşdeğeri: I_N paralel R_N -->
+    <line x1="220" y1="35" x2="330" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="220" y1="85" x2="330" y2="85" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="330" cy="35" r="4"/><text x="342" y="30" text-anchor="start">a</text>
+    <circle cx="330" cy="85" r="4"/><text x="342" y="90" text-anchor="start">b</text>
+    <line x1="245" y1="35" x2="245" y2="85" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="245" cy="60" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="245" y1="70" x2="245" y2="50" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a8)"/>
+    <text x="225" y="64" text-anchor="end">I_N</text>
+    <rect x="288" y="48" width="24" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="300" y1="35" x2="300" y2="48" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="300" y1="72" x2="300" y2="85" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="300" y="32" text-anchor="middle">R_N</text>
+    <defs><marker id="a8" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+  </svg>
+  <div class="cap">Norton eşdeğeri: I_N akım kaynağı, R_N'e paralel.</div>
+  </div>
   <p><code>I_N</code>, a-b uçları <b>kısa devre</b> edildiğinde (birbirine telle bağlandığında) o telden geçen akımdır — <b>kısa devre akımı</b>. <code>R_N</code> ise Thevenin'deki <code>R_TH</code> ile <b>birebir aynı</b> hesaplanır (bağımsız kaynaklar söndürülür, a-b'den bakılan eşdeğer direnç bulunur).</p>
 
   <div class="analogy">
     <b class="tag">🚰 Su analojisi:</b> Thevenin, devreyi sabit basınçlı bir su kulesi + dar boru (seri direnç) gibi tanımlar. Norton, <b>aynı</b> devreyi sabit debili bir pompa + o pompaya paralel bağlı bir "sızıntı" borusu (paralel direnç) gibi tanımlar. İkisi de dışarıya aynı su davranışını sunar — Ders 02'deki kaynak dönüşümünü hatırla, Thevenin↔Norton geçişi tam olarak o dönüşümün ta kendisi.
   </div>
 
-  <p class="mission">✅ <b>Sınav notu (hoca duyurusu):</b> Norton sorularında da (Thevenin ve Maks. Güç gibi) <b>bağımlı kaynak olmayacak</b> — a-b'den bakılan direnç doğrudan Ders 03'ün seri/paralel kısayollarıyla bulunur.</p>
+  <p class="mission examnote">✅ <b>Sınav notu (hoca duyurusu):</b> Norton sorularında da (Thevenin ve Maks. Güç gibi) <b>bağımlı kaynak olmayacak</b> — a-b'den bakılan direnç doğrudan Ders 03'ün seri/paralel kısayollarıyla bulunur.</p>
 
   <h2>2. Norton ↔ Thevenin dönüşümü</h2>
   <p>İki eşdeğer arasında geçiş, Ders 02'deki kaynak dönüşümü formülüyle birebir aynıdır:</p>
-  <div class="eq"><code>R_N = R_TH</code> &nbsp;&nbsp;&nbsp; <code>I_N = V_TH / R_TH</code> &nbsp;&nbsp;&nbsp; <code>V_TH = I_N · R_N</code></div>
+  <div class="eq">R_N = R_TH &nbsp;&nbsp;&nbsp; I_N = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH</span></span> &nbsp;&nbsp;&nbsp; V_TH = I_N · R_N</div>
   <p>Yani Thevenin eşdeğerini zaten bulduysan (Ders 07), Norton'u bulmak için <b>yeni bir devre analizi yapmana gerek yok</b> — tek satırlık bir kaynak dönüşümü yeterli.</p>
 
   <h2>3. Dört adım (bağımsız hesaplarsan)</h2>
@@ -92,18 +119,18 @@
 
   <h3>Yöntem A — Doğrudan dönüşüm (en hızlı)</h3>
   <div class="eq"><code>R_N = R_TH = 4Ω</code></div>
-  <div class="eq"><code>I_N = V_TH/R_TH = 12/4 = 3A</code></div>
+  <div class="eq">I_N = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH</span></span> = <span class="frac"><span class="n">12</span><span class="d">4</span></span> = 3A</div>
 
   <h3>Yöntem B — Sıfırdan (doğrulama için)</h3>
   <p>a-b'yi kısa devre yaparsak, R3 artık doğrudan referansa bağlanmış olur — yani R3, R2 ile <b>paralel</b> hale gelir. Devre: 18V kaynak + R1=3Ω seri, sonra (R2∥R3) paralel kombinasyonu:</p>
-  <div class="eq"><code>R2∥R3 = (6·2)/(6+2) = 1.5Ω</code></div>
-  <p>A düğümündeki gerilim (gerilim bölücü ile): <code>V_A = 18 · 1.5/(3+1.5) = 18 · (1.5/4.5) = 6V</code>. Kısa devre teli üzerinden geçen akım, R3 üzerinden akan akımdır:</p>
-  <div class="eq"><code>I_N = V_A / R3 = 6/2 = 3A</code></div>
+  <div class="eq">R2∥R3 = <span class="frac"><span class="n">6·2</span><span class="d">6+2</span></span> = 1.5Ω</div>
+  <p>A düğümündeki gerilim (gerilim bölücü ile): V_A = 18 · <span class="frac"><span class="n">1.5</span><span class="d">3+1.5</span></span> = 18 · <span class="frac"><span class="n">1.5</span><span class="d">4.5</span></span> = 6V. Kısa devre teli üzerinden geçen akım, R3 üzerinden akan akımdır:</p>
+  <div class="eq">I_N = <span class="frac"><span class="n">V_A</span><span class="d">R3</span></span> = <span class="frac"><span class="n">6</span><span class="d">2</span></span> = 3A</div>
   <p>✅ İki yöntem de <b>I_N = 3A</b> veriyor — doğrudan dönüşüm formülü zaman kazandırıyor ama sıfırdan hesap onu doğruluyor.</p>
 
   <h3>Norton eşdeğeriyle yük hesabı</h3>
   <p>Aynı <code>R_L=8Ω</code> yükünü Norton eşdeğerine (3A, 4Ω paralel) bağlarsak, <b>akım bölücü</b> (Ders 03) kullanılır:</p>
-  <div class="eq"><code>I_L = I_N · R_N/(R_N+R_L) = 3 · 4/12 = 1A</code></div>
+  <div class="eq">I_L = I_N · <span class="frac"><span class="n">R_N</span><span class="d">R_N+R_L</span></span> = 3 · <span class="frac"><span class="n">4</span><span class="d">12</span></span> = 1A</div>
   <p>Ders 07'de Thevenin ile bulduğumuz <code>I_L = 1A</code> ile <b>birebir aynı</b> — beklenen sonuç, çünkü iki eşdeğer aynı devreyi temsil ediyor.</p>
 
   <div class="q">

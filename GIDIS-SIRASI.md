@@ -119,11 +119,15 @@
 - Kaynak: 3.1 Ders Notu
 - Ders 07-08-09'da bağımlı kaynak yöntemine "sınavda çıkmayacak, mantık için var" notu eklendi (02/08 hoca duyurusu)
 
-### 10 · Ders 10 — İdeal Opamp (akım, gerilim, kazanç) ✅ ⬅️ KAPSAMIN SONU
-- **Ders:** `lessons/elektrik-devre-temelleri/0010-ideal-opamp.html` · **Referans:** ⬜ (henüz yazılmadı)
+### 10 · Ders 10 — İdeal Opamp (akım, gerilim, kazanç) ✅
+- **Ders:** `lessons/elektrik-devre-temelleri/0010-ideal-opamp.html` · **Referans:** `reference/elektrik-devre-temelleri/opamp-hizli-basvuru.html`
 - Kaynak: 3.2 Ders Notu — hoca "akım, gerilim, kazanç buluyoruz en fazla" dediği için toplayıcı/fark alıcı/kademeli opamp devreleri **kapsam dışı** bırakıldı, sadece eviren/evirmeyen temel kazanç + KCL
 
-**Tüm BM107 dersleri tamamlandı (0001-0010).** Sıradaki adım: kullanıcının tekrar/pratik yapması, gerekirse ek soru/pekiştirme.
+### 11 · Ders 11 — Genel Tekrar (Ders 01-10 tek dosyada) ✅ ⬅️ KAPSAMIN SONU
+- **Ders:** `lessons/elektrik-devre-temelleri/0011-genel-tekrar.html` · ayrı referans kartı yok (kendisi zaten özet)
+- 02/08/2026'da eklendi: kullanıcı sınavda hocanın sözlü/kavramsal soru da sorabileceğini belirtti, tüm dersleri tek sıralı dosyada (tanım+formül+"neden"+muhtemel sözlü soru-cevap) isteyip onayladı ("/teach")
+
+**02/08/2026 revizyonu:** Kullanıcı geri bildirimi üzerine tüm derslerdeki ASCII-art devre şemaları (bozuk/kaymış, pil sembolü görünmüyordu) **SVG şemalarla** değiştirildi; V/R tarzı kesirler gerçek üst-alt kesir görünümüne (`.frac` CSS sınıfı) çevrildi; Ders 07-10'a `.examnote` (yeşil, sınav kapsamında) ve `.skip` (soluk, sınavda çıkmayacak) görsel ayrımı netleştirildi; Ders 06'ya "bağımlı kaynak neden hiç söndürülmez" somut örnekli açıklama + bağımsız/bağımlı kaynak sıfırdan hatırlatması eklendi. **Tüm BM107 dersleri tamamlandı (0001-0011).** Sıradaki adım: kullanıcının tekrar/pratik yapması.
 
 # BM106 — Olasılık ve İstatistik · sınav 6 Ağustos ⬜
 Henüz başlanmadı. EBS haftalık konuları alınınca eklenecek. (Ayrık kısım calculus'suz; sürekli kısım için mini integral ön-bilgisi.)

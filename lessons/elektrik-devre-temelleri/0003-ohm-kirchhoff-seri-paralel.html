@@ -39,8 +39,12 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
-         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
+  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
+  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
+  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
+  .frac .d{ padding:.06em .2em 0; }
 </style>
 </head>
 <body>
@@ -55,7 +59,7 @@
   <h2>1. Ohm Kanunu</h2>
   <p>Bir direncin uçlarındaki gerilim ile üzerinden geçen akım <b>doğru orantılıdır</b>; orantı katsayısı direncin kendisidir:</p>
   <div class="eq"><code>V = I · R</code></div>
-  <p>Üç formda da kullanılır, hangisini kullanacağın hangi ikisini bildiğine bağlı: <code>V = I·R</code> · <code>I = V/R</code> · <code>R = V/I</code>.</p>
+  <p>Üç formda da kullanılır, hangisini kullanacağın hangi ikisini bildiğine bağlı: <code>V = I·R</code> &nbsp;·&nbsp; I = <span class="frac"><span class="n">V</span><span class="d">R</span></span> &nbsp;·&nbsp; R = <span class="frac"><span class="n">V</span><span class="d">I</span></span></p>
 
   <div class="analogy">
     <b class="tag">🚰 Su analojisi:</b> Direnç, borunun <b>ne kadar dar</b> olduğudur. Boru daralınca (R artınca), aynı basınçta (V sabit) daha az su akar (I azalır) — tıpkı <code>I = V/R</code>'nin söylediği gibi. Ders 01'deki "dar boru" analojisi burada formülleşiyor.
@@ -70,7 +74,7 @@
 
   <h3>Direncin kaynağı: özdirenç formülü</h3>
   <p>Bir malzemenin direnci üç şeye bağlıdır: malzemenin cinsi (<b>özdirenç</b> ρ), teli ne kadar <b>uzun</b> yaptığın (l) ve teli ne kadar <b>kalın</b> yaptığın (kesit alanı A):</p>
-  <div class="eq"><code>R = ρ · l / A</code></div>
+  <div class="eq">R = ρ · <span class="frac"><span class="n">l</span><span class="d">A</span></span></div>
   <div class="analogy">
     <b class="tag">🚰 Su analojisi:</b> Uzun bir boru suya daha çok direnir (<code>l</code> pay'da → R artar); kalın bir boru daha az direnir (<code>A</code> payda'da → R azalır). Özdirenç ρ ise borunun yapıldığı malzemenin "doğal darlığı" — bakır boru gümüşten biraz daha dar (özdirenci büyük), gümüş neredeyse en iyi iletken.
   </div>
@@ -101,7 +105,7 @@
 
   <h3>İletkenlik — direncin tersi</h3>
   <p><b>İletkenlik (G)</b>, bir malzemede akımın ne kadar rahat aktığının ölçüsüdür — direncin matematiksel tersi:</p>
-  <div class="eq"><code>G = 1/R</code> &nbsp;&nbsp;(birim: Siemens, S)</div>
+  <div class="eq">G = <span class="frac"><span class="n">1</span><span class="d">R</span></span> &nbsp;&nbsp;(birim: Siemens, S)</div>
   <p>Büyük direnç = küçük iletkenlik, küçük direnç = büyük iletkenlik. Paralel dirençlerde birazdan göreceğin <code>1/R_eş = 1/R1+1/R2+...</code> formülü, iletkenlik cinsinden çok daha sade görünür: <code>G_eş = G1 + G2 + ...</code> (iletkenlikler paralelde toplanır, tıpkı seri dirençlerin toplanması gibi — G, R'nin "aynadaki görüntüsü").</p>
 
   <h2>2. Kirchhoff Akım Kanunu (KCL — Kirşof Akım Kanunu)</h2>
@@ -113,14 +117,23 @@
     <b class="tag">🚰 Su analojisi:</b> Bir T-kavşağa giren su ile çıkan su eşit olmalı — su kavşakta <b>birikemez</b> veya <b>yoktan var olamaz</b>. KCL, "yük yok olmaz/yaratılmaz" fiziğinin (yük korunumu) devre diline çevrilmiş hali.
   </div>
 
-  <div class="circ">        I1↓         I2↑
-           \         /
-            \       /
-             ●─────●   (düğüm)
-            /
-           I3↓
-
-   KCL: I1 (giren) = I2 (çıkan) + I3 (çıkan)   [yön oklarına göre]</div>
+  <div class="circwrap">
+  <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="15" fill="#1a1a1a">
+    <circle cx="130" cy="80" r="4"/>
+    <text x="150" y="72" font-style="italic" font-size="12" fill="#6b6b6b">düğüm</text>
+    <!-- I1 giren, sol üst -->
+    <line x1="40" y1="20" x2="130" y2="80" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a3)"/>
+    <text x="30" y="16" text-anchor="middle">I1 (giren)</text>
+    <!-- I2 çıkan, sağ üst -->
+    <line x1="130" y1="80" x2="220" y2="20" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a3)"/>
+    <text x="228" y="16" text-anchor="middle">I2 (çıkan)</text>
+    <!-- I3 çıkan, alt -->
+    <line x1="130" y1="80" x2="80" y2="145" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a3)"/>
+    <text x="66" y="158" text-anchor="middle">I3 (çıkan)</text>
+    <defs><marker id="a3" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+  </svg>
+  <div class="cap">KCL: I1 (giren) = I2 (çıkan) + I3 (çıkan) — okların yönüne göre</div>
+  </div>
 
   <div class="q">
     <p><b>Soru 2.</b> Bir düğüme 5A ve 3A giriyor; bu düğümden iki kol çıkıyor, birinden 4A çıktığı biliniyor. Diğer koldan çıkan akım kaç Amper?</p>
@@ -138,14 +151,45 @@
     <b class="tag">⛰️ Dağ yürüyüşü analojisi:</b> Bir dağda yürüyüp tam bir tur atıp <b>başladığın noktaya</b> dönersen, yol boyunca çıktığın ve indiğin yüksekliklerin <b>toplam net değişimi sıfırdır</b> — nereye kadar çıktıysan o kadar inmişsindir. Gerilim de devrede bir "yükseklik" gibi davranır (Ders 01'deki voltaj=yükseklik analojisini hatırla); KVL bunun devre versiyonu. Bu, gerilimin <b>enerji korunumu</b>ndan gelen bir sonucu olduğunu da gösterir.
   </div>
 
-  <div class="circ">   A ●───[R1]───● B
-      +  Vs  −         │
-   D ●─────────────────● C
-              [R2]
+  <div class="circwrap">
+  <svg viewBox="0 0 260 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <!-- top edge A-B: R1 -->
+    <line x1="30" y1="30" x2="90" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="90" y="18" width="60" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="120" y="16" text-anchor="middle">R1</text>
+    <line x1="150" y1="30" x2="230" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- right edge B-C: plain wire -->
+    <line x1="230" y1="30" x2="230" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- bottom edge C-D: R2 -->
+    <line x1="230" y1="160" x2="150" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="90" y="148" width="60" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="120" y="184" text-anchor="middle">R2</text>
+    <line x1="90" y1="160" x2="30" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- left edge D-A: Vs battery, + near A (top), - near D (bottom) -->
+    <line x1="30" y1="160" x2="30" y2="110" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="110" x2="45" y2="110" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="18" y1="94" x2="42" y2="94" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="30" y1="94" x2="30" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="52" y="90" text-anchor="start" font-style="italic">+</text>
+    <text x="52" y="115" text-anchor="start" font-style="italic">Vs</text>
+    <text x="52" y="140" text-anchor="start" font-style="italic">−</text>
+    <!-- nodes -->
+    <circle cx="30" cy="30" r="4"/><circle cx="230" cy="30" r="4"/><circle cx="230" cy="160" r="4"/><circle cx="30" cy="160" r="4"/>
+    <text x="20" y="20" text-anchor="middle">A</text>
+    <text x="240" y="20" text-anchor="middle">B</text>
+    <text x="240" y="176" text-anchor="middle">C</text>
+    <text x="20" y="176" text-anchor="middle">D</text>
+    <!-- yön oku -->
+    <path d="M 170 30 L 190 30" stroke="#b5762a" stroke-width="2" marker-end="url(#a4)"/>
+    <text x="180" y="10" text-anchor="middle" fill="#b5762a" font-size="12">çevre yönü</text>
+    <defs><marker id="a4" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#b5762a"/></marker></defs>
+  </svg>
+  <div class="cap">Tek çevre: A→B (R1) → C (wire) → D (R2) → A (Vs). Çevre yönü saat yönünde seçildi.</div>
+  </div>
 
-   Çevre (A→B→C→D→A, saat yönü):
-   −V_R1 (R1'de düşüş, + den − ya) − V_R2 (R2'de düşüş) + Vs (kaynakta yükseliş, − dan + ya) = 0
-   yani: Vs = V_R1 + V_R2</div>
+  <div class="eq">Çevre (A→B→C→D→A, saat yönü):<br>
+  −V_R1 (R1'de düşüş, + den − ya) − V_R2 (R2'de düşüş) + Vs (kaynakta yükseliş, − dan + ya) = 0<br>
+  yani: <b>Vs = V_R1 + V_R2</b></div>
 
   <div class="q">
     <p><b>Soru 3.</b> Yukarıdaki tek çevreli devrede Vs = 10V, R1 üzerindeki düşüş 6V ölçülüyor. R2 üzerindeki düşüş kaç Volt?</p>
@@ -167,7 +211,7 @@
 
   <h3>Gerilim bölücü (voltage divider)</h3>
   <p>Seri bağlı dirençlerde toplam gerilim, dirençlerle <b>orantılı</b> paylaşılır:</p>
-  <div class="eq"><code>V_i = V_toplam · (R_i / R_eş)</code></div>
+  <div class="eq">V_i = V_toplam · <span class="frac"><span class="n">R_i</span><span class="d">R_eş</span></span></div>
   <p><b>Sezgi:</b> Aynı akım her dirençten geçtiği için (I sabit), büyük direnç büyük gerilim düşümü demektir (<code>V=IR</code>) — direnç oranı = gerilim oranı.</p>
 
   <div class="q">
@@ -194,7 +238,7 @@
 
   <h3>Akım bölücü (current divider)</h3>
   <p>Paralel bağlı <b>iki</b> dirençte, toplam akım dirençlerle <b>ters orantılı</b> paylaşılır (küçük direnç daha çok akım çeker):</p>
-  <div class="eq"><code>I_1 = I_toplam · (R2 / (R1+R2))</code> &nbsp;&nbsp;<code>I_2 = I_toplam · (R1 / (R1+R2))</code></div>
+  <div class="eq">I_1 = I_toplam · <span class="frac"><span class="n">R2</span><span class="d">R1+R2</span></span> &nbsp;&nbsp;&nbsp;&nbsp; I_2 = I_toplam · <span class="frac"><span class="n">R1</span><span class="d">R1+R2</span></span></div>
   <p><b>Dikkat:</b> Formülün payında <b>karşı direnç</b> var (I1 formülünde R2, I2 formülünde R1) — gerilim bölücüdeki "kendi direnci payda'da" mantığının tam tersi. Sebebi: aynı gerilim her ikisinde de var (V sabit), küçük direnç <code>I=V/R</code> ile daha çok akım çeker.</p>
 
   <div class="q">

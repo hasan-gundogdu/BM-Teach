@@ -39,8 +39,13 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
-         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
+  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
+  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
+  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
+  .frac .d{ padding:.06em .2em 0; }
+  .examnote{ background:#eaf5ea !important; border-left:3px solid #2e7d43 !important; }
 </style>
 </head>
 <body>
@@ -50,7 +55,7 @@
   <h1>İdeal Opamp — Akım, Gerilim, Kazanç</h1>
   <p class="lead">Bu dersin sonunda: bir opamp devresinde <span class="hi">ideal opamp kurallarını</span> kullanarak çıkış gerilimini, kazancı ve akımları bulabileceksin.</p>
 
-  <p class="mission">🎯 <b>Kapsam güncellemesi (hocanın duyurusu):</b> "Vizede opamptan da soru hazırlıyorum, opamp da dahil. Sadece Thevenin, Norton ve maksimum güç teoremleri için bağımlı kaynak olmayacak. Opampda akım, gerilim ve kazanç buluyoruz en fazla." Yani bu ders <b>sınav kapsamına girdi</b> — ama hoca sınırı da çizdi: karmaşık opamp devreleri (toplayıcı, fark alıcı, kademeli) değil, <b>temel eviren/evirmeyen kazanç + KCL ile akım/gerilim</b> isteniyor. Bu ders tam o seviyede.</p>
+  <p class="mission examnote">🎯 <b>Kapsam güncellemesi (hocanın duyurusu):</b> "Vizede opamptan da soru hazırlıyorum, opamp da dahil. Sadece Thevenin, Norton ve maksimum güç teoremleri için bağımlı kaynak olmayacak. Opampda akım, gerilim ve kazanç buluyoruz en fazla." Yani bu ders <b>sınav kapsamına girdi</b> — ama hoca sınırı da çizdi: karmaşık opamp devreleri (toplayıcı, fark alıcı, kademeli) değil, <b>temel eviren/evirmeyen kazanç + KCL ile akım/gerilim</b> isteniyor. Bu ders tam o seviyede.</p>
 
   <h2>1. Opamp nedir? Gerçek hayat analojisi</h2>
   <p>İşlemsel yükselteç (opamp), giriş sinyalini <b>büyüten</b> (yükselten) bir devre elemanı — 3 ucu var: <b>eviren giriş (−)</b>, <b>evirmeyen giriş (+)</b>, <b>çıkış</b>.</p>
@@ -79,40 +84,97 @@
 
   <h2>3. Eviren (inverting) yükselteç</h2>
   <p>Giriş sinyali <b>eviren (−)</b> uca R1 üzerinden bağlanır; <b>evirmeyen (+)</b> uç doğrudan toprağa (0V) bağlanır; çıkıştan eviren uca R2 geri besleme direnci vardır.</p>
-  <div class="circ">   Vi ──[R1]──●───[R2]──┐
-             │  (−)         │
-             │  opamp ──────┴── Vo
-        0V ──┘  (+)</div>
+  <div class="circwrap">
+  <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <!-- Vi -> R1 -> X (inverting input, top) -->
+    <text x="15" y="45" text-anchor="start">Vi</text>
+    <line x1="35" y1="40" x2="55" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="55" y="28" width="45" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="77" y="24" text-anchor="middle">R1</text>
+    <line x1="100" y1="40" x2="150" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="130" cy="40" r="3"/>
+    <text x="140" y="55" text-anchor="middle" font-size="12">−</text>
+    <!-- + input grounded -->
+    <line x1="110" y1="90" x2="150" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="140" y="105" text-anchor="middle" font-size="12">+</text>
+    <line x1="110" y1="90" x2="110" y2="105" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="98" y1="105" x2="122" y2="105" stroke="#1a1a1a" stroke-width="2.5"/>
+    <line x1="103" y1="111" x2="117" y2="111" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="107" y1="117" x2="113" y2="117" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="80" y="98" text-anchor="end" font-size="12" fill="#6b6b6b">0V</text>
+    <!-- opamp triangle -->
+    <polygon points="150,25 150,105 220,65" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- output -->
+    <line x1="220" y1="65" x2="270" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="280" y="70" text-anchor="start">Vo</text>
+    <!-- feedback: X up, over, R2, down to output line -->
+    <line x1="130" y1="40" x2="130" y2="18" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="130" y1="18" x2="168" y2="18" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="168" y="6" width="45" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="190" y="14" text-anchor="middle" fill="#1a1a1a" font-size="13">R2</text>
+    <line x1="213" y1="18" x2="250" y2="18" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="250" y1="18" x2="250" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+  </svg>
+  <div class="cap">Eviren yükselteç: Vi → R1 → (−) girişi; R2, çıkıştan (−) girişine geri besleme yapar; (+) girişi toprağa bağlı.</div>
+  </div>
   <p>Kural 2'den: <code>v₋ = v₊ = 0</code> (evirmeyen uç topraklı). Eviren uca KCL uygula (Kural 1: içeri akım girmiyor, R1'den gelen akım tamamen R2'ye gitmeli):</p>
-  <div class="eq"><code>(Vi − 0)/R1 = (0 − Vo)/R2</code></div>
-  <div class="eq"><b>A_v = Vo/Vi = −R2/R1</b></div>
+  <div class="eq"><span class="frac"><span class="n">Vi − 0</span><span class="d">R1</span></span> = <span class="frac"><span class="n">0 − Vo</span><span class="d">R2</span></span></div>
+  <div class="eq"><b>A_v = <span class="frac"><span class="n">Vo</span><span class="d">Vi</span></span> = −<span class="frac"><span class="n">R2</span><span class="d">R1</span></span></b></div>
   <p>Eksi işareti "eviren" adının kaynağı — çıkış, girişin tersine dönmüş (ters işaretli) halidir.</p>
 
   <div class="q">
     <p><b>Soru 1.</b> Eviren yükselteçte R1=4kΩ, R2=12kΩ, Vi=2V. Vo kaç Volt?</p>
     <details><summary>Çözümü göster</summary>
-      <p><code>A_v = −R2/R1 = −12/4 = −3</code></p>
+      <p>A_v = −<span class="frac"><span class="n">R2</span><span class="d">R1</span></span> = −<span class="frac"><span class="n">12</span><span class="d">4</span></span> = −3</p>
       <p><code>Vo = A_v · Vi = −3 · 2 = −6V</code></p>
     </details>
   </div>
 
   <h2>4. Evirmeyen (noninverting) yükselteç</h2>
   <p>Giriş sinyali doğrudan <b>evirmeyen (+)</b> uca bağlanır; eviren (−) uç, biri toprağa (R1) biri çıkışa (R2) giden iki dirençle bir düğüm oluşturur.</p>
-  <div class="circ">        Vi ──● (+)
-             │  opamp ── Vo
-   0V──[R1]──●──[R2]──┐
-             │(−)      │
-             └─────────┘ (Vo'ya geri besleme)</div>
+  <div class="circwrap">
+  <svg viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <!-- Vi direkt (+) girişine -->
+    <text x="15" y="45" text-anchor="start">Vi</text>
+    <line x1="35" y1="40" x2="150" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="140" y="55" text-anchor="middle" font-size="12">+</text>
+    <!-- (−) girişi = Y düğümü -->
+    <line x1="110" y1="90" x2="150" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="130" cy="90" r="3"/>
+    <text x="140" y="105" text-anchor="middle" font-size="12">−</text>
+    <text x="130" y="78" text-anchor="middle" font-size="12" font-weight="bold">Y</text>
+    <!-- opamp triangle -->
+    <polygon points="150,25 150,105 220,65" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="220" y1="65" x2="270" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="280" y="70" text-anchor="start">Vo</text>
+    <!-- Y down to R1 to ground -->
+    <line x1="130" y1="90" x2="130" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="118" y="120" width="24" height="40" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="150" y="145" text-anchor="start">R1</text>
+    <line x1="130" y1="160" x2="130" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="118" y1="175" x2="142" y2="175" stroke="#1a1a1a" stroke-width="2.5"/>
+    <line x1="123" y1="181" x2="137" y2="181" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="127" y1="187" x2="133" y2="187" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="130" y="12" text-anchor="middle" font-size="11" fill="#6b6b6b">0V (referans)</text>
+    <!-- Y right to R2 to feedback node then up to output line -->
+    <line x1="130" y1="90" x2="290" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="200" y="78" width="45" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="222" y="94" text-anchor="middle" font-size="13">R2</text>
+    <line x1="290" y1="90" x2="290" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="290" y1="65" x2="270" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+  </svg>
+  <div class="cap">Evirmeyen yükselteç: Vi doğrudan (+) girişine; Y=(−) girişi, R1 ile toprağa, R2 ile çıkışa (Vo) bağlı — geri besleme R2 üzerinden.</div>
+  </div>
   <p>Kural 2'den: <code>v₋ = v₊ = Vi</code>. Eviren uca KCL uygula:</p>
-  <div class="eq"><code>(Vi − 0)/R1 = (Vo − Vi)/R2</code></div>
+  <div class="eq"><span class="frac"><span class="n">Vi − 0</span><span class="d">R1</span></span> = <span class="frac"><span class="n">Vo − Vi</span><span class="d">R2</span></span></div>
   <p>Düzenlersen:</p>
-  <div class="eq"><b>A_v = Vo/Vi = (R1+R2)/R1 = 1 + R2/R1</b></div>
+  <div class="eq"><b>A_v = <span class="frac"><span class="n">Vo</span><span class="d">Vi</span></span> = <span class="frac"><span class="n">R1+R2</span><span class="d">R1</span></span> = 1 + <span class="frac"><span class="n">R2</span><span class="d">R1</span></span></b></div>
   <p>Kazanç her zaman <b>pozitif ve en az 1</b> — çıkış girişle aynı işarette, hiçbir zaman girişten küçük olmaz.</p>
 
   <div class="q">
     <p><b>Soru 2.</b> Evirmeyen yükselteçte R1=2kΩ, R2=8kΩ, Vi=3V. Vo kaç Volt?</p>
     <details><summary>Çözümü göster</summary>
-      <p><code>A_v = 1 + R2/R1 = 1 + 8/2 = 5</code></p>
+      <p>A_v = 1 + <span class="frac"><span class="n">R2</span><span class="d">R1</span></span> = 1 + <span class="frac"><span class="n">8</span><span class="d">2</span></span> = 5</p>
       <p><code>Vo = 5 · 3 = 15V</code></p>
     </details>
   </div>
@@ -162,7 +224,7 @@
   <div class="nav">
     <span>← <a href="0009-maksimum-guc-transferi.html">Ders 09 — Maksimum Güç Transferi</a></span>
     <span><a href="../../reference/elektrik-devre-temelleri/opamp-hizli-basvuru.html">🗂️ Referans kartı</a></span>
-    <span>Sıradaki: (yok — kapsamın sonu)</span>
+    <span>Sıradaki: <a href="0011-genel-tekrar.html">Ders 11 — Genel Tekrar (tüm dersler tek dosyada)</a></span>
   </div>
 
 </div>

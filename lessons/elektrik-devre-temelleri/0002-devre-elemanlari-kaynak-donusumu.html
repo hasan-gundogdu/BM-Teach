@@ -39,8 +39,12 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circ{ font-family:Consolas,monospace; background:#fff; border:1px solid var(--rule); border-radius:6px;
-         padding:1em 1.2em; white-space:pre; font-size:.92rem; line-height:1.35; overflow-x:auto; }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
+  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
+  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
+  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
+  .frac .d{ padding:.06em .2em 0; }
 </style>
 </head>
 <body>
@@ -55,12 +59,39 @@
   <h2>1. Devre terminolojisi: düğüm, kol, çevre</h2>
   <p>Bir devre şemasını okurken üç kelimeyi kesin ayırman gerekiyor. Basit bir örnek üzerinden gidelim — bir pil, iki paralel direnç:</p>
 
-  <div class="circ">   A ●─────┬─────┬───── B
-          │     │
-         [R1]  [R2]
-          │     │
-   D ●─────┴─────┴───── C
-   (Pil, A─D arası, D─A yönünde +'dan devreye giriyor varsayalım)</div>
+  <div class="circwrap">
+  <svg viewBox="0 0 420 170" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="15" fill="#1a1a1a">
+    <!-- top rail A---B -->
+    <line x1="40" y1="35" x2="380" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- bottom rail D---C -->
+    <line x1="40" y1="135" x2="380" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- pil: sol dikey kol -->
+    <line x1="40" y1="35" x2="40" y2="70" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="22" y1="70" x2="58" y2="70" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="28" y1="86" x2="52" y2="86" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="40" y1="86" x2="40" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="66" y="68" font-style="italic">+ Pil −</text>
+    <!-- R1 dikey kol -->
+    <line x1="180" y1="35" x2="180" y2="60" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="168" y="60" width="24" height="50" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="180" y1="110" x2="180" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="196" y="90" text-anchor="start">R1</text>
+    <!-- R2 dikey kol -->
+    <line x1="300" y1="35" x2="300" y2="60" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="288" y="60" width="24" height="50" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="300" y1="110" x2="300" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="316" y="90" text-anchor="start">R2</text>
+    <!-- düğüm noktaları -->
+    <circle cx="40" cy="35" r="4"/><circle cx="180" cy="35" r="4"/><circle cx="300" cy="35" r="4"/><circle cx="380" cy="35" r="4"/>
+    <circle cx="40" cy="135" r="4"/><circle cx="180" cy="135" r="4"/><circle cx="300" cy="135" r="4"/><circle cx="380" cy="135" r="4"/>
+    <!-- etiketler -->
+    <text x="30" y="22" text-anchor="middle">A</text>
+    <text x="380" y="22" text-anchor="middle">B</text>
+    <text x="30" y="158" text-anchor="middle">D</text>
+    <text x="380" y="158" text-anchor="middle">C</text>
+  </svg>
+  <div class="cap">Pil A–D arasında (+ ucu üstte); R1 ve R2, A–D uçları arasına paralel bağlı iki koldur.</div>
+  </div>
 
   <table class="tbl">
     <tr><th>Terim</th><th>Tanım</th><th>Bu devrede</th></tr>
@@ -110,6 +141,8 @@
 
   <p class="mission">⚠️ <b>Kaynak dönüşümünde fark:</b> Bölüm 4'teki kaynak dönüşümü kuralı bağımlı kaynaklar için de <b>aynen</b> çalışır — tek fark, dönüştürdüğün kaynağın değeri (<code>2Iₓ</code> gibi) hesaplamalar boyunca sabit bir sayı değil, bir <i>ifade</i> olarak taşınır.</p>
 
+  <p class="mission">📌 <b>Neden şimdi önemli, ileride de hatırla:</b> Bağımsız kaynak sabit bir sayıdır (12V, 3A gibi) — istersen "kapatabilirsin" (gerilim kaynağını 0V, yani kısa devre; akım kaynağını 0A, yani açık devre yaparsın). <b>Bağımlı kaynağın değeri sabit bir sayı değil</b> — devredeki bir <i>Iₓ</i> veya <i>Vₓ</i>'e bağlı. Kaynağı "kapatmak" demek, o değeri sıfıra sabitlemek demektir; ama <i>Iₓ</i> devrenin geri kalanı çözülmeden bilinmez, o yüzden bağımlı kaynağı <b>asla önceden kapatamazsın</b>. Bu fark, Ders 06 (Süperpozisyon) ve Ders 07-08'de (Thevenin/Norton) neden ekstra bir adıma ihtiyaç duyduğumuzu açıklayacak — şimdiden aklında bir yere not et.</p>
+
   <h2>2. İdeal devre elemanları</h2>
   <h3>a) Direnç (Resistor)</h3>
   <p>Akıma karşı koyan, enerjiyi ısıya çeviren pasif eleman. Sembolü <code>R</code>, birimi <b>Ohm (Ω)</b>. Formülünü (Ohm Kanunu) Hafta 3'te işleyeceğiz; burada sadece devre şemasındaki rolünü tanıyoruz: her zaman güç <b>yutar</b> (bkz. Ders 01, pasif işaret konvansiyonu).</p>
@@ -154,14 +187,48 @@
   <h2>4. Kaynak dönüşümü (source transformation)</h2>
   <p>Seri bir direnç ile birlikte bir <b>gerilim kaynağı</b>, dışarıdan bakıldığında (yani devrenin geri kalanı için) paralel bir direnç ile birlikte bir <b>akım kaynağına</b> eşdeğerdir — ve tersi de doğrudur. Bu, ileride karmaşık devreleri sadeleştirmenin temel araçlarından biri olacak.</p>
 
-  <div class="eq"><code>V_s = I_s · R</code> &nbsp;&nbsp;⟺&nbsp;&nbsp; <code>I_s = V_s / R</code> &nbsp;&nbsp;&nbsp;&nbsp; (R aynı kalır, sadece kaynak tipi değişir)</div>
+  <div class="eq"><code>V_s = I_s · R</code> &nbsp;&nbsp;⟺&nbsp;&nbsp; <code>I_s = </code><span class="frac"><span class="n">V_s</span><span class="d">R</span></span> &nbsp;&nbsp;&nbsp;&nbsp; (R aynı kalır, sadece kaynak tipi değişir)</div>
 
-  <div class="circ">   Gerilim kaynağı modeli:        Akım kaynağı modeli (eşdeğer):
+  <div class="circwrap">
+  <svg viewBox="0 0 420 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <text x="90" y="18" text-anchor="middle" font-weight="bold">Gerilim kaynağı modeli</text>
+    <line x1="20" y1="40" x2="55" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="45" y1="24" x2="45" y2="56" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="55" y1="34" x2="55" y2="46" stroke="#1a1a1a" stroke-width="6"/>
+    <text x="45" y="72" text-anchor="middle" font-style="italic">+ Vs −</text>
+    <line x1="55" y1="40" x2="90" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="90" y="28" width="50" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="115" y="16" text-anchor="middle">R</text>
+    <line x1="140" y1="40" x2="175" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="20" y1="40" x2="20" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="175" y1="40" x2="175" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="20" y1="130" x2="175" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="20" cy="40" r="4"/><circle cx="175" cy="40" r="4"/><circle cx="20" cy="130" r="4"/><circle cx="175" cy="130" r="4"/>
+    <text x="12" y="30" text-anchor="middle">A</text>
+    <text x="185" y="30" text-anchor="middle">B</text>
+    <text x="12" y="146" text-anchor="middle">D</text>
+    <text x="185" y="146" text-anchor="middle">C</text>
 
-   A ●───[R]───●            A ●───┬───●
-       +  Vs  −                   │
-   D ●─────────●            D ●──(Is)──[R]──●
-                                   (Is paralel R)</div>
+    <text x="330" y="18" text-anchor="middle" font-weight="bold">Akım kaynağı modeli (eşdeğer)</text>
+    <line x1="245" y1="40" x2="245" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="245" y1="130" x2="400" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="400" y1="40" x2="400" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="245" y1="40" x2="330" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="330" y1="40" x2="400" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="330" y1="40" x2="330" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="330" cy="85" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="330" y1="75" x2="330" y2="95" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr2)"/>
+    <text x="330" y="65" text-anchor="middle" font-style="italic">Is</text>
+    <rect x="388" y="73" width="24" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="400" y="65" text-anchor="middle">R</text>
+    <circle cx="245" cy="40" r="4"/><circle cx="330" cy="40" r="4"/><circle cx="400" cy="40" r="4"/>
+    <circle cx="245" cy="130" r="4"/><circle cx="400" cy="130" r="4"/>
+    <text x="237" y="30" text-anchor="middle">A</text>
+    <text x="237" y="146" text-anchor="middle">D</text>
+    <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#1a1a1a"/></marker></defs>
+  </svg>
+  <div class="cap">Solda: R ile seri Vs kaynağı. Sağda: aynı R ile paralel bağlı, eşdeğer Is akım kaynağı. A–D uçlarına dışarıdan bakıldığında ikisi ayırt edilemez.</div>
+  </div>
 
   <p><b>Neden eşdeğer?</b> A-D uçlarına dışarıdan bakan biri, iki devre arasındaki farkı <b>ölçemez</b> — her iki devre de A-D uçlarına aynı akım-gerilim davranışını sergiler (aynı <i>I-V karakteristiği</i>). Yön kuralı: akım kaynağının oku, gerilim kaynağının <b>+</b> ucuna doğru bakmalıdır (yani akım, gerilim kaynağının iterek akım gönderdiği yönle aynı yönde devreye girmeli).</p>
 
