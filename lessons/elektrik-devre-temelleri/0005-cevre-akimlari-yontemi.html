@@ -71,13 +71,13 @@
   <p>DGY'nin KCL'yi düğümlere uygulaması gibi, Çevre Akımları Yöntemi de <b>KVL'yi</b> (Ders 03) her <b>bağımsız çevreye</b> (Ders 02, <code>b=l+n−1</code>'deki <code>l</code>) uygular. Fikir: her bağımsız çevreye hayali bir "çevre akımı" ata, gerçek dal akımlarını bu çevre akımlarının toplamı/farkı olarak ifade et.</p>
 
   <div class="analogy">
-    <b class="tag">🌀 Analoji:</b> İki yan yana duran dişli çarkı düşün, her biri kendi ekseni etrafında dönüyor (kendi "çevre akımı"). İki dişlinin <b>ortak temas ettiği</b> bölgede, o noktanın gerçek hızı iki dişlinin hareketinin <i>bileşkesi</i>dir. Paylaşılmayan (sadece bir dişliye ait) bölgelerde ise gerçek hareket doğrudan o dişlinin kendi hızıdır. Devrede de: bir dal <b>iki çevre tarafından paylaşılıyorsa</b> (ortak kol), gerçek akım o iki çevre akımının farkıdır; dal <b>tek çevreye</b> aitse gerçek akım doğrudan o çevrenin akımıdır.
+    <b class="tag">🌀 Analoji:</b> İki yan yana duran dişli çarkı düşün, her biri kendi ekseni etrafında dönüyor (kendi "çevre akımı"). İki dişlinin <b>ortak temas ettiği</b> bölgede, o noktanın gerçek hızı, seçtiğin dönüş yönlerine göre iki dişlinin hareketinin <i>cebirsel toplamıdır</i> — dişliler o noktada zıt yönlerde dönüyorsa (aynı dolaşım yönü seçilmişse) bu bir <b>fark</b>, aynı yönde hareket ediyorsa bir <b>toplam</b> olarak ortaya çıkar. Paylaşılmayan (sadece bir dişliye ait) bölgelerde ise gerçek hareket doğrudan o dişlinin kendi hızıdır. Devrede de: bir dal <b>iki çevre tarafından paylaşılıyorsa</b> (ortak kol), gerçek akım seçilen yönlere göre o iki çevre akımının cebirsel toplamıdır (iki çevre de aynı dolaşım yönünde seçilmişse bu bir <b>fark</b> olur); dal <b>tek çevreye</b> aitse gerçek akım doğrudan o çevrenin akımıdır.
   </div>
 
   <h2>2. Üç adım</h2>
   <ol>
     <li><b>Her bağımsız çevreye bir akım yönü ata.</b> Yön keyfidir (Ders 01'deki referans yön seçimi gibi — negatif çıkarsa yön ters demektir) ama <b>genel tercih saat yönü</b>dür (tutarlılık için).</li>
-    <li><b>Her çevreye KVL uygula.</b> Gerilim düşümlerini çevre akımları cinsinden Ohm Kanunu ile yaz. <b>Paylaşılan (ortak) bir koldaki</b> direnç varsa, o koldaki gerilim düşümü iki çevre akımının <i>farkı</i> ile hesaplanır.</li>
+    <li><b>Her çevreye KVL uygula.</b> Gerilim düşümlerini çevre akımları cinsinden Ohm Kanunu ile yaz. <b>Paylaşılan (ortak) bir koldaki</b> direnç varsa, o koldaki gerçek akım <b>seçilen yönlere göre cebirsel toplamdır</b> — iki çevre de aynı dolaşım yönünde (örn. ikisi de saat yönü) seçilmişse bu bir <i>fark</i> olur, yönler farklı seçilmişse <i>toplam</i> olur.</li>
     <li><b>Elde edilen <code>l</code> denklemi çöz.</b> 2 bilinmeyende yok etme yöntemi yeterli; genel yöntem olarak <b>Kramer kuralı</b> (determinant tabanlı) kullanılır.</li>
   </ol>
 

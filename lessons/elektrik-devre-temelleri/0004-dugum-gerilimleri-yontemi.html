@@ -74,7 +74,7 @@
   <h2>2. Üç adım</h2>
   <ol>
     <li><b>Referans düğümü seç.</b> Genelde en çok dalın birleştiği düğüm veya devrenin "alt" hattı seçilir (keyfi bir seçim, sonuç değişmez). Kalan <code>n−1</code> düğüm için <code>v1, v2, ..., v_{n-1}</code> gerilimlerini bulacaksın (bkz. Ders 02, <code>b=l+n−1</code> formülü — aynı <code>n−1</code> mantığı).</li>
-    <li><b>Referans dışındaki her düğüme KCL uygula.</b> Dal akımlarını, düğüm gerilimleri cinsinden <b>Ohm Kanunu</b> ile ifade et. Kolaylık için: <i>her düğümden akımın dışarı çıktığını varsay</i> (keyfi ama tutarlı bir kural) — bu, işaret hatalarını önler.</li>
+    <li><b>Referans dışındaki her düğüme KCL uygula:</b> düğüme <b>giren</b> akımların toplamını, düğümden <b>çıkan</b> akımların toplamına eşitle (<i>giren = çıkan</i>). Dal akımlarını düğüm gerilimleri cinsinden <b>Ohm Kanunu</b> ile ifade et; her dalın hangi yönde (o düğüme girer mi, çıkar mı) sayılacağını baştan seç ve tüm denklem boyunca tutarlı kal — bu, işaret hatalarını önler.</li>
     <li><b>Elde edilen (n−1) bağımsız denklemi çöz.</b> 2 bilinmeyende yok etme yöntemi yeterli; 3+ bilinmeyende matris/Cramer kuralı (BM213'te göreceğin yöntem, bkz. Ders 05) devreye girer.</li>
   </ol>
 
@@ -172,7 +172,7 @@
   <table class="tbl">
     <tr><th>İpucu</th><th>Neden</th></tr>
     <tr><td>Akım kaynaklı dal → akım zaten bilinir, Ohm'a gerek yok</td><td>İşlemi azaltır</td></tr>
-    <tr><td>"Her düğümden akım çıkıyor" varsayımını sabit tut</td><td>İşaret hatasını önler</td></tr>
+    <tr><td>"Giren = çıkan" formatını her düğümde aynı şekilde uygula</td><td>İşaret hatasını önler</td></tr>
     <tr><td>Kaynak polaritesi ters ise denklemde eksi işaretle yansıt</td><td>Polarite hatası tüm çözümü bozar</td></tr>
   </table>
 
