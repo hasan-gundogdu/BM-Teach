@@ -19,6 +19,7 @@
 | 0009 | 3.1 Ders Notu | Maksimum Güç Transferi | ✅ yazıldı |
 | 0010 | 3.2 Ders Notu | İdeal Opamp (akım, gerilim, kazanç — eviren/evirmeyen) | ✅ yazıldı |
 | 0011 | (Ders 01-10'un özeti) | Genel Tekrar — tüm dersler tek sıralı dosyada (tanım+formül+"neden"+muhtemel sözlü soru-cevap) | ✅ yazıldı (02/08 eklendi) |
+| 0012 | (Ders 01-10 kapsamı) | Örnek Sorular — 25 soru, gizli çözümlü sınav provası (S18-21 zincirleme Thevenin/Norton/Maks.Güç) | ✅ yazıldı (03/08 eklendi) |
 
 ## Notlar
 - Kullanıcının EDT'de belirgin bir alt yapısı var (bkz. [[edt-altyapi-var]] öğrenme kaydı) — hızlı kavradıkça tempo artırıldı, sıfırdan değil orta hızda anlatıldı.

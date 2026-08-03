@@ -127,7 +127,15 @@
 - **Ders:** `lessons/elektrik-devre-temelleri/0011-genel-tekrar.html` · ayrı referans kartı yok (kendisi zaten özet)
 - 02/08/2026'da eklendi: kullanıcı sınavda hocanın sözlü/kavramsal soru da sorabileceğini belirtti, tüm dersleri tek sıralı dosyada (tanım+formül+"neden"+muhtemel sözlü soru-cevap) isteyip onayladı ("/teach")
 
-**02/08/2026 revizyonu:** Kullanıcı geri bildirimi üzerine tüm derslerdeki ASCII-art devre şemaları (bozuk/kaymış, pil sembolü görünmüyordu) **SVG şemalarla** değiştirildi; V/R tarzı kesirler gerçek üst-alt kesir görünümüne (`.frac` CSS sınıfı) çevrildi; Ders 07-10'a `.examnote` (yeşil, sınav kapsamında) ve `.skip` (soluk, sınavda çıkmayacak) görsel ayrımı netleştirildi; Ders 06'ya "bağımlı kaynak neden hiç söndürülmez" somut örnekli açıklama + bağımsız/bağımlı kaynak sıfırdan hatırlatması eklendi. **Tüm BM107 dersleri tamamlandı (0001-0011).** Sıradaki adım: kullanıcının tekrar/pratik yapması.
+### 12 · Ders 12 — Örnek Sorular (sınav provası) ✅
+- **Ders:** `lessons/elektrik-devre-temelleri/0012-ornek-sorular.html` · 25 soru, çözümler `<details>` ile gizli (önce kendin çöz)
+- Kapsam dağılımı: temel/işaret/birim (S1-6) · Ohm-Kirchhoff-bölücü (S7-11) · DGY (S12-13) · Çevre+Kramer (S14-15) · Süperpozisyon (S16-17) · Thevenin-Norton-Maks.Güç (S18-21, **zincirleme tek devre**) · Opamp (S22-24) · sözlü (S25)
+- Sayılar ders notlarındaki örneklerden **kasten farklı** (ezber değil yöntem sınanıyor). Sonunda "nerede takıldın → hangi dersi aç" tablosu var.
+- 03/08/2026'da eklendi ("/teach", kullanıcı isteği: "konuların tamamına çalıştım, örnek çözeyim").
+
+**02/08/2026 revizyonu:** Kullanıcı geri bildirimi üzerine tüm derslerdeki ASCII-art devre şemaları (bozuk/kaymış, pil sembolü görünmüyordu) **SVG şemalarla** değiştirildi; V/R tarzı kesirler gerçek üst-alt kesir görünümüne (`.frac` CSS sınıfı) çevrildi; Ders 07-10'a `.examnote` (yeşil, sınav kapsamında) ve `.skip` (soluk, sınavda çıkmayacak) görsel ayrımı netleştirildi; Ders 06'ya "bağımlı kaynak neden hiç söndürülmez" somut örnekli açıklama + bağımsız/bağımlı kaynak sıfırdan hatırlatması eklendi.
+
+**03/08/2026 denetimi ("/teach"):** Tüm 27 ders dosyasında iç link taraması yapıldı — 12 dosyada "Sıradaki ders" **düz metindi (tıklanamıyordu)**, hepsi linke çevrildi; 1 kırık link (`on-bilgi/0002` → LC eski numara) düzeltildi; EDT Ders 03'ün "sıradaki" metni yanlış dersi tarif ediyordu (Karışık devreler → DGY) düzeltildi; Ders 02-03 kicker'ları eski EBS haftasını gösteriyordu (Hafta 2/3 → Hafta 1 kısım 2/3) düzeltildi. Genel tekrar dosyasındaki **tüm örnekler yeniden hesaplandı, SVG değerleri metinlerle karşılaştırıldı — tutarlı.** **Tüm BM107 dersleri tamamlandı (0001-0012).**
 
 # BM106 — Olasılık ve İstatistik · sınav 6 Ağustos ⬜
 Henüz başlanmadı. EBS haftalık konuları alınınca eklenecek. (Ayrık kısım calculus'suz; sürekli kısım için mini integral ön-bilgisi.)
