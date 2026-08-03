@@ -60,6 +60,13 @@
 
   <p class="mission">🎯 <b>Neden bu?</b> Bazı devrelerde düğüm sayısı çoktur ama bağımsız çevre sayısı azdır (ya da tersi) — DGY ve Çevre Akımları birbirini tamamlayan iki araçtır, hangisi daha az denklem verirse o tercih edilir. Ayrıca burada karşına çıkan <b>Kramer kuralı</b>, BM213 Lineer Cebir'de göreceğin determinant konusunun <i>gerçek dünyada nerede kullanıldığının</i> somut kanıtı — iki ders burada birbirini besliyor.</p>
 
+  <p class="mission">🔎 <b>Ön koşul kontrolü:</b></p>
+  <ul>
+    <li><b>Çevre nedir?</b> Başladığı düğüme geri dönen, hiçbir düğümü tekrar kullanmayan kapalı yol (Ders 02).</li>
+    <li><b>Bağımsız çevre nedir?</b> Diğer çevrelerde bulunmayan en az bir kolu içeren çevre (bkz. Ders 02, <code>b=l+n−1</code>).</li>
+    <li><b>KVL işaret takibini nasıl yapıyordun?</b> Ders 03: çevre yönünde ilerlerken <b>+</b> ucundan girip <b>−</b>'dan çıkıyorsan düşüş (−), tersiyse yükseliş (+) — baştan seçtiğin kuralı sonuna kadar aynı uygula.</li>
+  </ul>
+
   <h2>1. Fikir: KVL'nin sistematik uygulaması</h2>
   <p>DGY'nin KCL'yi düğümlere uygulaması gibi, Çevre Akımları Yöntemi de <b>KVL'yi</b> (Ders 03) her <b>bağımsız çevreye</b> (Ders 02, <code>b=l+n−1</code>'deki <code>l</code>) uygular. Fikir: her bağımsız çevreye hayali bir "çevre akımı" ata, gerçek dal akımlarını bu çevre akımlarının toplamı/farkı olarak ifade et.</p>
 
@@ -75,7 +82,7 @@
   </ol>
 
   <h2>3. Tam örnek</h2>
-  <p>6V'luk kaynak, R1=1Ω ile seri, 1. çevreyi (i1, saat yönü) oluşturuyor. 1. ve 2. çevre arasındaki ortak kolda R2=1Ω var. 2. çevre (i2, saat yönü) sadece R3=1Ω içeriyor, kendi kaynağı yok:</p>
+  <p>6V'luk kaynak, R1=1Ω ile seri, 1. çevreyi (i1, saat yönü) oluşturuyor. 1. ve 2. çevre arasındaki ortak kolda R2=1Ω var. 2. çevre (i2, saat yönü) R2 (ortak) ve R3=1Ω'u (kendine özel) içeriyor; kendi kaynağı yok:</p>
   <div class="circwrap">
   <svg viewBox="-30 0 330 200" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
     <!-- top edge TL-TM: R1 -->
@@ -123,7 +130,9 @@
   <p><b>2. çevre için KVL:</b> ortak koldaki R2'de düşüş (bu sefer <code>i2 − i1</code> yönünden bakıyoruz), R3'te düşüş:</p>
   <div class="eq"><code>R2·(i2 − i1) + R3·i2 = 0</code> &nbsp;→&nbsp; <code>(i2−i1) + i2 = 0</code> &nbsp;→&nbsp; <code>−i1 + 2i2 = 0</code></div>
 
-  <p class="mission">💡 <b>Ortak koldaki işaret kuralı:</b> Bir kolu iki çevre paylaşıyorsa, o koldaki gerilim düşümü <b>her zaman "bu çevrenin akımı eksi komşu çevrenin akımı"</b> şeklinde yazılır (1. çevre denkleminde <code>i1−i2</code>, 2. çevre denkleminde <code>i2−i1</code> — birbirinin ters işaretlisi). Bu, iki dişlinin ortak noktada zıt yönlerden etkileşmesiyle aynı mantık.</p>
+  <p class="mission">💡 <b>Ortak koldaki işaret kuralı (koşullu!):</b> <b>İki çevre akımı da aynı yönde seçilmişse</b> (burada ikisi de saat yönü — en yaygın tercih), ortak koldaki gerilim düşümü "bu çevrenin akımı eksi komşu çevrenin akımı" şeklinde yazılır (1. çevre denkleminde <code>i1−i2</code>, 2. çevre denkleminde <code>i2−i1</code> — birbirinin ters işaretlisi). <b>Yönler farklı seçilseydi</b> (biri saat, biri saatin tersi), ortak koldaki gerçek akım fark değil <b>toplam</b> (<code>i1+i2</code>) olurdu — çünkü o zaman iki çevre akımı ortak kolda aynı yönde birleşir. Bu yüzden denklemi yazmadan önce her zaman "iki çevrenin yönleri ortak kolda birbirine mi zıt, aynı mı?" diye kontrol et.</p>
+
+  <p class="mission">⚠️ <b>KVL işaret kuralı — Ders 03'teki kuralın aynısı:</b> Bir elemanı dolaşırken <b>−</b> uçtan <b>+</b> uca geçersen bu bir <b>yükseliş</b> (+V), <b>+</b>'dan <b>−</b>'ya geçersen <b>düşüş</b> (−V). Dirençlerde pasif işaret kuralı kullanılır: akımın <b>girdiği</b> uç <b>+</b> kabul edilir. <b>Referans polarite</b> (sen "+ burada" diye seçtiğin uç) ile <b>gerçek fiziksel polarite</b> (akım çözüldükten sonra o ucun gerçekten + mı − mı olduğu) farklı şeylerdir — tıpkı Ders 01'deki referans akım yönü gibi, referans + işareti keyfi seçilir, sonucun işareti (pozitif/negatif) sana gerçek durumu söyler.</p>
 
   <h2>4. Denklem sistemini Kramer kuralıyla çözmek</h2>
   <p>İki denklemi matris formunda yazalım:</p>

@@ -56,6 +56,8 @@
 
   <p class="mission">🎯 <b>Neden bu?</b> Öğrenme kazanımı #2'nin tamamı bu haftada: "Ohm Kanunu, Kirşof Kanunlarını öğrenir; Seri, Paralel ve Karışık Devreler üzerinde uygular." Hafta 4'teki karışık devreler ve Hafta 5-6'daki çevre/düğüm analizi, burada öğreneceğin üç aracın (Ohm, KCL, KVL) doğrudan devamı.</p>
 
+  <p class="mission">🔎 <b>Ön koşul kontrolü:</b> Bu derste geçen "düğüm" kelimesi Ders 02'deki tanımla aynı — iki veya daha fazla elemanın birleştiği nokta, aradaki sadece tel ise aynı düğüm. Bu tanımı hatırlamıyorsan aşağıdaki "seri/paralel teşhisi" bölümü anlamsız kalır, önce Ders 02'ye kısa bir göz at.</p>
+
   <h2>1. Ohm Kanunu</h2>
   <p>Bir direncin uçlarındaki gerilim ile üzerinden geçen akım <b>doğru orantılıdır</b>; orantı katsayısı direncin kendisidir:</p>
   <div class="eq"><code>V = I · R</code></div>
@@ -204,7 +206,61 @@
     ☕ <b>Doğal duraklama noktası.</b> Buraya kadar üç temel aracı (Ohm, KCL, KVL) gördün. Kalan bölüm (seri-paralel direnç, bölücü formülleri) bunları birleştirip pratik hesaplamaya döküyor — ayrı bir oturumda devam edebilirsin.
   </div>
 
-  <h2>4. Seri dirençler</h2>
+  <h2>4. Bir direnç gerçekten ne zaman seri veya paraleldir?</h2>
+  <p>Basit devrelerde seri/paralel gözle belli olur. Ama devre karmaşıklaşınca (birden çok dirençli, iç içe bağlantılı) gözle bakmak seni yanıltır. Kesin yöntem <b>düğüm çiftlerine bakmaktır</b>:</p>
+  <ul>
+    <li><b>Seri:</b> İki elemanın <b>ortak bir düğümü</b> var ve o düğümde <b>başka hiçbir kol yok</b> (dallanma yok) → ikisinden <b>aynı akım</b> geçer.</li>
+    <li><b>Paralel:</b> İki elemanın <b>her iki ucu da aynı iki düğüme</b> bağlı → ikisinin uçlarında <b>aynı gerilim</b> vardır.</li>
+  </ul>
+  <p class="mission">⚠️ <b>Şemada yan yana veya üst üste çizilmiş olmak seri/paralel olduklarının kanıtı değildir.</b> Tek kanıt: düğüm çiftlerini kontrol etmek.</p>
+
+  <h3>Karmaşık devrede pratik yöntem</h3>
+  <ol>
+    <li>Aralarında <b>sadece tel</b> olan (eleman olmayan) noktaları aynı düğüm adıyla etiketle (Ders 02'deki kural).</li>
+    <li>Her direncin <b>hangi iki düğüm arasında</b> olduğunu yaz.</li>
+    <li>Düğüm çiftleri <b>aynı olan</b> dirençler → paralel, birleştir. Ortak <b>tek</b> düğümü olan ve o düğümde başka dallanma olmayan dirençler → seri, topla.</li>
+    <li>Birleştirdikçe devre küçülür; tek bir eşdeğer direnç kalana kadar tekrarla.</li>
+  </ol>
+
+  <div class="circwrap">
+  <svg viewBox="0 0 340 140" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="20" y1="70" x2="50" y2="70" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="50" y="58" width="45" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="72" y="54" text-anchor="middle">R1=2Ω</text>
+    <line x1="95" y1="70" x2="130" y2="70" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="20" cy="70" r="4"/><text x="20" y="54" text-anchor="middle" font-weight="bold">A</text>
+    <circle cx="130" cy="70" r="4"/><text x="130" y="54" text-anchor="middle" font-weight="bold">B</text>
+    <!-- R2 top, R3 bottom, both B-C -->
+    <line x1="130" y1="70" x2="130" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="130" y1="35" x2="160" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="160" y="23" width="45" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="182" y="19" text-anchor="middle">R2=6Ω</text>
+    <line x1="205" y1="35" x2="235" y2="35" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="235" y1="35" x2="235" y2="70" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="130" y1="70" x2="130" y2="105" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="130" y1="105" x2="160" y2="105" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="160" y="93" width="45" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="182" y="127" text-anchor="middle">R3=3Ω</text>
+    <line x1="205" y1="105" x2="235" y2="105" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="235" y1="105" x2="235" y2="70" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="235" cy="70" r="4"/><text x="235" y="54" text-anchor="middle" font-weight="bold">C</text>
+    <line x1="235" y1="70" x2="260" y2="70" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="260" y="58" width="45" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="282" y="54" text-anchor="middle">R4=4Ω</text>
+    <line x1="305" y1="70" x2="330" y2="70" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="330" cy="70" r="4"/><text x="330" y="54" text-anchor="middle" font-weight="bold">D</text>
+  </svg>
+  <div class="cap">R1: A-B · R2: B-C · R3: B-C · R4: C-D. R2 ve R3'ün düğüm çifti aynı (B-C) → paralel. R1 ve R4'ün ortak düğümü yok — bitişik görünmeleri onları seri/paralel yapmaz.</div>
+  </div>
+
+  <p><b>Adım 1 — düğüm çiftlerini çıkar:</b> R1: A-B · R2: B-C · R3: B-C · R4: C-D.</p>
+  <p><b>Adım 2 — aynı çifte sahip olanları birleştir:</b> R2 ve R3 ikisi de B-C arasında → <b>paralel</b>:</p>
+  <div class="eq">R2∥R3 = <span class="frac"><span class="n">6·3</span><span class="d">6+3</span></span> = 2Ω</div>
+  <p><b>Adım 3 — geriye kalanı kontrol et:</b> Şimdi A-B (R1=2Ω), B-C (birleşik 2Ω), C-D (R4=4Ω) — hepsi tek bir yol üzerinde, aralarında dallanma yok → <b>seri</b>:</p>
+  <div class="eq">R_eş = R1 + (R2∥R3) + R4 = 2 + 2 + 4 = <b>8Ω</b></div>
+  <p class="mission">💡 <b>Sık yapılan hata:</b> R1 ile R4'ü "ikisi de dıştaki tek direnç" diye seri sanıp aralarındaki R2/R3 bloğunu atlamak, ya da R1'i R2/R3'ten biriyle paralel sanmak (A-B ≠ B-C, düğüm çiftleri farklı, paralel olamazlar). Düğüm çiftini yazmadan asla karar verme.</p>
+
+  <h2>5. Seri direnç eşdeğeri</h2>
   <p>Seri bağlı dirençlerden <b>aynı akım</b> geçer (aralarında başka bir yol/dallanma olmadığı için — KCL'nin doğal sonucu). Eşdeğer direnç, tek tek dirençlerin <b>toplamıdır</b>:</p>
   <div class="eq"><code>R_eş = R1 + R2 + ... + Rn</code></div>
   <p><b>Neden toplanır?</b> KVL'yi uygula: <code>Vs = V1 + V2 = I·R1 + I·R2 = I·(R1+R2)</code>. Yani devre, <code>R_eş = R1+R2</code> tek bir dirençmiş gibi davranır.</p>
@@ -223,7 +279,7 @@
     </details>
   </div>
 
-  <h2>5. Paralel dirençler</h2>
+  <h2>6. Paralel direnç eşdeğeri</h2>
   <p>Paralel bağlı dirençlerin uçlarında <b>aynı gerilim</b> vardır (aynı iki düğüme bağlı oldukları için). Eşdeğer direncin <b>tersi</b>, tek tek dirençlerin terslerinin toplamıdır:</p>
   <div class="eq"><code>1/R_eş = 1/R1 + 1/R2 + ... + 1/Rn</code></div>
   <p>İki direnç için pratik kısayol: <code>R_eş = (R1·R2)/(R1+R2)</code> ("çarpım bölü toplam").</p>

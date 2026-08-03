@@ -137,11 +137,63 @@
   </div>
 
   <h3>Adım 1 — Sadece 12V kaynağı aktif (akım kaynağı açık devre)</h3>
-  <p>Akım kaynağı çıkarılınca devre, R1-R2 üzerinden basit bir <b>gerilim bölücü</b> olur (Ders 03):</p>
+  <p>3A kaynağını söndür → o dal <b>açık devre</b> (kesik) olur, M'ye giren/çıkan başka yol kalmaz. Geriye kalan devrede M artık sadece R1 ve R2'ye bağlı — <b>tek bir yol</b> üzerindeler (M'de başka dallanma yok) → düğüm çifti kontrolüyle (Ders 03) R1 ve R2 <b>seri</b>:</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 300 150" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="40" x2="30" y2="75" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="75" x2="45" y2="75" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="90" x2="42" y2="90" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="90" x2="30" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="80" text-anchor="end">+</text>
+    <text x="8" y="100" text-anchor="end">12V</text>
+    <line x1="30" y1="40" x2="65" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="65" y="28" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="92" y="24" text-anchor="middle">R1=4Ω</text>
+    <line x1="120" y1="40" x2="150" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="40" r="4"/>
+    <text x="150" y="24" text-anchor="middle" font-weight="bold">M</text>
+    <line x1="150" y1="40" x2="180" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="28" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="24" text-anchor="middle">R2=2Ω</text>
+    <line x1="235" y1="40" x2="245" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="245" y1="40" x2="245" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- broken (open) branch where 3A was -->
+    <line x1="150" y1="120" x2="150" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="80" x2="150" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="163" y="88" text-anchor="start" font-size="12" fill="#b5762a">açık (3A yok)</text>
+    <line x1="30" y1="120" x2="245" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+  </svg>
+  <div class="cap">3A kaynağının bulunduğu kol açık devre — M artık sadece R1-R2 arasında, seri.</div>
+  </div>
   <div class="eq">I' = <span class="frac"><span class="n">12</span><span class="d">R1+R2</span></span> = <span class="frac"><span class="n">12</span><span class="d">6</span></span> = 2A</div>
 
   <h3>Adım 2 — Sadece 3A kaynağı aktif (gerilim kaynağı kısa devre)</h3>
-  <p>Gerilim kaynağı kısa devre olunca, R1'in sol ucu da referansa bağlanmış olur — yani R1 ve R2 artık <b>paralel</b> ve 3A bu ikisi arasında <b>akım bölücü</b> ile paylaşılır (Ders 03):</p>
+  <p>12V kaynağını söndür → o dal <b>kısa devre</b> (tel) olur. R1'in sol ucu artık doğrudan referans hattına bağlı — yani R1'in iki ucu da (M ve referans) ile R2'nin iki ucu da (M ve referans) <b>aynı düğüm çifti</b>: R1 ve R2 artık <b>paralel</b>. 3A bu ikisi arasında akım bölücü ile paylaşılır (Ders 03):</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 300 150" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="40" x2="30" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="10" y="85" text-anchor="end" font-size="12" fill="#b5762a">kısa (tel)</text>
+    <line x1="30" y1="40" x2="65" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="65" y="28" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="92" y="24" text-anchor="middle">R1=4Ω</text>
+    <line x1="120" y1="40" x2="150" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="40" r="4"/>
+    <text x="150" y="24" text-anchor="middle" font-weight="bold">M</text>
+    <line x1="150" y1="40" x2="180" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="28" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="24" text-anchor="middle">R2=2Ω</text>
+    <line x1="235" y1="40" x2="245" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="245" y1="40" x2="245" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="120" x2="150" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="75" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="85" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a7b)"/>
+    <line x1="150" y1="59" x2="150" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="172" y="75" text-anchor="start">3A</text>
+    <line x1="30" y1="120" x2="245" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <defs><marker id="a7b" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+  </svg>
+  <div class="cap">12V kaynağının yeri artık düz tel — R1 ile R2'nin iki ucu da (M, referans) aynı → paralel. 3A bu ikisine bölünür.</div>
+  </div>
   <div class="eq">I'' = 3 · <span class="frac"><span class="n">R1</span><span class="d">R1+R2</span></span> = 3 · <span class="frac"><span class="n">4</span><span class="d">6</span></span> = 2A</div>
 
   <h3>Adım 3 — Topla</h3>

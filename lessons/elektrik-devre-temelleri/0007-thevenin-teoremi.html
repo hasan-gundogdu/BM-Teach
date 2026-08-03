@@ -191,10 +191,53 @@
     </details>
   </div>
 
+  <h2>4. İkinci örnek — bağımsız gerilim + akım kaynağı karma</h2>
+  <p>Sınavda tek tip kaynaklı devre şart değil — bağımsız bir gerilim kaynağı <b>ve</b> bağımsız bir akım kaynağı aynı devrede birlikte de bulunabilir (bağımlı kaynak yine yok). Aynı R1/R2/R3 ağını kullanıp A düğümüne bir de <b>3A'lik akım kaynağı</b> ekleyelim:</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 370 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">18V</text>
+    <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="87" y="14" text-anchor="middle">R1=3Ω</text>
+    <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="30" r="4"/><text x="150" y="14" text-anchor="middle" font-weight="bold">A</text>
+    <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="168" y="92" text-anchor="start">R2=6Ω</text>
+    <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="30" x2="180" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="14" text-anchor="middle">R3=2Ω</text>
+    <line x1="235" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="30" r="4"/><text x="285" y="26" text-anchor="start" font-weight="bold">a</text>
+    <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="150" r="4"/><text x="285" y="154" text-anchor="start" font-weight="bold">b</text>
+    <line x1="90" y1="150" x2="90" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="90" cy="70" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="90" y1="80" x2="90" y2="60" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a9)"/>
+    <line x1="90" y1="54" x2="90" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="108" y="70" text-anchor="start">3A</text>
+    <defs><marker id="a9" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+  </svg>
+  <div class="cap">Aynı R1-R2-R3 ağı + A düğümüne doğrudan giren 3A'lik bağımsız akım kaynağı.</div>
+  </div>
+  <p><b>V_TH (DGY ile, a-b açık → R3'ten akım yok, a noktası = A):</b> A düğümüne giren=çıkan:</p>
+  <div class="eq"><span class="frac"><span class="n">18 − v_A</span><span class="d">3</span></span> + 3 = <span class="frac"><span class="n">v_A</span><span class="d">6</span></span></div>
+  <p>6 ile çarp: <code>2(18−v_A) + 18 = v_A</code> → <code>36 − 2v_A + 18 = v_A</code> → <code>54 = 3v_A</code></p>
+  <div class="eq"><b>V_TH = 18 V</b></div>
+  <p><b>R_TH:</b> her iki bağımsız kaynağı da söndür (18V→kısa, 3A→açık) — devre topolojisi <b>ilk örnekle birebir aynı</b> (aynı R1, R2, R3), o yüzden R_TH de <b>değişmez</b>:</p>
+  <div class="eq">R_TH = R3 + (R1∥R2) = 2 + 2 = <b>4Ω</b></div>
+  <p class="mission">💡 <b>Fark ettin mi?</b> Akım kaynağı eklemek <b>V_TH'ı değiştirdi</b> (12V→18V) ama <b>R_TH'ı değiştirmedi</b> (hâlâ 4Ω) — çünkü R_TH sadece direnç ağının topolojisinden gelir, kaynakların <b>değerinden</b> değil (zaten hesaplanırken hepsi söndürülüyor). Kaynak sayısı/tipi ne olursa olsun, aynı direnç ağı hep aynı R_TH'ı verir.</p>
+
   <h2>Özet tablo</h2>
   <table class="tbl">
     <tr><th>Adım</th><th>Ne yapılır</th></tr>
-    <tr><td>1</td><td>Yükü (varsa) devreden çıkar</td></tr>
+    <tr><td>1</td><td>Yükü (varsa) devreden çıkar — bu örneklerde a-b uçları zaten baştan açık bırakıldı, çünkü R_L henüz seçilmedi; gerçek bir soruda a-b'ye önceden bağlı bir direnç varsa <b>onu ilk iş olarak sökersin</b></td></tr>
     <tr><td>2</td><td>a-b açık devre gerilimini bul → <code>V_TH</code></td></tr>
     <tr><td>3</td><td>Bağımsız kaynakları söndür, a-b'den bakılan eşdeğer direnci bul → <code>R_TH</code></td></tr>
     <tr><td>4</td><td>Yükü <code>V_TH</code> + seri <code>R_TH</code>'a geri bağla, hesabı yap</td></tr>

@@ -56,6 +56,14 @@
 
   <p class="mission">🎯 <b>Neden bu?</b> Ders 03'te 2-3 elemanlı basit devrelerde KCL/KVL'yi sezgiyle uyguladık. Karışık devrelerde (çok düğüm, çok kaynak) sezgi yetmez — <b>sistematik bir yöntem</b> gerekir. DGY tam bu: her devreye aynı 3 adımı uygulayarak, ne kadar karmaşık olursa olsun çözüme ulaşırsın. Gerçek ders notunuzda bu yöntem Hafta 1'in devamında ayrı bir bölüm olarak işlenmiş — BM107'nin en sık kullanılan analiz aracı.</p>
 
+  <p class="mission">🔎 <b>Ön koşul kontrolü — üçünü de rahat cevaplayabiliyor musun?</b></p>
+  <ul>
+    <li><b>Düğüm nedir?</b> İki+ elemanın birleştiği nokta (Ders 02).</li>
+    <li><b>Referans düğüm nedir?</b> Gerilimi keyfi olarak 0V kabul ettiğimiz düğüm — diğer her gerilim ona göre ölçülür.</li>
+    <li><b>(v_a−v_b)/R neden akımı verir?</b> Ohm Kanunu'nun (V=IR) düğüm diline çevrilmiş hali: iki düğüm arasındaki gerilim farkı, aradaki dirence bölününce o koldan geçen akımı verir.</li>
+  </ul>
+  <p>Emin değilsen aşağıyı okurken tekrar buraya dön — bu üçü olmadan DGY'nin geri kalanı ezber olur, anlaşılmaz.</p>
+
   <h2>1. Fikir: KCL'nin sistematik uygulaması</h2>
   <p>DGY, Ders 03'teki Kirchhoff Akım Kanunu'nun (KCL) her düğüme sırayla uygulanmasından ibarettir. Tek yeni kavram: <b>referans düğüm</b> — gerilimi <b>0 V kabul edilen</b> düğüm (toprak sembolüyle gösterilir). Devredeki her <b>diğer</b> düğümün gerilimi, bu referansa göre ölçülür.</p>
 
@@ -124,13 +132,15 @@
   <div class="cap">3A kaynağı doğrudan B'ye giriyor; R1 B'yi referansa, R2 B'yi C'ye, R3 C'yi referansa bağlıyor.</div>
   </div>
 
-  <p><b>Adım 2 — B düğümüne KCL (çıkan akımlar = giren akımlar):</b> B'ye giren 3A, R1 ve R2 üzerinden dışarı çıkıyor:</p>
+  <p><b>Adım 2 — B düğümüne KCL (giren akımlar = çıkan akımlar):</b> B'ye giren 3A, R1 ve R2 üzerinden dışarı çıkıyor:</p>
   <div class="eq">3 = <span class="frac"><span class="n">v_B</span><span class="d">R1</span></span> + <span class="frac"><span class="n">v_B − v_C</span><span class="d">R2</span></span> = <span class="frac"><span class="n">v_B</span><span class="d">1</span></span> + <span class="frac"><span class="n">v_B − v_C</span><span class="d">1</span></span></div>
   <p>Sadeleştirince: <code>2v_B − v_C = 3</code> &nbsp;&nbsp;<b>(Denklem 1)</b></p>
 
-  <p><b>C düğümüne KCL:</b> C'den çıkan tek yollar R2 (B'ye geri) ve R3 (referansa):</p>
-  <div class="eq"><span class="frac"><span class="n">v_C − v_B</span><span class="d">R2</span></span> + <span class="frac"><span class="n">v_C</span><span class="d">R3</span></span> = 0 &nbsp;→&nbsp; <span class="frac"><span class="n">v_C − v_B</span><span class="d">1</span></span> + <span class="frac"><span class="n">v_C</span><span class="d">2</span></span> = 0</div>
-  <p>2 ile çarpıp sadeleştirince: <code>−2v_B + 3v_C = 0</code> &nbsp;→&nbsp; v_C = <span class="frac"><span class="n">2</span><span class="d">3</span></span>v_B &nbsp;&nbsp;<b>(Denklem 2)</b></p>
+  <p><b>C düğümüne KCL (aynı kural — giren = çıkan):</b> C'ye <b>B'den R2 üzerinden giren</b> akım, C'den <b>R3 üzerinden referansa çıkan</b> akıma eşittir:</p>
+  <div class="eq"><span class="frac"><span class="n">v_B − v_C</span><span class="d">R2</span></span> = <span class="frac"><span class="n">v_C</span><span class="d">R3</span></span> &nbsp;→&nbsp; <span class="frac"><span class="n">v_B − v_C</span><span class="d">1</span></span> = <span class="frac"><span class="n">v_C</span><span class="d">2</span></span></div>
+  <p>2 ile çarpıp sadeleştirince: <code>2v_B − 2v_C = v_C</code> &nbsp;→&nbsp; <code>2v_B = 3v_C</code> &nbsp;→&nbsp; v_C = <span class="frac"><span class="n">2</span><span class="d">3</span></span>v_B &nbsp;&nbsp;<b>(Denklem 2)</b></p>
+
+  <p class="mission">📌 <b>Eşdeğer yazım (bilgi amaçlı):</b> C düğümü için "giren=çıkan" yerine <b>tüm çıkan akımların cebirsel toplamı sıfır</b> şeklinde de yazılabilir: <code>(v_C−v_B)/R2 + v_C/R3 = 0</code>. Bu, aynı denklemin taşınmış hali — <b>ama dikkat:</b> burada "toplam" normal aritmetik toplam değil, <b>işaretli (cebirsel) toplam</b>dır; B'den C'ye gelen akım burada negatif işaretle görünüyor çünkü aslında C'ye <i>giriyor</i>, "çıkan" değil. Bu derste ana anlatım boyunca <b>tek ve tutarlı</b> yöntem olan "giren=çıkan" kullanılacak — iki yöntemi aynı çözümde karıştırma, hangisini seçersen seç ama baştan sona aynısında kal.</p>
 
   <p><b>Adım 3 — çöz:</b> Denklem 2'yi Denklem 1'e yerine koy:</p>
   <div class="eq"><code>2v_B − (2/3)v_B = 3 → (4/3)v_B = 3 → v_B = 2.25 V</code></div>

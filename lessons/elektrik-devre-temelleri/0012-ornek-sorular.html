@@ -70,7 +70,7 @@
       <li><a href="#s3">Düğüm Gerilimleri Yöntemi</a> — S12-S13</li>
       <li><a href="#s4">Çevre Akımları + Kramer</a> — S14-S15</li>
       <li><a href="#s5">Süperpozisyon</a> — S16-S17</li>
-      <li><a href="#s6">Thevenin, Norton, Maksimum Güç</a> — S18-S21</li>
+      <li><a href="#s6">Thevenin, Norton, Maksimum Güç</a> — S18-S21 (+ S21b: karma V+I kaynaklı)</li>
       <li><a href="#s7">İdeal Opamp</a> — S22-S24</li>
       <li><a href="#s8">Kavramsal / sözlü</a> — S25</li>
     </ol>
@@ -568,6 +568,57 @@
     </details>
   </div>
 
+  <div class="q">
+    <p><span class="qnum">S21b.</span> <span class="lvl">ZOR</span> <b>Karma kaynak (bağımsız V + bağımsız I birlikte).</b> <b>12V</b> kaynak <b>R1=6Ω</b> ile A düğümüne bağlı. Aynı düğüme <b>2A</b>'lik bağımsız akım kaynağı doğrudan giriyor. A, <b>R2=3Ω</b> ile referansa bağlı. A'dan <b>R3=4Ω</b> ile a terminaline gidiliyor, b=referans. (a) Thevenin eşdeğerini bul. (b) Norton eşdeğerini bul.</p>
+    <div class="circwrap">
+    <svg viewBox="-30 0 370 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+      <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+      <line x1="30" y1="80" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="8" y="70" text-anchor="end">+</text>
+      <text x="8" y="90" text-anchor="end">12V</text>
+      <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+      <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="87" y="14" text-anchor="middle">R1=6Ω</text>
+      <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="150" cy="30" r="4"/><text x="150" y="14" text-anchor="middle" font-weight="bold">A</text>
+      <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+      <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="168" y="92" text-anchor="start">R2=3Ω</text>
+      <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="150" y1="30" x2="180" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+      <rect x="180" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="207" y="14" text-anchor="middle">R3=4Ω</text>
+      <line x1="235" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="270" cy="30" r="4"/><text x="285" y="26" text-anchor="start" font-weight="bold">a</text>
+      <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="270" cy="150" r="4"/><text x="285" y="154" text-anchor="start" font-weight="bold">b</text>
+      <line x1="90" y1="150" x2="90" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="90" cy="70" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="90" y1="80" x2="90" y2="60" stroke="#1a1a1a" stroke-width="2" marker-end="url(#q21ba)"/>
+      <line x1="90" y1="54" x2="90" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="108" y="70" text-anchor="start">2A</text>
+      <defs><marker id="q21ba" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+    </svg>
+    <div class="cap">12V + R1 seri, 2A doğrudan A'ya giriyor; R2 A'yı referansa, R3 A'yı a'ya bağlıyor.</div>
+    </div>
+    <details><summary>Çözümü göster</summary>
+    <div class="ans">
+      <p><b>(a) V_TH</b> — a-b açık, R3'ten akım yok → V_TH = v_A. A düğümüne DGY (giren=çıkan):</p>
+      <div class="eq"><span class="frac"><span class="n">12 − v_A</span><span class="d">6</span></span> + 2 = <span class="frac"><span class="n">v_A</span><span class="d">3</span></span></div>
+      <p>6 ile çarp: <code>(12−v_A) + 12 = 2v_A</code> → <code>24 − v_A = 2v_A</code> → <code>24 = 3v_A</code></p>
+      <div class="final"><b>V_TH = 8V</b></div>
+      <p><b>R_TH</b> — 12V kısa, 2A açık: R1∥R2 seride R3:</p>
+      <div class="eq">R1∥R2 = <span class="frac"><span class="n">6·3</span><span class="d">6+3</span></span> = 2Ω &nbsp;&nbsp;&nbsp; R_TH = R3 + 2 = 4+2 = <b>6Ω</b></div>
+      <div class="final"><b>V_TH = 8V &nbsp;·&nbsp; R_TH = 6Ω</b></div>
+      <p><b>(b) Norton:</b></p>
+      <div class="eq">R_N = R_TH = <b>6Ω</b> &nbsp;&nbsp;&nbsp; I_N = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH</span></span> = <span class="frac"><span class="n">8</span><span class="d">6</span></span> = <b>1.33A</b></div>
+      <p><small>Bağımsız gerilim ve akım kaynağı aynı devrede birlikte olsa bile yöntem değişmiyor — DGY her zaman ikisini de tek denklemde birlikte taşır, kaynakları söndürme kuralı da (kısa/açık) her ikisi için ayrı ayrı aynı şekilde uygulanıyor.</small></p>
+    </div>
+    </details>
+  </div>
+
   <!-- ================= 7 ================= -->
   <h2 id="s7">7. İdeal Opamp</h2>
 
@@ -679,7 +730,7 @@
     <tr><td>DGY denklem kurma (S12-S13)</td><td><a href="0004-dugum-gerilimleri-yontemi.html">Ders 04</a></td></tr>
     <tr><td>Çevre akımları, Kramer (S14-S15)</td><td><a href="0005-cevre-akimlari-yontemi.html">Ders 05</a></td></tr>
     <tr><td>Süperpozisyon, söndürme (S16-S17)</td><td><a href="0006-superpozisyon-teoremi.html">Ders 06</a></td></tr>
-    <tr><td>Thevenin / Norton / Maks. güç (S18-S21)</td><td><a href="0007-thevenin-teoremi.html">Ders 07</a> · <a href="0008-norton-teoremi.html">08</a> · <a href="0009-maksimum-guc-transferi.html">09</a></td></tr>
+    <tr><td>Thevenin / Norton / Maks. güç (S18-S21, S21b)</td><td><a href="0007-thevenin-teoremi.html">Ders 07</a> · <a href="0008-norton-teoremi.html">08</a> · <a href="0009-maksimum-guc-transferi.html">09</a></td></tr>
     <tr><td>Opamp kazanç ve akım (S22-S24)</td><td><a href="0010-ideal-opamp.html">Ders 10</a></td></tr>
     <tr><td>Kavramsal sorular (S25)</td><td><a href="0011-genel-tekrar.html">Ders 11 — Genel Tekrar</a>, bölüm 12</td></tr>
   </table>

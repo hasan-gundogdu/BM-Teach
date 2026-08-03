@@ -64,25 +64,42 @@
     <b class="tag">🔊 Analoji:</b> Bir mikrofon çok zayıf bir elektrik sinyali üretir (milivolt seviyesinde). Hoparlörü çalıştırmak için bu sinyalin <b>binlerce kat büyütülmesi</b> gerekir — işte bunu yapan devre bir opamp temelli yükselteçtir. Ses sistemlerindeki "volume" düğmesi, aslında opamp devresindeki bir direnç oranını (kazancı) değiştirir.
   </div>
 
-  <h2>2. İdeal opamp kuralları — sadece iki kural</h2>
-  <p>Gerçek opamplar karmaşıktır (sonlu kazanç, giriş/çıkış direnci) ama <b>ideal opamp</b> modeli, hesaplamaları inanılmaz basitleştiren iki varsayıma dayanır:</p>
+  <h2>2. Her zaman geçerli iki ideal varsayım</h2>
+  <p>Gerçek opamplar karmaşıktır ama <b>ideal opamp</b> modeli, devre şeklinden <b>bağımsız olarak her zaman</b> geçerli iki varsayıma dayanır:</p>
   <table class="tbl">
-    <tr><th>Kural</th><th>Anlamı</th></tr>
+    <tr><th>Varsayım</th><th>Anlamı</th></tr>
     <tr><td><b>1) Giriş akımları sıfır</b></td><td><code>i₋ = i₊ = 0</code> — giriş direnci sonsuz kabul edilir, giriş uçlarından hiç akım çekilmez.</td></tr>
-    <tr><td><b>2) Giriş gerilimleri eşit</b></td><td><code>v₋ = v₊</code> — "sanal kısa devre" (virtual short). Gerçekte tel değildir, ama gerilimleri birbirine <b>eşitmiş gibi</b> davranır (yalnızca negatif geri besleme varken geçerlidir).</td></tr>
+    <tr><td><b>2) Açık çevrim kazancı sonsuz</b></td><td><code>A → ∞</code> — çıkışın girişe göre büyütme oranı çok büyük (gerçekte sonsuz değil ama çok büyük, örn. 2×10⁵).</td></tr>
   </table>
 
-  <div class="analogy">
-    <b class="tag">⚖️ Analoji — sanal kısa devre:</b> İki kişinin bir terazinin iki kefesinde durup, terazinin sürekli <b>dengede kalmasını</b> sağlayan görünmez bir mekanizma olduğunu düşün. İki kefe fiziksel olarak birbirine bağlı değil (tel yok) ama sistem onları hep aynı seviyede tutuyor. Opampın çıkışı, geri besleme sayesinde tam olarak <code>v₋=v₊</code> olacak şekilde kendini ayarlar.
+  <h3>Açık çevrim kazancı ne demek? (gerçek ders notundan)</h3>
+  <p>Kazanç, <b>çıkış geriliminin giriş fark gerilimine oranıdır</b>: <code>A = Vo/Vd</code>, burada <code>Vd = v₊ − v₋</code>. Geri besleme yoksa buna <b>açık çevrim kazancı</b> denir.</p>
+  <div class="q">
+    <p><b>Örnek (ders notundan).</b> Açık çevrim kazancı <code>A = 2×10⁵</code> olan bir opampın girişine <code>Vd = 2V</code> uygulanırsa çıkış ne olur?</p>
+    <details><summary>Çözümü göster</summary>
+      <p><code>Vo = A · Vd = 2×10⁵ × 2 = 4×10⁵ V</code></p>
+      <p><b>400.000 Volt — fiziksel olarak imkânsız.</b> Gerçek bir opampın çıkışı besleme gerilimiyle (örneğin ±15V) sınırlıdır; böyle bir <code>Vd</code> ile çıkış anında <b>doygunluğa (saturasyon)</b> gider ve besleme sınırına yapışır. Bu örnek, açık çevrim kazancının <b>geri besleme olmadan pratikte kullanılamayacağını</b> gösteriyor.</p>
+    </details>
   </div>
 
-  <p class="mission">⚠️ <b>Kural 1'in sonucu:</b> Giriş uçlarından akım geçmediği için, bir opamp devresindeki <b>tüm akım hesapları</b> dışarıdaki dirençler arasında KCL ile yapılır — Ders 04'teki (DGY) tekniğin birebir aynısı, tek fark giriş ucuna "akım gelmiyor" bilgisini eklemek.</p>
+  <h2>3. Sanal kısa devre — SADECE negatif geri besleme ve doğrusal çalışmada geçerli</h2>
+  <p>Yukarıdaki örnek asıl soruyu doğuruyor: <code>A</code> bu kadar büyükken çıkış nasıl makul bir değerde (örneğin birkaç Volt) kalabiliyor? Cevap: <b>negatif geri besleme</b> (çıkıştan eviren girişe bir direnç üzerinden geri bağlantı) devrenin kendini otomatik ayarlamasını sağlıyor. Çıkış sonlu kaldığı sürece:</p>
+  <div class="eq">V_d = <span class="frac"><span class="n">Vo</span><span class="d">A</span></span> ≈ 0 &nbsp;&nbsp;(A çok büyük olduğu için) &nbsp;&nbsp;→&nbsp;&nbsp; <b>v₋ = v₊</b></div>
+  <p>Buna <b>sanal kısa devre</b> (virtual short) denir. Aralarında fiziksel tel <b>yoktur</b> — sadece geri besleme sayesinde iki giriş gerilimi eşitmiş <b>gibi davranır</b>.</p>
+
+  <div class="analogy">
+    <b class="tag">⚖️ Analoji — sanal kısa devre:</b> İki kişinin bir terazinin iki kefesinde durup, terazinin sürekli <b>dengede kalmasını</b> sağlayan görünmez bir mekanizma olduğunu düşün. İki kefe fiziksel olarak birbirine bağlı değil (tel yok) ama sistem onları hep aynı seviyede tutuyor.
+  </div>
+
+  <p class="mission">⚠️ <b>v₋=v₊ koşulsuz bir kural değildir.</b> Sadece şu ikisi birlikte sağlandığında geçerlidir: (1) devrede <b>negatif geri besleme</b> var (çıkıştan eviren girişe bağlantı), (2) opamp <b>doygunluğa girmemiş</b> (doğrusal bölgede çalışıyor). Geri besleme yoksa (açık çevrim) yukarıdaki örnekteki gibi çıkış anında doygunluğa gider, <code>v₋=v₊</code> artık geçerli değildir. Bu derste göreceğin eviren/evirmeyen devrelerin ikisinde de geri besleme R2 üzerinden var — o yüzden sanal kısayı güvenle kullanabiliyoruz.</p>
+
+  <p class="mission">💡 <b>Giriş akımı sıfırın sonucu:</b> Giriş uçlarından akım geçmediği için, bir opamp devresindeki <b>tüm akım hesapları</b> dışarıdaki dirençler arasında KCL ile yapılır — Ders 04'teki (DGY) tekniğin birebir aynısı, tek fark giriş ucuna "akım gelmiyor" bilgisini eklemek.</p>
 
   <div class="pause">
-    ☕ <b>Doğal duraklama noktası.</b> İki kuralı gördün. Devamı bu kuralların iki standart devrede (eviren/evirmeyen yükselteç) nasıl kazanç formülüne dönüştüğü.
+    ☕ <b>Doğal duraklama noktası.</b> İki varsayımı ve sanal kısanın koşulunu gördün. Devamı, bunların iki standart devrede (eviren/evirmeyen yükselteç) nasıl kazanç formülüne dönüştüğü.
   </div>
 
-  <h2>3. Eviren (inverting) yükselteç</h2>
+  <h2>4. Eviren (inverting) yükselteç</h2>
   <p>Giriş sinyali <b>eviren (−)</b> uca R1 üzerinden bağlanır; <b>evirmeyen (+)</b> uç doğrudan toprağa (0V) bağlanır; çıkıştan eviren uca R2 geri besleme direnci vardır.</p>
   <div class="circwrap">
   <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
@@ -130,7 +147,7 @@
     </details>
   </div>
 
-  <h2>4. Evirmeyen (noninverting) yükselteç</h2>
+  <h2>5. Evirmeyen (noninverting) yükselteç</h2>
   <p>Giriş sinyali doğrudan <b>evirmeyen (+)</b> uca bağlanır; eviren (−) uç, biri toprağa (R1) biri çıkışa (R2) giden iki dirençle bir düğüm oluşturur.</p>
   <div class="circwrap">
   <svg viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
@@ -181,7 +198,7 @@
 
   <p class="mission">💡 <b>Özel durum — gerilim izleyici (voltage follower):</b> R2=0 (doğrudan tel) ve R1=∞ (bağlantı yok) olursa evirmeyen formülde <code>A_v=1</code> çıkar, yani <code>Vo=Vi</code>. Bu, sinyali değiştirmeden ama <b>yüksek giriş direnci / düşük çıkış direnci</b> sağlayarak "tampon" (buffer) görevi gören özel bir devre — iki devre bloğunu birbirini etkilemeden bağlamak için kullanılır.</p>
 
-  <h2>5. Genel KCL yaklaşımı (standart formüle uymayan devreler)</h2>
+  <h2>6. Genel KCL yaklaşımı (standart formüle uymayan devreler)</h2>
   <p>Hoca "akım, gerilim, kazanç buluyoruz" dediği için, her zaman yukarıdaki iki hazır formülü ezbere uygulayamayacağın devreler de çıkabilir. O zaman doğrudan <b>Ders 04'ün DGY tekniğine</b> dön — tek fark, opamp giriş ucuna "<code>i=0</code>" bilgisini eklemek:</p>
 
   <div class="q">
@@ -200,9 +217,10 @@
     <tr><td>Gerilim izleyici</td><td><code>A_v = 1</code></td><td>Değiştirmez, sadece tamponlar</td></tr>
   </table>
   <table class="tbl">
-    <tr><th>İdeal opamp kuralı</th><th>Sonucu</th></tr>
-    <tr><td>i₋ = i₊ = 0</td><td>Giriş ucundan hiç akım geçmez — dış dirençlerdeki akım KCL ile bulunur</td></tr>
-    <tr><td>v₋ = v₊</td><td>"Sanal kısa devre" — sadece geri besleme varken geçerli</td></tr>
+    <tr><th>Varsayım</th><th>Ne zaman geçerli</th><th>Sonucu</th></tr>
+    <tr><td>i₋ = i₊ = 0</td><td><b>Her zaman</b></td><td>Giriş ucundan hiç akım geçmez — dış dirençlerdeki akım KCL ile bulunur</td></tr>
+    <tr><td>A → ∞ (açık çevrim kazancı)</td><td><b>Her zaman</b> (ideal varsayım)</td><td>Geri besleme yoksa çıkış anında doygunluğa gider (yukarıdaki 2×10⁵ örneği)</td></tr>
+    <tr><td>v₋ = v₊</td><td><b>Sadece</b> negatif geri besleme + doğrusal bölge</td><td>"Sanal kısa devre" — koşulsuz bir kural değil</td></tr>
   </table>
 
   <h2>Birincil kaynak</h2>

@@ -44,6 +44,10 @@
   .frac .d{ padding:.06em .2em 0; }
   .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:2em; color:var(--soft); gap:1em; }
   .topline{ position:sticky; top:0; background:var(--bg); padding:.4em 0; border-bottom:1px solid var(--rule); font-size:.82rem; text-align:right; z-index:5; }
+  .scopetag{ display:inline-block; font-size:.62rem; letter-spacing:.05em; font-weight:700; padding:.15em .55em; border-radius:10px; vertical-align:middle; margin-left:.6em; text-transform:uppercase; }
+  .scopetag.vizede{ background:#eaf5ea; color:#2e7d43; border:1px solid #2e7d43; }
+  .scopetag.vizedisi{ background:#f4f2ec; color:#8a6d2f; border:1px solid #b9b2a0; }
+  .scopetag.ekbilgi{ background:#e9f0f4; color:#2e5c7a; border:1px solid #2e5c7a; }
 </style>
 </head>
 <body>
@@ -72,7 +76,7 @@
   </div>
 
   <!-- ============ 1 ============ -->
-  <h2 id="b1">1. Akım, Voltaj, Güç, Enerji</h2>
+  <h2 id="b1">1. Akım, Voltaj, Güç, Enerji <span class="scopetag vizede">vizede</span></h2>
 
   <h3>Temel dörtlü</h3>
   <table class="tbl">
@@ -106,7 +110,7 @@
   </table>
 
   <!-- ============ 2 ============ -->
-  <h2 id="b2">2. Devre Terminolojisi, Kaynaklar, Kaynak Dönüşümü</h2>
+  <h2 id="b2">2. Devre Terminolojisi, Kaynaklar, Kaynak Dönüşümü <span class="scopetag vizede">vizede</span></h2>
 
   <h3>Üç kelime</h3>
   <table class="tbl">
@@ -152,7 +156,7 @@
   <p>Seri R'li gerilim kaynağı ↔ paralel R'li akım kaynağı: a-b uçlarına dışarıdan bakan biri ikisini ayırt edemez (aynı I-V davranışı).</p>
 
   <!-- ============ 3 ============ -->
-  <h2 id="b3">3. Ohm Kanunu, Kirchhoff Kanunları, Seri-Paralel</h2>
+  <h2 id="b3">3. Ohm Kanunu, Kirchhoff Kanunları, Seri-Paralel <span class="scopetag vizede">vizede</span></h2>
 
   <h3>Ohm Kanunu — üç form</h3>
   <div class="eq">V = I·R &nbsp;·&nbsp; I = <span class="frac"><span class="n">V</span><span class="d">R</span></span> &nbsp;·&nbsp; R = <span class="frac"><span class="n">V</span><span class="d">I</span></span></div>
@@ -168,6 +172,9 @@
   <h3>Kirchhoff Gerilim Kanunu (KVL)</h3>
   <div class="eq">Σ V_işaretli = 0 &nbsp;&nbsp; (kapalı bir çevre boyunca bir tam tur)</div>
   <p><b>Neden?</b> Enerji korunumu — bir turu tamamlayınca net "yükseklik" (gerilim) değişimi sıfır olmalı (dağda tam tur atıp başladığın yere dönersen net irtifa değişimin sıfırdır, aynı mantık).</p>
+
+  <h3>Bir direnç gerçekten ne zaman seri/paralel?</h3>
+  <p>Şemada yan yana/üst üste görünmek <b>kanıt değil</b>. Kesin yöntem: her direncin <b>hangi iki düğüm arasında</b> olduğunu yaz. Düğüm çiftleri <b>aynıysa → paralel</b>. Ortak <b>tek</b> düğümü varsa ve o düğümde başka dallanma yoksa <b>→ seri</b>. Karmaşık devrede önce kesintisiz telleri aynı düğüm adıyla etiketle, sonra bu kontrolü uygula.</p>
 
   <h3>Seri / paralel</h3>
   <table class="tbl">
@@ -186,7 +193,7 @@
   <p class="mission">⚠️ Payda <b>karşı direnç</b> var (I1 formülünde R2!) — gerilim bölücünün tam tersi mantık. Çünkü gerilim sabit, küçük direnç daha çok akım çeker.</p>
 
   <!-- ============ 4 ============ -->
-  <h2 id="b4">4. Düğüm Gerilimleri Yöntemi (DGY)</h2>
+  <h2 id="b4">4. Düğüm Gerilimleri Yöntemi (DGY) <span class="scopetag vizede">vizede</span></h2>
   <p>KCL'nin sistematik hali. <b>Referans düğüm</b> = 0V kabul edilen düğüm; diğer her düğümün gerilimi ona göre ölçülür.</p>
   <ol>
     <li>Referans düğümü seç, kalan n−1 düğüme isim ver.</li>
@@ -231,18 +238,18 @@
   </div>
   <p><b>B düğümüne KCL</b> (giren = çıkan): B'ye giren 3A, R1 ve R2 üzerinden dışarı çıkar:</p>
   <div class="eq">3 = <span class="frac"><span class="n">v_B</span><span class="d">1</span></span> + <span class="frac"><span class="n">v_B − v_C</span><span class="d">1</span></span> &nbsp;→&nbsp; 2v_B − v_C = 3 &nbsp;&nbsp;<b>(Denklem 1)</b></div>
-  <p><b>C düğümüne KCL:</b> C'den çıkan yollar R2 (B'ye geri) ve R3 (referansa):</p>
-  <div class="eq"><span class="frac"><span class="n">v_C − v_B</span><span class="d">1</span></span> + <span class="frac"><span class="n">v_C</span><span class="d">2</span></span> = 0 &nbsp;→&nbsp; −2v_B + 3v_C = 0 &nbsp;→&nbsp; v_C = <span class="frac"><span class="n">2</span><span class="d">3</span></span>v_B &nbsp;&nbsp;<b>(Denklem 2)</b></div>
+  <p><b>C düğümüne KCL (aynı kural — giren=çıkan):</b> B'den R2 üzerinden giren = R3 üzerinden referansa çıkan:</p>
+  <div class="eq"><span class="frac"><span class="n">v_B − v_C</span><span class="d">1</span></span> = <span class="frac"><span class="n">v_C</span><span class="d">2</span></span> &nbsp;→&nbsp; 2v_B − 2v_C = v_C &nbsp;→&nbsp; v_C = <span class="frac"><span class="n">2</span><span class="d">3</span></span>v_B &nbsp;&nbsp;<b>(Denklem 2)</b></div>
   <p><b>Denklem 2'yi 1'e yerine koy:</b></p>
   <div class="eq">2v_B − <span class="frac"><span class="n">2</span><span class="d">3</span></span>v_B = 3 &nbsp;→&nbsp; <span class="frac"><span class="n">4</span><span class="d">3</span></span>v_B = 3 &nbsp;→&nbsp; <b>v_B = 2.25 V</b>, &nbsp; <b>v_C = 1.5 V</b></div>
   <p><b>Doğrulama:</b> R1'den <code>2.25/1=2.25A</code>, R2'den <code>(2.25−1.5)/1=0.75A</code>, R3'ten <code>1.5/2=0.75A</code>. B'de: <code>3=2.25+0.75</code> ✅. C'de: giren <code>0.75A</code> = çıkan <code>0.75A</code> ✅.</p>
 
   <!-- ============ 5 ============ -->
-  <h2 id="b5">5. Çevre Akımları Yöntemi (Kramer Kuralı ile)</h2>
+  <h2 id="b5">5. Çevre Akımları Yöntemi (Kramer Kuralı ile) <span class="scopetag vizede">vizede</span></h2>
   <p>KVL'nin sistematik hali. Her bağımsız çevreye hayali bir "çevre akımı" atanır (genelde saat yönü).</p>
   <ol>
     <li>Her çevreye akım yönü ata.</li>
-    <li>Her çevreye KVL uygula; <b>ortak (paylaşılan) koldaki</b> düşüm = "bu çevrenin akımı − komşu çevrenin akımı".</li>
+    <li>Her çevreye KVL uygula; <b>ortak (paylaşılan) koldaki</b> düşüm, iki çevre <b>aynı yönde</b> seçildiyse "bu çevrenin akımı − komşu çevrenin akımı" (farklı yönde seçildiyse toplamı).</li>
     <li>l denklemi çöz — genel yöntem <b>Kramer kuralı</b>.</li>
   </ol>
   <h3>Kramer kuralı (2×2)</h3>
@@ -251,7 +258,7 @@
   <p class="mission">🔗 Bu, BM213 Lineer Cebir'deki 2×2 determinant formülünün (a·d−b·c) aynısı. 3+ çevrede 3×3 determinant / Sarrus kuralı gerekir.</p>
 
   <h3>Örnek — adım adım</h3>
-  <p>6V'luk kaynak, R1=1Ω ile seri, 1. çevreyi (i1, saat yönü) oluşturuyor. 1. ve 2. çevre arasındaki ortak kolda R2=1Ω var. 2. çevre (i2, saat yönü) sadece R3=1Ω içeriyor, kendi kaynağı yok:</p>
+  <p>6V'luk kaynak, R1=1Ω ile seri, 1. çevreyi (i1, saat yönü) oluşturuyor. 1. ve 2. çevre arasındaki ortak kolda R2=1Ω var. 2. çevre (i2, saat yönü) R2 (ortak) ve R3=1Ω'u (kendine özel) içeriyor; kendi kaynağı yok:</p>
   <div class="circwrap">
   <svg viewBox="-30 0 330 200" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
     <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
@@ -294,7 +301,7 @@
   <p><b>Doğrulama:</b> 1. çevreye geri koy: <code>−6 + 1·4 + 1·(4−2) = −6+4+2 = 0</code> ✅. R2'deki gerçek akım: <code>i1−i2 = 2A</code>.</p>
 
   <!-- ============ 6 ============ -->
-  <h2 id="b6">6. Süperpozisyon Teoremi</h2>
+  <h2 id="b6">6. Süperpozisyon Teoremi <span class="scopetag vizede">vizede</span></h2>
   <p>Sadece <b>doğrusal</b> devrelerde geçerli. Fikir: her kaynağın etkisini <b>tek başına</b> hesapla, sonra <b>cebirsel olarak</b> topla.</p>
   <h3>Söndürme kuralları</h3>
   <table class="tbl">
@@ -351,7 +358,7 @@
   <p><b>Doğrulama (DGY ile):</b> <code>(12−V)/4 + 3 = V/2</code> → <code>V=8V</code> → <code>I=V/R2=8/2=4A</code> ✅ — birebir aynı.</p>
 
   <!-- ============ 7 ============ -->
-  <h2 id="b7">7. Thevenin Teoremi</h2>
+  <h2 id="b7">7. Thevenin Teoremi <span class="scopetag vizede">vizede</span> <span class="scopetag vizedisi">bağımlı kaynak kısmı vize dışı</span></h2>
   <p>Herhangi bir doğrusal devre, a-b uçlarına göre <b>tek bir gerilim kaynağı (V_TH) + seri direnç (R_TH)</b>'a indirgenebilir.</p>
   <div class="circwrap">
   <svg viewBox="-70 0 410 120" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">
@@ -376,7 +383,7 @@
     <li>Bağımsız kaynakları söndür, a-b'den bakılan eşdeğer direnci bul → <code>R_TH</code>.</li>
     <li>Yükü geri bağla, hesabı yap.</li>
   </ol>
-  <p class="mission skipnote">⏭️ Bağımlı kaynak varsa (sınavda çıkmayacak): a-b'ye 1V test kaynağı bağlanır, çekilen akım i₀ ölçülür, R_TH=1V/i₀.</p>
+  <p class="mission skipnote"><span class="scopetag vizedisi">vize dışı</span> Bağımlı kaynak varsa (sınavda çıkmayacak): a-b'ye 1V test kaynağı bağlanır, çekilen akım i₀ ölçülür, R_TH=1V/i₀.</p>
   <p class="mission examnote">✅ <b>Sınav notu:</b> Thevenin sorularında bağımlı kaynak <b>olmayacak</b> — R_TH her zaman seri/paralel kısayollarıyla bulunur.</p>
 
   <h3>Örnek — adım adım</h3>
@@ -413,11 +420,12 @@
   <div class="eq">V_A = 18 · <span class="frac"><span class="n">R2</span><span class="d">R1+R2</span></span> = 18 · <span class="frac"><span class="n">6</span><span class="d">9</span></span> = <b>V_TH = 12V</b></div>
   <p><b>Adım 3 — R_TH:</b> 18V kaynağını kısa devre yap. a-b'den bakınca R3 seri, ona R1∥R2 ekleniyor:</p>
   <div class="eq">R_TH = R3 + (R1∥R2) = 2 + <span class="frac"><span class="n">3·6</span><span class="d">3+6</span></span> = 2 + 2 = <b>4Ω</b></div>
+  <p class="mission">📌 Sınavda bağımsız gerilim <b>ve</b> bağımsız akım kaynağı aynı devrede birlikte de çıkabilir — yöntem aynı (DGY ile V_TH, kaynakları söndürüp R_TH). Karma kaynaklı tam örnek: <a href="0007-thevenin-teoremi.html">Ders 07, Bölüm 4</a>.</p>
   <p><b>Adım 4 — yükle hesap:</b> R_L=8Ω bağlarsak:</p>
   <div class="eq">I_L = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH+R_L</span></span> = <span class="frac"><span class="n">12</span><span class="d">4+8</span></span> = 1A &nbsp;&nbsp;&nbsp; V_L = 1·8 = 8V</div>
 
   <!-- ============ 8 ============ -->
-  <h2 id="b8">8. Norton Teoremi</h2>
+  <h2 id="b8">8. Norton Teoremi <span class="scopetag vizede">vizede</span></h2>
   <p>Thevenin'in akım-kaynaklı ikizi: a-b uçlarına göre <b>akım kaynağı (I_N) + paralel direnç (R_N)</b>.</p>
   <div class="eq">R_N = R_TH &nbsp;&nbsp;&nbsp; I_N = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH</span></span> &nbsp;&nbsp;&nbsp; V_TH = I_N·R_N</div>
   <p><code>I_N</code> = a-b <b>kısa devre</b> edildiğinde o telden geçen akım. <code>R_N</code>, R_TH ile <b>aynı işlemle</b> bulunur (bağımsız kaynakları söndür, a-b'den bakılan direnç).</p>
@@ -435,11 +443,12 @@
   <p>Ders 7'deki Thevenin sonucuyla (I_L=1A) birebir aynı ✅.</p>
 
   <!-- ============ 9 ============ -->
-  <h2 id="b9">9. Maksimum Güç Transferi</h2>
+  <h2 id="b9">9. Maksimum Güç Transferi <span class="scopetag vizede">vizede</span></h2>
   <div class="eq">R_L = R_TH &nbsp;&nbsp;→&nbsp;&nbsp; P_max = <span class="frac"><span class="n">V_TH²</span><span class="d">4·R_TH</span></span> &nbsp;&nbsp;&nbsp;(Norton: P_max = <span class="frac"><span class="n">I_N²·R_N</span><span class="d">4</span></span>)</div>
   <p><b>Neden R_L=R_TH'ta tepe noktası var?</b> R_L→0 iken P→0 (gerilim sıfır), R_L→∞ iken P→0 (akım sıfır). Arada bir yerde tepe var, matematiksel olarak tam R_L=R_TH'ta.</p>
   <p class="mission">⚠️ <b>Maksimum güç ≠ maksimum verim!</b> R_L=R_TH'ta verim tam <b>%50</b>'dir (gücün yarısı R_TH'ta ısı olarak kaybolur). Güç şebekelerinde verim öncelik (R_L≫R_TH tercih edilir); ses/sinyal devrelerinde maksimum güç transferi öncelik.</p>
   <p class="mission examnote">✅ <b>Sınav notu:</b> Burada da bağımlı kaynak olmayacak.</p>
+  <p class="mission"><span class="scopetag ekbilgi">ek bilgi</span> Bu formül yükün sabit direnç, kaynağın dirençli DC olduğu devrelerde geçerli — BM107 bu dönem zaten sadece bunu işliyor, o yüzden şart otomatik sağlanıyor.</p>
 
   <h3>Örnek — adım adım (aynı devrenin sonucu)</h3>
   <p>Aynı devrede V_TH=12V, R_TH=4Ω (Norton: I_N=3A, R_N=4Ω). Maksimum güç şartı:</p>
@@ -452,13 +461,14 @@
   <p>Norton ile doğrulama: <code>P_max = I_N²·R_N/4 = 3²·4/4 = 9W</code> ✅ — aynı sonuç.</p>
 
   <!-- ============ 10 ============ -->
-  <h2 id="b10">10. İdeal Opamp</h2>
+  <h2 id="b10">10. İdeal Opamp <span class="scopetag vizede">vizede (temel seviye)</span></h2>
   <p class="mission examnote">✅ <b>Kapsam (hoca duyurusu):</b> Opamp sınavda var, ama sadece <b>akım, gerilim, kazanç</b> (temel eviren/evirmeyen). Toplayıcı/fark alıcı/kademeli devreler kapsam dışı.</p>
-  <h3>İki kural</h3>
+  <h3>İki her-zaman-geçerli varsayım + bir koşullu sonuç</h3>
   <table class="tbl">
-    <tr><th>Kural</th><th>Anlamı</th></tr>
-    <tr><td><code>i₋ = i₊ = 0</code></td><td>Giriş uçlarından akım geçmez (giriş direnci sonsuz)</td></tr>
-    <tr><td><code>v₋ = v₊</code></td><td>"Sanal kısa devre" — sadece negatif geri besleme varken geçerli</td></tr>
+    <tr><th>Varsayım</th><th>Ne zaman</th><th>Anlamı</th></tr>
+    <tr><td><code>i₋ = i₊ = 0</code></td><td>Her zaman</td><td>Giriş uçlarından akım geçmez (giriş direnci sonsuz)</td></tr>
+    <tr><td><code>A → ∞</code> (açık çevrim kazancı)</td><td>Her zaman (ideal)</td><td>Gerçekte çok büyük (örn. 2×10⁵) — geri besleme yoksa çıkış anında doygunluğa gider</td></tr>
+    <tr><td><code>v₋ = v₊</code></td><td><b>Sadece</b> negatif geri besleme + doğrusal bölge</td><td>"Sanal kısa devre" — koşulsuz bir kural değil, yukarıdaki ikisinin sonucu</td></tr>
   </table>
   <div class="circwrap">
   <svg viewBox="0 0 280 100" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">
@@ -560,7 +570,7 @@
   </table>
 
   <!-- ============ 12 ============ -->
-  <h2 id="b12">12. Muhtemel sözlü/kavramsal sorular — hızlı cevaplar</h2>
+  <h2 id="b12">12. Muhtemel sözlü/kavramsal sorular — hızlı cevaplar <span class="scopetag vizede">vizede</span></h2>
   <p>Hoca sözel de soru sorabileceğini belirttiği için, hesap değil <b>"neden" sorularına</b> hazır ol. Kısa, net cevapla — gerekçesini bir cümlede söyle.</p>
 
   <div class="qa"><b>S: Akım sonucun negatif çıktı, ne yaptın yanlış?</b><br>Hiçbir şey. Büyüklük doğru, gerçek yön seçtiğin okun tersi.</div>
