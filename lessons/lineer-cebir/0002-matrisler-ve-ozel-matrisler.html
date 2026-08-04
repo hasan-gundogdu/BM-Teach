@@ -48,10 +48,10 @@
   <h1>Matrisler ve Özel Matrisler</h1>
   <p class="lead">Bu dersin sonunda: bir matrisin <span class="hi">asal köşegenini</span> bulabilecek, 8 farklı özel matris türünü (köşegen, birim, üçgen, simetrik, ...) tanıyabilecek ve <span class="hi">transpoze</span> alabileceksin. Bunlar ileride determinant, ters matris ve rank konularının temel kelime dağarcığı.</p>
 
-  <p class="mission">🎯 <b>Neden bu?</b> Hocanın resmi ders notu, matris çarpımından (Ders 0003) hemen sonra bu özel matris türlerini tanımlıyor — ve bunlardan biri (üst/alt üçgen matris) Ders 0001'de determinant hesaplamak için zaten kullandığın kavram. Şimdi resmi isimlerini ve tam tanımlarını öğreniyoruz.</p>
+  <p class="mission">🎯 <b>Neden bu?</b> Hocanın resmi ders notunda özel matris türleri, matris çarpımından (Ders 03) hemen sonra geliyor — biz burada kelime dağarcığını bilinçli olarak önce veriyoruz, çünkü bunlardan biri (üst/alt üçgen matris) Ders 01'de determinant hesaplarken zaten kullandığın bir kavramdı. Şimdi resmi isimlerini ve tam tanımlarını öğreniyoruz.</p>
 
   <h2>1. Matris, boyut, asal köşegen (hatırlatma)</h2>
-  <p>Ders 0001'de arttırılmış matrisin satır/sütun yapısında gördüğün gibi bir matris <code>m × n</code> boyutunda (m satır, n sütun) bir sayı tablosu. <b>Kare matris:</b> satır sayısı sütun sayısına eşitse (<code>m = n</code>).</p>
+  <p>Ders 01'de arttırılmış matrisin satır/sütun yapısında gördüğün gibi bir matris <code>m × n</code> boyutunda (m satır, n sütun) bir sayı tablosu. <b>Kare matris:</b> satır sayısı sütun sayısına eşitse (<code>m = n</code>).</p>
   <div class="eq">
     A =
     <table class="m"><tr><td class="diag">1</td><td>2</td><td>3</td></tr><tr><td>4</td><td class="diag">5</td><td>6</td></tr><tr><td>7</td><td>8</td><td class="diag">9</td></tr></table>
@@ -96,7 +96,7 @@
   <div class="eq"><table class="m"><tr><td>1</td><td>-1</td><td class="zero">0</td><td class="zero">0</td></tr><tr><td>2</td><td>2</td><td>-2</td><td class="zero">0</td></tr><tr><td class="zero">0</td><td>-1</td><td>3</td><td>1</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td>-2</td><td>4</td></tr></table></div>
 
   <h3>Üst üçgen matris</h3>
-  <p>Asal köşegenin <b>altındaki</b> tüm elemanlar sıfır. (Ders 0003'te determinant hesaplarken hedeflediğimiz form — hatırlarsın: "köşegenin altı sıfır olsun.")</p>
+  <p>Asal köşegenin <b>altındaki</b> tüm elemanlar sıfır. (İleride Ders 07'de Gauss ile determinant hesaplarken hedefleyeceğimiz form bu olacak: "köşegenin altı sıfır olsun.")</p>
   <div class="eq"><table class="m"><tr><td>1</td><td>3</td><td>-5</td></tr><tr><td class="zero">0</td><td>4</td><td>2</td></tr><tr><td class="zero">0</td><td class="zero">0</td><td>-7</td></tr></table></div>
 
   <h3>Alt üçgen matris</h3>

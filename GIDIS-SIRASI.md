@@ -38,7 +38,7 @@
 - Bölüm 3.1 formal permütasyon tanımı (**resmi müfredat, PDF'nin ilk konusu — 2026-08-04 düzeltmesi: "resmi notların ötesinde" değil, sadece soru bankasında sayısal permütasyon sorusu yok**) + geometrik yorum (gerçekten ek derinlik)
 - **Ön bilgi:** Matematiksel notasyon (Σ, alt indis, σ, permütasyon) — `lessons/on-bilgi/0002-matematik-notasyonu.html` ✅
 
-### Ders 07 — Determinant özellikleri (6 özellik) + üçgen matris ile hesaplama ✅
+### Ders 07 — Determinant özellikleri (3 satır işlemi kuralı + 3 ek özellik) + üçgen matris ile hesaplama ✅
 - **Ders:** `lessons/lineer-cebir/0007-determinantin-ozellikleri-ve-hesaplama.html` · **Referans:** `reference/lineer-cebir/determinant-ozellikleri.html`
 - Bölüm 3.3-3.4
 

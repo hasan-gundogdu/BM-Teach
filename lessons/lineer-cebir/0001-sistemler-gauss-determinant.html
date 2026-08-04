@@ -126,7 +126,7 @@
     <table class="det"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>
     = 1·4 − 2·3 = <b>−2</b>
   </div>
-  <p><b>Neden önemli?</b> Determinant ≠ 0 ise sistemin <span class="hi">tek çözümü</span> vardır. İleride Cramer kuralıyla (Ders 0009) çözümü doğrudan determinantlardan bulacağız.</p>
+  <p><b>Neden önemli?</b> Determinant ≠ 0 ise sistemin <span class="hi">tek çözümü</span> vardır. İleride Cramer kuralıyla (Ders 09) çözümü doğrudan determinantlardan bulacağız.</p>
   <p style="font-size:.95rem;color:var(--soft)"><b>Not — bir sistemin 3 hâli:</b> Bir lineer sistem ya <b>tek çözümlü</b> (tutarlı/consistent), ya <b>sonsuz çözümlü</b> (tutarlı ama denklemler bağımlı) ya da <b>çözümsüz</b> (tutarsız/inconsistent) olur. Determinant ≠ 0 birinci durumu garanti eder; determinant = 0 olduğunda hangisi olduğunu ayırt etmek için rank kullanılır (bkz. Ders 13 — rank ile sistem çözümü). Şimdilik sadece isimleri tanı, detayına orada gireceğiz.</p>
 
   <h2>4. Determinant: 3×3 (Sarrus kuralı)</h2>
@@ -135,7 +135,7 @@
     <table class="det"><tr><td>a</td><td>b</td><td>c</td></tr><tr><td>d</td><td>e</td><td>f</td></tr><tr><td>g</td><td>h</td><td>i</td></tr></table>
     = <code>aei + bfg + cdh − ceg − bdi − afh</code>
   </div>
-  <p><b>Neden bu formül zor ezberlenir?</b> 6 terim, sırası karışık, hangisi + hangisi − takip etmesi zor. Sarrus kuralı bunu <span class="hi">çizerek</span> yapmanın bir yolu — <b>sadece 3×3 için geçerli</b> (4×4 ve üstünde çalışmaz, orada kofaktör açılımı gerekir, bkz. Ders 0008).</p>
+  <p><b>Neden bu formül zor ezberlenir?</b> 6 terim, sırası karışık, hangisi + hangisi − takip etmesi zor. Sarrus kuralı bunu <span class="hi">çizerek</span> yapmanın bir yolu — <b>sadece 3×3 için geçerli</b> (4×4 ve üstünde çalışmaz, orada kofaktör açılımı gerekir, bkz. Ders 08).</p>
 
   <h3>Sarrus kuralı — adım adım (aynı örnek üzerinden)</h3>
   <p>Matris:</p>
@@ -180,7 +180,8 @@
     <p><b>Soru 1.</b> Gauss ile çöz: <code>2x + y = 5</code>, &nbsp; <code>x − y = 1</code>.</p>
     <details><summary>Çözümü göster</summary>
       <p>Toplarsak: 3x = 6 → x = 2. İlk denklem: 2·2 + y = 5 → y = 1. <b>(x,y) = (2, 1)</b></p>
-      <p style="font-size:.9rem;color:var(--soft)"><b>Neden çıkarma değil toplama?</b> Bölüm 2'deki örnekte <code>x</code>'in katsayıları aynı işaretliydi (1 ve 2) → çıkarma gerekti. Burada <code>y</code>'nin katsayıları <b>zıt işaretli</b> (+1 ve −1) → toplayınca <code>y</code> zaten birbirini götürüyor, çıkarmaya gerek yok. Kural: aynı işaret → çıkar, zıt işaret → topla — ikisi de aynı "bir bilinmeyenin katsayısını sıfırla" fikri.</p>
+      <p style="font-size:.9rem;color:var(--soft)"><b>Neden çıkarma değil toplama?</b> Burada <code>y</code>'nin katsayıları <b>zıt işaretli</b> (+1 ve −1) → toplayınca <code>y</code> zaten birbirini götürüyor, çıkarmaya gerek yok.</p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol: <code>2(2)+1=5</code> ✓, <code>2−1=1</code> ✓</p>
     </details>
   </div>
 

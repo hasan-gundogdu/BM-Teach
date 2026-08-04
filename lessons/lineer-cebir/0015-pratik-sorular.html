@@ -144,6 +144,7 @@
       <p class="step"><b>BA:</b> satır1×sütun1: <code>3·1+1·0=3</code>. satır1×sütun2: <code>3·2+1·1=7</code>. satır2×sütun1: <code>2·1+1·0=2</code>. satır2×sütun2: <code>2·2+1·1=5</code>.</p>
       <p><code>BA=[[3,7],[2,5]]</code></p>
       <p><b>AB≠BA</b> — matris çarpımı genelde değişmeli değildir (bkz. Ders03 Sık Hata).</p>
+      <p style="font-size:.9rem;color:var(--soft)">Sık hata: elemanları teker teker çarpmak (<code>1·3, 2·1</code> gibi) — matris çarpımı <b>satır×sütun</b> nokta çarpımıdır, eleman eleman çarpım değildir.</p>
     </details>
   </div>
 
@@ -208,7 +209,10 @@
   <div class="q">
     <span class="lvl sinav">Sınav seviyesi</span>
     <p><b>Soru 12.</b> <code>A=[[2,5,-1],[0,-3,4],[0,0,7]]</code> üst üçgen matrisinin determinantını bul.</p>
-    <details><summary>Cevabı göster</summary><p>Üst üçgen matriste determinant, köşegen elemanların çarpımıdır: <code>det(A) = 2·(-3)·7 = -42</code>.</p></details>
+    <details><summary>Cevabı göster</summary>
+      <p>Üst üçgen matriste determinant, köşegen elemanların çarpımıdır: <code>det(A) = 2·(-3)·7 = -42</code>.</p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol (Sarrus): <code>(2·(-3)·7+5·4·0+(-1)·0·0)-((-1)·(-3)·0+2·4·0+5·0·7) = -42-0 = -42</code> ✓. Sık hata: köşegen dışı elemanları da hesaba katmaya çalışmak — üçgen matriste yalnızca köşegen çarpılır.</p>
+    </details>
   </div>
 
   <h2 id="k7">7. Kofaktör açılımı <span class="lesson-tag">Ders 08</span></h2>
@@ -220,6 +224,7 @@
       <p class="step">2. satırda yalnızca ortadaki eleman (<code>5</code>) sıfırdan farklı, diğer terimler otomatik <code>0</code> olur.</p>
       <p class="step"><code>C₂₂ = (-1)^(2+2)·det[[1,3],[4,6]] = +1·(1·6-3·4) = 6-12 = -6</code></p>
       <p><code>det(A) = 5·C₂₂ = 5·(-6) = -30</code></p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol (Sarrus): <code>(1·5·6+2·0·4+3·0·0)-(3·5·4+1·0·0+2·0·6) = 30-60 = -30</code> ✓</p>
     </details>
   </div>
 
@@ -232,6 +237,7 @@
       <p class="step"><code>M₁₃=det[[1,4],[3,0]]=1·0-4·3=-12</code> → <code>C₁₃=-12</code> (işaret <code>(-1)^(1+3)=+1</code>)</p>
       <p class="step"><code>det(A) = a₁₁C₁₁+a₁₂C₁₂+a₁₃C₁₃ = 2·4+(-1)·(-7)+3·(-12) = 8+7-36 = -21</code></p>
       <p><b>det(A) = -21</b></p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol (Sarrus): <code>(2·4·1+(-1)·(-2)·3+3·1·0)-(3·4·3+2·(-2)·0+(-1)·1·1) = (8+6+0)-(36+0-1) = 14-35 = -21</code> ✓</p>
     </details>
   </div>
 
@@ -266,6 +272,7 @@
     <details><summary>Cevabı göster</summary>
       <p class="step"><code>a·b=3·1+4·0+0·0=3</code>. <code>|a|=√(9+16)=5</code>, <code>|b|=1</code>.</p>
       <p class="step"><code>cosθ=3/(5·1)=0.6</code> → <code>θ=arccos(0.6)≈53.13°</code></p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol: bu aslında klasik 3-4-5 üçgeninin açısı (<code>a</code> vektörünün <code>x</code>-ekseniyle yaptığı açı) — <code>tanθ=4/3</code>, bilinen değeri <code>θ≈53.13°</code> ile tutarlı ✓</p>
     </details>
   </div>
 
@@ -284,7 +291,10 @@
   <div class="q">
     <span class="lvl temel">Temel</span>
     <p><b>Soru 19.</b> <code>a₁=(1,0)</code>, <code>a₂=(0,1)</code> lineer bağımsız mıdır?</p>
-    <details><summary>Cevabı göster</summary><p><code>k₁(1,0)+k₂(0,1)=(0,0)</code> → <code>k₁=0, k₂=0</code> zorunlu (tek çözüm). <b>Bağımsız.</b></p></details>
+    <details><summary>Cevabı göster</summary>
+      <p><code>k₁(1,0)+k₂(0,1)=(0,0)</code> → <code>k₁=0, k₂=0</code> zorunlu (tek çözüm). <b>Bağımsız.</b></p>
+      <p style="font-size:.9rem;color:var(--soft)">Sık hata: "gözle bakınca zaten bağımsız görünüyor" deyip denklemi hiç kurmamak — sınavda ispat için <code>k</code> denklemi kurulup çözülmelidir, göz kararı tek başına yeterli değildir.</p>
+    </details>
   </div>
 
   <div class="q">
@@ -292,7 +302,7 @@
     <p><b>Soru 20.</b> <code>a₁=(1,2,3)</code>, <code>a₂=(2,4,6)</code>, <code>a₃=(1,1,1)</code> lineer bağımlı mı?</p>
     <details><summary>Cevabı göster</summary>
       <p class="step">Gözle bak: <code>a₂ = 2·a₁</code> (her bileşen tam 2 katı) — <code>a₂</code> zaten <code>a₁</code>'in bir katı, yeni bir yön katmıyor.</p>
-      <p class="step">Determinant testiyle de doğrula: <code>det[[1,2,3],[2,4,6],[1,1,1]]</code> — 2. satır 1. satırın 2 katı olduğu için (Ders07 Özellik: bir satır diğerinin katıysa determinant sıfırdır) <code>det=0</code>.</p>
+      <p class="step">Determinant testiyle de doğrula: <code>det[[1,2,3],[2,4,6],[1,1,1]]</code> — 2. satır 1. satırın 2 katı olduğu için <code>R2→R2−2R1</code> yaparsan sıfır satır elde edersin; Ders07'nin kat-ekleme kuralı (determinantı değiştirmez) + sıfır satır kuralı (determinant sıfırdır) birlikte <code>det=0</code> sonucunu verir.</p>
       <p><b>Lineer bağımlı</b> (örneğin <code>2·a₁ - a₂ + 0·a₃ = 0</code>).</p>
     </details>
   </div>
@@ -302,7 +312,10 @@
   <div class="q">
     <span class="lvl temel">Temel</span>
     <p><b>Soru 21.</b> <code>A=[[1,2],[2,4]]</code> matrisinin rankı nedir?</p>
-    <details><summary>Cevabı göster</summary><p><code>R2=2R1</code> → satırlar orantılı → <code>det(A)=1·4-2·2=0</code>. 1×1 alt matris <code>[1]</code>'in determinantı <code>1≠0</code>. <b>r(A)=1</b>.</p></details>
+    <details><summary>Cevabı göster</summary>
+      <p><code>R2=2R1</code> → satırlar orantılı → <code>det(A)=1·4-2·2=0</code>. 1×1 alt matris <code>[1]</code>'in determinantı <code>1≠0</code>. <b>r(A)=1</b>.</p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol: <code>R2→R2-2R1=(0,0)</code> — satır indirgemede tek bir sıfır olmayan satır kalıyor, <code>r(A)=1</code> ile tutarlı ✓</p>
+    </details>
   </div>
 
   <div class="q">
@@ -313,6 +326,7 @@
       <p class="step"><code>R3→R3−R1 = (0,-2,-2)</code></p>
       <p class="step">Kalan sıfır olmayan satırlar: <code>R1=(1,2,3)</code>, <code>R3'=(0,-2,-2)</code> — 2 tane.</p>
       <p><b>r(A)=2</b> (3 satırdan biri diğerlerinin kombinasyonu olduğu için tam rank 3'e ulaşamadı).</p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol: 3×3 determinantı da sıfır çıkmalı (rank 3'ten küçük olduğu için) — Sarrus: <code>(1·4·1+2·6·1+3·2·0)-(3·4·1+1·6·0+2·2·1)=(4+12+0)-(12+0+4)=0</code> ✓</p>
     </details>
   </div>
 
@@ -341,7 +355,10 @@
   <div class="q">
     <span class="lvl temel">Temel</span>
     <p><b>Soru 25.</b> <code>x+y=0</code>, <code>x−y=0</code> homojen sisteminin yalnızca sıfır çözümü mü var, yoksa sıfırdan farklı çözüm de var mı?</p>
-    <details><summary>Cevabı göster</summary><p><code>det[[1,1],[1,-1]]=-1-1=-2≠0</code> → <code>r(A)=n=2</code> → <b>yalnızca x=y=0</b> (Kural 1).</p></details>
+    <details><summary>Cevabı göster</summary>
+      <p><code>det[[1,1],[1,-1]]=-1-1=-2≠0</code> → <code>r(A)=n=2</code> → <b>yalnızca x=y=0</b> (Kural 1).</p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol: denklemleri topla → <code>2x=0→x=0</code>, ilk denklemden <code>y=0</code> — determinant sonucuyla tutarlı ✓</p>
+    </details>
   </div>
 
   <div class="q">
@@ -375,9 +392,23 @@
     </details>
   </div>
 
+  <h2 id="teshis">Nerede takıldın? — hangi derse dönmelisin</h2>
+  <div class="q" style="background:var(--note);">
+    <table style="width:100%;border-collapse:collapse;font-size:.92rem">
+      <tr><td style="padding:.35em 0;border-bottom:1px solid var(--rule)">Satır işlemini (hangi çarpanla, neden) kuramıyorum</td><td style="padding:.35em 0;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap"><a href="0004-satir-esdeger-matris-gauss-jordan.html">Ders 04</a></td></tr>
+      <tr><td style="padding:.35em 0;border-bottom:1px solid var(--rule)">Ters matrisin ne zaman var olduğunu unutuyorum</td><td style="padding:.35em 0;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap"><a href="0005-ters-matris.html">Ders 05</a></td></tr>
+      <tr><td style="padding:.35em 0;border-bottom:1px solid var(--rule)">Hangi determinant özelliği hangi durumda karıştırıyorum</td><td style="padding:.35em 0;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap"><a href="0007-determinantin-ozellikleri-ve-hesaplama.html">Ders 07</a></td></tr>
+      <tr><td style="padding:.35em 0;border-bottom:1px solid var(--rule)">Kofaktör işaretini (+/−) karıştırıyorum</td><td style="padding:.35em 0;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap"><a href="0008-kofaktor-acilimi.html">Ders 08</a></td></tr>
+      <tr><td style="padding:.35em 0;border-bottom:1px solid var(--rule)">Cramer'da hangi sütunun değişeceğini karıştırıyorum</td><td style="padding:.35em 0;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap"><a href="0009-cramer-adjoint.html">Ders 09</a></td></tr>
+      <tr><td style="padding:.35em 0;border-bottom:1px solid var(--rule)">Nokta çarpımı ile vektörel çarpımı ayıramıyorum</td><td style="padding:.35em 0;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap"><a href="0010-vektorler-temel-nokta-carpim.html">Ders 10-11</a></td></tr>
+      <tr><td style="padding:.35em 0;border-bottom:1px solid var(--rule)">Rank sonucunu (kaç boyutlu çözüm) çözüme çeviremiyorum</td><td style="padding:.35em 0;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap"><a href="0013-rank-ile-sistem-cozumu.html">Ders 13</a></td></tr>
+      <tr><td style="padding:.35em 0">Hangi yöntemi (Gauss/Cramer/ters matris/rank) seçeceğimi bilemiyorum</td><td style="padding:.35em 0;text-align:right;white-space:nowrap"><a href="0014-genel-tekrar-1-13.html#yontem">0014 — Yöntem Rehberi</a></td></tr>
+    </table>
+  </div>
+
   <h2>Konu sırasına göre kontrol listesi</h2>
   <div class="q" style="background:var(--note);">
-    <p>Bu 28 soruyu bitirdiysen, sınav öncesi son kontrol için <a href="0014-genel-tekrar-1-13.html">Genel Tekrar dosyasındaki</a> "son tekrar kontrol listesi"ne bak.</p>
+    <p>Bu 28 soruyu bitirdiysen, sınav öncesi son kontrol için <a href="0014-genel-tekrar-1-13.html#kontrol">Genel Tekrar dosyasındaki</a> "son tekrar kontrol listesi"ne bak.</p>
   </div>
 
   <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir soruyu tekrar açıklatabilir, benzer başka bir soru isteyebilirsin.</p>

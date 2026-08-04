@@ -22,7 +22,7 @@
 | 04 | `0004-satir-esdeger-matris-gauss-jordan.html` | 2.1-2.3 | Arttırılmış matris, satır eşdeğer/indirgenmiş matris tanımı, Gauss & Gauss-Jordan eliminasyon | ✅ |
 | 05 | `0005-ters-matris.html` | 2.4-2.5 | Ters matris tanımı, [A:I]→[I:A⁻¹] yöntemi, matris tersi ile sistem çözümü | ✅ |
 | 06 | `0006-geometrik-yorum-n-boyutlu-determinant.html` | 3.1 + ek derinlik | Geometrik yorum (gerçekten ek derinlik) + n-boyutlu/permütasyon tabanlı determinant tanımı (**resmi müfredatın parçası, PDF Bölüm 3.1 — ama soru bankasında sayısal permütasyon sorusu yok**, 2026-08-04 düzeltmesi) | ✅ |
-| 07 | `0007-determinantin-ozellikleri-ve-hesaplama.html` | 3.3-3.4 | Determinant özellikleri (6 özellik), üçgen matris ile hesaplama | ✅ |
+| 07 | `0007-determinantin-ozellikleri-ve-hesaplama.html` | 3.3-3.4 | Determinant özellikleri (3 satır işlemi kuralı: takas/skaler/kat ekleme + 3 ek özellik: sıfır satır-sütun, eşit satır-sütun, transpoz), üçgen matris ile hesaplama | ✅ |
 | 08 | `0008-kofaktor-acilimi.html` | 3.5 | Minör, kofaktör tanımı, kofaktör açılımı ile determinant | ✅ |
 | 09 | `0009-cramer-adjoint.html` | 4.1-4.2 | Cramer kuralı, adjoint matris, A⁻¹=adj(A)/det(A) | ✅ |
 | 10 | `0010-vektorler-temel-nokta-carpim.html` | 5.1-5.4.7 | Vektör tanımı, birim vektörler, P1P2 bileşenleri, nokta çarpım, açı | ✅ |

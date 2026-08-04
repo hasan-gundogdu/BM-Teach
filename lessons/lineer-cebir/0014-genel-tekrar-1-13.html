@@ -416,7 +416,7 @@
   <div class="rule-box"><b>Kural 2 — skaler:</b> <code>Rᵢ→k·Rᵢ</code> → <code>det→k·det</code>.</div>
   <p class="step">Örnek: det=−2 idi. 1. satırı 5 ile çarp: det<table class="det"><tr><td>5</td><td>10</td></tr><tr><td>3</td><td>4</td></tr></table>=20−30=−10=5×(−2). ✓</p>
 
-  <div class="rule-box"><b>Kural 3 — kat ekleme:</b> <code>Rᵢ→Rᵢ+k·Rⱼ</code> (i≠j) → <code>det değişmez</code>. Bu, Gauss'ta zaten kullandığımız işlem — determinantı bozmadığı için Gauss'u determinant hesaplamak için güvenle kullanabiliriz.</p>
+  <div class="rule-box"><b>Kural 3 — kat ekleme:</b> <code>Rᵢ→Rᵢ+k·Rⱼ</code> (i≠j) → <code>det değişmez</code>. Bu, Gauss'ta zaten kullandığımız işlem — determinantı bozmadığı için Gauss'u determinant hesaplamak için güvenle kullanabiliriz.</div>
 
   <h3>Diğer 3 önemli özellik</h3>
   <div class="rule-box"><b>Sıfır satır/sütun:</b> bir satır (veya sütun) tamamen <code>0</code> ise, <code>det(A)=0</code> (o satırdan/sütundan kofaktör açılımı yaparsan her terim <code>0</code> ile çarpılır).</div>
@@ -699,6 +699,11 @@
   <div class="rule-box">
     <b>"Matris tersi mi, Gauss mu, Cramer mı?"</b><br>
     <b>Ters matris:</b> aynı <code>A</code> ile birden fazla farklı <code>B</code> için çözüm gerekiyorsa mantıklı (bir kere <code>A⁻¹</code> bul, her seferinde çarp). <b>Gauss/Gauss-Jordan:</b> tek seferlik çözüm için en pratik, büyük sistemlerde de çalışır. <b>Cramer:</b> küçük (2×2, 3×3) sistemlerde hızlı ama büyük sistemlerde determinant hesapları katlanarak artar — pratik değildir.
+  </div>
+
+  <div class="rule-box">
+    <b>Gauss mu, Gauss-Jordan mı?</b><br>
+    <b>Gauss:</b> köşegenin sadece <b>altını</b> sıfırlayıp üst üçgen forma iner, sonra geri yerine koyarsın — daha az satır işlemi gerektirir, elle çözerken genelde daha hızlıdır. <b>Gauss-Jordan:</b> köşegenin <b>hem altını hem üstünü</b> sıfırlayıp doğrudan <code>[I|çözüm]</code>'e ulaşır — geri yerine koyma adımını atlar ama daha fazla satır işlemi gerektirir. Elle hızlı çözüm istiyorsan Gauss, geri yerine koymada hata yapmaktan çekiniyorsan veya sonucu direkt okumak istiyorsan Gauss-Jordan.
   </div>
 
   <div class="rule-box">

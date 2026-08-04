@@ -43,16 +43,16 @@
 
   <div class="kicker">Lineer Cebir · Ders 09 · Bölüm 4.1-4.2</div>
   <h1>Cramer Kuralı ve Adjoint Matris</h1>
-  <p class="lead">Bu dersin sonunda: <span class="hi">Cramer kuralıyla</span> bir sistemi tek tek determinant hesaplayarak çözebilecek, ve <span class="hi">adjoint matris</span> yoluyla ters matris bulmanın (Ders 0007'deki [A:I] yönteminin alternatifi) nasıl işlediğini göreceksin. Üstelik ikisini de <b>aynı sistemle</b> deneyip Ders 0007'deki cevapla karşılaştıracağız.</p>
+  <p class="lead">Bu dersin sonunda: <span class="hi">Cramer kuralıyla</span> bir sistemi tek tek determinant hesaplayarak çözebilecek, ve <span class="hi">adjoint matris</span> yoluyla ters matris bulmanın (Ders 05'teki [A:I] yönteminin alternatifi) nasıl işlediğini göreceksin. Üstelik ikisini de <b>aynı sistemle</b> deneyip Ders 05'teki cevapla karşılaştıracağız.</p>
 
-  <p class="mission">🎯 <b>Neden bu?</b> Hocanın notlarında Cramer ve adjoint matris, ters matris yönteminin (Ders 0007) resmi tamamlayıcıları. Aynı soruyu 3 farklı yöntemle (satır indirgeme, Cramer, adjoint) çözüp hep aynı cevaba ulaştığını görmek, hangisini seçersen seç güvenle kullanabileceğini gösterir.</p>
+  <p class="mission">🎯 <b>Neden bu?</b> Hocanın notlarında Cramer ve adjoint matris, ters matris yönteminin (Ders 05) resmi tamamlayıcıları. Aynı soruyu 3 farklı yöntemle (satır indirgeme, Cramer, adjoint) çözüp hep aynı cevaba ulaştığını görmek, hangisini seçersen seç güvenle kullanabileceğini gösterir.</p>
 
   <h2>1. Cramer Kuralı (tanım)</h2>
   <p><code>n</code> denklem, <code>n</code> bilinmeyenli <code>AX=B</code> sisteminde, eğer <code>det(A) ≠ 0</code> ise sistemin <b>tek</b> çözümü vardır ve:</p>
   <div class="eq"><code>x₁ = det(A₁)/det(A)</code>, &nbsp; <code>x₂ = det(A₂)/det(A)</code>, &nbsp; ..., &nbsp; <code>xₙ = det(Aₙ)/det(A)</code></div>
   <p>Burada <code>Aᵢ</code>, <code>A</code>'nın <b>i. sütununu</b> <code>B</code> ile değiştirerek elde edilen matris.</p>
 
-  <h3>Örnek — Ders 0007'deki aynı sistem</h3>
+  <h3>Örnek — Ders 05'teki aynı sistem</h3>
   <div class="eq"><code>x + y = 3</code> · <code>y + z = 3</code> · <code>x + z = 3</code></div>
   <p><code>A</code> = <table class="m"><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr></table>, &nbsp; <code>B = (3,3,3)</code>. Önce <code>det(A)</code>:</p>
   <p class="step"><code>det(A) = 1(1·1−1·0) − 1(0·1−1·1) + 0 = 1(1) − 1(−1) = 1+1 = 2</code></p>
@@ -64,13 +64,13 @@
   <p class="step"><b>A₃</b> (3. sütun → B): <table class="m"><tr><td>1</td><td>1</td><td class="hi-col">3</td></tr><tr><td>0</td><td>1</td><td class="hi-col">3</td></tr><tr><td>1</td><td>0</td><td class="hi-col">3</td></tr></table> → <code>det(A₃) = 1(3−0) − 1(0−3) + 3(0−1) = 3+3−3 = 3</code> → <code>x₃ = 3/2</code></p>
 
   <div class="eq"><b>Çözüm: x=y=z=3/2</b></div>
-  <p style="font-size:.9rem;color:var(--soft)"><b>Tam olarak Ders 0007'de ters matris ile bulduğumuz cevabın aynısı</b> — farklı yol, aynı varış noktası.</p>
+  <p style="font-size:.9rem;color:var(--soft)"><b>Tam olarak Ders 05'te ters matris ile bulduğumuz cevabın aynısı</b> — farklı yol, aynı varış noktası.</p>
 
   <h2>2. Determinant ile tersin mevcudiyeti</h2>
-  <p><code>A</code>, <code>n×n</code> kare matris olsun. <code>det(A) ≠ 0</code> şartı gerçekleşiyorsa <code>A</code>'nın tersi alınabilir (<code>A⁻¹</code> mevcuttur). Yukarıda <code>det(A)=2≠0</code> olduğundan, Ders 0007'de bulduğumuz tersin var olacağını buradan da bilebilirdik.</p>
+  <p><code>A</code>, <code>n×n</code> kare matris olsun. <code>det(A) ≠ 0</code> şartı gerçekleşiyorsa <code>A</code>'nın tersi alınabilir (<code>A⁻¹</code> mevcuttur). Yukarıda <code>det(A)=2≠0</code> olduğundan, Ders 05'te bulduğumuz tersin var olacağını buradan da bilebilirdik.</p>
 
   <h2>3. Adjoint matris</h2>
-  <p><code>A</code>'nın her elemanına ilişkin kofaktörleri (Ders 0008) bir matrise <code>C</code> olarak yaz. <code>C</code>'nin <b>transpozesi</b>ne <code>A</code>'nın <b>adjoint</b>i denir: <code>adj(A) = Cᵀ</code>.</p>
+  <p><code>A</code>'nın her elemanına ilişkin kofaktörleri (Ders 08) bir matrise <code>C</code> olarak yaz. <code>C</code>'nin <b>transpozesi</b>ne <code>A</code>'nın <b>adjoint</b>i denir: <code>adj(A) = Cᵀ</code>.</p>
 
   <h3>Aynı A için kofaktör matrisini çıkaralım</h3>
   <p class="step"><code>C₁₁</code>: kalan <code>[[1,1],[0,1]]</code>, det=1 → <code>C₁₁=+1</code></p>
@@ -90,7 +90,7 @@
   <h2>4. Adjoint ile ters matris: A⁻¹ = adj(A) / det(A)</h2>
   <p><code>det(A)=2</code> idi. Her elemanı 2'ye böl:</p>
   <div class="eq">A⁻¹ = <table class="m"><tr><td>1/2</td><td>-1/2</td><td>1/2</td></tr><tr><td>1/2</td><td>1/2</td><td>-1/2</td></tr><tr><td>-1/2</td><td>1/2</td><td>1/2</td></tr></table></div>
-  <p style="font-size:.9rem;color:var(--soft)"><b>Ders 0007'de [A:I] yöntemiyle bulduğumuz tersle birebir aynı!</b> İki farklı yöntem (satır indirgeme, adjoint), aynı sonuca ulaştı.</p>
+  <p style="font-size:.9rem;color:var(--soft)"><b>Ders 05'te [A:I] yöntemiyle bulduğumuz tersle birebir aynı!</b> İki farklı yöntem (satır indirgeme, adjoint), aynı sonuca ulaştı.</p>
 
   <details style="background:var(--note);border-color:var(--rule)">
     <summary>Ek sezgi (opsiyonel) — A·adj(A) = det(A)·I nereden geliyor?</summary>
@@ -129,8 +129,8 @@
   </div>
 
   <div class="q">
-    <p><b>Soru 5 (kavram).</b> Ders 0007 (satır indirgeme), Cramer ve adjoint — üç yöntem de aynı <code>A⁻¹</code>'i (veya aynı çözümü) verdi. Bu neden şaşırtıcı değil?</p>
-    <details><summary>Cevabı göster</summary><p>Çünkü ters matris (veya sistemin çözümü) <b>tek</b>dir (Ders 0007, Özellik 2) — hangi yöntemle bulursan bul, aynı matematiksel nesneyi arıyorsun, farklı yollar sadece hesaplama tarzını değiştiriyor.</p></details>
+    <p><b>Soru 5 (kavram).</b> Ders 05 (satır indirgeme), Cramer ve adjoint — üç yöntem de aynı <code>A⁻¹</code>'i (veya aynı çözümü) verdi. Bu neden şaşırtıcı değil?</p>
+    <details><summary>Cevabı göster</summary><p>Çünkü ters matris (veya sistemin çözümü) <b>tek</b>dir (Ders 05, Özellik 2) — hangi yöntemle bulursan bul, aynı matematiksel nesneyi arıyorsun, farklı yollar sadece hesaplama tarzını değiştiriyor.</p></details>
   </div>
 
   <h2>Birincil kaynak</h2>
