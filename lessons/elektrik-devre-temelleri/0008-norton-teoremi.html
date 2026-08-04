@@ -14,7 +14,7 @@
   .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
   h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
   h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
-  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  h3{ font-size:1.05rem; margin:1.7em 0 .4em; color:var(--accent); }
   p,li{ font-size:1.06rem; }
   .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
   .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
@@ -39,7 +39,7 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
-  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:.7em 0; overflow-x:auto; text-align:center; }
   .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
   .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
   .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
@@ -49,6 +49,14 @@
   .skip::before{ content:"⏭️ SINAVDA ÇIKMAYACAK — ATLAYABİLİRSİN"; display:block; font-size:.72rem; letter-spacing:.06em;
                  text-transform:uppercase; color:#8a6d2f; font-weight:700; margin-bottom:.4em; }
   .examnote{ background:#eaf5ea !important; border-left:3px solid #2e7d43 !important; }
+  .step{ margin:1.2em 0 1.6em; padding-left:.9em; border-left:3px solid var(--rule); }
+  .mini{ color:var(--accent); font-weight:700; }
+  .stepp{ margin:.3em 0; font-size:.98rem; }
+  .checkcard{ background:#fff; border:2px solid var(--accent); border-radius:8px; padding:1em 1.2em; margin:1.2em 0; }
+  .checkcard h3{ margin-top:0; }
+  .checkcard ol{ margin:.3em 0 0; padding-left:1.3em; }
+  .sidebyside{ display:flex; gap:1em; flex-wrap:wrap; justify-content:center; }
+  .sidebyside > div{ flex:1 1 220px; }
 </style>
 </head>
 <body>
@@ -56,9 +64,9 @@
 
   <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 08 · Hafta 2 (2.2)</div>
   <h1>Norton Teoremi</h1>
-  <p class="lead">Bu dersin sonunda: Thevenin'in <span class="hi">akım kaynaklı ikizini</span> kuracak ve iki eşdeğer arasında (Ders 02'deki kaynak dönüşümü ile) rahatça geçiş yapabileceksin.</p>
+  <p class="lead">Bu dersin sonunda: Thevenin'in <span class="hi">akım kaynaklı ikizini</span> kuracak ve iki eşdeğer arasında rahatça geçiş yapabileceksin.</p>
 
-  <p class="mission">🎯 <b>Neden bu?</b> Thevenin (Ders 07) devreyi gerilim kaynağı + seri direnç olarak sadeleştiriyordu. Norton, <b>aynı devreyi</b> akım kaynağı + paralel direnç olarak sadeleştirir. İkisi de aynı "dışarıdan görünen davranışı" temsil eder — hangisini kullanacağın, sonraki hesabın hangisiyle daha kolay olduğuna bağlı (ör. akım bölücü kullanacaksan Norton, gerilim bölücü kullanacaksan Thevenin daha pratik).</p>
+  <p class="mission">🎯 <b>Neden bu?</b> Thevenin (Ders 07) devreyi gerilim kaynağı + seri direnç olarak sadeleştiriyordu. Norton, <b>aynı devreyi</b> akım kaynağı + paralel direnç olarak sadeleştirir. Hangisini kullanacağın, sonraki hesabın hangisiyle daha kolay olduğuna bağlı.</p>
 
   <h2>1. Fikir</h2>
   <p>Doğrusal aktif bir devre, a-b uçlarından bakıldığında, tek bir <b>akım kaynağı</b> (<code>I_N</code>) ile ona <b>paralel</b> bağlı tek bir direnç (<code>R_N</code>) ile aynı davranışı gösterir:</p>
@@ -72,7 +80,6 @@
     <circle cx="150" cy="35" r="4"/><text x="160" y="30" text-anchor="start">a</text>
     <circle cx="150" cy="85" r="4"/><text x="160" y="90" text-anchor="start">b</text>
     <text x="185" y="65" text-anchor="middle" font-size="20">≡</text>
-    <!-- Norton eşdeğeri: I_N paralel R_N -->
     <line x1="220" y1="35" x2="330" y2="35" stroke="#1a1a1a" stroke-width="2"/>
     <line x1="220" y1="85" x2="330" y2="85" stroke="#1a1a1a" stroke-width="2"/>
     <circle cx="330" cy="35" r="4"/><text x="342" y="30" text-anchor="start">a</text>
@@ -89,62 +96,286 @@
   </svg>
   <div class="cap">Norton eşdeğeri: I_N akım kaynağı, R_N'e paralel.</div>
   </div>
-  <p><code>I_N</code>, a-b uçları <b>kısa devre</b> edildiğinde (birbirine telle bağlandığında) o telden geçen akımdır — <b>kısa devre akımı</b>. <code>R_N</code> ise Thevenin'deki <code>R_TH</code> ile <b>birebir aynı</b> hesaplanır (bağımsız kaynaklar söndürülür, a-b'den bakılan eşdeğer direnç bulunur).</p>
+  <p><code>I_N</code>, a-b uçları <b>kısa devre</b> edildiğinde o telden geçen akımdır. <code>R_N</code> ise Thevenin'deki <code>R_TH</code> ile <b>birebir aynı</b> hesaplanır.</p>
 
   <div class="analogy">
-    <b class="tag">🚰 Su analojisi:</b> Thevenin, devreyi sabit basınçlı bir su kulesi + dar boru (seri direnç) gibi tanımlar. Norton, <b>aynı</b> devreyi sabit debili bir pompa + o pompaya paralel bağlı bir "sızıntı" borusu (paralel direnç) gibi tanımlar. İkisi de dışarıya aynı su davranışını sunar — Ders 02'deki kaynak dönüşümünü hatırla, Thevenin↔Norton geçişi tam olarak o dönüşümün ta kendisi.
+    <b class="tag">🚰 Su analojisi:</b> Thevenin, devreyi sabit basınçlı bir su kulesi + dar boru gibi tanımlar. Norton, <b>aynı</b> devreyi sabit debili bir pompa + ona paralel bir "sızıntı" borusu gibi tanımlar. İkisi de dışarıya aynı su davranışını sunar.
   </div>
 
-  <p class="mission examnote">✅ <b>Sınav notu (hoca duyurusu):</b> Norton sorularında da (Thevenin ve Maks. Güç gibi) <b>bağımlı kaynak olmayacak</b> — a-b'den bakılan direnç doğrudan Ders 03'ün seri/paralel kısayollarıyla bulunur.</p>
+  <p class="mission examnote">✅ <b>Sınav notu (hoca duyurusu):</b> Norton sorularında da bağımlı kaynak olmayacak — a-b'den bakılan direnç doğrudan seri/paralel kısayollarıyla bulunur. Bağımsız gerilim + akım kaynağı karma bulunabilir.</p>
 
   <h2>2. Norton ↔ Thevenin dönüşümü</h2>
-  <p>İki eşdeğer arasında geçiş, Ders 02'deki kaynak dönüşümü formülüyle birebir aynıdır:</p>
+  <p>İki eşdeğer arasında geçiş, kaynak dönüşümü formülüyle birebir aynıdır:</p>
   <div class="eq">R_N = R_TH &nbsp;&nbsp;&nbsp; I_N = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH</span></span> &nbsp;&nbsp;&nbsp; V_TH = I_N · R_N</div>
-  <p>Yani Thevenin eşdeğerini zaten bulduysan (Ders 07), Norton'u bulmak için <b>yeni bir devre analizi yapmana gerek yok</b> — tek satırlık bir kaynak dönüşümü yeterli.</p>
+  <p>Yani Thevenin eşdeğerini zaten bulduysan (Ders 07), Norton'u bulmak için <b>yeni bir devre analizi yapmana gerek yok</b>.</p>
 
-  <h2>3. Dört adım (bağımsız hesaplarsan)</h2>
+  <h2>3. Beş adım — genel bakış</h2>
   <ol>
-    <li>Yükü (varsa) devreden çıkar — aşağıdaki örnekte a-b zaten baştan açık, çünkü R_L henüz seçilmedi; gerçek bir soruda a-b'ye önceden bağlı bir direnç varsa onu ilk iş olarak sökersin.</li>
+    <li>Yük direncini devreden çıkar.</li>
     <li>a-b uçlarını <b>kısa devre</b> yap, o telden geçen akımı bul: <code>I_N</code>.</li>
-    <li>Bağımsız kaynakları söndür (Ders 06 kuralları), a-b'den bakılan eşdeğer direnci bul: <code>R_N</code> (Thevenin'deki <code>R_TH</code> ile aynı işlem).</li>
-    <li>Yükü Norton eşdeğerine (akım kaynağı + paralel direnç) geri bağla.</li>
+    <li>Bağımsız kaynakları söndür, a-b'den bakılan eşdeğer direnci bul: <code>R_N</code>.</li>
+    <li>Yükü Norton eşdeğerine geri bağla.</li>
+    <li>Thevenin ile karşılaştırıp doğrula.</li>
   </ol>
 
   <div class="pause">
-    ☕ <b>Doğal duraklama noktası.</b> Kuralları gördün. Şimdi Ders 07'deki <b>aynı devreyi</b> Norton eşdeğerine çevirip, sonucun Thevenin'le uyuştuğunu doğrulayacağız.
+    ☕ <b>Doğal duraklama noktası.</b> Ders 07'deki <b>aynı devreyi</b> bu sefer Norton eşdeğerine çevireceğiz.
   </div>
 
   <h2>4. Tam örnek — Ders 07'deki devrenin devamı</h2>
-  <p>Hatırla: 18V kaynak, R1=3Ω, R2=6Ω, R3=2Ω'luk devrede Thevenin eşdeğerini <code>V_TH=12V</code>, <code>R_TH=4Ω</code> bulmuştuk.</p>
+  <p>18V kaynak, R1=3Ω, R2=6Ω, R3=2Ω. a-b'ye <b>R_L=8Ω</b> yük bağlı. Aranan: <b>I_N</b> ve <b>R_N</b>.</p>
 
-  <h3>Yöntem A — Doğrudan dönüşüm (en hızlı)</h3>
-  <div class="eq"><code>R_N = R_TH = 4Ω</code></div>
-  <div class="eq">I_N = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH</span></span> = <span class="frac"><span class="n">12</span><span class="d">4</span></span> = 3A</div>
+  <div class="step">
+  <h3>Adım 0 — Orijinal devre</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> Devreyi yük bağlıyken çiziyoruz (Ders 07'deki ile aynı devre).</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Norton eşdeğerini de yük <b>dışarıdayken</b> tanımlayacağız — Thevenin'deki gibi.</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 370 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">18V</text>
+    <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="87" y="14" text-anchor="middle">R1=3Ω</text>
+    <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="30" r="4"/><text x="150" y="14" text-anchor="middle" font-weight="bold">A</text>
+    <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="168" y="92" text-anchor="start">R2=6Ω</text>
+    <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="30" x2="180" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="14" text-anchor="middle">R3=2Ω</text>
+    <line x1="235" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="30" r="4"/><text x="286" y="22" text-anchor="start" font-weight="bold">a</text>
+    <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="150" r="4"/><text x="286" y="158" text-anchor="start" font-weight="bold">b</text>
+    <text x="150" y="175" text-anchor="middle" font-size="12" fill="#6b6b6b">referans (0V)</text>
+    <line x1="270" y1="30" x2="270" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="258" y="65" width="24" height="45" fill="#fff" stroke="#b5762a" stroke-width="2"/>
+    <text x="296" y="92" text-anchor="start" fill="#b5762a">R_L=8Ω</text>
+    <line x1="270" y1="110" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  </svg>
+  <div class="cap">Aynı devre, yük R_L=8Ω a-b'ye bağlı.</div>
+  </div>
+  </div>
 
-  <h3>Yöntem B — Sıfırdan (doğrulama için)</h3>
-  <p>a-b'yi kısa devre yaparsak, R3 artık doğrudan referansa bağlanmış olur — yani R3, R2 ile <b>paralel</b> hale gelir. Devre: 18V kaynak + R1=3Ω seri, sonra (R2∥R3) paralel kombinasyonu:</p>
+  <div class="step">
+  <h3>Adım 1 — Yükü çıkar</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> R_L'yi söküyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Bu adım, iç devreyi a-b açısından incelemeye hazırlıyor — henüz kısa devre <b>etmiyoruz</b>, sadece yükü kaldırıyoruz.</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 370 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">18V</text>
+    <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="87" y="14" text-anchor="middle">R1=3Ω</text>
+    <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="30" r="4"/><text x="150" y="14" text-anchor="middle" font-weight="bold">A</text>
+    <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="168" y="92" text-anchor="start">R2=6Ω</text>
+    <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="30" x2="180" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="14" text-anchor="middle">R3=2Ω</text>
+    <line x1="235" y1="30" x2="264" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="30" r="4"/><text x="286" y="22" text-anchor="start" font-weight="bold">a</text>
+    <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="150" r="4"/><text x="286" y="158" text-anchor="start" font-weight="bold">b</text>
+    <text x="150" y="175" text-anchor="middle" font-size="12" fill="#6b6b6b">referans (0V)</text>
+    <text x="272" y="70" text-anchor="start" font-size="12" fill="#b5762a">a-b açık</text>
+  </svg>
+  <div class="cap">Yük çıkarıldı, a-b açık — henüz kısa devre yok.</div>
+  </div>
+  </div>
+
+  <div class="step">
+  <h3>Adım 2 — I_N'yi bulmak için a-b'yi kısa devre et</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> a ile b arasına <b>ideal bir tel</b> ekliyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Thevenin'deki V_TH için a-b <b>açıktı</b>; Norton'daki I_N için a-b <b>kısa</b> — ikisi zıt uç durumlar. Kısa devre, "yük direnci sıfır olsaydı ne kadar akım akardı" sorusuna cevap verir.</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 370 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">18V</text>
+    <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="87" y="14" text-anchor="middle">R1=3Ω</text>
+    <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="30" r="4"/><text x="150" y="14" text-anchor="middle" font-weight="bold">A</text>
+    <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="168" y="92" text-anchor="start">R2=6Ω</text>
+    <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="30" x2="180" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="14" text-anchor="middle">R3=2Ω</text>
+    <line x1="235" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="30" r="4"/><text x="286" y="22" text-anchor="start" font-weight="bold">a</text>
+    <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="150" r="4"/><text x="286" y="158" text-anchor="start" font-weight="bold">b</text>
+    <text x="150" y="175" text-anchor="middle" font-size="12" fill="#6b6b6b">referans (0V)</text>
+    <!-- short wire a-b with current arrow -->
+    <line x1="270" y1="30" x2="270" y2="150" stroke="#b5762a" stroke-width="3"/>
+    <line x1="270" y1="70" x2="270" y2="100" stroke="#b5762a" stroke-width="2" marker-end="url(#norIn)"/>
+    <text x="288" y="90" text-anchor="start" fill="#b5762a" font-weight="bold">I_N</text>
+    <text x="296" y="50" text-anchor="start" fill="#b5762a" font-size="12">kısa devre teli</text>
+    <defs><marker id="norIn" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b5762a"/></marker></defs>
+  </svg>
+  <div class="cap">a-b arasına tel eklendi (kalın turuncu çizgi). a artık referansla aynı gerilimde — R3'ün alt ucu da referansa bağlanmış oldu, yani R3 artık R2 ile <b>paralel</b>.</div>
+  </div>
+  <p class="stepp"><span class="mini">Hangi kural/formül?</span> a=referans olduğu için R2 ve R3 aynı iki uca (A, referans) bağlı → paralel; sonra R1 ile A arasında <b>gerilim bölücü</b>, son olarak R3 üzerinden <b>Ohm Kanunu</b> ile I_N:</p>
   <div class="eq">R2∥R3 = <span class="frac"><span class="n">6·2</span><span class="d">6+2</span></span> = 1.5Ω</div>
-  <p>A düğümündeki gerilim (gerilim bölücü ile): V_A = 18 · <span class="frac"><span class="n">1.5</span><span class="d">3+1.5</span></span> = 18 · <span class="frac"><span class="n">1.5</span><span class="d">4.5</span></span> = 6V. Kısa devre teli üzerinden geçen akım, R3 üzerinden akan akımdır:</p>
-  <div class="eq">I_N = <span class="frac"><span class="n">V_A</span><span class="d">R3</span></span> = <span class="frac"><span class="n">6</span><span class="d">2</span></span> = 3A</div>
-  <p>✅ İki yöntem de <b>I_N = 3A</b> veriyor — doğrudan dönüşüm formülü zaman kazandırıyor ama sıfırdan hesap onu doğruluyor.</p>
+  <div class="eq">V_A = 18 · <span class="frac"><span class="n">1.5</span><span class="d">3+1.5</span></span> = 6V</div>
+  <div class="eq">I_N = <span class="frac"><span class="n">V_A</span><span class="d">R3</span></span> = <span class="frac"><span class="n">6</span><span class="d">2</span></span> = <b>3A</b></div>
+  <p><small>Doğrudan dönüşümle de kontrol edebiliriz: Ders 07'den <code>V_TH=12V, R_TH=4Ω</code> biliniyordu → <code>I_N = V_TH/R_TH = 12/4 = 3A</code> ✅ — birebir aynı.</small></p>
+  </div>
 
-  <h3>Norton eşdeğeriyle yük hesabı</h3>
-  <p>Aynı <code>R_L=8Ω</code> yükünü Norton eşdeğerine (3A, 4Ω paralel) bağlarsak, <b>akım bölücü</b> (Ders 03) kullanılır:</p>
+  <div class="step">
+  <h3>Adım 3 — R_N'yi bul</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> Kısa devre telini kaldırıp (yük hâlâ yok), bağımsız kaynağı söndürüyoruz: 18V → kısa devre.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> R_N hesabı, R_TH ile <b>aynı işlemdir</b> — kaynak söndürüldükten sonra a-b'den bakılan direnç.</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 370 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="10" y="16" width="40" height="28" fill="none" stroke="#b5762a" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="8" y="90" text-anchor="end" fill="#b5762a">kısa devre</text>
+    <text x="8" y="104" text-anchor="end" fill="#b5762a">(18V söndürüldü)</text>
+    <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="87" y="14" text-anchor="middle">R1=3Ω</text>
+    <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="30" r="4"/><text x="150" y="14" text-anchor="middle" font-weight="bold">A</text>
+    <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="168" y="92" text-anchor="start">R2=6Ω</text>
+    <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="30" x2="180" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="14" text-anchor="middle">R3=2Ω</text>
+    <line x1="235" y1="30" x2="264" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="30" r="5" fill="#b5762a"/><text x="286" y="22" text-anchor="start" font-weight="bold" fill="#b5762a">a</text>
+    <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="150" r="5" fill="#b5762a"/><text x="286" y="158" text-anchor="start" font-weight="bold" fill="#b5762a">b</text>
+  </svg>
+  <div class="cap">Kısa devre teli kaldırıldı (yeniden a-b açık), kaynak söndürüldü. Bu, Ders 07 Adım 3'teki devrenin <b>birebir aynısı</b>.</div>
+  </div>
+  <div class="eq">R_N = R_TH = R3 + (R1∥R2) = 2 + 2 = <b>4Ω</b></div>
+  </div>
+
+  <div class="step">
+  <h3>Adım 4 — Norton eşdeğerini kur</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> I_N=3A akım kaynağı + paralel R_N=4Ω kurup yükü geri bağlıyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Artık yük akımı, akım bölücüyle tek adımda bulunabilir.</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 330 150" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="30" y1="120" x2="270" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="30" y1="30" x2="30" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="30" cy="75" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="30" y1="85" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2" marker-end="url(#norIN4)"/>
+    <text x="10" y="79" text-anchor="end">I_N=3A</text>
+    <rect x="118" y="63" width="24" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="130" y1="30" x2="130" y2="63" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="130" y1="87" x2="130" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="130" y="55" text-anchor="middle">R_N=4Ω</text>
+    <circle cx="230" cy="30" r="4"/><text x="246" y="26" text-anchor="start" font-weight="bold">a</text>
+    <circle cx="230" cy="120" r="4"/><text x="246" y="138" text-anchor="start" font-weight="bold">b</text>
+    <line x1="230" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="270" y1="30" x2="270" y2="60" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="258" y="60" width="24" height="35" fill="#fff" stroke="#b5762a" stroke-width="2"/>
+    <text x="296" y="80" text-anchor="start" fill="#b5762a">R_L=8Ω</text>
+    <line x1="270" y1="95" x2="270" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <defs><marker id="norIN4" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+  </svg>
+  <div class="cap">Norton eşdeğeri (I_N=3A, R_N=4Ω paralel) + R_L=8Ω geri bağlı. R_N ve R_L aynı iki uca (a,b) bağlı → paralel.</div>
+  </div>
+  <p class="stepp"><span class="mini">Hangi kural/formül?</span> Akım iki paralel kola (R_N ve R_L) ayrıldığı için <b>akım bölücü</b> kullanılır (payda karşı direnç):</p>
   <div class="eq">I_L = I_N · <span class="frac"><span class="n">R_N</span><span class="d">R_N+R_L</span></span> = 3 · <span class="frac"><span class="n">4</span><span class="d">12</span></span> = 1A</div>
-  <p>Ders 07'de Thevenin ile bulduğumuz <code>I_L = 1A</code> ile <b>birebir aynı</b> — beklenen sonuç, çünkü iki eşdeğer aynı devreyi temsil ediyor.</p>
+  <p>Ders 07'de Thevenin ile bulduğumuz <code>I_L = 1A</code> ile <b>birebir aynı</b>.</p>
+  </div>
+
+  <div class="step">
+  <h3>Adım 5 — Thevenin–Norton dönüşümünü doğrula</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> İki eşdeğeri yan yana koyup ilişkileri kontrol ediyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Bunların <b>iki farklı devre değil</b>, dışarıdan aynı davranan iki eşdeğer gösterim olduğunu görmek için.</p>
+  <div class="sidebyside">
+    <div class="circwrap">
+    <svg viewBox="-10 0 220 130" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">
+      <line x1="20" y1="30" x2="45" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+      <rect x="45" y="18" width="42" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="66" y="15" text-anchor="middle">R_TH=4Ω</text>
+      <line x1="87" y1="30" x2="120" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="120" cy="30" r="4"/><text x="130" y="26" text-anchor="start">a</text>
+      <line x1="20" y1="30" x2="20" y2="55" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="6" y1="55" x2="34" y2="55" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="10" y1="70" x2="30" y2="70" stroke="#1a1a1a" stroke-width="6"/>
+      <line x1="20" y1="70" x2="20" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="20" y1="90" x2="120" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="120" cy="90" r="4"/><text x="130" y="94" text-anchor="start">b</text>
+      <text x="0" y="60" text-anchor="end" font-style="italic">+ 12V</text>
+    </svg>
+    <div class="cap">Thevenin: 12V, seri 4Ω</div>
+    </div>
+    <div class="circwrap">
+    <svg viewBox="-10 0 220 130" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">
+      <line x1="20" y1="30" x2="120" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="20" y1="90" x2="120" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="20" y1="30" x2="20" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="20" cy="60" r="14" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="20" y1="68" x2="20" y2="52" stroke="#1a1a1a" stroke-width="2" marker-end="url(#norIN5)"/>
+      <text x="2" y="64" text-anchor="end">3A</text>
+      <rect x="78" y="48" width="24" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="90" y1="30" x2="90" y2="48" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="90" y1="72" x2="90" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="90" y="42" text-anchor="middle">4Ω</text>
+      <circle cx="120" cy="30" r="4"/><text x="130" y="26" text-anchor="start">a</text>
+      <circle cx="120" cy="90" r="4"/><text x="130" y="94" text-anchor="start">b</text>
+      <defs><marker id="norIN5" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#1a1a1a"/></marker></defs>
+    </svg>
+    <div class="cap">Norton: 3A, paralel 4Ω</div>
+    </div>
+  </div>
+  <div class="eq">R_N = R_TH = 4Ω &nbsp;&nbsp;&nbsp; I_N = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH</span></span> = <span class="frac"><span class="n">12</span><span class="d">4</span></span> = 3A &nbsp;&nbsp;&nbsp; V_TH = I_N·R_N = 3·4 = 12V</div>
+  <p>Üçü de tutarlı ✅ — a-b uçlarına dışarıdan bakan biri iki devreyi <b>ayırt edemez</b>.</p>
+  </div>
+
+  <p class="mission">📋 <b>Özet:</b> I_N, a-b <b>kısa devre</b> edildiğinde R3'ün R2 ile paralel hale gelmesinden ve o kısa telden geçen akımdan geldi. R_N, Thevenin'deki R_TH ile <b>tamamen aynı işlemle</b> bulundu — kaynak söndürme kuralı değişmedi. Sonuç, doğrudan dönüşüm formülüyle bulunan değerle birebir uyuştu.</p>
 
   <div class="q">
     <p><b>Soru 1.</b> Norton eşdeğerinde (3A, 4Ω) yük direnci R_L=4Ω olsaydı, yük akımı kaç Amper olurdu?</p>
     <details><summary>Çözümü göster</summary>
-      <p><code>I_L = 3 · 4/(4+4) = 3 · 0.5 = 1.5A</code>. (Ders 07 Soru 1'de aynı R_L için Thevenin'le <code>V_L=6V</code> bulmuştuk; kontrol: <code>I_L=V_L/R_L=6/4=1.5A</code> ✅ — birebir uyuşuyor.)</p>
+      <p><code>I_L = 3 · 4/(4+4) = 3 · 0.5 = 1.5A</code>. (Ders 07 Soru 1'de aynı R_L için Thevenin'le <code>V_L=6V</code> bulmuştuk; kontrol: <code>I_L=V_L/R_L=6/4=1.5A</code> ✅.)</p>
     </details>
   </div>
 
   <div class="q skip">
-    <p><b>Soru 2 (kavram).</b> Bir devrede sadece bağımlı kaynak varsa (bağımsız kaynak söndürüldükten sonra), Norton akımı <code>I_N</code> nasıl bulunur?</p>
+    <p><b>Soru 2 (kavram).</b> Bir devrede sadece bağımlı kaynak varsa, Norton akımı <code>I_N</code> nasıl bulunur?</p>
     <details><summary>Çözümü göster</summary>
-      <p>Thevenin'deki gibi: a-b'ye <b>1A'lik test akım kaynağı</b> bağlanır (veya 1V test gerilimi), oluşan gerilim/akım ölçülür, oradan <code>R_N</code> bulunur. Bağımlı-kaynak-tek durumda genelde <code>I_N=0</code> çıkar (kısa devrede sürücü bağımsız kaynak olmadığı için akım akmaz) — asıl bilgi <code>R_N</code>'de saklıdır.</p>
+      <p>Thevenin'deki gibi: a-b'ye <b>1A'lik test akım kaynağı</b> bağlanır, oluşan gerilim ölçülür, oradan <code>R_N</code> bulunur. Bağımlı-kaynak-tek durumda genelde <code>I_N=0</code> çıkar — asıl bilgi <code>R_N</code>'de saklıdır.</p>
     </details>
+  </div>
+
+  <div class="checkcard">
+  <h3>🎯 Sınavda ilk neye bakarım? — Norton</h3>
+  <ol>
+    <li>Yükü çıkar.</li>
+    <li>a-b'yi kısa edip I_N'yi bul.</li>
+    <li>Kaynakları söndürüp R_N'yi bul.</li>
+    <li>Paralel Norton eşdeğerini kur, yükü bağla.</li>
+  </ol>
   </div>
 
   <h2>Özet tablo</h2>

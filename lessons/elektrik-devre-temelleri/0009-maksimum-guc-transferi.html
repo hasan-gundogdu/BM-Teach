@@ -14,7 +14,7 @@
   .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
   h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
   h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
-  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  h3{ font-size:1.05rem; margin:1.7em 0 .4em; color:var(--accent); }
   p,li{ font-size:1.06rem; }
   .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
   .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
@@ -39,10 +39,19 @@
           margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
   .cite{ font-size:.85rem; color:var(--soft); }
   .cite a{ color:var(--soft); }
+  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:.7em 0; overflow-x:auto; text-align:center; }
+  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
+  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
   .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
   .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
   .frac .d{ padding:.06em .2em 0; }
   .examnote{ background:#eaf5ea !important; border-left:3px solid #2e7d43 !important; }
+  .step{ margin:1.2em 0 1.6em; padding-left:.9em; border-left:3px solid var(--rule); }
+  .mini{ color:var(--accent); font-weight:700; }
+  .stepp{ margin:.3em 0; font-size:.98rem; }
+  .checkcard{ background:#fff; border:2px solid var(--accent); border-radius:8px; padding:1em 1.2em; margin:1.2em 0; }
+  .checkcard h3{ margin-top:0; }
+  .checkcard ol{ margin:.3em 0 0; padding-left:1.3em; }
 </style>
 </head>
 <body>
@@ -50,9 +59,9 @@
 
   <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 09 · Hafta 3 (3.1)</div>
   <h1>Maksimum Güç Transferi</h1>
-  <p class="lead">Bu dersin sonunda: bir kaynaktan bir yüke <span class="hi">en fazla gücün ne zaman aktarıldığını</span> bilecek ve bunun için gereken yük direncini <span class="hi">Thevenin eşdeğerinden</span> (Ders 07) tek adımda bulabileceksin. BM107'nin sorumlu olduğun son teoremi burası.</p>
+  <p class="lead">Bu dersin sonunda: bir kaynaktan bir yüke <span class="hi">en fazla gücün ne zaman aktarıldığını</span> bilecek ve bunun için gereken yük direncini <span class="hi">Thevenin eşdeğerinden</span> (Ders 07) tek adımda bulabileceksin.</p>
 
-  <p class="mission">🎯 <b>Neden bu?</b> Ders 07-08'de aynı Thevenin/Norton eşdeğerine <b>farklı</b> yükler (8Ω, sonra 4Ω) bağladık ve her seferinde farklı güç aktarıldı. Doğal soru: hangi yük değeri, kaynaktan <b>en fazla</b> gücü çeker? Cevap mühendislikte çok pratik: hoparlör-amplifikatör eşleşmesi, güneş paneli-yük eşleşmesi, akü şarj devresi tasarımı hep bu soruya dayanır.</p>
+  <p class="mission">🎯 <b>Neden bu?</b> Ders 07-08'de aynı Thevenin/Norton eşdeğerine <b>farklı</b> yükler (8Ω, sonra 4Ω) bağladık ve her seferinde farklı güç aktarıldı. Doğal soru: hangi yük değeri, kaynaktan <b>en fazla</b> gücü çeker?</p>
 
   <h2>1. Teorem</h2>
   <p>Doğrusal bir devrede, yük direnci <b>Thevenin eşdeğer direncine eşit olduğunda</b> (<code>R_L = R_TH</code>), yük <b>maksimum gücü</b> çeker:</p>
@@ -60,39 +69,159 @@
   <p>Norton eşdeğeri cinsinden aynı sonuç:</p>
   <div class="eq">R_L = R_N &nbsp;&nbsp;→&nbsp;&nbsp; P_max = <span class="frac"><span class="n">I_N²·R_N</span><span class="d">4</span></span></div>
 
-  <p class="mission" style="font-size:.88rem"><b>📎 Ek pedagojik not (ders notunda ayrıca yazmıyor, ders notunun kendi kapsamından çıkan bir gözlem):</b> Bu formül, yükün <b>sabit bir direnç</b> olduğu, kaynağın <b>doğru akım (DC)</b> verdiği devreler için geçerlidir. BM107 bu dönem zaten yalnızca dirençli DC devreleri işliyor (kapasitör/bobin/AC bu dönem kapsam dışı), o yüzden pratikte bu şart otomatik sağlanıyor — ama "neden RL=RTH" derken aklında hep bu sınırın olduğunu bil.</p>
-
-  <h3>Formülün nereden geldiği (sezgi)</h3>
-  <p>Yükteki güç <code>P = I²·R_L = (V_TH/(R_TH+R_L))² · R_L</code>'dir. <code>R_L</code>'yi 0'dan sonsuza kadar değiştirirsen:</p>
-  <ul>
-    <li><code>R_L → 0</code> (kısa devre): akım maksimum ama <code>P=I²·0=0</code> — güç sıfıra gider (Ders 03: kısa devrede gerilim sıfır).</li>
-    <li><code>R_L → ∞</code> (açık devre): akım sıfıra gider, yine <code>P→0</code>.</li>
-    <li>İkisinin arasında bir yerde güç <b>bir tepe noktasına</b> ulaşır — matematiksel olarak bu tepe tam <code>R_L=R_TH</code>'ta oluşur.</li>
-  </ul>
+  <p class="mission" style="font-size:.88rem"><b>📎 Ek pedagojik not (ders notunda ayrıca yazmıyor):</b> Bu formül, yükün <b>sabit bir direnç</b> olduğu, kaynağın <b>doğru akım (DC)</b> verdiği devreler için geçerlidir. BM107 bu dönem zaten yalnızca dirençli DC devreleri işliyor, o yüzden şart otomatik sağlanıyor.</p>
 
   <div class="analogy">
-    <b class="tag">🚴 Analoji:</b> Bir bisikletin vitesini düşün. Çok "hafif" vitesle (küçük direnç) pedal çok hızlı döner ama neredeyse hiç kuvvet iletmezsin — az iş yaparsın. Çok "ağır" vitesle (büyük direnç) çok kuvvet uygularsın ama pedal zar zor döner — yine az iş yaparsın. Ortada, bacak gücünle bisikletin direncinin <b>eşleştiği</b> bir vites var — orada en hızlı ilerlersin (en çok güç aktarırsın). Maksimum güç transferi teoremi tam bu "eşleşme noktası"nı buluyor.
+    <b class="tag">🚴 Analoji:</b> Bir bisikletin vitesini düşün. Çok "hafif" vitesle pedal çok hızlı döner ama neredeyse hiç kuvvet iletmezsin. Çok "ağır" vitesle çok kuvvet uygularsın ama pedal zar zor döner. Ortada bir eşleşme noktası var — orada en çok güç aktarırsın.
   </div>
-
-  <p class="mission">⚠️ <b>Sık karışan nokta — verim (%) ile karıştırma:</b> <code>R_L=R_TH</code> olduğunda yüke <b>en çok güç</b> gider, ama bu en <b>verimli</b> (en az kayıplı) çalışma noktası değildir! O noktada, kaynağın ürettiği toplam gücün tam <b>yarısı</b> R_TH üzerinde ısı olarak kaybolur (R_TH ve R_L eşit olduğu için akım ikisinden de aynı geçer, güç dağılımı da eşit — bkz. Ders 01 güç formülü <code>P=I²R</code>). Güç şebekelerinde verim önceliklidir (R_L≫R_TH tercih edilir); ses/sinyal devrelerinde ise maksimum güç transferi önceliklidir. Hangi hedefin öncelikli olduğu uygulamaya göre değişir.</p>
 
   <div class="pause">
-    ☕ <b>Doğal duraklama noktası.</b> Formülü ve mantığını gördün. Şimdi Ders 07-08'deki devreyi tamamlayıp üç teoremi birbirine bağlayacağız.
+    ☕ <b>Doğal duraklama noktası.</b> Formülün mantığını adım adım, Ders 07-08'deki devre üzerinden göreceğiz.
   </div>
 
-  <h2>2. Tam örnek — aynı devrenin sonucu</h2>
-  <p>Ders 07-08'de Thevenin/Norton eşdeğerini <code>V_TH=12V</code>, <code>R_TH=4Ω</code> (Norton: <code>I_N=3A</code>, <code>R_N=4Ω</code>) bulmuştuk. Bu devreye bağlanacak yük için maksimum güç şartı:</p>
-  <div class="eq">R_L = R_TH = 4Ω</div>
-  <div class="eq">P_max = <span class="frac"><span class="n">V_TH²</span><span class="d">4·R_TH</span></span> = <span class="frac"><span class="n">12²</span><span class="d">4·4</span></span> = <span class="frac"><span class="n">144</span><span class="d">16</span></span> = 9W</div>
+  <h2>2. Tam örnek — kaynak tarafını eşdeğere indirgemek</h2>
 
-  <p><b>Karşılaştırma — Ders 07'deki <code>R_L=8Ω</code> ne kadar güç çekiyordu?</b> Orada <code>I_L=1A</code> bulmuştuk, yani <code>P = I_L²·R_L = 1²·8 = 8W</code>. Bu, maksimumdan (<code>9W</code>) <b>daha az</b> — beklenen sonuç, çünkü <code>8Ω ≠ R_TH(4Ω)</code>.</p>
+  <div class="step">
+  <h3>Adım 0 — Orijinal devre ve değişken yük</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> a-b uçlarına bağlı, değeri henüz belirsiz bir <code>R_L</code> yükü olduğunu düşünüyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Amaç: <code>R_L</code>'ye aktarılan gücü <b>maksimum yapan</b> değeri bulmak — soruyu netleştirmeden formüle geçmiyoruz.</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 370 190" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">18V</text>
+    <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="87" y="14" text-anchor="middle">R1=3Ω</text>
+    <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="150" cy="30" r="4"/><text x="150" y="14" text-anchor="middle" font-weight="bold">A</text>
+    <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="168" y="92" text-anchor="start">R2=6Ω</text>
+    <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="150" y1="30" x2="180" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="180" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="207" y="14" text-anchor="middle">R3=2Ω</text>
+    <line x1="235" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="30" r="4"/><text x="286" y="22" text-anchor="start" font-weight="bold">a</text>
+    <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="150" r="4"/><text x="286" y="158" text-anchor="start" font-weight="bold">b</text>
+    <text x="150" y="175" text-anchor="middle" font-size="12" fill="#6b6b6b">referans (0V)</text>
+    <line x1="270" y1="30" x2="270" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="258" y="65" width="24" height="45" fill="#fff" stroke="#b5762a" stroke-width="2" stroke-dasharray="4,3"/>
+    <text x="296" y="92" text-anchor="start" fill="#b5762a">R_L = ?</text>
+    <line x1="270" y1="110" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  </svg>
+  <div class="cap">R_L'nin değeri henüz seçilmedi (kesikli çizildi) — bulmamız gereken şey bu.</div>
+  </div>
+  </div>
 
-  <p><b>Karşılaştırma — Ders 07 Soru 1'deki <code>R_L=4Ω</code> ne kadar çekiyordu?</b> Orada <code>I_L=1.5A</code> bulmuştuk: <code>P = 1.5²·4 = 9W</code> — tam olarak maksimum! Çünkü orada zaten <code>R_L=R_TH=4Ω</code> şartı sağlanmıştı, fark etmeden maksimum noktayı bulmuştuk.</p>
+  <div class="step">
+  <h3>Adım 1 — Kaynak tarafını Thevenin eşdeğerine dönüştür</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> R_L hariç her şeyi (18V, R1, R2, R3) Ders 07'de bulduğumuz Thevenin eşdeğeriyle değiştiriyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Orijinal devreyi doğrudan formüle sokmuyoruz — önce sadeleştirip R_L'yi tek bir seri devrenin parçası hâline getiriyoruz. Ders 07'den: <code>V_TH=12V</code>, <code>R_TH=4Ω</code>.</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 330 150" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="55" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="55" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="82" y="14" text-anchor="middle">R_TH=4Ω</text>
+    <line x1="110" y1="30" x2="230" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="230" cy="30" r="4"/><text x="246" y="26" text-anchor="start" font-weight="bold">a</text>
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">12V</text>
+    <line x1="30" y1="120" x2="270" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="120" r="4"/><text x="246" y="138" text-anchor="start" font-weight="bold">b</text>
+    <line x1="230" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="270" y1="30" x2="270" y2="60" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="258" y="60" width="24" height="35" fill="#fff" stroke="#b5762a" stroke-width="2" stroke-dasharray="4,3"/>
+    <text x="296" y="80" text-anchor="start" fill="#b5762a">R_L = ?</text>
+    <line x1="270" y1="95" x2="270" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+  </svg>
+  <div class="cap">V_TH + seri R_TH + R_L. Artık tek göz seri bir devre — R1,R2,R3'e ihtiyaç yok.</div>
+  </div>
+  </div>
+
+  <div class="step">
+  <h3>Adım 2 — Genel yük akımı ve yük gücü</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> R_L'yi henüz sayı vermeden, genel bir değişken gibi tutup akımı ve gücü ifade ediyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> R_TH ve R_L aynı seri yol üzerinde olduğu için önce Ohm Kanunu ile akım, sonra <code>P=I²R</code> ile güç yazılır — bu ikisi V=I·R ve P=I²R'nin doğrudan birleşimidir.</p>
+  <div class="eq">I_L = <span class="frac"><span class="n">V_TH</span><span class="d">R_TH+R_L</span></span></div>
+  <div class="eq">P_L = I_L² · R_L = <span class="frac"><span class="n">V_TH²</span><span class="d">(R_TH+R_L)²</span></span> · R_L</div>
+  <p>Bu ifade, R_L'ye bağlı bir fonksiyon — R_L değiştikçe P_L de değişir. Sıradaki adım bu değişimi incelemek.</p>
+  </div>
+
+  <div class="step">
+  <h3>Adım 3 — Maksimum güç şartı</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> R_L'yi çok küçük, R_TH'a eşit, ve çok büyük seçtiğimizde gücün ne olduğunu karşılaştırıyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> "R_L=R_TH" şartını ezbere almak yerine, iki uç durumda gücün neden küçüldüğünü <b>görerek</b> anlamak için.</p>
+  <table class="tbl">
+    <tr><th>R_L</th><th>Akım</th><th>Yük gerilimi</th><th>Yük gücü</th></tr>
+    <tr><td>→ 0 (kısa devreye yakın)</td><td>Yüksek (neredeyse V_TH/R_TH)</td><td>≈ 0 (V=I·R, R≈0)</td><td>≈ 0</td></tr>
+    <tr><td><b>= R_TH</b></td><td>Orta</td><td>Orta</td><td><b>Tepe nokta</b></td></tr>
+    <tr><td>→ ∞ (açık devreye yakın)</td><td>≈ 0 (V_TH/(R_TH+R_L)→0)</td><td>Yüksek (neredeyse V_TH)</td><td>≈ 0</td></tr>
+  </table>
+  <p><code>R_L→0</code>: akım büyük ama <code>V_L=I·R_L≈0</code> olduğu için güç sıfıra gider. <code>R_L→∞</code>: gerilim büyük ama akım sıfıra gittiği için yine güç sıfıra gider. İki uçta da güç düşük, arada bir <b>tepe nokta</b> olmalı — matematiksel olarak bu nokta tam <code>R_L=R_TH</code>'ta oluşur.</p>
+  <p style="font-size:.9rem;color:var(--soft)"><small>📎 Bu tepe noktası, <code>P_L</code> ifadesinin R_L'ye göre türevini sıfıra eşitleyerek de kanıtlanabilir (<code>dP_L/dR_L=0</code>) — BM107 kapsamında türev almana gerek yok, yukarıdaki üç durumun karşılaştırması yeterli sezgiyi veriyor.</small></p>
+  </div>
+
+  <div class="step">
+  <h3>Adım 4 — Maksimum güç devresini çiz</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> R_L yerine tam <code>R_TH</code> değerini (4Ω) bağlıyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Adım 3'te bulduğumuz tepe noktasını sayısal olarak hesaplamak için.</p>
+  <div class="circwrap">
+  <svg viewBox="-30 0 330 150" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
+    <line x1="30" y1="30" x2="55" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="55" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="82" y="14" text-anchor="middle">R_TH=4Ω</text>
+    <line x1="110" y1="30" x2="230" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="230" cy="30" r="4"/><text x="246" y="26" text-anchor="start" font-weight="bold">a</text>
+    <line x1="30" y1="30" x2="30" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="15" y1="65" x2="45" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="18" y1="80" x2="42" y2="80" stroke="#1a1a1a" stroke-width="6"/>
+    <line x1="30" y1="80" x2="30" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="8" y="70" text-anchor="end">+</text>
+    <text x="8" y="90" text-anchor="end">12V</text>
+    <line x1="30" y1="120" x2="270" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="270" cy="120" r="4"/><text x="246" y="138" text-anchor="start" font-weight="bold">b</text>
+    <line x1="230" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="270" y1="30" x2="270" y2="60" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="258" y="60" width="24" height="35" fill="#fff" stroke="#2e7d43" stroke-width="2.5"/>
+    <text x="296" y="80" text-anchor="start" fill="#2e7d43" font-weight="bold">R_L=4Ω</text>
+    <line x1="270" y1="95" x2="270" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="150" y="8" text-anchor="middle" fill="#2e7d43" font-size="12">R_TH = R_L → eşleşme noktası</text>
+  </svg>
+  <div class="cap">R_L tam R_TH'a (4Ω) eşitlendi — devrenin iki yarısı artık simetrik.</div>
+  </div>
+  <p class="stepp"><span class="mini">Hangi kural/formül?</span> Önce Ohm Kanunu ile akım, sonra <code>P=V·I</code> veya <code>P=I²R</code> ile güç:</p>
+  <div class="eq">I_L = <span class="frac"><span class="n">12</span><span class="d">4+4</span></span> = 1.5A &nbsp;&nbsp;&nbsp; V_L = 1.5·4 = 6V</div>
+  <div class="eq">P_max = <span class="frac"><span class="n">V_TH²</span><span class="d">4·R_TH</span></span> = <span class="frac"><span class="n">12²</span><span class="d">4·4</span></span> = <span class="frac"><span class="n">144</span><span class="d">16</span></span> = <b>9W</b></div>
+  <p><small>Kontrol: <code>P = I_L²·R_L = 1.5² × 4 = 9W</code> ✅ — aynı sonuç. Norton ile de doğrulanabilir: <code>P_max = I_N²·R_N/4 = 3²·4/4 = 9W</code> ✅.</small></p>
+  <p><b>Karşılaştırma:</b> Ders 07'deki <code>R_L=8Ω</code> ile sadece <code>P=I_L²·R_L=1²·8=8W</code> çekiliyordu — 9W'tan <b>az</b>, çünkü <code>8Ω ≠ R_TH</code>.</p>
+  </div>
+
+  <div class="step">
+  <h3>Adım 5 — Maksimum güç ile maksimum verimi ayır</h3>
+  <p class="stepp"><span class="mini">Ne yapıyoruz?</span> R_TH ve R_L eşit olduğu için (4Ω=4Ω) ikisinden de <b>aynı akım</b> (1.5A) geçtiğini kullanıyoruz.</p>
+  <p class="stepp"><span class="mini">Neden yapıyoruz?</span> Kaynağın iç direncinde (R_TH) ne kadar güç kaybolduğunu, yükte ne kadar güç kullanıldığını karşılaştırmak için.</p>
+  <div class="eq">P_R_TH = I_L²·R_TH = 1.5²·4 = 9W &nbsp;&nbsp;&nbsp; P_R_L = I_L²·R_L = 1.5²·4 = 9W</div>
+  <p>Kaynağın <b>toplam</b> ürettiği güç <code>9+9=18W</code>; bunun sadece <b>yarısı</b> (9W) yüke gidiyor, diğer yarısı R_TH'ta ısı olarak kayboluyor:</p>
+  <div class="eq">Verim = <span class="frac"><span class="n">P_yük</span><span class="d">P_toplam</span></span> = <span class="frac"><span class="n">9</span><span class="d">18</span></span> = <b>%50</b></div>
+  <p class="mission">⚠️ <b>Maksimum güç = maksimum verim DEĞİLDİR.</b> R_L=R_TH'ta yüke en çok güç gider ama bu en verimli nokta değil — verim tam %50'de sabit kalır. Güç şebekelerinde verim önceliklidir (R_L≫R_TH tercih edilir); ses/sinyal devrelerinde maksimum güç transferi önceliklidir.</p>
+  </div>
+
+  <p class="mission">📋 <b>Özet:</b> Önce Ders 07'nin Thevenin eşdeğeri (V_TH, R_TH) alındı çünkü orijinal devre R_L'ye göre karmaşıktı. R_L=R_TH seçildi çünkü uç durumlarda (R_L→0 ve R_L→∞) güç sıfıra gidiyor, ortada tepe nokta bu değerde oluşuyor. P_max, formülle ve I²R kontrolüyle 9W bulundu.</p>
 
   <div class="q">
     <p><b>Soru 1.</b> Norton eşdeğerini (<code>I_N=3A, R_N=4Ω</code>) kullanarak aynı <code>P_max</code> değerini doğrula.</p>
     <details><summary>Çözümü göster</summary>
-      <p><code>P_max = I_N²·R_N/4 = 3²·4/4 = 9·4/4 = 9W</code> ✅ — Thevenin formülüyle birebir aynı sonuç, beklendiği gibi (iki eşdeğer aynı devre).</p>
+      <p><code>P_max = I_N²·R_N/4 = 3²·4/4 = 9·4/4 = 9W</code> ✅</p>
     </details>
   </div>
 
@@ -107,8 +236,18 @@
   <div class="q">
     <p><b>Soru 3 (kavram).</b> Bir mühendis, güneş panelinden evin şebekesine mümkün olduğunca <b>az kayıpla</b> (yüksek verimle) enerji aktarmak istiyor. Yük direncini panelin iç direncine eşitlemeli mi?</p>
     <details><summary>Çözümü göster</summary>
-      <p><b>Hayır.</b> <code>R_L=R_TH</code> en çok gücü aktarır ama verim orada sadece <b>%50</b>'dir (gücün yarısı panelin iç direncinde kaybolur). Yüksek verim için <code>R_L</code>'nin <code>R_TH</code>'tan <b>büyük</b> seçilmesi gerekir — bu Soru başlığındaki "verim vs maksimum güç" ayrımının tam pratik örneği (yukarıdaki uyarı kutusuna bkz).</p>
+      <p><b>Hayır.</b> <code>R_L=R_TH</code> en çok gücü aktarır ama verim orada sadece <b>%50</b>'dir. Yüksek verim için <code>R_L</code>'nin <code>R_TH</code>'tan <b>büyük</b> seçilmesi gerekir.</p>
     </details>
+  </div>
+
+  <div class="checkcard">
+  <h3>🎯 Sınavda ilk neye bakarım? — Maksimum güç</h3>
+  <ol>
+    <li>Kaynak tarafının V_TH ve R_TH'sini bul.</li>
+    <li>R_L = R_TH seç.</li>
+    <li>P_max formülünü uygula.</li>
+    <li>Maksimum güç ile maksimum verimi karıştırma.</li>
+  </ol>
   </div>
 
   <h2>Özet tablo</h2>
@@ -122,7 +261,7 @@
 
   <h2>Birincil kaynak</h2>
   <div class="src">
-    📘 Bu ders, gerçek BM107 ders notunuzun "3.1 Ders Notu" bölümündeki <b>Maksimum Güç Transferi</b> konusunu birebir işliyor (teorem, Thevenin/Norton üzerinden türetim, gerçek dünya uygulamaları: güneş enerjisi, akü şarj cihazları, ses amplifikatörleri).<br>
+    📘 Bu ders, gerçek BM107 ders notunuzun "3.1 Ders Notu" bölümündeki <b>Maksimum Güç Transferi</b> konusunu birebir işliyor (teorem, Thevenin/Norton üzerinden türetim, gerçek dünya uygulamaları).<br>
     🎥 İngilizce görsel pekiştirme: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering, Maximum Power Transfer</a>.<br>
     🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/teoremler-hizli-basvuru.html">Süperpozisyon/Thevenin/Norton/Maks.Güç — Hızlı Başvuru</a>
   </div>
@@ -134,7 +273,7 @@
     <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 4, Solution N".</small>
   </div>
 
-  <p class="mission examnote">✅ <b>Kapsam güncellemesi:</b> Hoca sınavda OPAMP'ten de soru olacağını duyurdu — bir sonraki ders (Ders 10) artık kapsamda. Sadece bu üç teorem (Süperpozisyon'dan beri: Thevenin, Norton, Maks. Güç) için "bağımlı kaynak olmayacak" garantisi verildi — yani bu derslerdeki bağımlı-kaynaklı test-kaynağı yöntemi sınavda çıkmayacak, ama mantığını bilmek yine de sağlam anlayış için değerli.</p>
+  <p class="mission examnote">✅ <b>Kapsam güncellemesi:</b> Hoca sınavda OPAMP'ten de soru olacağını duyurdu — bir sonraki ders (Ders 10) artık kapsamda. Sadece bu üç teorem (Süperpozisyon'dan beri: Thevenin, Norton, Maks. Güç) için "bağımlı kaynak olmayacak" garantisi verildi.</p>
 
   <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
 
