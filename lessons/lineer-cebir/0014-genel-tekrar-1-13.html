@@ -85,6 +85,7 @@
       <li><a href="#b14">Vektörler II: vektörel çarpım, lineer bağımsızlık</a></li>
       <li><a href="#b15">Matris rankı</a></li>
       <li><a href="#b16">Rank ile sistem çözümü, homojen sistemler</a></li>
+      <li><a href="#yontem">Yöntem seçme rehberi + son kontrol listesi</a></li>
     </ol>
   </div>
 
@@ -359,7 +360,11 @@
     <div><b>2.</b> Tersi (varsa) <b>tektir</b>.</div>
     <div><b>3.</b> <code>(AB)⁻¹ = B⁻¹A⁻¹</code> (sıra ters döner!)</div>
     <div><b>4.</b> <code>(Aᵀ)⁻¹ = (A⁻¹)ᵀ</code></div>
+    <div><b>5.</b> <code>AA⁻¹ = A⁻¹A</code> (özel istisna — genelde <code>AB≠BA</code>, ama bir matrisle kendi tersi değişmelidir)</div>
+    <div><b>6.</b> <code>(sA)⁻¹ = (1/s)A⁻¹</code> (s≠0 skaler)</div>
+    <div><b>7.</b> <code>(Aᵏ)⁻¹ = (A⁻¹)ᵏ</code></div>
   </div>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Sınavda soruluyor:</b> "<code>(1/4·B)⁻¹</code> nedir?" tipi sorular Özellik 6'yı test eder: <code>s=1/4 → 1/s=4 → cevap 4B⁻¹</code>.</p>
 
   <hr class="sep">
 
@@ -412,6 +417,11 @@
   <p class="step">Örnek: det=−2 idi. 1. satırı 5 ile çarp: det<table class="det"><tr><td>5</td><td>10</td></tr><tr><td>3</td><td>4</td></tr></table>=20−30=−10=5×(−2). ✓</p>
 
   <div class="rule-box"><b>Kural 3 — kat ekleme:</b> <code>Rᵢ→Rᵢ+k·Rⱼ</code> (i≠j) → <code>det değişmez</code>. Bu, Gauss'ta zaten kullandığımız işlem — determinantı bozmadığı için Gauss'u determinant hesaplamak için güvenle kullanabiliriz.</p>
+
+  <h3>Diğer 3 önemli özellik</h3>
+  <div class="rule-box"><b>Sıfır satır/sütun:</b> bir satır (veya sütun) tamamen <code>0</code> ise, <code>det(A)=0</code> (o satırdan/sütundan kofaktör açılımı yaparsan her terim <code>0</code> ile çarpılır).</div>
+  <div class="rule-box"><b>Eşit satır/sütun:</b> iki satır (veya iki sütun) birbirine eşitse, <code>det(A)=0</code> (onları takas edersen matris değişmez ama Kural 1'e göre işaret ters dönmeli — tek çözüm <code>det=0</code>).</div>
+  <div class="rule-box"><b>Transpoz:</b> <code>det(Aᵀ)=det(A)</code> — satır/sütun yer değiştirmek determinantı değiştirmez; bu yüzden satır işlemi kuralları sütunlar için de aynen geçerlidir.</div>
 
   <h3>Pratik hesaplama tarifi (n≥4 için)</h3>
   <ol class="rules">
@@ -503,6 +513,8 @@
 
   <h2 id="b13">13. Vektörler I: temel işlemler, nokta çarpım <span class="lesson-tag">Ders 10</span></h2>
 
+  <p style="font-size:.95rem;color:var(--soft)"><b>Serbest vektör:</b> aksi belirtilmedikçe bir vektörün başlangıç noktası sabit değildir — doğrultu/yön/modül aynı kaldığı sürece uzayda taşınabilir, "aynı vektör" kalır.</p>
+
   <h3>Skaler ve vektörel büyüklük</h3>
   <div class="case">
     <div><b>Skaler</b><br>Tek sayı: kütle, sıcaklık.</div>
@@ -581,6 +593,7 @@
   <p><code>a = k₁a₁+k₂a₂+...+kₘaₘ</code> şeklinde yazılabiliyorsa, <code>a</code> bu vektörlerin lineer kombinasyonudur.</p>
 
   <h3>Lineer bağımlılık ve bağımsızlık</h3>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Önce fikir:</b> bir vektör diğerlerinin kombinasyonu olarak yazılabiliyorsa, gruba yeni bir yön katmıyordur — bağımlılık denklemi tam olarak bunu test eder.</p>
   <div class="eq"><code>k₁a₁+k₂a₂+...+kₘaₘ=0</code></div>
   <div class="case">
     <div><b>Lineer bağımlı</b><br>En az bir <code>k</code> sıfırdan farklı olabiliyor.</div>
@@ -674,11 +687,55 @@
     <b>Rank (Bölüm 15)</b> → lineer bağımsızlık (Bölüm 14) ile aynı şeyin iki farklı ifadesi, ve sistem çözüm sayısını (Bölüm 16) belirliyor.
   </div>
 
+  <hr class="sep">
+
+  <h2 id="yontem">Yöntem seçme rehberi — hangi soruda hangi yöntem?</h2>
+
+  <div class="rule-box">
+    <b>"Bir denklem sistemi çöz" görünce:</b><br>
+    Sistem <b>kare</b> (denklem sayısı = bilinkeyen sayısı) ve <code>det(A)≠0</code> biliniyorsa ya da hızlıca kontrol edilebiliyorsa → <b>Cramer</b> veya <b>ters matris</b> (<code>X=A⁻¹B</code>) hızlıdır, özellikle 2×2/3×3'te. <code>det(A)=0</code> olabilir ya da emin değilsen (sonsuz çözüm/çözümsüzlük ihtimali varsa) → doğrudan <b>Gauss/Gauss-Jordan</b> veya <b>rank yöntemi</b> kullan; bunlar <code>det=0</code> durumunda da çalışır, Cramer ve ters matris çalışmaz.
+  </div>
+
+  <div class="rule-box">
+    <b>"Matris tersi mi, Gauss mu, Cramer mı?"</b><br>
+    <b>Ters matris:</b> aynı <code>A</code> ile birden fazla farklı <code>B</code> için çözüm gerekiyorsa mantıklı (bir kere <code>A⁻¹</code> bul, her seferinde çarp). <b>Gauss/Gauss-Jordan:</b> tek seferlik çözüm için en pratik, büyük sistemlerde de çalışır. <b>Cramer:</b> küçük (2×2, 3×3) sistemlerde hızlı ama büyük sistemlerde determinant hesapları katlanarak artar — pratik değildir.
+  </div>
+
+  <div class="rule-box">
+    <b>Determinant sorusunda: Sarrus mı, üçgenleştirme mi, kofaktör mü?</b><br>
+    <b>2×2:</b> direkt <code>ad-bc</code>. <b>3×3:</b> Sarrus (hızlı, sadece 3×3'te geçerli). <b>4×4 ve üzeri:</b> Sarrus çalışmaz — ya Gauss ile <b>üçgenleştirip köşegen çarpımı</b> al (sıfır bulunmuyorsa en hızlısı) ya da satır/sütunda <b>çok sıfır varsa kofaktör açılımı</b> seç (sıfırlı terimler otomatik düşer, işlem azalır).
+  </div>
+
+  <div class="rule-box">
+    <b>Rank sorusunda ilk ne yapmalıyım?</b><br>
+    Önce matrisi satır indirgenmiş forma getir (elementer satır işlemleri rankı değiştirmez), sonra <b>sıfır olmayan satırları say</b>. Sistem çözümü sorusuysa hemen ardından <code>r(A)</code> ile <code>r([A:B])</code>'yi <b>ayrı ayrı</b> karşılaştır — birini diğeriyle karıştırmak en sık yapılan hatadır.
+  </div>
+
+  <div class="rule-box">
+    <b>Vektör sorusunda: nokta çarpımı mı, vektörel çarpım mı?</b><br>
+    Sonuç bir <b>sayı</b> isteniyorsa (açı, diklik testi, uzunluk ile ilişkili) → <b>nokta çarpımı</b>. Sonuç bir <b>vektör</b> isteniyorsa (iki vektöre birden dik yeni bir yön, paralellik testi, alan/hacim ile ilişkili) → <b>vektörel çarpım</b> (ve üç vektörün oluşturduğu hacim/bağımlılık soruluyorsa <b>karışık çarpım</b>).
+  </div>
+
+  <hr class="sep">
+
+  <h2 id="kontrol">Son tekrar kontrol listesi</h2>
+  <p>Sınava girmeden hemen önce şu 8 maddeyi gözden geçir — sık kaybedilen puanların çoğu buradan gelir:</p>
+  <ol class="rules">
+    <li><b>Matris çarpım boyut şartı:</b> <code>(m×n)·(n×p)</code> — ortadaki sayılar eşit olmalı, sonuç <code>m×p</code>.</li>
+    <li><b>Determinant satır işlemi etkileri:</b> takas → işaret ters, skalerle çarpma → determinant o skalerle çarpılır, kat ekleme → değişmez. Ayrıca: sıfır satır/sütun → 0, eşit satır/sütun → 0.</li>
+    <li><b>Kofaktör işaretleri:</b> <code>(-1)^(i+j)</code> — işaret satrancını (+,-,+ / -,+,- / +,-,+) kontrol et, minör ile kofaktörü karıştırma.</li>
+    <li><b>Ters matris varlık şartı:</b> <code>det(A)≠0</code> — bu sağlanmadan <code>[A:I]→[I:A⁻¹]</code>, 2×2 kısa formül ya da <code>adj(A)/det(A)</code> hiçbiri kullanılamaz.</li>
+    <li><b>Cramer varlık şartı:</b> kare sistem <b>ve</b> <code>det(A)≠0</code>. Sağlanmıyorsa rank yöntemine geç.</li>
+    <li><b>Nokta çarpımı ve diklik:</b> <code>a·b=0</code> (ikisi de sıfır vektör değilse) → dik. Açı formülünün paydasında <code>|a||b|</code> olduğunu unutma.</li>
+    <li><b>Rank çözüm koşulları:</b> <code>r(A)≠r([A:B])</code> → çözüm yok. <code>r(A)=r([A:B])=n</code> → tek çözüm. <code>r(A)=r([A:B])&lt;n</code> → sonsuz çözüm (<code>n</code>=bilinmeyen sayısı).</li>
+    <li><b>Homojen sistem koşulları:</b> her zaman en az sıfır çözümü var; <code>m&lt;n</code> ise sıfırdan farklı çözüm garanti; <code>m=n</code> ise sıfırdan farklı çözüm ⟺ <code>det(A)=0</code>.</li>
+  </ol>
+
   <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — bu tekrar dosyasındaki herhangi bir bölümü tekrar açıklatabilir, ekstra örnek isteyebilirsin. Hangi bölüm net değilse söyle, yeter.</p>
 
   <div class="nav">
     <span>← <a href="0013-rank-ile-sistem-cozumu.html">Ders 13 — Rank ile Sistem Çözümü</a></span>
-    <span>Sınava kadar bu dosyayı tekrar oku · başa dön: <a href="0001-sistemler-gauss-determinant.html">Ders 01</a></span>
+    <span>Pratik yap: <a href="0015-pratik-sorular.html">Pratik Sorular →</a></span>
   </div>
 
 </div>

@@ -63,7 +63,7 @@
   <p>Amaç: her iki denklemi de sağlayan <code>(x, y)</code> ikilisini bulmak.</p>
 
   <h2>2. Gauss yöntemi (yok etme)</h2>
-  <p>Fikir: denklemleri birbiriyle birleştirerek bir bilinmeyeni <span class="hi">yok etmek</span>, tek bilinmeyene inmek, sonra geri yerine koymak. Sistemi <b>genişletilmiş matris</b> olarak yazarız (katsayılar | sonuç):</p>
+  <p>Fikir: denklemleri birbiriyle birleştirerek bir bilinmeyeni <span class="hi">yok etmek</span>, tek bilinmeyene inmek, sonra geri yerine koymak. Sistemi <b>arttırılmış matris</b> (bazı kaynaklarda "genişletilmiş matris" de denir — ikisi aynı şey) olarak yazarız (katsayılar | sonuç):</p>
   <p style="font-size:.95rem;color:var(--soft)"><b>Katsayı işareti matrise nasıl girer?</b> Olduğu gibi — <code>x − y = 1</code> denklemindeki <code>−y</code>, matriste <code>-1</code> hücresi olarak yazılır, ayrı bir "eksi" göstergesi yok: <code>[1, -1 | 1]</code>. Formal satır işlemi hep aynıdır — <code>R2 → R2 − k·R1</code> — çarpan <code>k</code> negatif çıkarsa işlem kendiliğinden "toplama" gibi davranır. Yani matris notasyonu, "aynı işaret → çıkar, zıt işaret → topla" ayrımını elle takip etme derdini ortadan kaldırır: tek formülü uygularsın, işaretler kendi kendine hallolur.</p>
   <div class="eq">
     <table class="m"><tr><td>1</td><td>2</td><td>|</td><td>5</td></tr><tr><td>3</td><td>4</td><td>|</td><td>11</td></tr></table>
@@ -127,6 +127,7 @@
     = 1·4 − 2·3 = <b>−2</b>
   </div>
   <p><b>Neden önemli?</b> Determinant ≠ 0 ise sistemin <span class="hi">tek çözümü</span> vardır. İleride Cramer kuralıyla (Ders 0009) çözümü doğrudan determinantlardan bulacağız.</p>
+  <p style="font-size:.95rem;color:var(--soft)"><b>Not — bir sistemin 3 hâli:</b> Bir lineer sistem ya <b>tek çözümlü</b> (tutarlı/consistent), ya <b>sonsuz çözümlü</b> (tutarlı ama denklemler bağımlı) ya da <b>çözümsüz</b> (tutarsız/inconsistent) olur. Determinant ≠ 0 birinci durumu garanti eder; determinant = 0 olduğunda hangisi olduğunu ayırt etmek için rank kullanılır (bkz. Ders 13 — rank ile sistem çözümü). Şimdilik sadece isimleri tanı, detayına orada gireceğiz.</p>
 
   <h2>4. Determinant: 3×3 (Sarrus kuralı)</h2>
   <div class="eq">

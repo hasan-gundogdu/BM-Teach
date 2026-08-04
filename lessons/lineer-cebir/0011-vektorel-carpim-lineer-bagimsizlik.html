@@ -95,6 +95,7 @@
   <p><code>a₁, a₂, ..., aₘ</code> vektörleri verilsin. Eğer bir <code>a</code> vektörü <code>a = k₁a₁ + k₂a₂ + ... + kₘaₘ</code> şeklinde (bazı gerçel sayılar <code>k₁,...,kₘ</code> için) yazılabiliyorsa, <code>a</code>'ya bu vektörlerin <b>lineer kombinasyonu</b> denir.</p>
 
   <h2>6. Lineer bağımlılık ve bağımsızlık</h2>
+  <p class="mission">💡 <b>Önce fikir:</b> Bir vektör, diğerlerinin lineer kombinasyonu olarak yazılabiliyorsa, o vektör gruba <b>yeni bir yön katmıyordur</b> — zaten var olan yönlerin bir karışımıdır. Bağımlılık denklemi (<code>k₁a₁+...+kₘaₘ=0</code>, sıfırdan farklı bir çözüm var) tam olarak bunu test eder: "bu vektörlerden biri, geri kalanların bir kombinasyonu olarak sıfırı üretebiliyor mu?" Cevap evetse, o vektör fazladan bir bilgi taşımıyor demektir — bağımlı. Cevap hayırsa (yalnızca hepsi sıfırken sıfır elde ediliyorsa), her vektör gerçekten kendine has bir yön taşıyor — bağımsız.</p>
   <p><code>a₁, a₂, ..., aₘ</code> vektörleri için şu denklemi kur:</p>
   <div class="eq"><code>k₁a₁ + k₂a₂ + ... + kₘaₘ = 0</code></div>
   <div class="case">
@@ -138,6 +139,17 @@
   <div class="q">
     <p><b>Soru 4 (kavram).</b> Karışık çarpım <code>a·(b×c)</code> neden tek bir determinantla (üç vektörü satır satır yazarak) direkt hesaplanabilir?</p>
     <details><summary>Cevabı göster</summary><p>Çünkü <code>b×c</code>'nin i,j,k bileşenleri zaten bir determinant açılımından geliyor; onu <code>a</code> ile nokta çarparsan, üç vektörün bileşenlerini içeren 3×3 determinantın kendisini elde edersin — ara adımı atlamış olursun.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 5 (sayısal).</b> <code>a = 2i − j + 3k</code>, <code>b = i + 2j − k</code> vektörlerinin çapraz çarpımı <code>a×b</code>'yi bul.</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><b>i katsayısı:</b> kalan <code>[[-1,3],[2,-1]]</code> → <code>(−1)(−1) − (3)(2) = 1 − 6 = −5</code></p>
+      <p class="step"><b>j katsayısı</b> (işaret ters): kalan <code>[[2,3],[1,-1]]</code> → <code>(2)(−1) − (3)(1) = −2−3 = −5</code> → <code>−(−5) = 5</code></p>
+      <p class="step"><b>k katsayısı:</b> kalan <code>[[2,-1],[1,2]]</code> → <code>(2)(2) − (−1)(1) = 4+1 = 5</code></p>
+      <p><code>a×b = −5i + 5j + 5k</code></p>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol: <code>a×b</code>, hem <code>a</code>'ya hem <code>b</code>'ye dik olmalı → <code>a·(a×b) = 2(−5)+(−1)(5)+3(5) = −10−5+15 = 0</code> ✓, <code>b·(a×b) = 1(−5)+2(5)+(−1)(5) = −5+10−5 = 0</code> ✓</p>
+    </details>
   </div>
 
   <h2>Birincil kaynak</h2>

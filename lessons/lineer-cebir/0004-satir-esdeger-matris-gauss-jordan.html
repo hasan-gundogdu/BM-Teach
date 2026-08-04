@@ -130,6 +130,26 @@
     <details><summary>Cevabı göster</summary><p><b>(c)</b> — bir satırın k katını başka satıra eklemek.</p></details>
   </div>
 
+  <div class="q">
+    <p><b>Soru 5 (sayısal — sıfırdan çöz).</b> Aşağıdaki sistemi Gauss eliminasyonu ile (arttırılmış matris + geri yerine koyma) çöz:</p>
+    <div class="eq"><code>x + y + z = 4</code> · <code>2x − y + z = 8</code> · <code>x + 2y − z = −3</code></div>
+    <details><summary>Çözümü (tüm ara adımlarla) göster</summary>
+      <p class="step"><b>Arttırılmış matris:</b></p>
+      <div class="eq"><table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>4</td></tr><tr><td>2</td><td>-1</td><td>1</td><td>|</td><td>8</td></tr><tr><td>1</td><td>2</td><td>-1</td><td>|</td><td>-3</td></tr></table></div>
+      <p class="step"><b>Adım 1:</b> <code>R2 → R2 − 2·R1</code> (R2'nin 1. sütunundaki <code>2</code>'yi sıfırlar): R2 = (2−2·1, −1−2·1, 1−2·1 | 8−2·4) = (0, −3, −1 | 0)</p>
+      <p class="step"><b>Adım 2:</b> <code>R3 → R3 − 1·R1</code> (R3'ün 1. sütunundaki <code>1</code>'i sıfırlar): R3 = (1−1, 2−1, −1−1 | −3−4) = (0, 1, −2 | −7)</p>
+      <div class="eq"><table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>4</td></tr><tr><td>0</td><td>-3</td><td>-1</td><td>|</td><td>0</td></tr><tr><td>0</td><td>1</td><td>-2</td><td>|</td><td>-7</td></tr></table></div>
+      <p class="step"><b>Adım 3:</b> Şimdi 2. sütunun altını sıfırla. Pivot <code>R2</code>'nin 2. sütunu (<code>−3</code>). Çarpan <code>= 1 ÷ (−3) = −1/3</code> → <code>R3 → R3 − (−1/3)·R2 = R3 + (1/3)·R2</code> (R3'ün 2. sütunundaki <code>1</code>'i sıfırlar): R3 = (0+0, 1+(1/3)(−3), −2+(1/3)(−1) | −7+(1/3)(0)) = (0, 0, −7/3 | −7)</p>
+      <div class="eq"><table class="m"><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>4</td></tr><tr><td>0</td><td>-3</td><td>-1</td><td>|</td><td>0</td></tr><tr><td>0</td><td>0</td><td>-7/3</td><td>|</td><td>-7</td></tr></table></div>
+      <p>Artık üçgen form. <b>Geri yerine koy:</b><br>
+      Alt satır: <code>−(7/3)z = −7 → z = 3</code><br>
+      Orta satır: <code>−3y − z = 0 → −3y − 3 = 0 → y = −1</code><br>
+      Üst satır: <code>x + y + z = 4 → x + (−1) + 3 = 4 → x = 2</code></p>
+      <div class="eq"><b>Çözüm: (x, y, z) = (2, −1, 3)</b></div>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol: <code>2+(−1)+3=4</code> ✓, <code>2·2−(−1)+3=4+1+3=8</code> ✓, <code>2+2·(−1)−3=2−2−3=−3</code> ✓.</p>
+    </details>
+  </div>
+
   <h2>Birincil kaynak</h2>
   <div class="src">
     📚 Khan Academy — "Doğrusal Sistemleri Matrislerle Çözme", "Matris Sırası-Kademeli Form" videoları.<br>

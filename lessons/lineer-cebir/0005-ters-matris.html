@@ -53,7 +53,7 @@
   <p style="font-size:.95rem;color:var(--soft)">Sayılarda <code>x · (1/x) = 1</code> neyse, matriste <code>A · A⁻¹ = I</code> odur. <b>Her</b> kare matrisin tersi olmak zorunda değil (sayılarda <code>0</code>'ın tersi olmadığı gibi).</p>
 
   <h2>2. [A:I] → [I:A⁻¹] yöntemi</h2>
-  <p><code>A</code>'nın yanına birim matrisi ekleyip <code>[A:I]</code> arttırılmış matrisini oluştur. Elementer satır işlemleriyle (Ders 0005'teki aynı işlemler) sol tarafı <code>I</code>'ya dönüştür — bunu yaptığında sağ taraf otomatik olarak <code>A⁻¹</code> olur.</p>
+  <p><code>A</code>'nın yanına birim matrisi ekleyip <code>[A:I]</code> arttırılmış matrisini oluştur. Elementer satır işlemleriyle (Ders 04'te resmi tanımını gördüğün aynı 3 işlem) sol tarafı <code>I</code>'ya dönüştür — bunu yaptığında sağ taraf otomatik olarak <code>A⁻¹</code> olur.</p>
 
   <h3>Önce 2×2 ile küçük bir örnek</h3>
   <div class="eq">A = <table class="m"><tr><td>2</td><td>1</td></tr><tr><td>1</td><td>1</td></tr></table></div>
@@ -99,8 +99,27 @@
     <div><b>2.</b> Tersi (varsa) <b>tektir</b> — bir matrisin iki farklı tersi olamaz.</div>
     <div><b>3.</b> <code>(AB)⁻¹ = B⁻¹A⁻¹</code> (sıra ters döner!)</div>
     <div><b>4.</b> <code>(Aᵀ)⁻¹ = (A⁻¹)ᵀ</code></div>
+    <div><b>5.</b> <code>AA⁻¹ = A⁻¹A</code></div>
+    <div><b>6.</b> <code>(sA)⁻¹ = (1/s)A⁻¹</code> (s≠0 skaler)</div>
+    <div><b>7.</b> <code>(Aᵏ)⁻¹ = (A⁻¹)ᵏ</code></div>
   </div>
   <p style="font-size:.9rem;color:var(--soft)"><b>Özellik 3'e dikkat:</b> Matris çarpımı değişmeli olmadığı için, <code>(AB)⁻¹</code> alırken sırayı da ters çevirmen gerekiyor — <code>A⁻¹B⁻¹</code> değil, <code>B⁻¹A⁻¹</code>.</p>
+
+  <p style="font-size:.9rem;color:var(--soft)"><b>Özellik 5'e dikkat — özel bir durum:</b> Genel kural <code>AB ≠ BA</code>'dır (matris çarpımı değişmeli değil). Ama bir matrisle <b>kendi tersinin</b> çarpımı bu genel kuralın bir <b>istisnasıdır</b> — tersin tanımı zaten <code>AA⁻¹ = A⁻¹A = I</code> olmasını gerektirir. Bu, "matris çarpımı bazen değişmeli olabilir" demek değil; sadece <code>A</code> ile <code>A⁻¹</code> özel bir çift olduğu için değişiyor.</p>
+
+  <h3>Özellik 6 — sayısal örnek: (sA)⁻¹ = (1/s)A⁻¹</h3>
+  <div class="eq">A = <table class="m"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>2</td></tr></table>, &nbsp; s = 2</div>
+  <p class="step">Köşegen matris olduğu için <code>A⁻¹ = [[1, 0],[0, 1/2]]</code> (her köşegen eleman kendi tersiyle değişir).</p>
+  <p class="step"><b>Yol 1 — önce çarp, sonra tersini al:</b> <code>sA = 2A = [[2,0],[0,4]]</code> → <code>(sA)⁻¹ = [[1/2, 0],[0, 1/4]]</code></p>
+  <p class="step"><b>Yol 2 — önce tersini al, sonra (1/s) ile çarp:</b> <code>(1/s)A⁻¹ = (1/2)·[[1,0],[0,1/2]] = [[1/2, 0],[0, 1/4]]</code></p>
+  <p><b>İkisi aynı çıktı</b> ✓ — <code>(sA)⁻¹ = (1/s)A⁻¹</code> doğrulandı.</p>
+  <p style="font-size:.9rem;color:var(--soft)"><b>Neden?</b> <code>(sA)·((1/s)A⁻¹) = (s·1/s)(A·A⁻¹) = 1·I = I</code>. Bir matris ile onun tersi çarpılınca <code>I</code> verdiğine göre, <code>(1/s)A⁻¹</code> zaten <code>sA</code>'nın tersinin tanımını sağlıyor.</p>
+
+  <h3>Özellik 7 — sayısal örnek: (Aᵏ)⁻¹ = (A⁻¹)ᵏ</h3>
+  <p class="step">Aynı <code>A = [[1,0],[0,2]]</code>, <code>k = 2</code>:</p>
+  <p class="step"><b>Yol 1 — önce kuvvetini al, sonra tersini al:</b> <code>A² = [[1,0],[0,4]]</code> → <code>(A²)⁻¹ = [[1,0],[0,1/4]]</code></p>
+  <p class="step"><b>Yol 2 — önce tersini al, sonra kuvvetini al:</b> <code>(A⁻¹)² = [[1,0],[0,1/2]]² = [[1,0],[0,1/4]]</code></p>
+  <p><b>İkisi aynı çıktı</b> ✓ — <code>(A²)⁻¹ = (A⁻¹)²</code> doğrulandı.</p>
 
   <h2>5. Şimdi sen dene</h2>
 
@@ -110,8 +129,22 @@
   </div>
 
   <div class="q">
-    <p><b>Soru 2.</b> <table class="m"><tr><td>3</td><td>0</td></tr><tr><td>0</td><td>2</td></tr></table> matrisinin tersini bul.</p>
-    <details><summary>Cevabı göster</summary><p>Köşegen matris, ters de köşegen: <code>[[1/3,0],[0,1/2]]</code>. Kontrol: <code>3·(1/3)=1</code>, <code>2·(1/2)=1</code> ✓.</p></details>
+    <p><b>Soru 2.</b> <table class="m"><tr><td>3</td><td>2</td></tr><tr><td>4</td><td>3</td></tr></table> matrisinin tersini <code>[A:I] → [I:A⁻¹]</code> yöntemiyle bul (satır işlemlerini tek tek göster).</p>
+    <details><summary>Çözümü (tüm ara adımlarla) göster</summary>
+      <p class="step"><b>[A:I]:</b></p>
+      <div class="eq"><table class="m"><tr><td>3</td><td>2</td><td>|</td><td>1</td><td>0</td></tr><tr><td>4</td><td>3</td><td>|</td><td>0</td><td>1</td></tr></table></div>
+      <p class="step"><b>Adım 1:</b> <code>R1 → R1 − R2</code>: R1=(3−4, 2−3 | 1−0, 0−1) = (−1,−1 | 1,−1)</p>
+      <div class="eq"><table class="m"><tr><td>-1</td><td>-1</td><td>|</td><td>1</td><td>-1</td></tr><tr><td>4</td><td>3</td><td>|</td><td>0</td><td>1</td></tr></table></div>
+      <p class="step"><b>Adım 2:</b> <code>R1 → −1·R1</code>: R1=(1,1 | −1,1)</p>
+      <div class="eq"><table class="m"><tr><td>1</td><td>1</td><td>|</td><td>-1</td><td>1</td></tr><tr><td>4</td><td>3</td><td>|</td><td>0</td><td>1</td></tr></table></div>
+      <p class="step"><b>Adım 3:</b> <code>R2 → R2 − 4·R1</code>: R2=(4−4, 3−4 | 0−4(−1), 1−4(1)) = (0,−1 | 4,−3)</p>
+      <div class="eq"><table class="m"><tr><td>1</td><td>1</td><td>|</td><td>-1</td><td>1</td></tr><tr><td>0</td><td>-1</td><td>|</td><td>4</td><td>-3</td></tr></table></div>
+      <p class="step"><b>Adım 4:</b> <code>R2 → −1·R2</code>: R2=(0,1 | −4,3)</p>
+      <p class="step"><b>Adım 5:</b> <code>R1 → R1 − R2</code>: R1=(1−0, 1−1 | −1−(−4), 1−3) = (1,0 | 3,−2)</p>
+      <div class="eq"><table class="m"><tr><td>1</td><td>0</td><td>|</td><td>3</td><td>-2</td></tr><tr><td>0</td><td>1</td><td>|</td><td>-4</td><td>3</td></tr></table></div>
+      <div class="eq"><b>A⁻¹ = </b><table class="m"><tr><td>3</td><td>-2</td></tr><tr><td>-4</td><td>3</td></tr></table></div>
+      <p style="font-size:.9rem;color:var(--soft)">Kontrol: <code>A·A⁻¹ = [[3·3+2·(−4), 3·(−2)+2·3],[4·3+3·(−4), 4·(−2)+3·3]] = [[9−8, −6+6],[12−12, −8+9]] = [[1,0],[0,1]] = I</code> ✓</p>
+    </details>
   </div>
 
   <div class="q">
@@ -122,6 +155,11 @@
   <div class="q">
     <p><b>Soru 4.</b> <code>X = A⁻¹B</code> formülünü kullanabilmek için <code>A</code>'nın ne olması gerekir?</p>
     <details><summary>Cevabı göster</summary><p><code>A</code>'nın <b>tersi alınabilir</b> (kare ve det(A)≠0) olması gerekir — aksi hâlde <code>A⁻¹</code> mevcut değildir.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 5 (özellik).</b> <code>B</code> tersi alınabilir bir matris. <code>(1/4 · B)⁻¹</code> ifadesini <code>B⁻¹</code> cinsinden yaz.</p>
+    <details><summary>Cevabı göster</summary><p>Özellik 6: <code>(sA)⁻¹ = (1/s)A⁻¹</code>. Burada <code>s = 1/4</code>, dolayısıyla <code>1/s = 4</code>. Cevap: <code>(1/4 · B)⁻¹ = 4B⁻¹</code>.</p></details>
   </div>
 
   <h2>Birincil kaynak</h2>

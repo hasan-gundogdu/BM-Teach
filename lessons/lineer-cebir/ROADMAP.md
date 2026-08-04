@@ -21,7 +21,7 @@
 | 03 | `0003-matrisler-ve-temel-islemler.html` | 1.3 (devam) | Matris toplama, skalerle çarpım, matris çarpımı | ✅ |
 | 04 | `0004-satir-esdeger-matris-gauss-jordan.html` | 2.1-2.3 | Arttırılmış matris, satır eşdeğer/indirgenmiş matris tanımı, Gauss & Gauss-Jordan eliminasyon | ✅ |
 | 05 | `0005-ters-matris.html` | 2.4-2.5 | Ters matris tanımı, [A:I]→[I:A⁻¹] yöntemi, matris tersi ile sistem çözümü | ✅ |
-| 06 | `0006-geometrik-yorum-n-boyutlu-determinant.html` | ek derinlik + 3.1 | Geometrik yorum, n-boyutlu determinant (permütasyon) — resmi notların ötesinde derinlik | ✅ |
+| 06 | `0006-geometrik-yorum-n-boyutlu-determinant.html` | 3.1 + ek derinlik | Geometrik yorum (gerçekten ek derinlik) + n-boyutlu/permütasyon tabanlı determinant tanımı (**resmi müfredatın parçası, PDF Bölüm 3.1 — ama soru bankasında sayısal permütasyon sorusu yok**, 2026-08-04 düzeltmesi) | ✅ |
 | 07 | `0007-determinantin-ozellikleri-ve-hesaplama.html` | 3.3-3.4 | Determinant özellikleri (6 özellik), üçgen matris ile hesaplama | ✅ |
 | 08 | `0008-kofaktor-acilimi.html` | 3.5 | Minör, kofaktör tanımı, kofaktör açılımı ile determinant | ✅ |
 | 09 | `0009-cramer-adjoint.html` | 4.1-4.2 | Cramer kuralı, adjoint matris, A⁻¹=adj(A)/det(A) | ✅ |
@@ -43,8 +43,23 @@ Hafta 1-9 (Bölüm 1-6), sistemler + matris + determinant + vektör + rank konul
 
 ## Referans kartları
 
-Ders 01, 06, 07, 03 için referans kartı mevcut (`reference/lineer-cebir/`). Ders 02, 04, 05, 08, 09, 10, 11, 12, 13 için henüz yazılmadı — istenirse sonradan eklenir.
+Ders 01, 03, 06, 07, 08, 09 için referans kartı mevcut (`reference/lineer-cebir/`): `determinant-ve-sistemler.html` (01), `matris-islemleri.html` (03), `n-boyutlu-determinant.html` (06, 2026-08-04'te yalnızca gerçek Ders06 içeriğine odaklanacak şekilde düzeltildi), `determinant-ozellikleri.html` (07), `kofaktor-acilimi.html` (08, yeni), `cramer-adjoint.html` (09, yeni). Ders 02, 04, 05, 10, 11, 12, 13 için henüz yazılmadı — istenirse sonradan eklenir.
 
-## Genel tekrar dosyası
+## Genel tekrar ve pratik dosyaları
 
-`0014-genel-tekrar-1-13.html` (2026-08-02) — Ders 01-13'ün **tüm kural ve kavramlarını** tek dosyada, sırayla toplayan kapsamlı tekrar sayfası. Sıralı çalışma dizisinin bir parçası değil (yeni içerik değil, sadece tekrar) — o yüzden GIDIS-SIRASI.md'deki ders listesine eklenmedi, sadece burada not düşüldü.
+- `0014-genel-tekrar-1-13.html` (2026-08-02, 2026-08-04'te genişletildi) — Ders 01-13'ün **tüm kural ve kavramlarını** tek dosyada, sırayla toplayan kapsamlı tekrar sayfası. Artık ayrıca bir **yöntem seçme rehberi** (hangi soruda Cramer/ters matris/Gauss/rank seçilir) ve **son tekrar kontrol listesi** (8 madde) içeriyor. Sıralı çalışma dizisinin bir parçası değil (yeni içerik değil, sadece tekrar) — o yüzden GIDIS-SIRASI.md'deki ders listesine eklenmedi, sadece burada not düşüldü.
+- `0015-pratik-sorular.html` (yeni, 2026-08-04) — 14 konu başlığının her biri için temel + sınav seviyesi soru (toplam 28 soru), çözümler `<details>` içinde. Ders içeriklerindeki örneklerin kopyası değil, farklı sayılarla.
+
+## 2026-08-04 kapsamlı denetim (sınav öncesi son revizyon)
+
+Hocanın `1-2-3.pdf`, `4-5-6.pdf`, `7-8-9.pdf` dosyaları ile Ders 01-13 karşılaştırıldı (3 paralel analiz + 2 paralel düzeltme ajanı). Bulunan ve düzeltilen teknik eksikler:
+- **Ders05:** eksik ters matris özellikleri (`AA⁻¹=A⁻¹A`, `(sA)⁻¹=(1/s)A⁻¹`, `(Aᵏ)⁻¹=(A⁻¹)ᵏ`) eklendi, köşegen matris pratik sorusu köşegen olmayan bir matrisle değiştirildi.
+- **Ders04:** sıfırdan Gauss ile sistem çözdüren sayısal pratik soru eklendi.
+- **Ders02:** kırık iç referanslar ("Ders 0006" diye bir ders yok) düzeltildi.
+- **Ders01:** "arttırılmış matris" resmi terimi ve tek çözüm/sonsuz çözüm/çözümsüz ayrımı eklendi.
+- **Ders07:** eksik 3 determinant özelliği eklendi (sıfır satır/sütun→0, eşit satır/sütun→0, det(Aᵀ)=det(A)).
+- **Ders06:** "resmi notların ötesinde" yanlış çerçevelemesi düzeltildi (permütasyon tanımı PDF Bölüm 3.1'in resmi parçası, sadece sayısal pratik sorusu yok; geometrik yorum gerçekten ek).
+- **Ders09:** tam sayısal Cramer alıştırması + opsiyonel `A·adj(A)=det(A)·I` sezgi kutusu eklendi.
+- **Ders12:** kırık "Ders 0005" referansı → Ders 04 olarak düzeltildi.
+- **Ders10/11:** serbest/bağlı vektör notu ve lineer bağımsızlık sezgi cümlesi eklendi.
+- Hiçbir sayısal örnekte hesaplama hatası bulunmadı (üç analiz ajanı da tüm örnekleri elle yeniden hesapladı).

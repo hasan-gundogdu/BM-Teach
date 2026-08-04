@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Kofaktör Açılımı</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table.det{ border-collapse:collapse; display:inline-table; vertical-align:middle; position:relative; margin:0 .15em; }
+  table.det td{ padding:.1em .45em; text-align:center; font-family:Consolas,monospace; }
+  table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; border-left:1.5px solid #1a1a1a; }
+  table.det::before{ left:-1px; } table.det::after{ right:-1px; }
+  table.sign{ border-collapse:collapse; margin:.4em 0; }
+  table.sign td{ border:1px solid #e2ded5; width:2em; height:2em; text-align:center; font-family:Consolas,monospace; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Kofaktör Açılımı — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 08 (Bölüm 3.5) özeti.</p>
+
+  <h2>Minör (M<sub>ij</sub>)</h2>
+  <div class="card"><code>i.</code> satır ve <code>j.</code> sütunu <b>sil</b>, kalan <code>(n−1)×(n−1)</code> matrisin determinantı = <code>aᵢⱼ</code>'nin minörü <code>Mᵢⱼ</code>.</div>
+
+  <h2>Kofaktör (C<sub>ij</sub>)</h2>
+  <div class="rule"><code>Cᵢⱼ = (−1)<sup>i+j</sup> · Mᵢⱼ</code> — minöre işaret ekle. İşaret satrancı:
+    <table class="sign"><tr><td>+</td><td>−</td><td>+</td></tr><tr><td>−</td><td>+</td><td>−</td></tr><tr><td>+</td><td>−</td><td>+</td></tr></table>
+    <small>Kural: <code>i+j</code> çift → <code>+</code>, tek → <code>−</code>.</small>
+  </div>
+
+  <h2>Kofaktör açılımı (determinant hesaplama)</h2>
+  <div class="rule">
+    Herhangi bir satır (veya sütun) seç, o satırdaki her eleman × kendi kofaktörü, topla:<br>
+    <code>det(A) = aᵢ₁Cᵢ₁ + aᵢ₂Cᵢ₂ + … + aᵢₙCᵢₙ</code><br>
+    <small>Hangi satır/sütundan açarsan aç, sonuç aynı çıkar — kofaktör açılımı, n-boyutlu permütasyon formülünün (Ders 06) farklı bir gruplandırılmış hâlidir.</small>
+  </div>
+  <div class="card"><b>Püf:</b> <b>En çok sıfır olan</b> satır/sütunu seç — sıfırlı terimlerin kofaktörünü hesaplamaya hiç gerek kalmaz, işlem kısalır.</div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • Kofaktör işaretini <code>(−1)<sup>i+j</sup></code> unutmak (minör ≠ kofaktör).<br>
+    • Açılımda satır/sütun elemanını yanlış kofaktörle eşleştirmek.<br>
+    • Sıfırı çok olan satır/sütun yerine rastgele bir satırdan açıp işi büyütmek.
+  </div>
+</body>
+</html>

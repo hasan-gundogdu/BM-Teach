@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Cramer Kuralı & Adjoint Matris</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Cramer Kuralı & Adjoint Matris — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 09 (Bölüm 4.1-4.2) özeti.</p>
+
+  <h2>Cramer kuralı — şart</h2>
+  <div class="rule"><code>det(A) ≠ 0</code> olmalı — sıfırsa Cramer uygulanamaz (sistemin tek çözümü yok).</div>
+
+  <h2>Cramer kuralı — mantık</h2>
+  <div class="card">
+    <code>AX = B</code> sisteminde <code>xᵢ = det(Aᵢ)/det(A)</code>.<br>
+    <code>Aᵢ</code>: <code>A</code>'nın <b>i. sütununu</b> <code>B</code> (sağ taraf sabitleri) ile değiştirerek elde edilen matris.<br>
+    <small>PDF notasyonu: <code>D = det(A)</code>, <code>Dx = det(A₁)</code>, <code>Dy = det(A₂)</code>, <code>Dz = det(A₃)</code> — <code>x=Dx/D</code> vb.</small>
+  </div>
+
+  <h2>Adjoint matris</h2>
+  <div class="card">
+    Her <code>aᵢⱼ</code> için kofaktör <code>Cᵢⱼ</code>'yi (Ders 08) hesapla → kofaktör matrisi <code>C</code>.<br>
+    <code>adj(A) = Cᵀ</code> — adjoint, kofaktör matrisinin <b>transpozesi</b>.
+  </div>
+
+  <h2>Adjoint ile ters matris</h2>
+  <div class="rule">
+    <code>A⁻¹ = adj(A) / det(A)</code>&nbsp;&nbsp;<small>(şart: <code>det(A) ≠ 0</code>)</small><br>
+    <small>Kaynak formül: <code>A · adj(A) = det(A) · I</code> — her iki tarafı <code>det(A)</code>'ya bölünce <code>A · (adj(A)/det(A)) = I</code>, yani <code>adj(A)/det(A)</code> tam olarak <code>A⁻¹</code>'in tanımını sağlıyor.</small>
+  </div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • <code>det(A)=0</code> iken Cramer'i veya adjoint/det formülünü zorlamak (sıfıra bölme).<br>
+    • Kofaktör matrisi <code>C</code>'yi almadan, transpoz almadan direkt <code>adj(A)</code> sanmak.<br>
+    • <code>Aᵢ</code> oluştururken yanlış sütunu <code>B</code> ile değiştirmek.
+  </div>
+</body>
+</html>

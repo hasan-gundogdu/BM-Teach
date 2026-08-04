@@ -35,7 +35,7 @@
 
 ### Ders 06 — Geometrik yorum, n-boyutlu determinant (permütasyon) ✅
 - **Ders:** `lessons/lineer-cebir/0006-geometrik-yorum-n-boyutlu-determinant.html` · **Referans:** `reference/lineer-cebir/n-boyutlu-determinant.html`
-- Ek derinlik (resmi notların ötesinde) + Bölüm 3.1 formal permütasyon tanımı
+- Bölüm 3.1 formal permütasyon tanımı (**resmi müfredat, PDF'nin ilk konusu — 2026-08-04 düzeltmesi: "resmi notların ötesinde" değil, sadece soru bankasında sayısal permütasyon sorusu yok**) + geometrik yorum (gerçekten ek derinlik)
 - **Ön bilgi:** Matematiksel notasyon (Σ, alt indis, σ, permütasyon) — `lessons/on-bilgi/0002-matematik-notasyonu.html` ✅
 
 ### Ders 07 — Determinant özellikleri (6 özellik) + üçgen matris ile hesaplama ✅
@@ -43,12 +43,12 @@
 - Bölüm 3.3-3.4
 
 ### Ders 08 — Kofaktör Açılımı (Minör, Kofaktör) ✅
-- **Ders:** `lessons/lineer-cebir/0008-kofaktor-acilimi.html` · **Referans:** ⬜ (yazılacak)
+- **Ders:** `lessons/lineer-cebir/0008-kofaktor-acilimi.html` · **Referans:** `reference/lineer-cebir/kofaktor-acilimi.html`
 - Bölüm 3.5
 - **Khan:** n×n Determinantı · Derinlemesine Determinantlar
 
 ### Ders 09 — Cramer Kuralı + Adjoint Matris ✅
-- **Ders:** `lessons/lineer-cebir/0009-cramer-adjoint.html` · **Referans:** ⬜ (yazılacak)
+- **Ders:** `lessons/lineer-cebir/0009-cramer-adjoint.html` · **Referans:** `reference/lineer-cebir/cramer-adjoint.html`
 - Bölüm 4.1-4.2 — A⁻¹=adj(A)/det(A)
 - ⚠️ Cramer/adjoint isim olarak Khan'da net karşılığı yok → teach ile hazırlandı
 
@@ -73,7 +73,9 @@
 - Bölüm 6.2-6.3.2 — r(A)=r(AB) kuralı, homojen sistem 4 kuralı
 - **Khan:** Doğrusal Bir Sistemin Gösterilmesi İçin Matris Satır Sıralı Formun Kullanılması: Çözüm Olmaz
 
-> **Not (2026-08-01):** Dosya adları artık tam olarak çalışma sırasıyla (dosya gezgininde göründükleri sıra) ve her dersin sonundaki "Sıradaki" linkiyle birebir uyumlu — 13 dosya `git mv` ile yeniden numaralandırıldı, tüm iç bağlantılar (başlık, kicker, "Sıradaki" navigasyonu, çapraz referanslar) doğrulandı, kırık link kalmadı. Ders 02, 04, 05, 08, 09, 10, 11, 12, 13 için referans kartları (hızlı başvuru sayfaları) henüz yazılmadı — dersler tamamlandığı için kullanıcı çalışmaya başlayabilir, referans kartları sonradan eklenecek.
+> **Not (2026-08-01):** Dosya adları artık tam olarak çalışma sırasıyla (dosya gezgininde göründükleri sıra) ve her dersin sonundaki "Sıradaki" linkiyle birebir uyumlu — 13 dosya `git mv` ile yeniden numaralandırıldı, tüm iç bağlantılar (başlık, kicker, "Sıradaki" navigasyonu, çapraz referanslar) doğrulandı, kırık link kalmadı. Ders 02, 04, 05, 10, 11, 12, 13 için referans kartları henüz yazılmadı (08 ve 09 için 2026-08-04'te eklendi) — dersler tamamlandığı için kullanıcı çalışmaya başlayabilir, kalan kartlar sonradan eklenecek.
+
+> **Not (2026-08-04, sınav öncesi kapsamlı denetim):** Hocanın 3 PDF'i (`1-2-3.pdf`, `4-5-6.pdf`, `7-8-9.pdf`) ile Ders 01-13'ün tamamı karşılaştırıldı, teknik eksikler dolduruldu (bkz. ROADMAP.md'deki "2026-08-04 kapsamlı denetim" bölümü). Ayrıca `0015-pratik-sorular.html` (14 konu, temel+sınav seviyesi 28 soru) eklendi ve `0014-genel-tekrar-1-13.html`'e yöntem seçme rehberi + son kontrol listesi eklendi.
 
 ⬜ **Hafta 10-12 ve 13-14 PDF'leri henüz okunmadı** — bu bölüme geldiğimizde `10-11-12.pdf` ve `13-14.pdf` açılıp gerçek içerik doğrulanacak (muhtemelen özdeğer/özvektör/Jordan/kuadratik form konuları farklı sırada/derinlikte çıkabilir — varsayım yapılmayacak).
 

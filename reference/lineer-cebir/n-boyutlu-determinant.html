@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Başvuru — n-Boyutlu Determinant (Minör & Kofaktör)</title>
+<title>Başvuru — Geometrik Yorum & n-Boyutlu Determinant</title>
 <style>
   body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
         padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
@@ -16,44 +16,39 @@
   table.det td{ padding:.1em .45em; text-align:center; font-family:Consolas,monospace; }
   table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; border-left:1.5px solid #1a1a1a; }
   table.det::before{ left:-1px; } table.det::after{ right:-1px; }
-  table.sign{ border-collapse:collapse; margin:.4em 0; }
-  table.sign td{ border:1px solid #e2ded5; width:2em; height:2em; text-align:center; font-family:Consolas,monospace; }
   @media print{ body{background:#fff} }
 </style>
 </head>
 <body>
-  <h1>n-Boyutlu Determinant — Hızlı Başvuru</h1>
-  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 06 (ek derinlik + Bölüm 3.1) özeti. Büyük determinantların temeli.</p>
+  <h1>Geometrik Yorum & n-Boyutlu Determinant — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 06 (ek derinlik + Bölüm 3.1) özeti.</p>
 
-  <h2>Minör (M<sub>ij</sub>)</h2>
-  <div class="card"><code>i.</code> satır ve <code>j.</code> sütunu <b>sil</b>, kalan matrisin determinantı = <code>a₍ᵢⱼ₎</code>'nin minörü.</div>
-
-  <h2>Kofaktör (C<sub>ij</sub>)</h2>
-  <div class="rule"><code>C₍ᵢⱼ₎ = (−1)<sup>i+j</sup> · M₍ᵢⱼ₎</code> — minöre işaret ekle. İşaret satrancı:
-    <table class="sign"><tr><td>+</td><td>−</td><td>+</td></tr><tr><td>−</td><td>+</td><td>−</td></tr><tr><td>+</td><td>−</td><td>+</td></tr></table>
-  </div>
-
-  <h2>Kofaktör açılımı (determinant tanımı)</h2>
-  <div class="rule">
-    Bir satır (veya sütun) seç, o satırdaki her eleman × kendi kofaktörü, topla:<br>
-    <code>det = a₍ᵢ₁₎C₍ᵢ₁₎ + a₍ᵢ₂₎C₍ᵢ₂₎ + … + a₍ᵢₙ₎C₍ᵢₙ₎</code><br>
-    <small>n×n determinantı, (n−1)×(n−1) determinantlara indirger — özyinelemeli.</small>
-  </div>
-  <div class="card"><b>Püf:</b> <b>En çok sıfır olan</b> satır/sütundan aç → sıfırlı terimler düşer, işlem azalır.</div>
-
-  <h2>Geometrik yorum</h2>
+  <h2>Geometrik yorum (ek derinlik — PDF'de yok)</h2>
   <div class="card">
-    2×2 det = iki vektörün oluşturduğu <b>paralelkenarın alanı</b> (işaretli).<br>
-    3×3 det = üç vektörün oluşturduğu <b>paralelyüzün hacmi</b> (işaretli).<br>
-    <b>det = 0</b> → vektörler aynı doğru/düzlemde (lineer bağımlı), alan/hacim çöker.<br>
-    İşaret = yönelim (saat yönü / tersi).
+    2 değişken: her denklem bir <b>doğru</b>. <code>det ≠ 0</code> → doğrular paralel değil → tek kesişim → tek çözüm.<br>
+    3 değişken: her denklem bir <b>düzlem</b>. <code>det ≠ 0</code> → 3 düzlem tam 1 noktada kesişir → tek çözüm.<br>
+    <code>det = 0</code> → yön vektörleri (satırlar) aynı doğru/düzleme düşüyor → paralelkenar/paralelyüz "çöküyor" (alan/hacim = 0).
+  </div>
+
+  <h2>n-boyutlu determinant tanımı (resmi — Bölüm 3.1)</h2>
+  <div class="rule">
+    <code>det(A) = Σ<sub>σ</sub> sign(σ) · a₁,σ(1) · a₂,σ(2) · … · aₙ,σ(n)</code><br>
+    <small><code>σ</code>: {1,…,n}'in bir permütasyonu · <code>sign(σ)</code>: çift takas→+1, tek takas→−1 · toplam <b>tüm</b> permütasyonlar üzerinden.</small>
+  </div>
+  <div class="card">
+    Terim sayısı = <code>n!</code> → n=2: 2 terim (<code>ad−bc</code>) · n=3: 6 terim (Sarrus) · n=4: 24 terim (elle yapılamaz → Ders 07 Gauss+köşegen veya Ders 08 kofaktör açılımı).
+  </div>
+
+  <h2>Sınav notu</h2>
+  <div class="card">
+    Permütasyon tanımı resmi müfredatın parçası ama soru bankasında sayısal permütasyon hesaplatan bir soru <b>yok</b> — mantığını bil, saatlerce pratik yapmaya gerek yok.<br>
+    Geometrik yorum (doğru/düzlem kesişimi) gerçekten ek bir sezgi katmanı — zaman kalırsa oku.
   </div>
 
   <h2>Sık hatalar</h2>
   <div class="card">
-    • Kofaktör işaretini <code>(−1)<sup>i+j</sup></code> unutmak (minör ≠ kofaktör).<br>
-    • Açılımda satır/sütun elemanını yanlış kofaktörle eşleştirmek.<br>
-    • Sıfırı çok olan satır yerine rastgele satırdan açıp işi büyütmek.
+    • <code>det = 0</code>'ı sadece "çözüm yok" sanmak — aslında tutarlı sistemlerde sonsuz çözüm de olabilir (Ders 01, RREF ile ayırt edilir).<br>
+    • n! hesabını unutup 4×4'ü Sarrus tarzı çapraz çizerek çözmeye çalışmak.
   </div>
 </body>
 </html>

@@ -130,7 +130,36 @@
     </figure>
   </div>
 
-  <h2>4. Pratik hesaplama yöntemi</h2>
+  <h2>4. Diğer önemli özellikler</h2>
+  <p>Satır işlemlerinin (Kural 1-3) yanında, determinantın kendiliğinden doğan üç özelliği daha var — hocanın soru bankasında doğrudan soruluyorlar.</p>
+
+  <h3>Özellik 1 — bir satır (veya sütun) tamamen sıfırsa, determinant sıfırdır</h3>
+  <div class="case"><div>Herhangi bir satırın (veya sütunun) tüm elemanları <code>0</code> ise, <code>det(A) = 0</code>.</div></div>
+  <p><b>Somut örnek:</b> 3. sütunu tamamen sıfır olan bir matris:</p>
+  <div class="eq">det<table class="det"><tr><td>1</td><td>2</td><td class="zero">0</td></tr><tr><td>3</td><td>4</td><td class="zero">0</td></tr><tr><td>5</td><td>6</td><td class="zero">0</td></tr></table></div>
+  <p class="step"><b>Neden?</b> Bu sütundan kofaktör açılımı (Ders 08) yaparsan: <code>det = 0·C₁₃ + 0·C₂₃ + 0·C₃₃ = 0</code> — kofaktörler ne çıkarsa çıksın, <code>0</code> ile çarpıldıkları için katkıları sıfır.</p>
+  <p style="font-size:.9rem;color:var(--soft)">Kontrol (Sarrus): <code>1·4·0 + 2·0·5 + 0·3·6 − 0·4·5 − 2·3·0 − 1·0·6 = 0</code> ✓</p>
+  <div class="eq"><b>det = 0</b></div>
+
+  <h3>Özellik 2 — iki satır (veya iki sütun) birbirine eşitse, determinant sıfırdır</h3>
+  <div class="case"><div>Herhangi iki satır (veya iki sütun) birebir aynıysa, <code>det(A) = 0</code>.</div></div>
+  <p><b>Somut örnek:</b> 1. ve 2. satır aynı:</p>
+  <div class="eq">det<table class="det"><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr></table></div>
+  <p class="step"><b>Neden?</b> Kural 1'i hatırla: iki satırı takas edersen determinantın işareti ters döner (<code>det → −det</code>). Ama burada 1. ve 2. satır zaten <b>aynı</b> — onları takas edersen matris hiç değişmez, yani determinant da değişmemeli (<code>det = det</code>). Aynı anda hem <code>det = −det</code> hem <code>det = det</code> doğru olabilmesinin <b>tek yolu</b>: <code>det = 0</code>.</p>
+  <p style="font-size:.9rem;color:var(--soft)">Kontrol (Sarrus): <code>1·2·6 + 2·3·4 + 3·1·5 − 3·2·4 − 2·1·6 − 1·3·5 = 12+24+15−24−12−15 = 0</code> ✓</p>
+  <div class="eq"><b>det = 0</b></div>
+
+  <h3>Özellik 3 — transpoz determinantı değiştirmez: det(Aᵀ) = det(A)</h3>
+  <div class="case"><div>Bir matrisin satırlarını ve sütunlarını yer değiştirmek (<code>Aᵀ</code> — transpoz) determinantı <b>hiç değiştirmez</b>.</div></div>
+  <p><b>Somut örnek:</b></p>
+  <div class="eq">A = det<table class="det"><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>0</td><td>1</td><td>4</td></tr><tr><td>5</td><td>6</td><td>0</td></tr></table></div>
+  <p class="step"><b>det(A)</b> (Sarrus): <code>1·1·0 + 2·4·5 + 3·0·6 − 3·1·5 − 2·0·0 − 1·4·6 = 0+40+0−15−0−24 = 1</code>.</p>
+  <div class="eq">Aᵀ = det<table class="det"><tr><td>1</td><td>0</td><td>5</td></tr><tr><td>2</td><td>1</td><td>6</td></tr><tr><td>3</td><td>4</td><td>0</td></tr></table></div>
+  <p class="step"><b>det(Aᵀ)</b> (Sarrus): <code>1·1·0 + 0·6·3 + 5·2·4 − 5·1·3 − 0·2·0 − 1·6·4 = 0+0+40−15−0−24 = 1</code>.</p>
+  <p><b>İkisi de <code>1</code> çıktı</b> — transpoz almak determinantı değiştirmedi. <b>Neden önemli?</b> Bu özellik sayesinde, satır işlemleri için bildiğin her kural (takas, skalerle çarpma, kat ekleme) <b>sütunlar için de</b> aynen geçerlidir — sütunlarla işlem yapmak, transpoz alıp satırlarla işlem yapmakla aynı determinantı üretir.</p>
+  <div class="eq"><b>det(A) = det(Aᵀ) = 1</b></div>
+
+  <h2>5. Pratik hesaplama yöntemi</h2>
   <p style="font-size:.95rem;color:var(--soft)"><b>Önce "pivot" nedir?</b> Gauss ile eleme yaparken, bir sütunu sıfırlamak için <span class="hi">referans olarak kullandığın</span> köşegen elemana pivot denir — Ders 01'de "hangi sayıyla çarpıp çıkaracağız" derken kullandığın o köşegen sayı. Örneğin 1. sütunu sıfırlamak için 1. satır 1. sütundaki sayıyı (pivotu) kullanırsın: diğer satırlardaki değeri, pivota bölüp uygun katını çıkararak sıfırlarsın. <b>Pivot sıfırsa</b> bölemezsin (sıfıra bölme olmaz) — o yüzden önce satır değiştirip sıfır olmayan bir sayıyı pivot yapman gerekir.</p>
   <p>Şimdi 3 kuralı birleştirip bir <b>tarif</b> çıkaralım — herhangi bir n×n matrisin determinantını hesaplamak için:</p>
   <ol>
@@ -201,7 +230,7 @@
   <div class="eq"><b>det = 2</b></div>
   <p style="font-size:.9rem;color:var(--soft)">Bu sonucu 24 terimli permütasyon formülüyle elle doğrulamaya çalışsaydık çok zaman alırdı — Gauss + köşegen çarpımı bunu birkaç satır işlemine indirdi.</p>
 
-  <h2>5. Şimdi sen dene</h2>
+  <h2>6. Şimdi sen dene</h2>
 
   <div class="q">
     <p><b>Soru 1.</b> Üst üçgensel bir 4×4 matrisin köşegeni <code>3, −2, 1, 5</code>. Determinant kaçtır?</p>
