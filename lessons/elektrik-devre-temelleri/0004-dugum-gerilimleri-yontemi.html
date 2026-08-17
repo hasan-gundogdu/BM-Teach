@@ -1,49 +1,17 @@
 <!DOCTYPE html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ders 04 — Düğüm Gerilimleri ve Süper Düğüm</title><style>
-:root{--ink:#1a1a1a;--soft:#6b6b6b;--rule:#e2ded5;--accent:#2e5c7a;--bg:#fdfcf9;--note:#e9f0f4}*{box-sizing:border-box}body{background:var(--bg);color:var(--ink);margin:0;font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;font-size:18px}.wrap{max-width:760px;margin:0 auto;padding:56px 24px 96px}.kicker{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}h1{font-size:2rem;line-height:1.15;margin:.2em 0 .1em}h2{font-size:1.25rem;margin:2.2em 0 .5em;border-bottom:1px solid var(--rule);padding-bottom:.2em}h3{font-size:1.02rem;margin:1.5em 0 .3em;color:var(--accent)}p,li{font-size:1.04rem}.lead{color:var(--soft);font-style:italic}.mission{background:var(--note);border-left:3px solid var(--accent);padding:.85em 1.1em;border-radius:4px}.analogy{background:#f4f1e8;border:1px dashed #c9c0a8;border-radius:6px;padding:.9em 1.1em;margin:1em 0}.eq{text-align:center;margin:1.1em 0;font-size:1.08rem}.q{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:1em 1.2em;margin:1em 0}details{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:.5em .9em;margin:.6em 0}summary{cursor:pointer;font-weight:600;color:var(--accent)}code{background:#eef2ec;padding:.05em .35em;border-radius:3px;font-family:Consolas,monospace}table{border-collapse:collapse;width:100%;margin:1em 0}th,td{border:1px solid var(--rule);padding:.45em .7em;text-align:left}th{background:var(--note)}.nav{display:flex;justify-content:space-between;gap:1em;margin-top:2em;font-size:.9rem;color:var(--soft)}a{color:var(--accent)}</style></head><body><div class="wrap">
-<div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 04</div><h1>Düğüm Gerilimleri Yöntemi ve Süper Düğüm</h1>
-<p class="lead">Düğüm analizi, KCL'yi sistematik kullanır. Asıl hedef her akımı tek tek zihinde takip etmek değil; düğüm gerilimlerinden akımları otomatik üretmektir.</p>
-
-<p class="mission"><b>Karar sorusu:</b> Devrede bilinmeyen düğüm gerilimlerini mi arıyorum? Evetse düğüm analizi güçlü bir adaydır. İki bilinmeyen düğüm arasında ideal gerilim kaynağı görürsem normal düğümden <b>süper düğüme</b> geçerim.</p>
-
-<h2>1. Temel fikir</h2>
-<p>Bir referans düğüm seçilir ve <code>0 V</code> kabul edilir. Diğer düğümlerin gerilimleri bu referansa göre tanımlanır. Bir direnç <code>V_a</code> ve <code>V_b</code> düğümleri arasındaysa, a'dan b'ye doğru seçilen akım:</p>
-<div class="eq"><code>I_ab = (V_a - V_b) / R</code></div>
-<p class="mission"><b>Önemli:</b> Bu ifade “devrenin başka yerlerinden gelen akımları unuttuk” anlamına gelmez. KCL düğüme bağlı <b>bütün kolları</b> aynı denklemde hesaba katar. Bir direncin akımını yazarken ise yalnızca o direncin iki ucu ve o direnç kullanılır.</p>
-
-<h2>2. Normal düğüm analizi</h2>
-<ol><li>Referans düğümü seç.</li><li>Kalan düğümlere <code>V1, V2...</code> isimleri ver.</li><li>Her bilinmeyen düğüme KCL yaz.</li><li>Direnç akımlarını <code>(bu düğüm - karşı düğüm)/R</code> şeklinde yaz.</li><li>Denklem sistemini çöz.</li></ol>
-
-<h3>Tek bir işaret düzeni seç</h3>
-<p>Örneğin her düğümde “çıkan akımların toplamı = 0” yazabilirsin:</p><div class="eq"><code>(V_a-V_b)/R1 + (V_a-0)/R2 - I_s = 0</code></div>
-<p>Ya da “giren = çıkan” kullanabilirsin. İkisi de doğrudur; aynı çözüm içinde gelişigüzel karıştırma.</p>
-
-<div class="q"><b>Kısa örnek:</b> B düğümüne 3 A giriyor. B'den toprağa 1 Ω, B ile C arasında 1 Ω, C'den toprağa 2 Ω var.<details><summary>Çözüm</summary><p>B düğümü: <code>3 = V_B/1 + (V_B-V_C)/1</code> → <code>2V_B - V_C = 3</code>.</p><p>C düğümü: <code>(V_B-V_C)/1 = V_C/2</code> → <code>2V_B = 3V_C</code>.</p><p>Buradan <code>V_B=2.25 V</code>, <code>V_C=1.5 V</code>.</p></details></div>
-
-<h2>3. Ne zaman süper düğüm?</h2>
-<p>İki <b>bilinmeyen</b> düğümün arasında ideal bir gerilim kaynağı varsa, o kaynağın üzerinden geçen akımı doğrudan Ohm Kanunu ile yazamazsın; çünkü ideal gerilim kaynağının bir direnci verilmemiştir.</p>
-<div class="analogy"><b>Kilit fikir:</b> Normal düğümde her kol akımını yazabiliyorduk. Gerilim kaynağı iki bilinmeyen düğümün arasına girince o iç kolun akımı elimizde yok. O yüzden iki düğümü dışarıdan bakarken <b>tek büyük düğüm gibi sararız</b>. İşte süper düğüm budur.</div>
-
-<h2>4. Süper düğüm adımları</h2>
-<ol><li>Gerilim kaynağının bağladığı iki bilinmeyen düğümü birlikte çevrele: bu bir <b>süper düğüm</b>.</li><li>Gerilim kaynağının içinden geçen akımı KCL'ye yazmaya çalışma.</li><li>Süper düğümün <b>dışarıya çıkan/giren tüm direnç ve akım kaynağı kollarına</b> tek KCL yaz.</li><li>Gerilim kaynağı sana ikinci denklemi verir: polariteye göre <code>V1 - V2 = V_s</code> veya <code>V2 - V1 = V_s</code>.</li><li>İki denklemi birlikte çöz.</li></ol>
-<p class="mission"><b>Hatırlama cümlesi:</b> “İçerideki gerilim kaynağını KCL'de kullanamıyorum → iki düğümü tek büyük düğüm kabul ediyorum → dışarıya KCL → sonra gerilim farkı denklemi.”</p>
-
-<h3>Örnek — süper düğüm</h3>
-<p><code>V1</code> ve <code>V2</code> arasında, + ucu V1 tarafında olan 5 V kaynak olsun. V1 toprağa 2 Ω, V2 toprağa 3 Ω ile bağlı; ayrıca süper düğüme 4 A akım girsin.</p>
-<p>Süper düğüm KCL:</p><div class="eq"><code>V1/2 + V2/3 = 4</code></div>
-<p>Gerilim kaynağı kısıtı:</p><div class="eq"><code>V1 - V2 = 5</code></div>
-<p>Artık gerilim kaynağından geçen akımı bilmeye gerek yok. İki bilinmeyen için iki denklem var.</p>
-
-<h2>5. Gerilim kaynağı referansa bağlıysa?</h2>
-<p>Bir ideal gerilim kaynağının bir ucu doğrudan referans düğümdeyse genellikle süper düğüme gerek yoktur. Çünkü diğer düğümün gerilimi doğrudan bilinir. Örneğin + ucu düğümde olan 10 V kaynak toprağa bağlıysa o düğüm <code>V=10 V</code>'tur.</p>
-
-<h2>6. Denklem sistemi nasıl çözülür?</h2>
-<p>İki bilinmeyende eliminasyon veya yerine koyma yeterlidir. Üç ve daha fazla bilinmeyende en doğal bağlantı lineer cebirdir:</p>
-<div class="eq"><code>devre → lineer denklemler → katsayı matrisi → Gauss eliminasyonu</code></div>
-<p>Cramer kuralı küçük sistemlerde kullanılabilir ama genel çözüm mantığının kendisi değildir. Sarrus ise yalnızca 3×3 determinant hesaplama kısa yoludur.</p>
-
-<h2>7. Hızlı karar tablosu</h2><table><tr><th>Devrede ne görüyorum?</th><th>Ne yaparım?</th></tr><tr><td>Dirençlerle bağlı bilinmeyen düğümler</td><td>Normal KCL</td></tr><tr><td>Akım kaynağı bir düğüme bağlı</td><td>Akım değeri KCL'ye doğrudan girer</td></tr><tr><td>İki bilinmeyen düğüm arasında ideal gerilim kaynağı</td><td><b>Süper düğüm</b></td></tr><tr><td>Gerilim kaynağı bilinmeyen düğüm ile referans arasında</td><td>Düğüm gerilimi doğrudan bilinir; çoğu zaman süper düğüm gerekmez</td></tr></table>
-
-<div class="q"><b>Kavram kontrolü:</b> Süper düğümde gerilim kaynağını “yok mu sayıyoruz”?<details><summary>Cevap</summary><p>Hayır. KCL yazarken <b>iç kol akımını</b> kullanmıyoruz; fakat kaynak çok önemli bir ikinci denklem verir: iki düğüm geriliminin farkını belirler.</p></details></div>
-<div class="nav"><span>← <a href="0003-ohm-kirchhoff-seri-paralel.html">Ders 03</a></span><span>Sıradaki: <a href="0005-cevre-akimlari-yontemi.html">Ders 05 — Çevre Akımları</a></span></div>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ders 04 — Düğüm ve Süper Düğüm</title><style>:root{--ink:#1a1a1a;--soft:#666;--rule:#ddd8cf;--accent:#2e5c7a;--bg:#fdfcf9;--note:#e9f0f4}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 Georgia,serif}.wrap{max-width:760px;margin:auto;padding:48px 24px 88px}h1{font-size:2rem}h2{font-size:1.3rem;margin-top:2em;border-bottom:1px solid var(--rule)}.lead{color:var(--soft);font-style:italic}.box,.decision,.q{padding:.9em 1.1em;border-radius:6px;margin:1em 0}.box{background:var(--note);border-left:3px solid var(--accent)}.decision{background:#f4f1e8;border:1px dashed #c9c0a8}.q{background:#fff;border:1px solid var(--rule)}.eq{text-align:center;font-size:1.12rem;margin:1em 0}code{background:#eef2ec;padding:.08em .32em;border-radius:3px}sub{font-size:.72em}table{width:100%;border-collapse:collapse}th,td{border:1px solid var(--rule);padding:.5em .7em}th{background:var(--note)}</style></head><body><div class="wrap">
+<div style="color:var(--accent);font-weight:700;font-size:.78rem;letter-spacing:.12em">ELEKTRİK DEVRE TEMELLERİ · DERS 04</div>
+<h1>Düğüm Gerilimleri ve Süper Düğüm</h1><p class="lead">Amaç akımları zihinde tek tek kovalamak değil; düğüm gerilimlerini bulup her kol akımını bu gerilimlerden üretmek.</p>
+<div class="decision"><b>Karar sorusu:</b> İki bilinmeyen düğüm arasında ideal gerilim kaynağı var mı? Yoksa normal düğüm. Varsa süper düğüm.</div>
+<h2>1. Normal düğüm</h2><p>Referansı 0 V seç. Bir direnç V<sub>a</sub> ile V<sub>b</sub> arasındaysa, a’dan b’ye seçilen akım:</p><div class="eq">I<sub>ab</sub> = (V<sub>a</sub>-V<sub>b</sub>)/R</div>
+<div class="box"><b>Burada başka akımları unutmuyoruz.</b> O dirençten geçen akımı yazarken yalnız o direncin iki ucu gerekir. Düğümdeki diğer bütün kollar KCL denklemine ayrıca girer.</div>
+<ol><li>Referans düğümü seç.</li><li>Bilinmeyen düğümlere V<sub>1</sub>, V<sub>2</sub>… de.</li><li>Her düğüme KCL yaz.</li><li>Direnç akımlarını gerilim farkı / direnç olarak yaz.</li><li>Denklem sistemini çöz.</li></ol>
+<h2>2. Neden süper düğüm?</h2><p>İki bilinmeyen düğüm arasında ideal gerilim kaynağı varsa, o kaynağın içinden geçen akımı Ohm Kanunu ile yazamazsın. Çünkü kaynak için R verilmemiştir.</p>
+<div class="decision"><b>Bizim oturttuğumuz fikir:</b> İki düğümü geçici olarak tek büyük düğüm gibi sar. İçerideki gerilim kaynağı kolunu KCL’de kullanma. Dışarıya bağlı bütün kollar için tek KCL yaz.</div>
+<h2>3. Süper düğüm adımları</h2><ol><li>Gerilim kaynağının bağladığı iki bilinmeyen düğümü birlikte çevrele.</li><li>Süper düğümün dışına giren/çıkan bütün akımlarla KCL yaz.</li><li>Gerilim kaynağından ikinci ilişkiyi yaz: polariteye göre V<sub>1</sub>-V<sub>2</sub>=V<sub>s</sub>.</li><li>Denklemleri birlikte çöz.</li></ol>
+<h3>Mini örnek</h3><p>V<sub>1</sub> ile V<sub>2</sub> arasında + ucu V<sub>1</sub> tarafında 5 V kaynak; V<sub>1</sub> toprağa 2 Ω, V<sub>2</sub> toprağa 3 Ω bağlı ve süper düğüme 4 A giriyor:</p><div class="eq">V<sub>1</sub>/2 + V<sub>2</sub>/3 = 4</div><div class="eq">V<sub>1</sub>-V<sub>2</sub>=5</div>
+<div class="box"><b>Gerilim kaynağını yok saymadık.</b> Sadece içindeki akımı KCL’ye yazmadık; kaynak ikinci denklemi verdi.</div>
+<h2>4. Kaynak referansa bağlıysa</h2><p>Gerilim kaynağının bir ucu doğrudan referanstaysa çoğu zaman süper düğüm gerekmez. Örneğin + ucu düğümde olan 10 V kaynak toprağa bağlıysa o düğüm doğrudan V=10 V’tur.</p>
+<h2>5. Denklem çözümü</h2><div class="eq">devre → lineer denklemler → matris → Gauss eliminasyonu</div><p>2 bilinmeyende elle eliminasyon hızlıdır. Cramer küçük sistemlerde kullanılabilir; Sarrus yalnız 3×3 determinant kısa yoludur.</p>
+<table><tr><th>Gördüğün şey</th><th>Yöntem</th></tr><tr><td>Dirençli bilinmeyen düğümler</td><td>Normal KCL</td></tr><tr><td>Akım kaynağı</td><td>Değeri KCL’ye doğrudan girer</td></tr><tr><td>İki bilinmeyen düğüm arasında ideal gerilim kaynağı</td><td><b>Süper düğüm</b></td></tr><tr><td>Gerilim kaynağı düğüm-referans arasında</td><td>Düğüm gerilimi doğrudan bilinir</td></tr></table>
 </div></body></html>
