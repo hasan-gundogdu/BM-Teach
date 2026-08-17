@@ -1,58 +1,19 @@
 <!DOCTYPE html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ders 06 — Süperpozisyon Teoremi</title><style>
-:root{--ink:#1a1a1a;--soft:#6b6b6b;--rule:#e2ded5;--accent:#2e5c7a;--bg:#fdfcf9;--note:#e9f0f4}*{box-sizing:border-box}body{background:var(--bg);color:var(--ink);margin:0;font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;font-size:18px}.wrap{max-width:760px;margin:0 auto;padding:56px 24px 96px}.kicker{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}h1{font-size:2rem;line-height:1.15;margin:.2em 0 .1em}h2{font-size:1.25rem;margin:2.2em 0 .5em;border-bottom:1px solid var(--rule);padding-bottom:.2em}h3{font-size:1.02rem;margin:1.5em 0 .3em;color:var(--accent)}p,li{font-size:1.04rem}.lead{color:var(--soft);font-style:italic}.mission{background:var(--note);border-left:3px solid var(--accent);padding:.85em 1.1em;border-radius:4px}.analogy{background:#f4f1e8;border:1px dashed #c9c0a8;border-radius:6px;padding:.9em 1.1em;margin:1em 0}.eq{text-align:center;margin:1.1em 0;font-size:1.08rem}.q{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:1em 1.2em;margin:1em 0}details{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:.5em .9em;margin:.6em 0}summary{cursor:pointer;font-weight:600;color:var(--accent)}code{background:#eef2ec;padding:.05em .35em;border-radius:3px;font-family:Consolas,monospace}table{border-collapse:collapse;width:100%;margin:1em 0}th,td{border:1px solid var(--rule);padding:.45em .7em;text-align:left}th{background:var(--note)}.nav{display:flex;justify-content:space-between;gap:1em;margin-top:2em;font-size:.9rem;color:var(--soft)}a{color:var(--accent)}</style></head><body><div class="wrap">
-<div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 06</div><h1>Süperpozisyon Teoremi</h1>
-<p class="lead">Süperpozisyon yeni bir KCL/KVL alternatifi değildir. Birden fazla bağımsız kaynağın etkisini ayrı ayrı inceleyip, her alt devreyi bildiğin analiz araçlarıyla çözme yöntemidir.</p>
-
-<p class="mission"><b>Karar sorusu:</b> Devrede birden fazla bağımsız kaynak var mı ve devre doğrusal mı? Süperpozisyon kullanılabilir. Ama her kaynak tek başına bırakıldığında oluşan devreyi çözmek için yine <b>Ohm, seri-paralel, gerilim/akım bölücü, KCL, KVL, düğüm veya çevre analizi</b> kullanırsın.</p>
-
-<h2>1. Neden çalışır?</h2>
-<p>Doğrusal devrelerde toplam tepki, kaynakların ayrı ayrı oluşturduğu tepkilerin cebirsel toplamıdır. Sabit dirençli devrelerde Ohm Kanunu doğrusaldır:</p><div class="eq"><code>R(i1+i2) = Ri1 + Ri2</code></div>
-<p>Bu nedenle bir koldaki toplam akımı veya iki nokta arasındaki toplam gerilimi, her bağımsız kaynağın katkısını ayrı ayrı bulup toplayarak elde edebilirsin.</p>
-
-<h2>2. Kaynak söndürmek ne demek?</h2>
-<p>Söndürmek, kaynağı devreden fiziksel olarak silmek değil, <b>değerini sıfıra çekmek</b> demektir.</p>
-<table><tr><th>Kaynak</th><th>Sıfıra çekilince</th><th>Neden?</th></tr><tr><td>Bağımsız gerilim kaynağı</td><td><b>Kısa devre / tel</b></td><td><code>V=0</code>: uçları arasında potansiyel fark yok</td></tr><tr><td>Bağımsız akım kaynağı</td><td><b>Açık devre / kesik</b></td><td><code>I=0</code>: o koldan akım geçmiyor</td></tr><tr><td>Bağımlı kaynak</td><td><b>Söndürülmez</b></td><td>Değeri devredeki başka bir değişkene bağlıdır</td></tr></table>
-
-<p class="mission"><b>En önemli görsel sonuç:</b> Kaynağı söndürdüğünde devrenin topolojisi değişebilir. Bir önceki devrede seri olmayan iki direnç seri hale gelebilir; paralel olmayanlar paralel hale gelebilir. Her adımda devreyi <b>yeniden çizilmiş gibi tekrar oku</b>.</p>
-
-<h2>3. Adım adım yöntem</h2>
-<ol><li>Önce hangi büyüklüğü aradığını ve pozitif referans yönünü/polaritesini belirle.</li><li>Bir bağımsız kaynağı aktif bırak, diğer bağımsız kaynakları söndür.</li><li>Ortaya çıkan yeni devreyi baştan değerlendir: seri-paralel mi, KCL mi, KVL mi, düğüm mü, çevre mi daha kolay?</li><li>İstenen büyüklüğün bu kaynaktan gelen katkısını işaretiyle bul.</li><li>Her bağımsız kaynak için tekrarla.</li><li>Katkıları <b>cebirsel</b> olarak topla.</li></ol>
-
-<h2>4. “Kaynakları söndürdüm, şimdi ne yapacağım?”</h2>
-<p>Burada otomatik bir sonraki adım yoktur. Alt devreyi okuyup en kolay aracı seçersin:</p>
-<table><tr><th>Alt devrede gördüğün yapı</th><th>Muhtemel araç</th></tr><tr><td>Tek yol, seri dirençler</td><td>Eşdeğer direnç + Ohm</td></tr><tr><td>Aynı iki düğüme bağlı dirençler</td><td>Paralel eşdeğer / akım bölücü</td></tr><tr><td>Düğümde birkaç kol</td><td>KCL / düğüm analizi</td></tr><tr><td>Kapalı gözler ve gerilim kaynakları</td><td>KVL / çevre analizi</td></tr><tr><td>İki bilinmeyen düğüm arasında gerilim kaynağı</td><td>Gerekirse süper düğüm</td></tr><tr><td>İki mesh arasında akım kaynağı</td><td>Gerekirse süper çevre</td></tr></table>
-<p class="mission"><b>Yani:</b> Süperpozisyon “hangi devre kanununu kullanacağımı” ortadan kaldırmaz. Sadece çok kaynaklı problemi birkaç daha küçük probleme böler.</p>
-
-<h2>5. Tam örnek</h2>
-<p>12 V gerilim kaynağı R1=4 Ω üzerinden M düğümüne bağlı olsun. Aynı M düğümüne topraktan yukarı doğru 3 A akım kaynağı girsin. M'den toprağa R2=2 Ω bağlı. R2'den aşağı doğru akımı <code>I</code> bulalım.</p>
-
-<h3>Katkı 1 — yalnız 12 V aktif</h3>
-<p>3 A kaynağını söndür → akım kaynağı kolu <b>açık devre</b>. M düğümünde artık başka dallanma kalmadığından R1 ve R2 seri hale gelir:</p><div class="eq"><code>I' = 12 / (4+2) = 2 A</code></div>
-
-<h3>Katkı 2 — yalnız 3 A aktif</h3>
-<p>12 V kaynağını söndür → gerilim kaynağının yeri <b>tel</b>. Böylece R1 ve R2 artık M ile toprak arasındaki aynı iki düğüme bağlıdır; yani paraleldir. 3 A, iki kola bölünür. R2 kolu:</p><div class="eq"><code>I'' = 3 · R1/(R1+R2) = 3·4/6 = 2 A</code></div>
-
-<h3>Toplam</h3><div class="eq"><code>I = I' + I'' = 4 A</code></div>
-<p>Burada iki katkı da seçtiğimiz aşağı yönle aynı çıktığı için toplandı. Bir katkı ters yönde çıksaydı negatif işaretle eklenirdi.</p>
-
-<h2>6. Akım/gerilim yönünü baştan sabitle</h2>
-<p>Süperpozisyonda en sık hata, her alt devrede istenen akımın okunu değiştirmektir. Başta bir referans oku belirle ve bütün katkıları <b>aynı oka göre</b> pozitif/negatif yaz.</p>
-<div class="analogy"><b>Örnek:</b> Toplam akımı sağa doğru pozitif seçtin. Bir kaynak tek başına +5 mA sağa, diğer kaynak 2 mA sola üretiyorsa sonuç <code>+5 + (-2) = +3 mA</code> sağadır.</div>
-
-<h2>7. Güce neden doğrudan uygulanmaz?</h2>
-<p>Süperpozisyon akım ve gerilim gibi doğrusal büyüklüklere uygulanır. Güç doğrusal değildir:</p><div class="eq"><code>(I1+I2)²R ≠ I1²R + I2²R</code></div>
-<p>Güç isteniyorsa önce toplam akımı veya toplam gerilimi süperpozisyonla bul, sonra <code>P=VI</code>, <code>P=I²R</code> veya <code>P=V²/R</code> kullan.</p>
-
-<h2>8. Bağımlı kaynak</h2>
-<p>Bağımlı kaynaklar söndürülmez. Örneğin değeri <code>2I_x</code> olan bir kaynak, her alt problemde devrede kalır. Çünkü bu kaynak bağımsız bir “ayrı etki” değil, devrenin iç ilişkisinin parçasıdır.</p>
-
-<h2>9. Süperpozisyon eşdeğer direnç bulma yöntemi midir?</h2>
-<p><b>Hayır.</b> Süperpozisyonun temel amacı belirli bir akım veya gerilimi kaynak katkılarına ayırarak bulmaktır. Alt devreyi çözerken işlemi kolaylaştırmak için eşdeğer direnç hesaplayabilirsin; bu, süperpozisyonun zorunlu sonucu değil kullandığın yardımcı araçtır.</p>
-
-<h2>10. Hızlı karar özeti</h2>
-<p class="mission"><b>Birden fazla bağımsız kaynak gördüm → birini bırak, diğerlerini 0 yap → oluşan devreyi yeniden oku → bildiğin en kolay analiz yöntemiyle istenen aynı büyüklüğün katkısını bul → yön/polariteyi koru → katkıları cebirsel topla.</b></p>
-
-<div class="q"><b>Kavram kontrolü:</b> Süperpozisyon adımında yalnız bir kaynak aktif kaldı ama devre hâlâ karmaşık. Yöntemi yanlış mı uyguladın?<details><summary>Cevap</summary><p>Hayır. Tek kaynaklı alt devrenin mutlaka basit seri-paralel olması gerekmez. Gerekirse KCL, KVL, düğüm, süper düğüm, çevre veya süper çevre kullanabilirsin.</p></details></div>
-<div class="nav"><span>← <a href="0005-cevre-akimlari-yontemi.html">Ders 05 — Çevre</a></span><span>Sıradaki: <a href="0007-thevenin-teoremi.html">Ders 07 — Thevenin</a></span></div>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ders 06 — Süperpozisyon Teoremi</title><style>:root{--ink:#1a1a1a;--soft:#666;--rule:#ddd8cf;--accent:#2e5c7a;--bg:#fdfcf9;--note:#e9f0f4}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 Georgia,serif}.wrap{max-width:760px;margin:auto;padding:48px 24px 88px}h1{font-size:2rem}h2{font-size:1.3rem;margin-top:2em;border-bottom:1px solid var(--rule)}h3{color:var(--accent)}.lead{color:var(--soft);font-style:italic}.box,.decision{padding:.9em 1.1em;border-radius:6px;margin:1em 0}.box{background:var(--note);border-left:3px solid var(--accent)}.decision{background:#f4f1e8;border:1px dashed #c9c0a8}.eq{text-align:center;font-size:1.12rem;margin:1em 0}sub{font-size:.72em}table{width:100%;border-collapse:collapse}th,td{border:1px solid var(--rule);padding:.5em .7em}th{background:var(--note)}</style></head><body><div class="wrap">
+<div style="color:var(--accent);font-weight:700;font-size:.78rem;letter-spacing:.12em">ELEKTRİK DEVRE TEMELLERİ · DERS 06</div>
+<h1>Süperpozisyon Teoremi</h1><p class="lead">Birden fazla bağımsız kaynağın etkisini ayrı ayrı bulup aynı akım/gerilim üzerinde cebirsel olarak toplarsın.</p>
+<div class="decision"><b>Karar sorusu:</b> Birden fazla bağımsız kaynak var mı? Varsa süperpozisyon kullanılabilir. Ama her alt devrede yine Ohm, seri-paralel, KCL, KVL, düğüm veya çevre yöntemlerinden uygun olanı kullanırsın.</div>
+<h2>1. Kaynak söndürme</h2><table><tr><th>Kaynak</th><th>Söndürünce</th></tr><tr><td>Bağımsız gerilim kaynağı</td><td>Kısa devre / tel</td></tr><tr><td>Bağımsız akım kaynağı</td><td>Açık devre / kesik</td></tr><tr><td>Bağımlı kaynak</td><td>Söndürülmez</td></tr></table>
+<div class="box"><b>Söndürmek silmek değildir.</b> Kaynağın değerini sıfıra çekersin. Bu yüzden gerilim kaynağı 0 V → tel; akım kaynağı 0 A → açık kol olur.</div>
+<h2>2. Adım sırası</h2><ol><li>İstenen akım/gerilim için bir referans yönü veya polarite seç.</li><li>Bir bağımsız kaynağı aktif bırak, diğerlerini söndür.</li><li>Oluşan devreyi <b>yeniden oku</b>: seri-paralel yapısı değişmiş olabilir.</li><li>İstenen aynı büyüklüğün katkısını bul.</li><li>Diğer kaynaklar için tekrar et.</li><li>Katkıları işaretleriyle topla.</li></ol>
+<h2>3. Alt devrede ne kullanacağım?</h2><table><tr><th>Gördüğün yapı</th><th>Araç</th></tr><tr><td>Tek yol</td><td>Seri eşdeğer + Ohm</td></tr><tr><td>Aynı iki düğüm</td><td>Paralel / akım bölücü</td></tr><tr><td>Çok kollu düğüm</td><td>KCL / düğüm</td></tr><tr><td>Kapalı gözler</td><td>KVL / çevre</td></tr><tr><td>İki bilinmeyen düğüm arasında gerilim kaynağı</td><td>Süper düğüm</td></tr><tr><td>İki mesh arasında akım kaynağı</td><td>Süper çevre</td></tr></table>
+<h2>4. Mini örnek</h2><p>12 V kaynak R<sub>1</sub>=4 Ω üzerinden M düğümüne; aynı düğüme 3 A akım kaynağı; M’den toprağa R<sub>2</sub>=2 Ω bağlı olsun. R<sub>2</sub> akımı aşağı yön pozitif.</p>
+<h3>Yalnız 12 V aktif</h3><p>3 A kaynağı açık devre olur. R<sub>1</sub> ve R<sub>2</sub> seri:</p><div class="eq">I′ = 12/(4+2) = 2 A</div>
+<h3>Yalnız 3 A aktif</h3><p>12 V kaynağı tel olur. R<sub>1</sub> ve R<sub>2</sub> paralel; akım bölücü:</p><div class="eq">I″ = 3·R<sub>1</sub>/(R<sub>1</sub>+R<sub>2</sub>) = 2 A</div>
+<h3>Toplam</h3><div class="eq">I = I′+I″ = 4 A</div>
+<div class="box"><b>Yön sabit:</b> Bir katkı seçtiğin oka ters çıkarsa onu negatif yaz. Her alt devrede oku değiştirme.</div>
+<h2>5. Güç için doğrudan kullanma</h2><div class="eq">(I<sub>1</sub>+I<sub>2</sub>)<sup>2</sup>R ≠ I<sub>1</sub><sup>2</sup>R + I<sub>2</sub><sup>2</sup>R</div><p>Önce toplam akım/gerilimi bul, sonra güç hesabı yap.</p>
+<h2>6. Bağımlı kaynak</h2><p>Değeri örneğin 2I<sub>x</sub> olan bağımlı kaynak, her alt problemde devrede kalır.</p>
+<h2>7. Eşdeğer direnç konusu</h2><p>Süperpozisyonun amacı eşdeğer direnç bulmak değildir. Alt devreyi kolay çözmek için eşdeğer direnç kullanabilirsin; bu yardımcı araçtır.</p>
+<div class="decision"><b>Hatırlama cümlesi:</b> Bir kaynağı bırak → diğerlerini 0 yap → devreyi yeniden oku → aynı büyüklüğün katkısını bul → yönü koru → cebirsel topla.</div>
 </div></body></html>
