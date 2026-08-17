@@ -1,210 +1,49 @@
 <!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ders 05 — Çevre Akımları Yöntemi (Kramer Kuralı ile)</title>
-<style>
-  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
-  *{box-sizing:border-box}
-  body{ background:var(--bg); color:var(--ink); margin:0;
-        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-        line-height:1.6; font-size:18px; }
-  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
-  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
-  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
-  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
-  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
-  p,li{ font-size:1.06rem; }
-  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
-  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
-  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
-  .analogy b.tag{ color:#8a6d2f; }
-  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
-  .eq code{ font-size:1.15rem; }
-  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
-  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
-  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
-  .q b{ color:var(--accent); }
-  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
-  a{ color:var(--accent); }
-  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
-  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
-  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
-  .hi{ color:var(--accent); font-weight:700; }
-  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
-  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
-  table.tbl th{ background:var(--note); }
-  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
-          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
-  .cite{ font-size:.85rem; color:var(--soft); }
-  .cite a{ color:var(--soft); }
-  .circwrap{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em; margin:1em 0; overflow-x:auto; text-align:center; }
-  .circwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
-  .circwrap .cap{ font-size:.85rem; color:var(--soft); margin-top:.5em; font-family:"Iowan Old Style",Palatino,Georgia,serif; }
-  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; line-height:1.05; margin:0 .1em; font-size:.95em; }
-  .frac .n{ border-bottom:1.3px solid currentColor; padding:0 .2em .06em; }
-  .frac .d{ padding:.06em .2em 0; }
-  table.det td{ font-family:Consolas,monospace; padding:.18em .55em; text-align:center; }
-  table.det{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .15em; position:relative; }
-  table.det::before,table.det::after{ content:""; position:absolute; top:0; bottom:0; width:0; border-left:1.6px solid var(--ink); }
-  table.det::before{ left:-1px; } table.det::after{ right:-1px; }
-</style>
-</head>
-<body>
-<div class="wrap">
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ders 05 — Çevre Akımları ve Süper Çevre</title><style>
+:root{--ink:#1a1a1a;--soft:#6b6b6b;--rule:#e2ded5;--accent:#2e5c7a;--bg:#fdfcf9;--note:#e9f0f4}*{box-sizing:border-box}body{background:var(--bg);color:var(--ink);margin:0;font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;font-size:18px}.wrap{max-width:760px;margin:0 auto;padding:56px 24px 96px}.kicker{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}h1{font-size:2rem;line-height:1.15;margin:.2em 0 .1em}h2{font-size:1.25rem;margin:2.2em 0 .5em;border-bottom:1px solid var(--rule);padding-bottom:.2em}h3{font-size:1.02rem;margin:1.5em 0 .3em;color:var(--accent)}p,li{font-size:1.04rem}.lead{color:var(--soft);font-style:italic}.mission{background:var(--note);border-left:3px solid var(--accent);padding:.85em 1.1em;border-radius:4px}.analogy{background:#f4f1e8;border:1px dashed #c9c0a8;border-radius:6px;padding:.9em 1.1em;margin:1em 0}.eq{text-align:center;margin:1.1em 0;font-size:1.08rem}.q{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:1em 1.2em;margin:1em 0}details{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:.5em .9em;margin:.6em 0}summary{cursor:pointer;font-weight:600;color:var(--accent)}code{background:#eef2ec;padding:.05em .35em;border-radius:3px;font-family:Consolas,monospace}table{border-collapse:collapse;width:100%;margin:1em 0}th,td{border:1px solid var(--rule);padding:.45em .7em;text-align:left}th{background:var(--note)}.nav{display:flex;justify-content:space-between;gap:1em;margin-top:2em;font-size:.9rem;color:var(--soft)}a{color:var(--accent)}</style></head><body><div class="wrap">
+<div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 05</div><h1>Çevre Akımları Yöntemi ve Süper Çevre</h1>
+<p class="lead">Çevre analizi KVL'yi sistematik hale getirir. Her küçük göz için bir çevre akımı seçer, ortak kollardaki gerçek akımı bu çevre akımlarından üretirsin.</p>
 
-  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 05 · Hafta 1 (devam)</div>
-  <h1>Çevre Akımları Yöntemi (Mesh Analizi)</h1>
-  <p class="lead">Bu dersin sonunda: bir devreyi <span class="hi">düğüm yerine çevre bazında</span> modelleyip KVL ile çözebilecek, ve <span class="hi">Kramer kuralıyla</span> (determinant tabanlı) denklem sistemini hızlıca çözebileceksin. DGY'nin (Ders 04) KVL tarafındaki ikizi burası.</p>
+<p class="mission"><b>Karar sorusu:</b> Devre düzlemsel mi ve küçük göz sayısı az mı? Çevre analizi iyi bir adaydır. İki komşu gözün ortak kolunda ideal akım kaynağı varsa normal KVL yerine <b>süper çevre</b> gerekir.</p>
 
-  <p class="mission">🎯 <b>Neden bu?</b> Bazı devrelerde düğüm sayısı çoktur ama bağımsız çevre sayısı azdır (ya da tersi) — DGY ve Çevre Akımları birbirini tamamlayan iki araçtır, hangisi daha az denklem verirse o tercih edilir. Ayrıca burada karşına çıkan <b>Kramer kuralı</b>, BM213 Lineer Cebir'de göreceğin determinant konusunun <i>gerçek dünyada nerede kullanıldığının</i> somut kanıtı — iki ders burada birbirini besliyor.</p>
+<h2>1. Mesh ile “herhangi bir çevre” aynı şey değildir</h2>
+<p>Bu yöntemde pratikte devredeki <b>en küçük kapalı gözleri (mesh)</b> seçmek en temiz yaklaşımdır. Her kapalı yolu gelişigüzel seçmek yerine, yan yana duran en küçük gözlere birer çevre akımı ata. Genelde hepsini saat yönünde seçmek işaret takibini kolaylaştırır.</p>
 
-  <p class="mission">🔎 <b>Ön koşul kontrolü:</b></p>
-  <ul>
-    <li><b>Çevre nedir?</b> Başladığı düğüme geri dönen, hiçbir düğümü tekrar kullanmayan kapalı yol (Ders 02).</li>
-    <li><b>Bağımsız çevre nedir?</b> Diğer çevrelerde bulunmayan en az bir kolu içeren çevre (bkz. Ders 02, <code>b=l+n−1</code>).</li>
-    <li><b>KVL işaret takibini nasıl yapıyordun?</b> Ders 03: çevre yönünde ilerlerken <b>+</b> ucundan girip <b>−</b>'dan çıkıyorsan düşüş (−), tersiyse yükseliş (+) — baştan seçtiğin kuralı sonuna kadar aynı uygula.</li>
-  </ul>
+<h2>2. Normal çevre analizi</h2>
+<ol><li>Her küçük göze <code>I1, I2...</code> çevre akımı ata.</li><li>Her göz için KVL yaz.</li><li>Sadece o göze ait dirençte akım doğrudan o mesh akımıdır.</li><li>İki gözün ortak direncinde gerçek akım, seçilen yönlere göre çevre akımlarının cebirsel toplamıdır. İkisini de saat yönünde seçtiysen ortak kolda yönleri zıt olur ve fark çıkar.</li><li>Denklem sistemini çöz.</li></ol>
 
-  <h2>1. Fikir: KVL'nin sistematik uygulaması</h2>
-  <p>DGY'nin KCL'yi düğümlere uygulaması gibi, Çevre Akımları Yöntemi de <b>KVL'yi</b> (Ders 03) her <b>bağımsız çevreye</b> (Ders 02, <code>b=l+n−1</code>'deki <code>l</code>) uygular. Fikir: her bağımsız çevreye hayali bir "çevre akımı" ata, gerçek dal akımlarını bu çevre akımlarının toplamı/farkı olarak ifade et.</p>
+<h3>Ortak direnç neden <code>I1-I2</code>?</h3>
+<p>İki çevre akımını da saat yönünde seçtiğini düşün. Ortak dikey kolda biri aşağı, diğeri yukarı gitmeye çalışır. Bu nedenle 1. çevre yönünden bakarken ortak kol akımı <code>I1-I2</code>, 2. çevre yönünden bakarken <code>I2-I1</code> olur.</p>
+<p class="mission"><b>Ezber yerine bak:</b> Ortak koldaki iki okun gerçek yönlerine bak. Aynı yöndelerse topla, zıt yöndelerse çıkar.</p>
 
-  <div class="analogy">
-    <b class="tag">🌀 Analoji:</b> İki yan yana duran dişli çarkı düşün, her biri kendi ekseni etrafında dönüyor (kendi "çevre akımı"). İki dişlinin <b>ortak temas ettiği</b> bölgede, o noktanın gerçek hızı, seçtiğin dönüş yönlerine göre iki dişlinin hareketinin <i>cebirsel toplamıdır</i> — dişliler o noktada zıt yönlerde dönüyorsa (aynı dolaşım yönü seçilmişse) bu bir <b>fark</b>, aynı yönde hareket ediyorsa bir <b>toplam</b> olarak ortaya çıkar. Paylaşılmayan (sadece bir dişliye ait) bölgelerde ise gerçek hareket doğrudan o dişlinin kendi hızıdır. Devrede de: bir dal <b>iki çevre tarafından paylaşılıyorsa</b> (ortak kol), gerçek akım seçilen yönlere göre o iki çevre akımının cebirsel toplamıdır (iki çevre de aynı dolaşım yönünde seçilmişse bu bir <b>fark</b> olur); dal <b>tek çevreye</b> aitse gerçek akım doğrudan o çevrenin akımıdır.
-  </div>
+<div class="q"><b>Kısa örnek:</b> İki mesh var. R1=1 Ω yalnız I1'de, R3=1 Ω yalnız I2'de, R2=1 Ω ortak. Sol mesh'te 6 V kaynak var; iki mesh de saat yönünde.<details><summary>Çözüm</summary><p>1. mesh: <code>-6 + I1·1 + (I1-I2)·1 = 0</code> → <code>2I1-I2=6</code>.</p><p>2. mesh: <code>(I2-I1)·1 + I2·1 = 0</code> → <code>-I1+2I2=0</code>.</p></details></div>
 
-  <h2>2. Üç adım</h2>
-  <ol>
-    <li><b>Her bağımsız çevreye bir akım yönü ata.</b> Yön keyfidir (Ders 01'deki referans yön seçimi gibi — negatif çıkarsa yön ters demektir) ama <b>genel tercih saat yönü</b>dür (tutarlılık için).</li>
-    <li><b>Her çevreye KVL uygula.</b> Gerilim düşümlerini çevre akımları cinsinden Ohm Kanunu ile yaz. <b>Paylaşılan (ortak) bir koldaki</b> direnç varsa, o koldaki gerçek akım <b>seçilen yönlere göre cebirsel toplamdır</b> — iki çevre de aynı dolaşım yönünde (örn. ikisi de saat yönü) seçilmişse bu bir <i>fark</i> olur, yönler farklı seçilmişse <i>toplam</i> olur.</li>
-    <li><b>Elde edilen <code>l</code> denklemi çöz.</b> 2 bilinmeyende yok etme yöntemi yeterli; genel yöntem olarak <b>Kramer kuralı</b> (determinant tabanlı) kullanılır.</li>
-  </ol>
+<h2>3. Ne zaman süper çevre?</h2>
+<p>İki komşu mesh'in <b>ortak kolunda ideal akım kaynağı</b> varsa, o kaynağın uçlarındaki gerilimi bilmiyoruz. Bu yüzden o kolu geçerek normal KVL yazmak mümkün değildir.</p>
+<div class="analogy"><b>Kilit fikir:</b> Düğüm analizinde ideal gerilim kaynağı iç akımı gizliyordu ve süper düğüm yapıyorduk. Çevre analizinde ideal akım kaynağı bu kez üzerindeki gerilimi gizler. O ortak kolu KVL turundan çıkarıp iki gözü dışarıdan birlikte dolaşırız. Bu da <b>süper çevre</b>.</div>
 
-  <h2>3. Tam örnek</h2>
-  <p>6V'luk kaynak, R1=1Ω ile seri, 1. çevreyi (i1, saat yönü) oluşturuyor. 1. ve 2. çevre arasındaki ortak kolda R2=1Ω var. 2. çevre (i2, saat yönü) R2 (ortak) ve R3=1Ω'u (kendine özel) içeriyor; kendi kaynağı yok:</p>
-  <div class="circwrap">
-  <svg viewBox="-30 0 330 200" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="14" fill="#1a1a1a">
-    <!-- top edge TL-TM: R1 -->
-    <line x1="30" y1="30" x2="60" y2="30" stroke="#1a1a1a" stroke-width="2"/>
-    <rect x="60" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-    <text x="87" y="14" text-anchor="middle">R1=1Ω</text>
-    <line x1="115" y1="30" x2="150" y2="30" stroke="#1a1a1a" stroke-width="2"/>
-    <!-- top edge TM-TR: R3 -->
-    <line x1="150" y1="30" x2="185" y2="30" stroke="#1a1a1a" stroke-width="2"/>
-    <rect x="185" y="18" width="55" height="24" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-    <text x="212" y="14" text-anchor="middle">R3=1Ω</text>
-    <line x1="240" y1="30" x2="270" y2="30" stroke="#1a1a1a" stroke-width="2"/>
-    <!-- left edge TL-BL: 6V source, + at top -->
-    <line x1="30" y1="30" x2="30" y2="75" stroke="#1a1a1a" stroke-width="2"/>
-    <line x1="15" y1="75" x2="45" y2="75" stroke="#1a1a1a" stroke-width="2"/>
-    <line x1="18" y1="90" x2="42" y2="90" stroke="#1a1a1a" stroke-width="6"/>
-    <line x1="30" y1="90" x2="30" y2="150" stroke="#1a1a1a" stroke-width="2"/>
-    <text x="8" y="80" text-anchor="end">+</text>
-    <text x="8" y="100" text-anchor="end">6V</text>
-    <!-- middle vertical TM-BM: R2 -->
-    <line x1="150" y1="30" x2="150" y2="65" stroke="#1a1a1a" stroke-width="2"/>
-    <rect x="138" y="65" width="24" height="45" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-    <text x="168" y="92" text-anchor="start">R2=1Ω</text>
-    <line x1="150" y1="110" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2"/>
-    <!-- right edge TR-BR: wire -->
-    <line x1="270" y1="30" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
-    <!-- bottom edge -->
-    <line x1="30" y1="150" x2="270" y2="150" stroke="#1a1a1a" stroke-width="2"/>
-    <!-- düğüm noktaları -->
-    <circle cx="30" cy="30" r="4"/><circle cx="150" cy="30" r="4"/><circle cx="270" cy="30" r="4"/>
-    <circle cx="30" cy="150" r="4"/><circle cx="150" cy="150" r="4"/><circle cx="270" cy="150" r="4"/>
-    <!-- çevre akım okları: küçük, 280° yay + net ok ucu, etiket ortada -->
-    <path d="M 85 84 A 16 16 0 1 1 69.2 97.2" fill="none" stroke="#b5762a" stroke-width="2" marker-end="url(#a6)"/>
-    <text x="85" y="104" text-anchor="middle" fill="#b5762a" font-weight="bold" font-size="13">i1</text>
-    <path d="M 215 84 A 16 16 0 1 1 199.2 97.2" fill="none" stroke="#b5762a" stroke-width="2" marker-end="url(#a6)"/>
-    <text x="215" y="104" text-anchor="middle" fill="#b5762a" font-weight="bold" font-size="13">i2</text>
-    <defs><marker id="a6" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#b5762a"/></marker></defs>
-  </svg>
-  <div class="cap">Sol göz i1, sağ göz i2 (ikisi de saat yönü). R2 iki çevrenin ortak kolu.</div>
-  </div>
+<h2>4. Süper çevre adımları</h2>
+<ol><li>Ortak kolda akım kaynağı bulunan iki mesh'i birlikte ele al.</li><li>Akım kaynağının bulunduğu ortak kolu <b>KVL yolundan çıkar</b>.</li><li>İki gözün dış sınırından tek bir KVL yaz.</li><li>Akım kaynağı ikinci denklemi verir. Yönlere göre örneğin <code>I1-I2 = I_s</code> veya <code>I2-I1 = I_s</code>.</li><li>Denklemleri birlikte çöz.</li></ol>
+<p class="mission"><b>Hatırlama cümlesi:</b> “Akım kaynağının gerilimini bilmiyorum → o ortak koldan KVL ile geçemiyorum → dışarıdan büyük tur → sonra kaynak akımından I1-I2 ilişkisi.”</p>
 
-  <p><b>1. çevre için KVL</b> (saat yönünde dolaşarak, kaynaktan düşüşe doğru): kaynak yükseliş (+6), R1'de düşüş (<code>i1·R1</code>), ortak koldaki R2'de düşüş — buradan geçen gerçek akım <code>(i1 − i2)</code>, çünkü iki çevre burada zıt yönde etki ediyor:</p>
-  <div class="eq"><code>−6 + R1·i1 + R2·(i1 − i2) = 0</code> &nbsp;→&nbsp; <code>−6 + i1 + (i1−i2) = 0</code> &nbsp;→&nbsp; <code>2i1 − i2 = 6</code></div>
+<h3>Kaynak yönü işareti belirler</h3>
+<p>Örneğin ortak koldaki kaynak oku, o kolda I1'in yönüyle aynı ve I2'nin yönüne ters ise:</p><div class="eq"><code>I1 - I2 = I_s</code></div>
+<p>Oku ters yönde olsaydı denklem de ters işaretli olurdu. Burada ezberlenecek tek şey <code>I1-I2</code> değil; <b>kaynak oku ile mesh oklarını karşılaştırmaktır</b>.</p>
 
-  <p><b>2. çevre için KVL:</b> ortak koldaki R2'de düşüş (bu sefer <code>i2 − i1</code> yönünden bakıyoruz), R3'te düşüş:</p>
-  <div class="eq"><code>R2·(i2 − i1) + R3·i2 = 0</code> &nbsp;→&nbsp; <code>(i2−i1) + i2 = 0</code> &nbsp;→&nbsp; <code>−i1 + 2i2 = 0</code></div>
+<h2>5. Akım kaynağı yalnız tek bir mesh'teyse</h2>
+<p>Bu durumda süper çevreye gerek yoktur. Çünkü o mesh akımı kaynak tarafından doğrudan belirlenir.</p>
+<p>Örneğin tek mesh'in kenarında 3 A kaynak varsa ve mesh oku kaynak oku ile aynı yöndeyse:</p><div class="eq"><code>I1 = 3 A</code></div>
+<p>Ters yöndeyse <code>I1=-3 A</code>. Gerekirse diğer mesh denklemlerinde bu bilinen değer kullanılır.</p>
 
-  <p class="mission">💡 <b>Ortak koldaki işaret kuralı (koşullu!):</b> <b>İki çevre akımı da aynı yönde seçilmişse</b> (burada ikisi de saat yönü — en yaygın tercih), ortak koldaki gerilim düşümü "bu çevrenin akımı eksi komşu çevrenin akımı" şeklinde yazılır (1. çevre denkleminde <code>i1−i2</code>, 2. çevre denkleminde <code>i2−i1</code> — birbirinin ters işaretlisi). <b>Yönler farklı seçilseydi</b> (biri saat, biri saatin tersi), ortak koldaki gerçek akım fark değil <b>toplam</b> (<code>i1+i2</code>) olurdu — çünkü o zaman iki çevre akımı ortak kolda aynı yönde birleşir. Bu yüzden denklemi yazmadan önce her zaman "iki çevrenin yönleri ortak kolda birbirine mi zıt, aynı mı?" diye kontrol et.</p>
+<h2>6. KVL işaret mantığı</h2>
+<p>Çevrede yürürken bir elemanda <code>-</code> uçtan <code>+</code> uca geçiyorsan yükseliş, <code>+</code> uçtan <code>-</code> uca geçiyorsan düşüş olarak düşünebilirsin. Dirençte ise akım yönünde ilerlemek gerilim düşüşüdür. Başka bir işaret düzeni de kullanılabilir; önemli olan baştan sona tutarlılıktır.</p>
 
-  <p class="mission">⚠️ <b>KVL işaret kuralı — Ders 03'teki kuralın aynısı:</b> Bir elemanı dolaşırken <b>−</b> uçtan <b>+</b> uca geçersen bu bir <b>yükseliş</b> (+V), <b>+</b>'dan <b>−</b>'ya geçersen <b>düşüş</b> (−V). Dirençlerde pasif işaret kuralı kullanılır: akımın <b>girdiği</b> uç <b>+</b> kabul edilir. <b>Referans polarite</b> (sen "+ burada" diye seçtiğin uç) ile <b>gerçek fiziksel polarite</b> (akım çözüldükten sonra o ucun gerçekten + mı − mı olduğu) farklı şeylerdir — tıpkı Ders 01'deki referans akım yönü gibi, referans + işareti keyfi seçilir, sonucun işareti (pozitif/negatif) sana gerçek durumu söyler.</p>
+<h2>7. Denklem sistemi ve lineer cebir</h2>
+<p>Çevre analizi de sonunda bir lineer denklem sistemi üretir:</p><div class="eq"><code>devre → KVL denklemleri → katsayı matrisi → Gauss eliminasyonu</code></div>
+<p>2×2 sistemde elle eliminasyon genellikle en hızlısıdır. Cramer küçük sistemlerde kullanılabilir; Sarrus sadece 3×3 determinant hesabı için kısa yoldur.</p>
 
-  <h2>4. Denklem sistemini Kramer kuralıyla çözmek</h2>
-  <p>İki denklemi matris formunda yazalım:</p>
-  <div class="eq">
-    <table class="det"><tr><td>2</td><td>−1</td></tr><tr><td>−1</td><td>2</td></tr></table>
-    <code>[i1; i2] =</code>
-    <table class="det"><tr><td>6</td></tr><tr><td>0</td></tr></table>
-  </div>
-  <p><b>Kramer kuralı</b> (2×2 için): önce katsayılar matrisinin determinantını (<code>D</code>) hesapla, sonra her bilinmeyen için, o bilinmeyenin sütununu sağ taraf ile değiştirip determinant al, <code>D</code>'ye böl.</p>
-  <div class="eq">
-    <code>D =</code>
-    <table class="det"><tr><td>2</td><td>−1</td></tr><tr><td>−1</td><td>2</td></tr></table>
-    <code>= 2·2 − (−1)·(−1) = 4 − 1 = 3</code>
-  </div>
-  <div class="eq">
-    <code>i1 =</code>
-    <table class="det"><tr><td>6</td><td>−1</td></tr><tr><td>0</td><td>2</td></tr></table>
-    <code>/ D = (6·2 − (−1)·0)/3 = 12/3 = 4A</code>
-  </div>
-  <div class="eq">
-    <code>i2 =</code>
-    <table class="det"><tr><td>2</td><td>6</td></tr><tr><td>−1</td><td>0</td></tr></table>
-    <code>/ D = (2·0 − 6·(−1))/3 = 6/3 = 2A</code>
-  </div>
-  <p><b>Sonuç:</b> <code>i1 = 4A</code>, <code>i2 = 2A</code>. Ortak koldaki (R2) gerçek akım: <code>i1 − i2 = 2A</code>.</p>
+<h2>8. Hızlı karar tablosu</h2><table><tr><th>Devrede ne görüyorum?</th><th>Ne yaparım?</th></tr><tr><td>Normal dirençli mesh</td><td>KVL yaz</td></tr><tr><td>Ortak direnç</td><td>Gerçek kol akımı mesh akımlarının cebirsel toplam/farkıdır</td></tr><tr><td>İki mesh arasında akım kaynağı</td><td><b>Süper çevre</b></td></tr><tr><td>Akım kaynağı yalnız tek mesh'e ait</td><td>Mesh akımı doğrudan kaynağa eşittir (işarete dikkat)</td></tr></table>
 
-  <p class="mission">🔗 <b>BM213 köprüsü:</b> Bu 2×2 determinant hesabı (<code>a·d − b·c</code>), Lineer Cebir dersinde göreceğin determinant formülünün <b>aynısı</b>. 3 veya daha fazla çevreli devrelerde 3×3 determinant gerekir — orada Sarrus kuralını (BM213 Ders 01) doğrudan kullanabilirsin.</p>
-
-  <div class="q">
-    <p><b>Soru 1.</b> Yukarıdaki çözümü KVL ile doğrula: 1. çevre denklemine <code>i1=4, i2=2</code> koyunca sıfır çıkıyor mu?</p>
-    <details><summary>Çözümü göster</summary>
-      <p><code>−6 + 1·4 + 1·(4−2) = −6+4+2 = 0</code> ✅</p>
-    </details>
-  </div>
-
-  <div class="q">
-    <p><b>Soru 2 (kavram).</b> Bir devrede 3 bağımsız çevre var ve hiçbir kol iki çevre tarafından ortaklaşa kullanılmasaydı (imkânsız ama varsayımsal), denklemler nasıl olurdu?</p>
-    <details><summary>Çözümü göster</summary>
-      <p>Her çevre bağımsız olurdu, denklemler birbirinden kopuk (matriste köşegen dışı terimler sıfır) olurdu — pratikte bu olmaz çünkü çevreler birbirine <b>ortak kollarla</b> bağlıdır, bu da denklemleri birbirine bağlar (kuple eder). Kuplaj olmasaydı zaten "tek bir devre" değil, ayrı devreler olurdu.</p>
-    </details>
-  </div>
-
-  <h2>Özet tablo</h2>
-  <table class="tbl">
-    <tr><th>Adım</th><th>Ne yapılır</th></tr>
-    <tr><td>1</td><td>Her bağımsız çevreye bir akım yönü ata (genelde saat yönü)</td></tr>
-    <tr><td>2</td><td>Her çevreye KVL uygula; ortak koldaki düşüm = "bu çevre − komşu çevre"</td></tr>
-    <tr><td>3</td><td><code>l</code> denklemi çöz (2×2'de yok etme veya Kramer, 3+'ta Kramer/Sarrus)</td></tr>
-  </table>
-
-  <h2>Birincil kaynak</h2>
-  <div class="src">
-    📘 Bu ders, gerçek BM107 ders notunuzun "1. Hafta-Devam" bölümündeki <b>Çevre Akımları Yöntemi</b> konusunu birebir işliyor (KVL uygulaması, ortak kol işareti, Kramer kuralıyla çözüm).<br>
-    🎥 İngilizce görsel pekiştirme: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering, Mesh Analysis</a>.<br>
-    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/dgy-cevre-akimlari-hizli-basvuru.html">DGY & Çevre Akımları — Hızlı Başvuru</a>
-  </div>
-
-  <div class="src" style="margin-top:.8em">
-    📚 <b>Kitaptan pratik — Sadiku, Fundamentals of Electric Circuits (4. baskı):</b><br>
-    Konu: <b>Bölüm 3.4-3.5</b> Mesh Analysis (kitap s. 93-99, PDF s. 125-131) · Kramer kuralı için <b>Ek A</b> (Simultaneous Equations and Matrix Inversion)<br>
-    Çöz: <b>Problem 3.39, 3.41</b> (temel çevre denklemleri) · <b>3.45, 3.46</b> (çok çevreli, matris/Kramer pratiği)<br>
-    <small>✅ Kontrol: <code>Solutions-...pdf</code> içinde "Chapter 3, Solution N".</small>
-  </div>
-
-  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
-
-  <div class="nav">
-    <span>← <a href="0004-dugum-gerilimleri-yontemi.html">Ders 04 — Düğüm Gerilimleri Yöntemi</a></span>
-    <span><a href="../../reference/elektrik-devre-temelleri/dgy-cevre-akimlari-hizli-basvuru.html">🗂️ Referans kartı</a></span>
-    <span>Sıradaki: <a href="0006-superpozisyon-teoremi.html">Ders 06 — Süperpozisyon Teoremi</a></span>
-  </div>
-
-</div>
-</body>
-</html>
+<div class="q"><b>Kavram kontrolü:</b> Süper çevrede akım kaynağını “yok mu sayıyoruz”?<details><summary>Cevap</summary><p>Hayır. Yalnızca KVL turunda onun üzerinden geçmiyoruz, çünkü üzerindeki gerilimi bilmiyoruz. Kaynak ikinci denklemde çok kritik rol oynar: mesh akımları arasındaki farkı/toplamı belirler.</p></details></div>
+<div class="nav"><span>← <a href="0004-dugum-gerilimleri-yontemi.html">Ders 04 — Düğüm</a></span><span>Sıradaki: <a href="0006-superpozisyon-teoremi.html">Ders 06 — Süperpozisyon</a></span></div>
+</div></body></html>
