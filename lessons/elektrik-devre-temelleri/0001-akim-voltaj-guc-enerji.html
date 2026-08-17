@@ -5,279 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ders 01 — Akım, Voltaj, Güç, Enerji</title>
 <style>
-  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#2e5c7a; --bg:#fdfcf9; --note:#e9f0f4; }
-  *{box-sizing:border-box}
-  body{ background:var(--bg); color:var(--ink); margin:0;
-        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-        line-height:1.6; font-size:18px; }
-  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
-  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
-  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
-  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
-  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
-  p,li{ font-size:1.06rem; }
-  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
-  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
-  .analogy{ background:#f4f1e8; border:1px dashed #c9c0a8; border-radius:6px; padding:.9em 1.1em; margin:1em 0; font-size:1rem; }
-  .analogy b.tag{ color:#8a6d2f; }
-  .eq{ text-align:center; margin:1.1em 0; font-size:1.1rem; }
-  .eq code{ font-size:1.15rem; }
-  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
-  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
-  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
-  .q b{ color:var(--accent); }
-  code{ background:#eef2ec; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
-  a{ color:var(--accent); }
-  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
-  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
-  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
-  .hi{ color:var(--accent); font-weight:700; }
-  table.tbl{ border-collapse:collapse; width:100%; margin:1em 0; font-size:.98rem; }
-  table.tbl th, table.tbl td{ border:1px solid var(--rule); padding:.45em .7em; text-align:left; }
-  table.tbl th{ background:var(--note); }
-  .pause{ background:#f7f3ea; border:1px solid #ddd3ba; border-radius:6px; padding:.8em 1.1em;
-          margin:2em 0; font-size:.95rem; color:#5a5340; text-align:center; }
-  .cite{ font-size:.85rem; color:var(--soft); }
-  .cite a{ color:var(--soft); }
+:root{--ink:#1a1a1a;--soft:#6b6b6b;--rule:#e2ded5;--accent:#2e5c7a;--bg:#fdfcf9;--note:#e9f0f4}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--ink);margin:0;font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;font-size:18px}.wrap{max-width:760px;margin:0 auto;padding:56px 24px 96px}.kicker{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}h1{font-size:2rem;line-height:1.15;margin:.2em 0 .1em}h2{font-size:1.25rem;margin:2.2em 0 .5em;border-bottom:1px solid var(--rule);padding-bottom:.2em}h3{font-size:1.02rem;margin:1.5em 0 .3em;color:var(--accent)}p,li{font-size:1.04rem}.lead{color:var(--soft);font-style:italic}.mission{background:var(--note);border-left:3px solid var(--accent);padding:.85em 1.1em;border-radius:4px}.analogy{background:#f4f1e8;border:1px dashed #c9c0a8;border-radius:6px;padding:.9em 1.1em;margin:1em 0}.eq{text-align:center;margin:1.1em 0;font-size:1.08rem}.q{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:1em 1.2em;margin:1em 0}details{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:.5em .9em;margin:.6em 0}summary{cursor:pointer;font-weight:600;color:var(--accent)}code{background:#eef2ec;padding:.05em .35em;border-radius:3px;font-family:Consolas,monospace}table{border-collapse:collapse;width:100%;margin:1em 0}th,td{border:1px solid var(--rule);padding:.45em .7em;text-align:left}th{background:var(--note)}.nav{display:flex;justify-content:space-between;gap:1em;margin-top:2em;font-size:.9rem;color:var(--soft)}a{color:var(--accent)}
 </style>
 </head>
-<body>
-<div class="wrap">
+<body><div class="wrap">
+<div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 01</div>
+<h1>Akım, Voltaj, Güç, Enerji</h1>
+<p class="lead">Amaç formül ezberlemek değil; devrede hangi büyüklüğün neyi anlattığını ve işaret/yön bilgisini doğru okumayı öğrenmek.</p>
 
-  <div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 01 · Hafta 1</div>
-  <h1>Akım, Voltaj, Güç, Enerji</h1>
-  <p class="lead">Bu dersin sonunda: akım, voltaj, güç ve enerjinin <span class="hi">ne olduğunu</span>, aralarındaki <span class="hi">temel formülleri</span> ve devre analizinin bel kemiği olan <span class="hi">akım yönü + işaret konvansiyonunu</span> gerçek örnekler üzerinden hesaplayabileceksin. Tüm BM107'nin üzerine kurulacağı zemin burası.</p>
+<p class="mission"><b>Bu derste kullanacağımız düşünme sırası:</b> Devrede ne görüyorum? → Hangi büyüklük soruluyor? → Hangi iki büyüklüğü biliyorum? → Uygun bağıntıyı seç → Birimleri kontrol et → Sonucun işaretini ve yönünü yorumla.</p>
 
-  <p class="mission">🎯 <b>Neden bu?</b> Düzce BM107 müfredatı Hafta 1'de tam bu dört kavramla başlıyor. Ohm Kanunu, Kirchhoff, seri-paralel devreler — hepsi bu dört kavramın (akım, voltaj, güç, enerji) üzerine inşa edilecek. Sağlam kurmazsak sonraki her hafta sallantılı olur.</p>
+<h2>0. Birimler ve önekler</h2>
+<table><tr><th>Önek</th><th>Simge</th><th>Çarpan</th><th>Örnek</th></tr><tr><td>mikro</td><td>µ</td><td>10⁻⁶</td><td>10 µA</td></tr><tr><td>mili</td><td>m</td><td>10⁻³</td><td>20 mA</td></tr><tr><td>—</td><td>—</td><td>1</td><td>5 V, 2 A</td></tr><tr><td>kilo</td><td>k</td><td>10³</td><td>4.7 kΩ</td></tr><tr><td>mega</td><td>M</td><td>10⁶</td><td>1 MΩ</td></tr></table>
+<p class="mission"><b>Güvenli yöntem:</b> Birimlerden emin değilsen SI birimine çevir. Ama bu matematiksel olarak her zaman zorunlu değildir. Uyumlu önekler birbirini götürebilir: <code>kΩ × mA = V</code>. Örneğin <code>2 kΩ × 3 mA = 6 V</code>, çünkü <code>10³ × 10⁻³ = 1</code>. Benzer şekilde <code>V / kΩ = mA</code>.</p>
 
-  <h2>0. Ön not: birim önekleri</h2>
-  <p>Devre problemlerinde değerler nadiren "1 Volt, 1 Amper" gibi sade gelir. Neredeyse her zaman bir <b>önek</b> ile gelir. Bunları formüle sokmadan önce <b>SI birimine çevirmek zorunludur</b>.</p>
+<h2>1. Akım</h2>
+<p>Akım, birim zamanda geçen elektrik yüküdür:</p><div class="eq"><code>I = Q / t</code></div>
+<p><code>I</code> Amper, <code>Q</code> Coulomb, <code>t</code> saniyedir.</p>
+<div class="analogy"><b>Su benzetmesi:</b> Akımı borudan saniyede geçen su miktarı gibi düşün. Bir düğüme gelen akımın nasıl kollara dağıldığı ise ileride KCL ile sistematik olarak hesaplanacak; akımı zihninde “parçalayıp takip etmek” zorunda değilsin.</div>
 
-  <table class="tbl">
-    <tr><th>Önek</th><th>Simge</th><th>Çarpan</th><th>Devrede tipik örnek</th></tr>
-    <tr><td>piko</td><td>p</td><td>10⁻¹²</td><td>100 pF kondansatör</td></tr>
-    <tr><td>nano</td><td>n</td><td>10⁻⁹</td><td>10 nF kondansatör</td></tr>
-    <tr><td>mikro</td><td>µ</td><td>10⁻⁶</td><td>470 µF kondansatör</td></tr>
-    <tr><td>mili</td><td>m</td><td>10⁻³</td><td>20 mA akım</td></tr>
-    <tr><td>—</td><td>—</td><td>1</td><td>5 V, 2 A</td></tr>
-    <tr><td>kilo</td><td>k</td><td>10³</td><td>4.7 kΩ direnç</td></tr>
-    <tr><td>mega</td><td>M</td><td>10⁶</td><td>1 MΩ direnç</td></tr>
-  </table>
+<h2>2. Akım yönü: seçtiğin ok bir referanstır</h2>
+<p>Devre çözümüne başlarken gerçek akım yönünü her zaman bilmezsin. Bu yüzden bir yön seçip ok çizersin. Denklem sonucu:</p>
+<ul><li><b>Pozitifse:</b> gerçek yön seçtiğin yönle aynıdır.</li><li><b>Negatifse:</b> büyüklük doğrudur, gerçek yön okun tersidir.</li></ul>
+<p class="mission"><b>Negatif sonuç hata değildir.</b> Bir yön varsayımı yaptın; matematik sana gerçek yönün ters olduğunu söylüyor.</p>
 
-  <p class="mission">⚠️ <b>Sınavda en sık kaybedilen puan burası.</b> <code>20 mA = 0.02 A</code> ve <code>4.7 kΩ = 4700 Ω</code>. Öneki görmezden gelip sayıyı olduğu gibi formüle sokmak, sonucu 1000 kat yanlış yapar. Alışkanlık edin: soruyu okur okumaz tüm değerleri SI'ya çevirip kenara yaz.</p>
+<h2>3. Gerilim</h2>
+<p>Gerilim iki nokta arasındaki elektriksel potansiyel farkıdır. Tek bir noktanın “gerilimi” ancak bir referansa göre anlamlıdır. Düğüm analizinde bu yüzden bir düğümü <code>0 V</code> seçeriz.</p>
+<div class="analogy"><b>Yükseklik benzetmesi:</b> İki noktanın deniz seviyesine göre yükseklik farkı gibi düşün. Akım, uygun bir yol varsa yüksek potansiyelden düşük potansiyele doğru akma eğilimindedir.</div>
 
-  <h2>1. Elektrik yükü ve akım (Akım — Amper)</h2>
-  <p>Her şey <b>elektrik yükü</b> (elektron) ile başlar. Yük, birim olarak <b>Coulomb (C)</b> ile ölçülür. <b>Akım</b>, birim zamanda geçen yük miktarıdır:</p>
-  <div class="eq"><code>I = Q / t</code></div>
-  <p>Burada <code>I</code> akım (Amper, A), <code>Q</code> yük (Coulomb, C), <code>t</code> zaman (saniye, s). 1 Amper = saniyede 1 Coulomb yük geçişi.</p>
+<h2>4. Güç</h2>
+<div class="eq"><code>P = V · I</code></div>
+<p>Bir elemanın gücü, o elemanın uçlarındaki gerilim ile <b>o elemandan geçen akımın</b> çarpımıdır. Buradaki önemli nokta şudur: başka kollardaki akımlar doğrudan bu elemanın güç hesabına girmez.</p>
+<h3>Pasif işaret kuralı</h3>
+<ul><li>Akım elemanın <b>+</b> ucundan giriyorsa <code>P = +VI</code>: eleman güç tüketir/soğurur.</li><li>Akım elemanın <b>−</b> ucundan giriyorsa <code>P = -VI</code>: eleman güç sağlar.</li></ul>
 
-  <div class="analogy">
-    <b class="tag">💧 Su analojisi:</b> Bir boruyu düşün. Akım, o borudan <b>saniyede geçen su miktarı</b> (litre/saniye) gibidir — yani <b>debi</b>. Ne kadar su parçacığı (yük) birim zamanda geçiyorsa akım o kadardır. Boru ne kadar "kalabalıksa" (çok elektron akıyorsa), akım o kadar büyüktür.
-  </div>
+<h2>5. Enerji</h2>
+<p>Güç birim zamandaki enerji değişimidir. Sabit güçte:</p><div class="eq"><code>W = P · t</code></div>
+<p><code>W</code> Joule, <code>P</code> Watt, <code>t</code> saniyedir.</p>
 
-  <div class="q">
-    <p><b>Soru 1.</b> Bir telden 3 saniyede 6 Coulomb'luk yük geçiyor. Akım kaç Amper?</p>
-    <details><summary>Çözümü göster</summary>
-      <p><code>I = Q/t = 6C / 3s = 2 A</code></p>
-    </details>
-  </div>
+<h2>6. Devre sorusunda hızlı karar</h2>
+<table><tr><th>Soruda ne isteniyor?</th><th>İlk bakacağın ilişki</th></tr><tr><td>Direnç üzerindeki gerilim</td><td><code>V = I·R</code> — ama <b>o dirençten geçen I</b> kullanılmalı</td></tr><tr><td>Direnç akımı</td><td><code>I = V/R</code> — direncin iki ucu arasındaki V kullanılmalı</td></tr><tr><td>Güç</td><td><code>P = VI</code>, gerekirse <code>I²R</code> veya <code>V²/R</code></td></tr><tr><td>Yön belli değil</td><td>Bir yön seç; negatif sonuç ters yönü gösterir</td></tr></table>
 
-  <h2 id="akim-yonu">2. Akımın yönü ve işaret konvansiyonu</h2>
-  <p>Burası dersin en çok kafa karıştıran ama en kritik kısmı. <b>İki ayrı</b> konu var ve karıştırılırsa Hafta 3'ten sonraki hiçbir devre doğru çözülemez. Tek tek gidelim. (Üçüncü ve son parça — güç işareti — <a href="#guc-isaret">Bölüm 4b</a>'de, gücü tanımladıktan hemen sonra.)</p>
+<div class="q"><b>Kavram kontrolü:</b> Bir dirençten 6 mA geçiyor ve direnç 3 kΩ. Gerilim kaç Volt?<details><summary>Çözüm</summary><p><code>V = I·R = 6 mA × 3 kΩ = 18 V</code>. SI'ya çevirmeden de doğrudur çünkü <code>mA × kΩ = V</code>.</p></details></div>
 
-  <h3>a) Konvansiyonel akım yönü vs elektron akış yönü</h3>
-  <p>Tarihsel bir kaza: Benjamin Franklin, elektriğin <b>pozitif</b> yüklerin akışı olduğunu varsaydı ve bu kabulle tüm formüller yazıldı. Sonradan metal iletkenlerde asıl hareket edenin <b>negatif</b> yüklü elektronlar olduğu bulundu — ama formüller değiştirilmedi, çünkü matematiksel olarak fark etmiyor. Bugün iki yön birlikte anılır: <span class="cite">(kaynak: <a href="https://spinningnumbers.org/a/charge.html">Spinning Numbers — Electric charge</a>, <a href="https://tr.khanacademy.org/science/10-sinif-fizik/x700e03322a1a4ae2:elektrik-ve-manyetizma">Khan Academy TR — Akımın Yönü</a>)</span></p>
-
-  <table class="tbl">
-    <tr><th>Yön</th><th>Nereden nereye (dış devrede)</th><th>Nerede kullanılır</th></tr>
-    <tr><td><b>Konvansiyonel akım</b></td><td>Kaynağın <b>+</b> kutbundan <b>−</b> kutbuna</td><td><b>Tüm devre analizi.</b> Kitaplar, formüller, sınav soruları</td></tr>
-    <tr><td>Elektron akışı</td><td>Kaynağın <b>−</b> kutbundan <b>+</b> kutbuna</td><td>Sadece fiziksel gerçeği anlatırken</td></tr>
-  </table>
-
-  <div class="analogy">
-    <b class="tag">🗺️ Analoji:</b> Haritalarda kuzeyin yukarı çizilmesi gibi düşün — fiziksel bir zorunluluk değil, <b>evrensel bir anlaşma</b>. Uzayda "yukarı" yok, ama herkes aynı kurala uyduğu için haritalar birbiriyle konuşabiliyor. Akım yönü de öyle: pozitif yükün akışını izlemek keyfî bir seçim, ama <b>tüm dünya</b> aynı seçimi yaptığı için formüller, kitaplar ve devre şemaları tutarlı çalışıyor. Yanlış olan yön değil, <b>karıştırmak</b>.
-  </div>
-
-  <p class="mission">🎯 <b>Pratik kural:</b> Sınavda "akım yönü" dendiğinde <b>daima konvansiyonel yön</b> kastedilir: <b>+</b>'dan <b>−</b>'ye. Elektron yönü ancak "elektronlar hangi yöne akar" diye açıkça sorulursa devreye girer. Bu ayrımı bir kez oturt, sonra elektron yönünü tamamen unut.</p>
-
-  <h3>b) Referans yönünü SEN seçersin — negatif sonuç hata değildir</h3>
-  <p>Birkaç kaynaklı karmaşık bir devrede, bir kolun akımının gerçekte hangi yöne aktığı <b>baştan bilinmez</b>. Peki nasıl çözülür? Şöyle:</p>
-  <ol>
-    <li>Her kola <b>keyfî</b> bir akım yönü seç, ok çiz. (Doğru olup olmadığı önemli değil.)</li>
-    <li>Denklemleri o seçtiğin yöne göre yaz.</li>
-    <li>Çöz. Sonucun <b>işaretine</b> bak:</li>
-  </ol>
-  <ul>
-    <li>Sonuç <b>pozitif</b> → seçtiğin yön gerçek yöndü. 👍</li>
-    <li>Sonuç <b>negatif</b> → <b>büyüklük doğru</b>, gerçek yön seçtiğinin <b>tam tersi</b>. 👍 Bu da doğru cevap.</li>
-  </ul>
-
-  <p class="mission">💡 <b>Bunu Lineer Cebir'den tanıyorsun:</b> Gauss eliminasyonunda bir değişken negatif çıktığında bu "hata yaptım" demek değil, o değişkenin değerinin negatif olduğu bilgisidir. Burada da aynı — negatif akım bir hata sinyali değil, <b>yön bilgisi</b>. Yön seçimini yanlış yaptın diye baştan çözmek gereksiz.</p>
-
-  <div class="q">
-    <p><b>Soru 2.</b> Bir devreyi çözdün ve ikinci koldaki akımı <code>I₂ = −1.5 A</code> buldun. Bu ne anlama gelir? Çözümü baştan yapmalı mısın?</p>
-    <details><summary>Çözümü göster</summary>
-      <p>Hayır, çözüm doğru. İki bilgi birlikte okunur:</p>
-      <ul>
-        <li><b>Büyüklük:</b> O kolda <code>1.5 A</code> akım akıyor.</li>
-        <li><b>Yön:</b> Akım, devreye başlarken çizdiğin okun <b>tersi</b> yönde akıyor.</li>
-      </ul>
-      <p>Cevabı yazarken ya <code>I₂ = −1.5 A</code> (seçilen yöne göre) diye bırakılır, ya da "1.5 A, seçilen yönün tersinde" diye ifade edilir. İkisi de kabul edilir; ama <b>eksi işaretini silip 1.5 A yazmak yanlıştır</b> — yön bilgisini atmış olursun.</p>
-    </details>
-  </div>
-
-  <div class="pause">
-    ☕ <b>Doğal duraklama noktası.</b> Buraya kadar akımın <i>ne olduğunu</i> ve <i>hangi yöne</i> aktığını öğrendin. Yorgunsan burada bırak — kalan üç bölüm (voltaj, güç, enerji) ayrı bir oturumda okunabilir. Aralık vermek hatırlamayı <b>güçlendirir</b>, zayıflatmaz.
-  </div>
-
-  <h2>3. Voltaj (Gerilim — Volt)</h2>
-  <p>Akımın <i>neden</i> aktığını açıklayan şey <b>voltaj</b>dır (gerilim, potansiyel fark). Voltaj, birim yükü bir noktadan diğerine taşımak için gereken (veya o taşınırken açığa çıkan) enerjidir:</p>
-  <div class="eq"><code>V = W / Q</code></div>
-  <p>Burada <code>V</code> voltaj (Volt, V), <code>W</code> enerji/iş (Joule, J), <code>Q</code> yük (Coulomb, C). 1 Volt = her Coulomb yük için 1 Joule enerji.</p>
-
-  <p class="mission">⚠️ <b>Notasyon tuzağı:</b> <code>W</code> harfi bu derste <b>iki farklı</b> anlamda kullanılır — biri <b>enerji/iş</b> (İngilizce <i>Work</i>, birimi Joule), diğeri <b>Watt</b> (gücün birimi). Yani <code>W = 40 W</code> gibi bir ifade "enerji 40 Watt" değil, karışıklıktır. Hangisi olduğunu <b>bağlamdan</b> ayırt et: formülün içindeyse (<code>V = W/Q</code>) enerjidir, sayının yanındaysa (<code>60 W</code>) Watt'tır. Bazı kitaplar karışıklığı önlemek için enerjiye <code>E</code> der.</p>
-
-  <div class="analogy">
-    <b class="tag">💧 Su analojisi:</b> Voltaj, su kulesinin <b>yüksekliği</b> ya da iki nokta arasındaki <b>basınç farkı</b> gibidir. Su kulesi ne kadar yüksekse, suyu aşağı itme "isteği" (basınç) o kadar fazladır. Akım (debi) olması için mutlaka bir basınç farkı (voltaj) gerekir — düz bir zeminde su akmaz, eğim (voltaj) olmalı. <b>Voltaj her zaman iki nokta arasında ölçülür</b> — tıpkı yükseklik farkının iki nokta arasında olması gibi (tek bir noktanın "yüksekliği" anlamsızdır, referans noktasına göre ölçülür).
-  </div>
-
-  <div class="analogy">
-    <b class="tag">🔌 Gerçek hayat:</b> Türkiye'deki priz <b>220V</b>'tur — yani prizin iki ucu arasında 220V'luk bir "itme gücü" vardır. Bir AA pil <b>1.5V</b>, telefon şarj aleti çıkışı genelde <b>5V</b> (USB) verir. Bu sayı ne kadar büyükse, o kaynak elektronu o kadar "güçlü itiyor" demektir — ama akımın büyüklüğü (kaç elektron aktığı) devredeki dirence de bağlıdır (bunu Hafta 3'te Ohm Kanunu'yla göreceğiz).
-  </div>
-
-  <div class="q">
-    <p><b>Soru 3.</b> Bir devrede 4 Coulomb'luk yükü taşımak için 20 Joule enerji harcanıyor. Voltaj kaç Volt?</p>
-    <details><summary>Çözümü göster</summary>
-      <p><code>V = W/Q = 20J / 4C = 5 V</code></p>
-    </details>
-  </div>
-
-  <h2>4. Güç (Watt)</h2>
-  <p>Güç, <b>birim zamanda harcanan (veya üretilen) enerji</b>dir — yani "iş ne hızda yapılıyor". Elektrikte güç, voltaj ile akımın çarpımıdır:</p>
-  <div class="eq"><code>P = V · I</code></div>
-  <p>Bu formül aslında iki tanımın (V=W/Q ve I=Q/t) birleşimidir: <code>P = W/t = (W/Q)·(Q/t) = V·I</code>. Birim: Watt (W) = Volt × Amper.</p>
-
-  <div class="analogy">
-    <b class="tag">💧 Su analojisi:</b> Güç, su değirmenini <b>ne hızda çevirdiğidir</b> — hem basınç (voltaj) hem debi (akım) yüksekse değirmen çok hızlı döner, yani güç büyüktür. Sadece yüksek basınç (voltaj) yeterli değil, su da akmalı (akım); sadece çok su akması da yeterli değil, basınç da olmalı. İkisi birlikte gücü belirler.
-  </div>
-
-  <div class="analogy">
-    <b class="tag">🔌 Gerçek hayat:</b> Bir ampulün üzerinde "60W" yazar — bu, 220V'ta çalıştığında ne kadar akım çekeceğini de belirler: <code>I = P/V = 60/220 ≈ 0.27 A</code>. Bir telefon şarj aleti "5V 2A" yazıyorsa, gücü <code>P = 5×2 = 10 W</code>'tır.
-  </div>
-
-  <div class="q">
-    <p><b>Soru 4.</b> Bir cihaz 12V'ta çalışıyor ve 0.5 A çekiyor. Gücü kaç Watt?</p>
-    <details><summary>Çözümü göster</summary>
-      <p><code>P = V·I = 12 × 0.5 = 6 W</code></p>
-    </details>
-  </div>
-
-  <h3 id="guc-isaret">4b) Pasif işaret konvansiyonu — güç yutuluyor mu, üretiliyor mu?</h3>
-  <p>Şimdi <a href="#akim-yonu">Bölüm 2</a>'de bıraktığımız üçüncü parçayı tamamlayabiliriz, çünkü artık <code>P = V·I</code> elimizde. Bir elemanın gücünü hesapladığında çıkan sayının <b>işareti</b>, o elemanın devrede ne yaptığını söyler. Kural şöyle kurulur: akımı, gerilimin <b>+</b> ucundan girip <b>−</b> ucundan çıkacak şekilde işaretle. O zaman:</p>
-  <ul>
-    <li><code>P &gt; 0</code> → eleman güç <b>YUTUYOR</b> (direnç, ampul, motor — yani <i>yük</i>)</li>
-    <li><code>P &lt; 0</code> → eleman güç <b>ÜRETİYOR</b> (pil, gerilim/akım kaynağı)</li>
-  </ul>
-
-  <p>Neden pil negatif çıkar? Çünkü pilin <i>içinden</i> akım, <b>−</b> ucundan girip <b>+</b> ucundan çıkar — yani kuralın tersi yönde. Direnç ise akımı her zaman kuralın yönünde geçirir, bu yüzden <b>direncin gücü asla negatif olamaz</b>: direnç hiçbir koşulda enerji üretmez, sadece ısıya çevirir. <span class="cite">(Bu konvansiyonun ayrıntılı gerekçesi: <a href="https://spinningnumbers.org/a/sign-convention.html">Spinning Numbers — Sign convention</a>)</span></p>
-
-  <div class="analogy">
-    <b class="tag">💧 Su analojisi:</b> Pil, suyu yukarı basan <b>pompa</b>dır — sisteme enerji verir (üretir, P&lt;0). Direnç, suyun içinden zorla geçtiği <b>dar boru</b>dur — enerjiyi sürtünmeyle ısıya çevirir (yutar, P&gt;0). Pompa enerji verir, dar boru enerji yer. Hiçbir dar boru kendiliğinden su pompalamaz.
-  </div>
-
-  <p class="mission">✅ <b>Sınavda altın kontrol:</b> Enerji korunumu gereği bir devrede <b>üretilen toplam güç = yutulan toplam güç</b> olmak zorundadır. Yani tüm elemanların güçlerini işaretleriyle toplarsan sonuç <b>tam olarak 0</b> çıkar. Çözümünü bitirdiğinde bu toplamı al: 0 çıkmıyorsa bir yerde hata var. Bu, elinde olan en hızlı ve en güvenilir doğrulama aracı.</p>
-
-  <div class="q">
-    <p><b>Soru 5.</b> 12V'luk bir pil, tek bir direncin bulunduğu bir devreye 2 A akım veriyor. (a) Pilin gücünü, (b) direncin gücünü işaretleriyle bul. (c) Toplamı kontrol et.</p>
-    <details><summary>Çözümü göster</summary>
-      <p><b>(a) Pil:</b> Gerilim 12 V, akım 2 A. Akım pilin içinden <b>−</b>'den <b>+</b>'ya geçtiği için pasif işaret konvansiyonuna göre akım negatif alınır:</p>
-      <p><code>P_pil = V · I = 12 × (−2) = −24 W</code></p>
-      <p>İşaret negatif → pil <b>24 W güç üretiyor</b>. Beklediğimiz sonuç, çünkü pil bir kaynak.</p>
-      <p><b>(b) Direnç:</b> Akım direncin <b>+</b> ucundan girip <b>−</b> ucundan çıkar, yani konvansiyonla aynı yönde:</p>
-      <p><code>P_direnç = V · I = 12 × (+2) = +24 W</code></p>
-      <p>İşaret pozitif → direnç <b>24 W güç yutuyor</b> (ısıya çeviriyor). Beklediğimiz sonuç, çünkü direnç bir yük.</p>
-      <p><b>(c) Kontrol:</b></p>
-      <p><code>P_toplam = (−24) + (+24) = 0 W</code> ✅</p>
-      <p>Toplam sıfır → enerji korunumu sağlandı, çözüm tutarlı. Pilin ürettiği 24 W'ın tamamı direnç tarafından yutulmuş.</p>
-    </details>
-  </div>
-
-  <h2>5. Enerji (Joule / kWh)</h2>
-  <p>Enerji, <b>güç × zaman</b>dır — belirli bir süre boyunca toplam ne kadar iş yapıldığı:</p>
-  <div class="eq"><code>W = P · t</code></div>
-  <p>SI biriminde <code>t</code> saniye ise sonuç <b>Joule</b> çıkar. Ama günlük hayatta (özellikle elektrik faturalarında) zaman <b>saat</b> cinsinden alınır ve sonuç <b>kilowatt-saat (kWh)</b> ile ifade edilir:</p>
-  <div class="eq"><code>Enerji (kWh) = Güç (kW) × Süre (saat)</code></div>
-
-  <div class="analogy">
-    <b class="tag">💧 Su analojisi:</b> Enerji, değirmenin <b>bir gün boyunca ürettiği toplam iş</b>tir — değirmen ne kadar hızlı dönerse dönsün (güç), eğer sadece 1 saniye çalıştıysa toplam iş azdır; 10 saat çalışırsa toplam iş çok daha fazladır. Enerji = güç birikimi.
-  </div>
-
-  <div class="analogy">
-    <b class="tag">🔌 Gerçek hayat:</b> Elektrik faturasındaki "kWh" tam olarak budur. 1000W (1kW) gücündeki bir ısıtıcıyı 3 saat çalıştırırsan: <code>1 kW × 3 saat = 3 kWh</code> tüketmiş olursun. Fatura, kaç kWh tükettiğine göre gelir (Türkiye'de kWh başına birim fiyat vardır).
-  </div>
-
-  <div class="q">
-    <p><b>Soru 6.</b> 2000W'lık bir su ısıtıcısı 30 dakika (0.5 saat) çalışıyor. Kaç kWh enerji tüketti?</p>
-    <details><summary>Çözümü göster</summary>
-      <p><code>2 kW × 0.5 saat = 1 kWh</code></p>
-      <p style="font-size:.9rem;color:var(--soft)">Not: 2000W = 2kW olarak yazıldı çünkü kWh formülünde güç kW cinsinden olmalı.</p>
-    </details>
-  </div>
-
-  <div class="q">
-    <p><b>Soru 7 (birleştirme).</b> Bir cihaz 220V'ta çalışıyor, 2A çekiyor ve 5 saat boyunca çalıştırılıyor. (a) Gücü kaç Watt? (b) Enerjisi kaç kWh?</p>
-    <details><summary>Çözümü göster</summary>
-      <p>(a) <code>P = V·I = 220 × 2 = 440 W = 0.44 kW</code></p>
-      <p>(b) <code>W = P·t = 0.44 kW × 5 saat = 2.2 kWh</code></p>
-    </details>
-  </div>
-
-  <h2>Özet tablo</h2>
-  <table class="tbl">
-    <tr><th>Kavram</th><th>Formül</th><th>Birim</th><th>Su analojisi</th></tr>
-    <tr><td>Akım (I)</td><td>Q/t</td><td>Amper (A)</td><td>Debi (litre/s)</td></tr>
-    <tr><td>Voltaj (V)</td><td>W/Q</td><td>Volt (V)</td><td>Basınç / yükseklik farkı</td></tr>
-    <tr><td>Güç (P)</td><td>V·I</td><td>Watt (W)</td><td>Değirmenin dönme hızı</td></tr>
-    <tr><td>Enerji (W)</td><td>P·t</td><td>Joule / kWh</td><td>Toplam yapılan iş</td></tr>
-  </table>
-
-  <h3>İşaret kuralları — ezberlenecek dört satır</h3>
-  <table class="tbl">
-    <tr><th>Durum</th><th>Anlamı</th></tr>
-    <tr><td>Akım yönü sorulmuş</td><td><b>Konvansiyonel</b> yön: <b>+</b> → <b>−</b> (elektron yönü değil)</td></tr>
-    <tr><td>Akım sonucu <b>negatif</b> çıktı</td><td>Büyüklük doğru, gerçek yön çizdiğin okun tersi. <b>Hata değil.</b></td></tr>
-    <tr><td><code>P &gt; 0</code> / <code>P &lt; 0</code></td><td>Yutuyor (direnç, yük) / Üretiyor (pil, kaynak)</td></tr>
-    <tr><td>Tüm güçlerin toplamı</td><td>Her zaman <b>0</b> olmalı — çözümü doğrulama aracın</td></tr>
-  </table>
-
-  <h2>Birincil kaynak</h2>
-  <div class="src">
-    🎥 <b>Bu derse eşlik eden videolar</b> — <a href="https://tr.khanacademy.org/science/10-sinif-fizik/x700e03322a1a4ae2:elektrik-ve-manyetizma">Khan Academy Türkçe, Ünite 1</a> içinden <b>sadece</b> şunlar:<br>
-    &nbsp;&nbsp;• <b>Akımın Yönü</b> (2 video) → yukarıdaki Bölüm 2a'nın görsel karşılığı, izlenmesi önerilir<br>
-    &nbsp;&nbsp;• <b>Öz Direnç ve İletkenlik</b> → <code>R = ρL/A</code>, kısa, sınavda çıkabilir<br>
-    &nbsp;&nbsp;• "Elektrik Akımı" videosu bu dersin Bölüm 1'i ile aynı — tekrar gerekmez.<br>
-    &nbsp;&nbsp;• "İdeal Devre Elemanları", "İdeal Gerilim ve Akım Kaynakları", "Devre Terminolojisi" → <b>Ders 02</b>'ye ait, orada izlenecek.<br>
-    &nbsp;&nbsp;• "Elektrolitik iletkenlik" → kimya konusu, BM107 dışı, atlanır.<br>
-    ⚠️ Not: Khan'ın bu ünitesi <b>10. sınıf fizik</b> seviyesidir — kavram sezgisi için iyi, ama BM107 sınav seviyesi değil (çevre/düğüm analizi, Thevenin/Norton orada yok).<br>
-    📘 İngilizce ileri kaynak: <a href="https://www.khanacademy.org/science/electrical-engineering">Khan Academy — Electrical Engineering</a> · <a href="https://spinningnumbers.org/">spinningnumbers.org</a><br>
-    🗂️ <b>Referans kartı:</b> <a href="../../reference/elektrik-devre-temelleri/temel-kavramlar-hizli-basvuru.html">Temel Kavramlar — Hızlı Başvuru</a> (yazdırmaya uygun; sınav öncesi tekrar için bu dersi değil <b>kartı</b> oku)
-  </div>
-
-  <div class="src" style="margin-top:.8em">
-    📚 <b>Kitaptan pratik — Alexander & Sadiku, <i>Fundamentals of Electric Circuits</i> (4. baskı):</b> <code>DersNotlari/ElektrikDevreTemelleri/Fundamentals of Electric Circuits.pdf</code><br>
-    Konu: <b>Bölüm 1</b> — 1.3 Charge and Current, 1.4-1.5 Voltage/Power/Energy (kitap sayfa 4-15, PDF sayfa 36-47)<br>
-    Çöz: <b>Problem 1.6</b> (q-t grafiğinden akım okuma) · <b>1.16, 1.18</b> (işaretli güç — Ders 01 Bölüm 4b ile birebir) · <b>1.21, 1.25</b> (gerçek hayat: elektrik faturası, kWh maliyeti)<br>
-    <small>✅ Kontrol: aynı klasördeki <code>Solutions-Fundamentals-of-Electric-Circuits-5th-Edition-[konkur.in].pdf</code> içinde "Chapter 1, Solution N" ara (5. baskı çözüm kitabı — numaralar 4. baskıyla genelde örtüşür, tutmazsa şekle/konuya bak).</small>
-  </div>
-
-  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin. "Şunu anlamadım" demekten çekinme.</p>
-
-  <div class="nav">
-    <span>← (başlangıç)</span>
-    <span><a href="../../reference/elektrik-devre-temelleri/temel-kavramlar-hizli-basvuru.html">🗂️ Referans kartı</a></span>
-    <span>Sıradaki: <a href="0002-devre-elemanlari-kaynak-donusumu.html">Ders 02 — Devre Terminolojisi, İdeal Kaynaklar, Kaynak Dönüşümü</a></span>
-  </div>
-
-</div>
-</body>
-</html>
+<div class="nav"><span>← Başlangıç</span><span>Sıradaki: <a href="0002-devre-elemanlari-kaynak-donusumu.html">Ders 02</a></span></div>
+</div></body></html>
