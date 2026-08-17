@@ -1,49 +1,17 @@
 <!DOCTYPE html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ders 05 — Çevre Akımları ve Süper Çevre</title><style>
-:root{--ink:#1a1a1a;--soft:#6b6b6b;--rule:#e2ded5;--accent:#2e5c7a;--bg:#fdfcf9;--note:#e9f0f4}*{box-sizing:border-box}body{background:var(--bg);color:var(--ink);margin:0;font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.6;font-size:18px}.wrap{max-width:760px;margin:0 auto;padding:56px 24px 96px}.kicker{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}h1{font-size:2rem;line-height:1.15;margin:.2em 0 .1em}h2{font-size:1.25rem;margin:2.2em 0 .5em;border-bottom:1px solid var(--rule);padding-bottom:.2em}h3{font-size:1.02rem;margin:1.5em 0 .3em;color:var(--accent)}p,li{font-size:1.04rem}.lead{color:var(--soft);font-style:italic}.mission{background:var(--note);border-left:3px solid var(--accent);padding:.85em 1.1em;border-radius:4px}.analogy{background:#f4f1e8;border:1px dashed #c9c0a8;border-radius:6px;padding:.9em 1.1em;margin:1em 0}.eq{text-align:center;margin:1.1em 0;font-size:1.08rem}.q{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:1em 1.2em;margin:1em 0}details{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:.5em .9em;margin:.6em 0}summary{cursor:pointer;font-weight:600;color:var(--accent)}code{background:#eef2ec;padding:.05em .35em;border-radius:3px;font-family:Consolas,monospace}table{border-collapse:collapse;width:100%;margin:1em 0}th,td{border:1px solid var(--rule);padding:.45em .7em;text-align:left}th{background:var(--note)}.nav{display:flex;justify-content:space-between;gap:1em;margin-top:2em;font-size:.9rem;color:var(--soft)}a{color:var(--accent)}</style></head><body><div class="wrap">
-<div class="kicker">Elektrik Devre Temelleri (BM107) · Ders 05</div><h1>Çevre Akımları Yöntemi ve Süper Çevre</h1>
-<p class="lead">Çevre analizi KVL'yi sistematik hale getirir. Her küçük göz için bir çevre akımı seçer, ortak kollardaki gerçek akımı bu çevre akımlarından üretirsin.</p>
-
-<p class="mission"><b>Karar sorusu:</b> Devre düzlemsel mi ve küçük göz sayısı az mı? Çevre analizi iyi bir adaydır. İki komşu gözün ortak kolunda ideal akım kaynağı varsa normal KVL yerine <b>süper çevre</b> gerekir.</p>
-
-<h2>1. Mesh ile “herhangi bir çevre” aynı şey değildir</h2>
-<p>Bu yöntemde pratikte devredeki <b>en küçük kapalı gözleri (mesh)</b> seçmek en temiz yaklaşımdır. Her kapalı yolu gelişigüzel seçmek yerine, yan yana duran en küçük gözlere birer çevre akımı ata. Genelde hepsini saat yönünde seçmek işaret takibini kolaylaştırır.</p>
-
-<h2>2. Normal çevre analizi</h2>
-<ol><li>Her küçük göze <code>I1, I2...</code> çevre akımı ata.</li><li>Her göz için KVL yaz.</li><li>Sadece o göze ait dirençte akım doğrudan o mesh akımıdır.</li><li>İki gözün ortak direncinde gerçek akım, seçilen yönlere göre çevre akımlarının cebirsel toplamıdır. İkisini de saat yönünde seçtiysen ortak kolda yönleri zıt olur ve fark çıkar.</li><li>Denklem sistemini çöz.</li></ol>
-
-<h3>Ortak direnç neden <code>I1-I2</code>?</h3>
-<p>İki çevre akımını da saat yönünde seçtiğini düşün. Ortak dikey kolda biri aşağı, diğeri yukarı gitmeye çalışır. Bu nedenle 1. çevre yönünden bakarken ortak kol akımı <code>I1-I2</code>, 2. çevre yönünden bakarken <code>I2-I1</code> olur.</p>
-<p class="mission"><b>Ezber yerine bak:</b> Ortak koldaki iki okun gerçek yönlerine bak. Aynı yöndelerse topla, zıt yöndelerse çıkar.</p>
-
-<div class="q"><b>Kısa örnek:</b> İki mesh var. R1=1 Ω yalnız I1'de, R3=1 Ω yalnız I2'de, R2=1 Ω ortak. Sol mesh'te 6 V kaynak var; iki mesh de saat yönünde.<details><summary>Çözüm</summary><p>1. mesh: <code>-6 + I1·1 + (I1-I2)·1 = 0</code> → <code>2I1-I2=6</code>.</p><p>2. mesh: <code>(I2-I1)·1 + I2·1 = 0</code> → <code>-I1+2I2=0</code>.</p></details></div>
-
-<h2>3. Ne zaman süper çevre?</h2>
-<p>İki komşu mesh'in <b>ortak kolunda ideal akım kaynağı</b> varsa, o kaynağın uçlarındaki gerilimi bilmiyoruz. Bu yüzden o kolu geçerek normal KVL yazmak mümkün değildir.</p>
-<div class="analogy"><b>Kilit fikir:</b> Düğüm analizinde ideal gerilim kaynağı iç akımı gizliyordu ve süper düğüm yapıyorduk. Çevre analizinde ideal akım kaynağı bu kez üzerindeki gerilimi gizler. O ortak kolu KVL turundan çıkarıp iki gözü dışarıdan birlikte dolaşırız. Bu da <b>süper çevre</b>.</div>
-
-<h2>4. Süper çevre adımları</h2>
-<ol><li>Ortak kolda akım kaynağı bulunan iki mesh'i birlikte ele al.</li><li>Akım kaynağının bulunduğu ortak kolu <b>KVL yolundan çıkar</b>.</li><li>İki gözün dış sınırından tek bir KVL yaz.</li><li>Akım kaynağı ikinci denklemi verir. Yönlere göre örneğin <code>I1-I2 = I_s</code> veya <code>I2-I1 = I_s</code>.</li><li>Denklemleri birlikte çöz.</li></ol>
-<p class="mission"><b>Hatırlama cümlesi:</b> “Akım kaynağının gerilimini bilmiyorum → o ortak koldan KVL ile geçemiyorum → dışarıdan büyük tur → sonra kaynak akımından I1-I2 ilişkisi.”</p>
-
-<h3>Kaynak yönü işareti belirler</h3>
-<p>Örneğin ortak koldaki kaynak oku, o kolda I1'in yönüyle aynı ve I2'nin yönüne ters ise:</p><div class="eq"><code>I1 - I2 = I_s</code></div>
-<p>Oku ters yönde olsaydı denklem de ters işaretli olurdu. Burada ezberlenecek tek şey <code>I1-I2</code> değil; <b>kaynak oku ile mesh oklarını karşılaştırmaktır</b>.</p>
-
-<h2>5. Akım kaynağı yalnız tek bir mesh'teyse</h2>
-<p>Bu durumda süper çevreye gerek yoktur. Çünkü o mesh akımı kaynak tarafından doğrudan belirlenir.</p>
-<p>Örneğin tek mesh'in kenarında 3 A kaynak varsa ve mesh oku kaynak oku ile aynı yöndeyse:</p><div class="eq"><code>I1 = 3 A</code></div>
-<p>Ters yöndeyse <code>I1=-3 A</code>. Gerekirse diğer mesh denklemlerinde bu bilinen değer kullanılır.</p>
-
-<h2>6. KVL işaret mantığı</h2>
-<p>Çevrede yürürken bir elemanda <code>-</code> uçtan <code>+</code> uca geçiyorsan yükseliş, <code>+</code> uçtan <code>-</code> uca geçiyorsan düşüş olarak düşünebilirsin. Dirençte ise akım yönünde ilerlemek gerilim düşüşüdür. Başka bir işaret düzeni de kullanılabilir; önemli olan baştan sona tutarlılıktır.</p>
-
-<h2>7. Denklem sistemi ve lineer cebir</h2>
-<p>Çevre analizi de sonunda bir lineer denklem sistemi üretir:</p><div class="eq"><code>devre → KVL denklemleri → katsayı matrisi → Gauss eliminasyonu</code></div>
-<p>2×2 sistemde elle eliminasyon genellikle en hızlısıdır. Cramer küçük sistemlerde kullanılabilir; Sarrus sadece 3×3 determinant hesabı için kısa yoldur.</p>
-
-<h2>8. Hızlı karar tablosu</h2><table><tr><th>Devrede ne görüyorum?</th><th>Ne yaparım?</th></tr><tr><td>Normal dirençli mesh</td><td>KVL yaz</td></tr><tr><td>Ortak direnç</td><td>Gerçek kol akımı mesh akımlarının cebirsel toplam/farkıdır</td></tr><tr><td>İki mesh arasında akım kaynağı</td><td><b>Süper çevre</b></td></tr><tr><td>Akım kaynağı yalnız tek mesh'e ait</td><td>Mesh akımı doğrudan kaynağa eşittir (işarete dikkat)</td></tr></table>
-
-<div class="q"><b>Kavram kontrolü:</b> Süper çevrede akım kaynağını “yok mu sayıyoruz”?<details><summary>Cevap</summary><p>Hayır. Yalnızca KVL turunda onun üzerinden geçmiyoruz, çünkü üzerindeki gerilimi bilmiyoruz. Kaynak ikinci denklemde çok kritik rol oynar: mesh akımları arasındaki farkı/toplamı belirler.</p></details></div>
-<div class="nav"><span>← <a href="0004-dugum-gerilimleri-yontemi.html">Ders 04 — Düğüm</a></span><span>Sıradaki: <a href="0006-superpozisyon-teoremi.html">Ders 06 — Süperpozisyon</a></span></div>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ders 05 — Çevre ve Süper Çevre</title><style>:root{--ink:#1a1a1a;--soft:#666;--rule:#ddd8cf;--accent:#2e5c7a;--bg:#fdfcf9;--note:#e9f0f4}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 Georgia,serif}.wrap{max-width:760px;margin:auto;padding:48px 24px 88px}h1{font-size:2rem}h2{font-size:1.3rem;margin-top:2em;border-bottom:1px solid var(--rule)}.lead{color:var(--soft);font-style:italic}.box,.decision{padding:.9em 1.1em;border-radius:6px;margin:1em 0}.box{background:var(--note);border-left:3px solid var(--accent)}.decision{background:#f4f1e8;border:1px dashed #c9c0a8}.eq{text-align:center;font-size:1.12rem;margin:1em 0}code{background:#eef2ec;padding:.08em .32em;border-radius:3px}sub{font-size:.72em}table{width:100%;border-collapse:collapse}th,td{border:1px solid var(--rule);padding:.5em .7em}th{background:var(--note)}</style></head><body><div class="wrap">
+<div style="color:var(--accent);font-weight:700;font-size:.78rem;letter-spacing:.12em">ELEKTRİK DEVRE TEMELLERİ · DERS 05</div>
+<h1>Çevre Akımları ve Süper Çevre</h1><p class="lead">En küçük kapalı gözlere mesh akımı atar, KVL ile denklem kurarsın.</p>
+<div class="decision"><b>Karar sorusu:</b> İki komşu mesh’in ortak kolunda ideal akım kaynağı var mı? Yoksa normal çevre. Varsa süper çevre.</div>
+<h2>1. Normal çevre</h2><ol><li>En küçük gözlere I<sub>1</sub>, I<sub>2</sub>… mesh akımları ata.</li><li>Genelde hepsini saat yönünde seç.</li><li>Her göz için KVL yaz.</li><li>Ortak dirençte gerçek akımı mesh yönlerine bakarak bul.</li></ol>
+<p>İki mesh de saat yönündeyse ortak kolda yönleri zıt olur:</p><div class="eq">1. mesh açısından: I<sub>1</sub>-I<sub>2</sub></div><div class="eq">2. mesh açısından: I<sub>2</sub>-I<sub>1</sub></div>
+<div class="box"><b>Ezberleme:</b> Ortak koldaki iki okun yönüne bak. Zıtsa çıkar, aynıysa topla.</div>
+<h2>2. Neden süper çevre?</h2><p>İki mesh arasındaki ortak kolda ideal akım kaynağı varsa, kaynağın üzerindeki gerilimi bilmiyoruz. Bu yüzden o kolun üzerinden normal KVL turu atamayız.</p>
+<div class="decision"><b>Bizim oturttuğumuz fikir:</b> Kaynaklı ortak kolu KVL turundan çıkar. İki mesh’in dış sınırını tek büyük çevre gibi dolaş. Sonra akım kaynağı mesh akımları arasındaki ikinci ilişkiyi verir.</div>
+<h2>3. Süper çevre adımları</h2><ol><li>Ortak akım kaynaklı iki mesh’i birlikte ele al.</li><li>Akım kaynağının bulunduğu iç kolu KVL yolundan çıkar.</li><li>Dış sınırdan tek KVL yaz.</li><li>Kaynak yönüne göre ikinci denklem yaz: örneğin I<sub>1</sub>-I<sub>2</sub>=I<sub>s</sub>.</li><li>Denklemleri çöz.</li></ol>
+<div class="box"><b>Akım kaynağını yok saymıyoruz.</b> KVL’de üzerinden geçmiyoruz; ama mesh akımları arasındaki ilişkiyi doğrudan o belirliyor.</div>
+<h2>4. Akım kaynağı yalnız tek mesh’teyse</h2><p>Süper çevre yapma. Mesh akımı zaten bellidir. Oklar aynı yöndeyse:</p><div class="eq">I<sub>1</sub>=I<sub>s</sub></div><p>Ters yöndeyse işaret negatiftir.</p>
+<h2>5. Mini normal mesh örneği</h2><p>R<sub>1</sub>=1 Ω yalnız I<sub>1</sub>’de, R<sub>3</sub>=1 Ω yalnız I<sub>2</sub>’de, R<sub>2</sub>=1 Ω ortak ve sol mesh’te 6 V kaynak olsun:</p><div class="eq">2I<sub>1</sub>-I<sub>2</sub>=6</div><div class="eq">-I<sub>1</sub>+2I<sub>2</sub>=0</div>
+<h2>6. Denklem çözümü</h2><div class="eq">devre → KVL denklemleri → matris → Gauss eliminasyonu</div><p>2×2 sistemde elle eliminasyon çoğu zaman en hızlıdır.</p>
+<table><tr><th>Gördüğün şey</th><th>Yöntem</th></tr><tr><td>Normal dirençli mesh</td><td>KVL</td></tr><tr><td>Ortak direnç</td><td>Mesh akımlarının yönüne göre toplam/fark</td></tr><tr><td>İki mesh arasında akım kaynağı</td><td><b>Süper çevre</b></td></tr><tr><td>Akım kaynağı tek mesh’te</td><td>Mesh akımını doğrudan belirler</td></tr></table>
 </div></body></html>
