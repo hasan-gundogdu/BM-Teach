@@ -91,3 +91,51 @@ Amaç telefonda HTML render edilirken formüllerin ders kitabına yakın ve kola
 ## Kaynak notları
 
 Gerçek ders materyalleri `DersNotlari/ElektrikDevreTemelleri/` altındadır. `4. Hafta-1.pdf` ve `4. Hafta-2.pdf` repo içinde korunmaktadır. GitHub metin bağlayıcısı PDF binary içeriğini doğrudan metin olarak parse edemediği için RC/RL anlatımı, hocanın açık kapsam duyuruları ve standart birinci dereceden DC RC/RL analiz ilkeleriyle hazırlanmıştır. RLC özellikle eklenmemiştir.
+
+## 2026-08-18 — Öğrenme tarzına göre uçtan uca derinleştirme
+
+Kullanıcının bildirdiği öğrenme tarzına göre tüm ders zinciri elden geçirildi.
+**Hiçbir mevcut içerik, çizim veya açıklama silinmedi; yalnızca ekleme yapıldı.**
+
+**Numaralandırma düzeltmesi:** `0011` numarası hem genel tekrar hem RC dersinde
+kullanılıyordu, RL de `0011b` idi. Yeni sıra: `0011` RC · `0012` RL ·
+`0013` Genel Tekrar · `0014` Örnek Sorular. Tüm iç bağlantılar güncellendi.
+
+**Her derse eklenen pedagojik yapı** (yeni CSS sınıfları: `.see .why .mistake .reflex .check`):
+
+| Kutu | Amaç |
+|---|---|
+| `.see` | Devrede ne görüyorum? Düğümler, kaynaklar, aranan büyüklük |
+| `.why` | Neden bu yöntem? Normal yöntem nerede tıkanıyor? |
+| `.mistake` | Sık yapılan hata, somut örnekle |
+| `.reflex` | Sınav refleksi ve bitirme kontrolü |
+| `.check` | Mini kontrol soruları (`<details>` ile gizli cevap) |
+
+**Ders bazında öne çıkan eklemeler:**
+
+- **0001** Gerilimin iki-noktalı doğası, negatif sonuç yorumu, ön ek tuzağı
+- **0002** Düğüm sayma, kısa/açık devre karışması, kaynak dönüşümü yönü
+- **0003** Seri/paralel için **düğüm testi tablosu** (şekle değil düğüme bak),
+  "aynı akımı iki kez sayma" uyarısı
+- **0004** İki bilinmeyenli tam sayısal örnek + KCL doğrulaması,
+  "upstream akımı kola tekrar ekleme" hatası
+- **0005** Tam süper çevre örneği (dış tur KVL + kısıt denklemi),
+  ortak kolda "neden fark?" ok analizi
+- **0006** **İki panelli görsel dönüşüm zinciri** (kaynak söndürülmüş hal →
+  yeniden çizilmiş paralel hal), düğüm isimleriyle "neden paralel oldu",
+  düğüm analiziyle bağımsız doğrulama, güç süperpozisyonu tuzağı
+- **0007** "Yükün gördüğü devre" sezgisi, açık devrede neden akım yok
+- **0008** **Thevenin ↔ Norton yan yana çizim** (açık→V_TH, kısa→I_N eşlemesi)
+- **0009** **Güç eğrisi grafiği** (P vs R_L, tepe noktası neden R_L=R_TH),
+  formül türetme, verim %50 tartışması
+- **0010** Kazanç formüllerinin **KCL'den adım adım türetilmesi**,
+  sanal toprak ile sanal kısa devre ayrımı, doyum kontrolü
+- **0011 RC** Gerilim/akım süreklilik karışması, tau'yu eski devreden
+  hesaplama hatası, enerji formülü
+- **0012 RL** **Üç panelli fotoğraf zinciri** (t=0⁻ bobin tel → t=0⁺ kaynak
+  koptu akım devam → t→∞ akım söndü), tau=L/R birim kontrolü
+
+**Denetim sonucu:** kırık link yok · tüm HTML/SVG/details etiketleri dengeli ·
+kavram çelişkisi yok (kapasitör açık / bobin kısa / gerilim kaynağı tel
+kuralları tüm derslerde tutarlı) · her derste en az bir devre çizimi var ·
+eski hatalı "RL kapsam dışı" ifadesi kalmadı.
