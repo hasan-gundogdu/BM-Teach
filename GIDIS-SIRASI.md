@@ -204,11 +204,11 @@
 - Kaynak: 3.2 Ders Notu — hoca "akım, gerilim, kazanç buluyoruz en fazla" dediği için toplayıcı/fark alıcı/kademeli opamp devreleri **kapsam dışı** bırakıldı, sadece eviren/evirmeyen temel kazanç + KCL
 
 ### 11 · Ders 11 — Genel Tekrar (Ders 01-10 tek dosyada) ✅ ⬅️ KAPSAMIN SONU
-- **Ders:** `lessons/elektrik-devre-temelleri/0011-genel-tekrar.html` · ayrı referans kartı yok (kendisi zaten özet)
+- **Ders:** `lessons/elektrik-devre-temelleri/0013-genel-tekrar.html` · ayrı referans kartı yok (kendisi zaten özet)
 - 02/08/2026'da eklendi: kullanıcı sınavda hocanın sözlü/kavramsal soru da sorabileceğini belirtti, tüm dersleri tek sıralı dosyada (tanım+formül+"neden"+muhtemel sözlü soru-cevap) isteyip onayladı ("/teach")
 
 ### 12 · Ders 12 — Örnek Sorular (sınav provası) ✅
-- **Ders:** `lessons/elektrik-devre-temelleri/0012-ornek-sorular.html` · 25 soru, çözümler `<details>` ile gizli (önce kendin çöz)
+- **Ders:** `lessons/elektrik-devre-temelleri/0014-ornek-sorular.html` · 25 soru, çözümler `<details>` ile gizli (önce kendin çöz)
 - Kapsam dağılımı: temel/işaret/birim (S1-6) · Ohm-Kirchhoff-bölücü (S7-11) · DGY (S12-13) · Çevre+Kramer (S14-15) · Süperpozisyon (S16-17) · Thevenin-Norton-Maks.Güç (S18-21, **zincirleme tek devre**) · Opamp (S22-24) · sözlü (S25)
 - Sayılar ders notlarındaki örneklerden **kasten farklı** (ezber değil yöntem sınanıyor). Sonunda "nerede takıldın → hangi dersi aç" tablosu var.
 - 03/08/2026'da eklendi ("/teach", kullanıcı isteği: "konuların tamamına çalıştım, örnek çözeyim").

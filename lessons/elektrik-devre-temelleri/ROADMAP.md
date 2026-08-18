@@ -25,10 +25,10 @@
 | 0008 | Norton | ✅ detaylı + çizimli; sınavda bağımlı kaynak yok |
 | 0009 | Maksimum Güç Transferi | ✅ detaylı + çizimli; sınavda bağımlı kaynak yok |
 | 0010 | İdeal Op-Amp — akım, gerilim, kazanç | ✅ detaylı + çizimli |
-| 0011-rc | RC — 0⁻/0⁺/∞, şarj/deşarj, R_TH, zaman sabiti | ✅ detaylı + çizimli |
-| 0011b-rl | RL — 0⁻/0⁺/∞, akım sürekliliği, R_TH, zaman sabiti | ✅ eklendi; bağımlı kaynak sınav dışı |
-| 0011 | Genel Tekrar — karar haritası ve formül mantığı | ✅ RC+RL dahil güncellendi |
-| 0012 | Örnek Sorular — 21 soruluk kapsamlı sınav provası | ✅ RC+RL dahil güncellendi |
+| 0011 | RC — 0⁻/0⁺/∞, şarj/deşarj, R_TH, zaman sabiti | ✅ detaylı + çizimli |
+| 0012 | RL — 0⁻/0⁺/∞, akım sürekliliği, R_TH, zaman sabiti | ✅ eklendi; bağımlı kaynak sınav dışı |
+| 0013 | Genel Tekrar — karar haritası ve formül mantığı | ✅ RC+RL dahil güncellendi |
+| 0014 | Örnek Sorular — 21 soruluk kapsamlı sınav provası | ✅ RC+RL dahil güncellendi |
 
 ## Pedagojik standart
 
