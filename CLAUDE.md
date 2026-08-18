@@ -48,6 +48,7 @@ Sohbet geçmişi makineler arası taşınmadığı için **durum dosyaları drif
   - Matriste girişin işareti vs. determinantın yapısal işareti ayrımı (LR0004).
 - **Doğrulanmış eşlemeler:** BM107 resmî EBS haftalık syllabus'u kullanıcı tarafından paylaşıldı; ROADMAP.md birebir uyumlu (yeniden doğrulamaya gerek yok).
 - **BM213 düzeltmesi (2026-07-18):** Önceki "EBS syllabus'u ile uyumlu" notu **yanlış çıktı** — kullanıcı hocanın gerçek ders notu PDF'lerini (`DersNotlari/LineerCebir/*.pdf`) paylaştı, gerçek içerik EBS'nin haftalık başlıklarından farklı (Bölüm bazlı) ilerliyor. ROADMAP.md tamamen PDF'lere göre yeniden yazıldı, Hafta 1-9 (13 ders) tamamlandı. Hafta 10-14 için PDF henüz okunmadı — o kısma gelince yine varsayım yapılmayacak, PDF açılıp doğrulanacak.
+- **BM213 Bölüm 7 tamamlandı (2026-08-18):** `10-11-12.pdf` (33 sayfa) ve `13-14.pdf` (12 sayfa) işlendi → Ders 16-31 yazıldı (özdeğer/özvektör → baz → diyagonalizasyon → ortonormal baz/Gram-Schmidt → simetrik matrisin ortogonal diyagonalizasyonu + PDF'in 20 soruluk değerlendirme seti). **BM213'ün resmî içeriğinin tamamı artık yazılmış durumda.** PDF'lerin metni gömülü değil **görsel**; çıkarma yöntemi ve PDF'te bulunan 6 dizgi hatası → LR0011.
 - **BM107 Ders 01 notu:** 29/07'de denetlendi, üç kapsam boşluğu kapatıldı (birim önekleri, akım yönü, pasif işaret konvansiyonu) — bkz. LR0008. Ders yazarken **ön koşul zincirini açık yaz**; işaret konvansiyonu olmadan Hafta 3-6 çözülemez.
 
 ## Önemli kararlar

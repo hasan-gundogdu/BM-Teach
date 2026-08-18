@@ -9,8 +9,8 @@
 | `1-2-3.pdf` (Hafta 1-3) | Bölüm 1 (Lineer Eşitlikler, Matrisler) + Bölüm 2 (Matrisle Sistem Çözümü, Ters Matris) |
 | `4-5-6.pdf` (Hafta 4-6) | Bölüm 3 (Determinantlar) + Bölüm 4 (Cramer, Adjoint Matris) |
 | `7-8-9.pdf` (Hafta 7-9) | Bölüm 5 (Vektörler) + Bölüm 6 (Rank, Sistem Çözümü) |
-| `10-11-12.pdf` (Hafta 10-12) | Bölüm 7 (Eigen Değer/Vektör, Baz, Diyagonalizasyon) — **final sınavı kapsamı, bu sınavda (yaz okulu, 5 Ağustos) sorumlu değiliz** (2026-08-01, kullanıcı teyidi) |
-| `13-14.pdf` (Hafta 13-14) | Bölüm 7 devamı (Örnek 20'ye kadar) + Bölüm 6 değerlendirme soruları — **final sınavı kapsamı, bu sınavda sorumlu değiliz** |
+| `10-11-12.pdf` (Hafta 10-12, 33 sayfa) | Bölüm 7.1–7.4.1.2 (Eigen Değer/Vektör, Baz, Diyagonalizasyon, Ortonormal Baz, Gram-Schmidt, Simetrik/Ortogonal Matris) — 5 Ağustos yaz okulu sınavının kapsamı dışındaydı; **2026-08-18'de Ders 16-31 ile tamamen işlendi** |
+| `13-14.pdf` (Hafta 13-14, 12 sayfa) | Bölüm 7.4.1.3 (Örnek 20: tekrarlı özdeğer + Gram-Schmidt) + 20 soruluk değerlendirme seti (başlıkta "6. Bölüm" yazıyor ama içerik Bölüm 7) — **2026-08-18'de Ders 29 ve 31 ile işlendi** |
 
 ## Ders sırası (= dosya numarası sırası)
 
@@ -63,3 +63,67 @@ Hocanın `1-2-3.pdf`, `4-5-6.pdf`, `7-8-9.pdf` dosyaları ile Ders 01-13 karşı
 - **Ders12:** kırık "Ders 0005" referansı → Ders 04 olarak düzeltildi.
 - **Ders10/11:** serbest/bağlı vektör notu ve lineer bağımsızlık sezgi cümlesi eklendi.
 - Hiçbir sayısal örnekte hesaplama hatası bulunmadı (üç analiz ajanı da tüm örnekleri elle yeniden hesapladı).
+
+---
+
+## Bölüm 7 — Ders sırası (2026-08-18'de eklendi)
+
+> Numaralandırma `0016`'dan başlıyor; `0014` (Ders 01-13 genel tekrar) ve `0015` (Ders 01-13 pratik) mevcut düzeni bozmamak için yerinde bırakıldı.
+
+| Ders | Dosya | Bölüm/Fasıl | Konu | Durum |
+|---|---|---|---|---|
+| 16 | `0016-ozdeger-ozvektor-karakteristik-denklem.html` | 7.1, 7.1.1 | AX=λX kavramı, karakteristik determinant/polinom/eşitlik, **Örnek 1** (2×2) | ✅ |
+| 17 | `0017-ozdeger-bulma-3x3-tekrarli-kokler.html` | 7.1.1.2-7.1.1.3 | 3×3 karakteristik polinom (kofaktör açılımı), tekrarlı kök — **Örnek 2, Örnek 3** | ✅ |
+| 18 | `0018-baz-ve-cozum-uzayi.html` | 7.1.2 | Baz (basis) tanımı+teoremi, Şekil 7.1-7.2, homojen sistemin çözüm uzayı bazı — **Örnek 4** | ✅ |
+| 19 | `0019-ozvektor-bulma-proseduru.html` | 7.1.3, 7.1.3.1 | 2 adımlı prosedür, (λI−A)x=0 — **Örnek 5** (2×2, iki yoldan) | ✅ |
+| 20 | `0020-ozvektor-3x3-tam-ornek.html` | 7.1.3.2 | 3×3 üç özvektör tam çözüm + bağımsızlık determinantı — **Örnek 6, Örnek 7** | ✅ |
+| 21 | `0021-ozdeger-ozellikleri-ucgen-matrisler.html` | 7.2, 7.2.1-7.2.3 | Bağımsızlık teoremi, Özellik 1 (cλ ↔ cA) + örneği, üçgen matris teoremi + örneği | ✅ |
+| 22 | `0022-diyagonallestirilebilirlik.html` | 7.3, 7.3.1 | Diyagonalleştirilebilirlik tanımı ve şartı — **Örnek 8, 9, 10** | ✅ |
+| 23 | `0023-diyagonallestirme-yontemi.html` | 7.3.1.4-7.3.1.5 | 5 adımlık yöntem, D=P⁻¹AP — **Örnek 11** (P⁻¹ Gauss-Jordan ile tam) | ✅ |
+| 24 | `0024-diyagonallestirme-tam-ornekler.html` | 7.3.1.6-7.3.1.7 | Kesirli P⁻¹ ve negatif det(P) — **Örnek 12, Örnek 13** | ✅ |
+| 25 | `0025-ortogonal-ortonormal-bazlar.html` | 7.3.2, 7.3.2.1-7.3.2.3 | Ortogonal/ortonormal küme ve baz tanımları — **Örnek 14, Örnek 15** | ✅ |
+| 26 | `0026-gram-schmidt.html` | 7.3.3, 7.3.3.1 | Gram-Schmidt formülleri + normalize — **Örnek 16** | ✅ |
+| 27 | `0027-simetrik-ve-ortogonal-matrisler.html` | 7.4, 7.4.1 | Simetrik (A=Aᵀ) ve ortogonal (AᵀA=I) matris, simetrik matrisin A–E özellikleri — **Örnek 17, Örnek 18** | ✅ |
+| 28 | `0028-simetrik-matris-ortogonal-diyagonalizasyon.html` | 7.4.1.1-7.4.1.2 | D=PᵀAP, 6 adımlık yöntem — **Örnek 19** | ✅ |
+| 29 | `0029-tekrarli-ozdeger-gram-schmidt-ornek20.html` | 7.4.1.3 (`13-14.pdf`) | Tekrarlı özdeğer + eigen uzayında Gram-Schmidt — **Örnek 20** (Bölüm 7'nin en kapsamlı örneği) | ✅ |
+| 30 | `0030-genel-tekrar-bolum7.html` | — | Bölüm 7'nin tüm tanım/formül/yöntemleri tek sayfada + yöntem seçme rehberi + hata listesi + son kontrol listesi | ✅ |
+| 31 | `0031-bolum7-degerlendirme-sorulari.html` | `13-14.pdf` değerlendirme | PDF'teki 20 çoktan seçmeli sorunun tamamı, her biri tam çözümlü | ✅ |
+
+### Bölüm 7 referans kartları
+- `reference/lineer-cebir/ozdeger-ozvektor.html` (Ders 16-21)
+- `reference/lineer-cebir/diyagonalizasyon.html` (Ders 22-24, 27-29)
+- `reference/lineer-cebir/ortonormal-gram-schmidt.html` (Ders 25-27)
+
+### PDF kapsam denetimi (2026-08-18)
+`10-11-12.pdf` (33 sayfa) ve `13-14.pdf` (12 sayfa) sayfa sayfa tarandı. PDF'lerin metni gömülü ama tüm matematiksel içerik **görsel** olarak saklı; sayfa yapısı ayrıştırılıp 251 + 40 görsel çıkarılarak okundu. Kapsam eşlemesi:
+
+| PDF bölümü | Ders |
+|---|---|
+| 7.1 Eigen ve eigen vektör kavramı | 16 |
+| 7.1.1 Karakteristik determinant/polinom/eşitlik + Örnek 1 | 16 |
+| 7.1.1.2-7.1.1.3 Örnek 2, 3 | 17 |
+| 7.1.2 Baz + Şekil 7.1/7.2 + tanım/teorem + Örnek 4 | 18 |
+| 7.1.3 Prosedür + Örnek 5 | 19 |
+| 7.1.3.2 Örnek 6 · Örnek 7 (bağımsızlık) | 20 |
+| 7.2.1 / 7.2.2 (Özellik 1 + örnek) / 7.2.3 (üçgen + örnek) | 21 |
+| 7.3 + 7.3.1 + Örnek 8, 9, 10 | 22 |
+| 7.3.1.4 yöntem + 7.3.1.5 Örnek 11 | 23 |
+| 7.3.1.6 Örnek 12 · 7.3.1.7 Örnek 13 | 24 |
+| 7.3.2 + Örnek 14 + 7.3.2.2 + Örnek 15 | 25 |
+| 7.3.3 Gram-Schmidt + Örnek 16 | 26 |
+| 7.4 (simetrik/ortogonal) + Örnek 17, 18 + 7.4.1 A–E | 27 |
+| 7.4.1.1 Örnek 19 + 7.4.1.2 6 adımlık yöntem | 28 |
+| 7.4.1.3 Örnek 20 (`13-14.pdf`) | 29 |
+| Değerlendirme soruları 1-20 (`13-14.pdf`) | 31 |
+
+**Kapsam dışı kalan / PDF'de bulunmayanlar:** Hocanın 7.2.2 slaytı sekmeli bir sunum ("Özellik 1 / Özellik 2 / Özellik 3 / …"); PDF'e yalnızca **Özellik 1**'in metni ve örneği basılmış, diğer sekmelerin içeriği görünmüyor. Ders 21'de bu durum açıkça not edildi, uydurma özellik eklenmedi.
+
+**PDF'te tespit edilen dizgi hataları (derslerde açıkça işaretlendi):**
+- Örnek 5, λ=2 adımı: "x₂ = −2x₁" yazıyor; sistem ve slaytın kendi cevabı `x₂ = −x₁` diyor (Ders 19).
+- Gram-Schmidt formül listesi: `b₂ = a₃ − …` yazıyor; doğrusu `b₂ = a₂ − …` (Ders 26).
+- Örnek 12, `P⁻¹A` ara matrisinin (2,1) girişi `5/9` basılmış; doğrusu `6/9` (Ders 24).
+- Örnek 20'de "bağımlı/bağımsız değişken" terimleri PDF'in diğer örneklerine göre yer değiştirmiş (Ders 29).
+- Değerlendirme Soru 10'un şıklarında doğru özvektör (`(2,−2,1)` veya katı) hiçbir şıkta yok; işaretli şık Ⓒ `(−2,2,1)` ama o vektör `Av = 0`'ı sağlamıyor (Ders 31'de gösterildi).
+- Değerlendirme başlığı "6. BÖLÜM DEĞERLENDİRME SORULARI"; içerik Bölüm 7.
+
+**Sayısal doğrulama:** Bütün örneklerdeki özdeğerler iz/determinant çaprazlamasıyla, bütün özvektörler `Av = λv` ile, bütün tersler `PP⁻¹ = I` (veya `PᵀP = I`) ile, bütün diyagonalizasyonlar `D = P⁻¹AP` çarpımı yeniden hesaplanarak doğrulandı.

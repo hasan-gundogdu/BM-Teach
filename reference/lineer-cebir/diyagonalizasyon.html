@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Diyagonalizasyon</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; margin:.5em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  ol{ padding-left:1.3em; } li{ margin:.25em 0; }
+  small{ color:#6b6b6b; }
+  table.g{ border-collapse:collapse; width:100%; font-size:.92rem; }
+  table.g th,table.g td{ border-bottom:1px solid #e2ded5; padding:.35em .4em; text-align:left; vertical-align:top; }
+  table.g th{ color:#7a5c2e; font-size:.8rem; text-transform:uppercase; letter-spacing:.05em; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Diyagonalizasyon — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 22-24, 27-29 (Bölüm 7.3-7.4) özeti.</p>
+
+  <h2>Ne yapıyoruz?</h2>
+  <div class="rule"><code>A</code>'yı, aynı dönüşümü anlatan ama <b>köşegeninde özdeğerler bulunan</b> <code>D</code> matrisine çeviriyoruz:<br>
+  <code>D = P⁻¹AP</code> &nbsp;— &nbsp;<code>P</code>'nin <b>sütunları</b> özvektörler, <code>D</code>'nin köşegeni <b>aynı sıradaki</b> özdeğerler.</div>
+
+  <h2>Şart: dönüştürülebilir mi?</h2>
+  <div class="card">
+    <b>Yeterli şart:</b> <code>n×n</code> matrisin <b><code>n</code> lineer bağımsız özvektörü</b> olmalı.<br>
+    <b>Sonuç 1:</b> <code>n</code> <b>farklı</b> özdeğer varsa → evet, kontrol gerekmez.<br>
+    <b>Sonuç 2:</b> Farklı özdeğer sayısı <code>n</code>'den az olsa bile <code>n</code> bağımsız özvektör bulunabilir.<br>
+    <b>Karar:</b> her tekrarlı <code>λ</code> için eigen uzayı boyutunu (<code>n − r</code>) hesapla, topla. Toplam <code>= n</code> → evet; <code>&lt; n</code> → hayır.
+  </div>
+
+  <h2>Genel yöntem (5 adım) — simetrik olmayan A</h2>
+  <div class="rule">
+    <ol>
+      <li>Eigen değerlerini bul.</li>
+      <li><code>n</code> lineer bağımsız eigen vektörünü bul.</li>
+      <li><code>P = [ p₁ &nbsp; p₂ &nbsp; ... &nbsp; pₙ ]</code> — özvektörler <b>sütun</b> olarak.</li>
+      <li><code>P⁻¹</code>'i elde et (Gauss-Jordan: <code>[P : I] → [I : P⁻¹]</code>).</li>
+      <li><code>D = P⁻¹AP</code>.</li>
+    </ol>
+  </div>
+
+  <h2>Ortogonal yöntem (6 adım) — A simetrik ise</h2>
+  <div class="rule">
+    <ol>
+      <li>Eigen değerlerini bul.</li>
+      <li>Her eigen değeri için baz eigen vektörlerini bul.</li>
+      <li>Eigen uzayı bazı <b>birden fazla</b> vektör içeriyorsa <b>Gram-Schmidt</b>; <b>tek</b> vektör içeriyorsa yalnızca <b>birim vektöre</b> çevir.</li>
+      <li><code>P = [ â₁ &nbsp; â₂ &nbsp; ... &nbsp; âₙ ]</code>.</li>
+      <li><code>Pᵀ</code>'yi yaz — <code>P⁻¹ = Pᵀ</code>.</li>
+      <li><code>D = PᵀAP</code>.</li>
+    </ol>
+    <small>Tek fark: <code>P⁻¹</code> hesabı yerine <b>transpoz</b>. Bedeli: 3. adımdaki normalize/Gram-Schmidt.</small>
+  </div>
+
+  <h2>Hangisini seçeceğim?</h2>
+  <table class="g">
+    <tr><th>Durum</th><th>Yöntem</th></tr>
+    <tr><td><code>A ≠ Aᵀ</code> (simetrik değil)</td><td>5 adım · <code>D = P⁻¹AP</code></td></tr>
+    <tr><td><code>A = Aᵀ</code> (simetrik) ya da soru "ortogonal P" istiyorsa</td><td>6 adım · <code>D = PᵀAP</code></td></tr>
+  </table>
+
+  <h2>Simetrik matris garantileri</h2>
+  <div class="card">
+    <b>A</b> Karakteristik denklemin kökleri <b>gerçeldir</b>.<br>
+    <b>B</b> Farklı özdeğerlerin özvektörleri <b>ortogonaldir</b>.<br>
+    <b>C</b> Her eigen uzayının <b>ortogonal bazı</b> vardır; boyutu = <b>tekrarlama sayısı</b>.<br>
+    <b>D</b> <code>n</code> özvektörden oluşan bir <b>ortonormal baz</b> mevcuttur.<br>
+    <b>E</b> <code>D = PᵀAP</code>, <code>P</code> ortogonal, <code>P⁻¹ = Pᵀ</code>; <code>D</code>'nin köşegeni = özdeğerler.<br>
+    <small>Yani <b>her simetrik matris köşegenleştirilebilir</b> — "olabilir mi?" diye sormaya gerek yok.</small>
+  </div>
+
+  <h2>Kontroller (hepsi bedava)</h2>
+  <div class="card">
+    • <code>det(P) ≠ 0</code> &nbsp;→ özvektörler bağımsız<br>
+    • <code>P·P⁻¹ = I</code> &nbsp;(ya da ortogonalde <code>PᵀP = I</code>)<br>
+    • Her sütun için <code>Apᵢ = λᵢpᵢ</code><br>
+    • <code>iz(A) = iz(D)</code> &nbsp;ve&nbsp; <code>det(A) = det(D)</code><br>
+    • <code>D</code>'nin köşegen sırası, <code>P</code>'nin sütun sırasıyla uyuşuyor mu?
+  </div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • Şartı kontrol etmeden <code>P</code> kurmaya başlamak.<br>
+    • Özvektörleri <code>P</code>'ye <b>satır</b> yazmak (sütun olmalı).<br>
+    • <code>D</code>'nin köşegen sırasını <code>P</code>'den bağımsız yazmak.<br>
+    • Gauss-Jordan'da sağ bloğa aynı işlemi uygulamamak.<br>
+    • Ortonormal <b>olmayan</b> <code>P</code> ile <code>D = PᵀAP</code> kullanmak.<br>
+    • Tekrarlı özdeğerin eigen uzayında Gram-Schmidt'i atlamak.<br>
+    • <code>det(P)</code> negatif çıkınca hata sanmak (<code>≠ 0</code> yeterlidir).
+  </div>
+</body>
+</html>

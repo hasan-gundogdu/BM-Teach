@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 21 — Özdeğerlerin Özellikleri ve Üçgen Matrisler</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.diag{ color:var(--accent); font-weight:700; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.95rem; margin:.25em 0; }
+  .sezgi{ background:#f2f5f0; border-left:3px solid #5d7a4e; border-radius:4px; padding:.7em 1em; font-size:.95rem; }
+  .kapsam{ background:#fff8e8; border-left:3px solid #b58a2b; border-radius:4px; padding:.7em 1em; font-size:.93rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 21 · Bölüm 7.2</div>
+  <h1>Özdeğerlerin Özellikleri ve Üçgen Matrisler</h1>
+  <p class="lead">Bu dersin sonunda: bir üçgen matrisin özdeğerlerini <span class="hi">hiç determinant açmadan</span> okuyabilecek, ve farklı özdeğerlerin özvektörlerinin neden otomatik bağımsız olduğunu bileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Ders 16–20 boyunca özdeğeri hep "hesaplayarak" bulduk. Bu ders üç kısayol/garanti veriyor: (1) farklı özdeğer ⇒ bağımsız özvektör garantisi — diyagonalizasyonun temel dayanağı; (2) matrisi bir sayıyla çarpınca özdeğerlerin ne olacağı; (3) üçgen matriste özdeğerleri bakarak okumak. Üçü de sınavda zaman kazandırır.</p>
+
+  <h2>1. Eigen vektörlerinin bağımsızlığı (PDF 7.2.1)</h2>
+  <div class="q">
+    <p><b>Teorem.</b> Eğer <code>λ₁, λ₂, ..., λₙ</code>, <code>n×n</code> boyutlu <code>A</code> matrisinin <b>birbirinden farklı</b> eigen değerleri ve <code>B₁, B₂, ..., Bₙ</code> bu değerlere karşı gelen eigen vektörlerinin <b>bazları (bases)</b> ise,</p>
+    <div class="eq"><code>B₁ ∪ B₂ ∪ ... ∪ Bₙ</code></div>
+    <p>birleşimi <b>lineer bağımsız</b> bir kümedir.</p>
+  </div>
+  <p class="step">Sembollerin karşılığı: <code>Bᵢ</code>, <code>λᵢ</code>'nin eigen uzayının bazı — yani <code>(λᵢI − A)x = 0</code> sisteminin çözüm uzayının baz vektörleri (<a href="0018-baz-ve-cozum-uzayi.html">Ders 18</a>). <code>∪</code> birleşim: bütün özdeğerlerin baz vektörlerini tek torbada topla.</p>
+
+  <div class="sezgi">
+    <b>Sezgi / ek açıklama.</b> Neden farklı özdeğerler bağımsızlık getiriyor? Çünkü <code>A</code> ile çarpmak, her yönü kendi <code>λ</code>'sıyla ölçekler. İki farklı yön bağımlı olsaydı (biri diğerinin katı), aynı vektör hem <code>λ₁</code> hem <code>λ₂</code> katına uzamak zorunda kalırdı — <code>λ₁ ≠ λ₂</code> iken bu imkânsız. <a href="0020-ozvektor-3x3-tam-ornek.html">Ders 20</a>'deki Örnek 7 (<code>det = 27 ≠ 0</code>) bu teoremin sayısal doğrulamasıydı.
+  </div>
+
+  <p class="step"><b>Ne işe yarar?</b> Bir <code>n×n</code> matrisin <code>n</code> tane <b>farklı</b> özdeğeri varsa, <code>n</code> tane bağımsız özvektörü otomatik olarak vardır → matris kesinlikle köşegenleştirilebilir (<a href="0022-diyagonallestirilebilirlik.html">Ders 22</a>). Kontrol etmeye bile gerek kalmaz.</p>
+
+  <h2>2. Eigen değerlerinin özellikleri (PDF 7.2.2)</h2>
+  <div class="q">
+    <p><b>Özellik 1.</b> Eğer <code>A</code>, <code>n×n</code> boyutlu bir matris ve <code>λ</code> bu matrisin eigen değeri ise, <code>cλ</code> da <code>cA</code> matrisinin bir eigen değeridir. Burada <code>c</code> sıfırdan farklı bir gerçel sayıdır.</p>
+  </div>
+  <p class="step">Kısaca: <b>matrisi <code>c</code> ile çarparsan bütün özdeğerler <code>c</code> ile çarpılır.</b> (Özvektörler <b>değişmez</b> — sadece ölçek katsayıları değişir.)</p>
+
+  <div class="kapsam">
+    <b>Kapsam notu.</b> Hocanın slaytında bu bölüm "Özellik 1 / Özellik 2 / Özellik 3 / …" sekmelerinden oluşan bir sunum; PDF'e aktarılırken yalnızca <b>Özellik 1</b> sekmesinin içeriği ve örneği basılmış. Diğer sekmelerin metni PDF'de görünmüyor. Bu derste <b>PDF'de fiilen bulunan</b> özellik ve örnek işleniyor.
+  </div>
+
+  <h3>Örnek (PDF 7.2.2)</h3>
+  <p>Verilen: <code>A</code> = <table class="m"><tr><td>-1</td><td>4</td><td>-2</td></tr><tr><td>-3</td><td>4</td><td>0</td></tr><tr><td>-3</td><td>1</td><td>3</td></tr></table> — bu <a href="0017-ozdeger-bulma-3x3-tekrarli-kokler.html">Ders 17'deki Örnek 2</a>'nin matrisi; eigen değerleri <code>λ₁ = 3</code>, <code>λ₂ = 2</code>, <code>λ₃ = 1</code> bulunmuştu.</p>
+  <p>Şimdi <code>c = 3</code> alalım:</p>
+  <div class="eq">
+    <code>3A = </code><table class="m"><tr><td>-3</td><td>12</td><td>-6</td></tr><tr><td>-9</td><td>12</td><td>0</td></tr><tr><td>-9</td><td>3</td><td>9</td></tr></table>
+  </div>
+  <p class="step">(Her eleman 3 ile çarpıldı — skalerle çarpım, <a href="0003-matrisler-ve-temel-islemler.html">Ders 03</a>.)</p>
+
+  <div class="eq">
+    <code>det(λI − 3A) = </code><table class="m"><tr><td>λ+3</td><td>−12</td><td>6</td></tr><tr><td>9</td><td>λ−12</td><td>0</td></tr><tr><td>9</td><td>−3</td><td>λ−9</td></tr></table><code> = 0</code>
+  </div>
+
+  <p class="step">1. satır boyunca kofaktör açılımı (işaretler <code>+ − +</code>):</p>
+  <div class="eq">
+    <code>(λ+3)·</code><table class="m"><tr><td>λ−12</td><td>0</td></tr><tr><td>−3</td><td>λ−9</td></tr></table>
+    <code> + 12·</code><table class="m"><tr><td>9</td><td>0</td></tr><tr><td>9</td><td>λ−9</td></tr></table>
+    <code> + 6·</code><table class="m"><tr><td>9</td><td>λ−12</td></tr><tr><td>9</td><td>−3</td></tr></table>
+    <code> = 0</code>
+  </div>
+  <p class="step">1. minör: <code>(λ−12)(λ−9) − 0·(−3) = (λ−12)(λ−9)</code></p>
+  <p class="step">2. minör: <code>9(λ−9) − 0·9 = 9(λ−9)</code></p>
+  <p class="step">3. minör: <code>9·(−3) − (λ−12)·9 = −27 − 9(λ−12)</code></p>
+  <div class="eq"><code>(λ+3)[(λ−12)(λ−9) − 0] + 12[9(λ−9) − 0] + 6[−27 − 9(λ−12)] = 0</code></div>
+
+  <p class="step">Terim terim açalım:</p>
+  <p class="step"><code>(λ+3)(λ−12)(λ−9)</code> → önce <code>(λ−12)(λ−9) = λ² − 21λ + 108</code>; sonra <code>(λ+3)(λ² − 21λ + 108) = λ³ − 21λ² + 108λ + 3λ² − 63λ + 324 = λ³ − 18λ² + 45λ + 324</code></p>
+  <p class="step"><code>12·9(λ−9) = 108λ − 972</code></p>
+  <p class="step"><code>6[−27 − 9λ + 108] = 6[81 − 9λ] = 486 − 54λ</code></p>
+  <p class="step">Hepsini topla: <code>λ³ − 18λ² + (45 + 108 − 54)λ + (324 − 972 + 486)</code></p>
+  <div class="eq"><code>λ³ − 18λ² + 99λ − 162 = 0</code></div>
+  <p class="step">Çarpanlara ayır (kökleri <code>162</code>'nin bölenleri arasında ara: <code>λ = 3</code> deneyelim → <code>27 − 162 + 297 − 162 = 0</code> ✓):</p>
+  <div class="eq"><code>(λ − 9)(λ − 6)(λ − 3) = 0</code> &nbsp;→&nbsp; <code>λ₁ = 9</code>, <code>λ₂ = 6</code>, <code>λ₃ = 3</code></div>
+
+  <p><b>Dolayısıyla <code>3A</code>'nın <code>λ</code> değerleri, <code>A</code> matrisinin <code>λ</code> değerlerinin 3 katıdır:</b> <code>3·3 = 9</code>, <code>3·2 = 6</code>, <code>3·1 = 3</code> ✓</p>
+
+  <details>
+    <summary>Neden böyle olmak zorunda? (tek satırlık gerekçe)</summary>
+    <p class="step"><code>Av = λv</code> ise, her iki tarafı <code>c</code> ile çarp: <code>c(Av) = c(λv)</code> → <code>(cA)v = (cλ)v</code>. Yani <b>aynı</b> <code>v</code> vektörü, <code>cA</code> matrisinin <code>cλ</code> özdeğerine karşılık gelen özvektörüdür. Determinant açmaya hiç gerek yoktu. (Sezgi / ek açıklama — PDF örneği bunu sayısal olarak doğruluyor.)</p>
+  </details>
+
+  <h2>3. Üçgen matrislerin eigen değerleri (PDF 7.2.3)</h2>
+  <p>Üst üçgen veya alt üçgen matrislerin eigen değerlerini aşağıda belirtildiği şekilde elde etmek işlemleri kolaylaştırır. <b>Üst üçgen</b> matrisi ele alalım:</p>
+  <div class="eq">
+    <code>A = </code><table class="m">
+      <tr><td class="diag">a₁₁</td><td>a₁₂</td><td>a₁₃</td><td>a₁₄</td></tr>
+      <tr><td>0</td><td class="diag">a₂₂</td><td>a₂₃</td><td>a₂₄</td></tr>
+      <tr><td>0</td><td>0</td><td class="diag">a₃₃</td><td>a₃₄</td></tr>
+      <tr><td>0</td><td>0</td><td>0</td><td class="diag">a₄₄</td></tr>
+    </table>
+    &nbsp; veya &nbsp;
+    <table class="m">
+      <tr><td class="diag">a₁₁</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><td>a₂₁</td><td class="diag">a₂₂</td><td>0</td><td>0</td></tr>
+      <tr><td>a₃₁</td><td>a₃₂</td><td class="diag">a₃₃</td><td>0</td></tr>
+      <tr><td>a₄₁</td><td>a₄₂</td><td>a₄₃</td><td class="diag">a₄₄</td></tr>
+    </table>
+  </div>
+
+  <p class="step">Üst üçgen için karakteristik determinant:</p>
+  <div class="eq">
+    <code>det(λI − A) = det</code><table class="m">
+      <tr><td>(λ−a₁₁)</td><td>−a₁₂</td><td>−a₁₃</td><td>−a₁₄</td></tr>
+      <tr><td>0</td><td>(λ−a₂₂)</td><td>−a₂₃</td><td>−a₂₄</td></tr>
+      <tr><td>0</td><td>0</td><td>(λ−a₃₃)</td><td>−a₃₄</td></tr>
+      <tr><td>0</td><td>0</td><td>0</td><td>(λ−a₄₄)</td></tr>
+    </table>
+  </div>
+  <p class="step">Bu matris de üçgen; üçgen matrisin determinantı köşegen elemanların çarpımıdır (<a href="0007-determinantin-ozellikleri-ve-hesaplama.html">Ders 07</a>):</p>
+  <div class="eq"><code>= (λ − a₁₁)(λ − a₂₂)(λ − a₃₃)(λ − a₄₄)</code></div>
+  <p class="step">Bunu sıfıra eşitlersek kökler doğrudan okunur:</p>
+  <div class="eq"><code>λ₁ = a₁₁</code>, &nbsp; <code>λ₂ = a₂₂</code>, &nbsp; <code>λ₃ = a₃₃</code>, &nbsp; <code>λ₄ = a₄₄</code></div>
+
+  <div class="q">
+    <p><b>Teorem.</b> Eğer <code>A</code>, <code>n×n</code> boyutlu bir <b>üçgen matris</b> ise (üst üçgen, alt üçgen veya asal köşegen), <code>A</code> matrisinin eigen değerleri <b>asal köşegen değerleridir</b>.</p>
+  </div>
+
+  <h3>Örnek (PDF 7.2.3)</h3>
+  <p>Yandaki matris bir <b>alt üçgen</b> matris olup, eigen değerleri doğrudan köşegenden okunur:</p>
+  <div class="eq">
+    <code>A = </code><table class="m"><tr><td class="diag">3</td><td>0</td><td>0</td></tr><tr><td>-2</td><td class="diag">7</td><td>0</td></tr><tr><td>4</td><td>8</td><td class="diag">1</td></tr></table>
+    &nbsp;→&nbsp; <code>λ₁ = 3</code>, &nbsp; <code>λ₂ = 7</code>, &nbsp; <code>λ₃ = 1</code>
+  </div>
+  <p class="step">Doğrulama (istersen): <code>det(λI − A) = det</code> <table class="m" style="margin:0 .2em"><tr><td>λ−3</td><td>0</td><td>0</td></tr><tr><td>2</td><td>λ−7</td><td>0</td></tr><tr><td>−4</td><td>−8</td><td>λ−1</td></tr></table> — yine alt üçgen → <code>(λ−3)(λ−7)(λ−1)</code> ✓</p>
+
+  <h2>4. Sık yapılan hatalar</h2>
+  <div class="trap">
+    <ul>
+      <li>"Üçgen matriste özdeğerler köşegende" kuralını <b>üçgen olmayan</b> matrislere uygulamak. Köşegen dışında hem üstte hem altta sıfırdan farklı eleman varsa kural geçerli değildir.</li>
+      <li>Özdeğerler köşegende diye <b>özvektörlerin</b> de basit olacağını sanmak. Özvektörler yine <code>(λI − A)x = 0</code> ile bulunur; üçgenlik onları kolaylaştırmaz.</li>
+      <li>Özellik 1'i "<code>A + c</code>" için de geçerli sanmak. Özellik <b>çarpma</b> içindir. (<code>A + cI</code> durumunda özdeğerler <code>λ + c</code> olur, ama bu PDF'de verilmiş bir özellik değil.)</li>
+      <li>Bağımsızlık teoremini tersine çevirmek: "özvektörler bağımsızsa özdeğerler farklıdır" <b>yanlıştır</b>. Aynı özdeğere ait iki bağımsız özvektör pekâlâ olabilir (<a href="0022-diyagonallestirilebilirlik.html">Ders 22</a>, Örnek 10).</li>
+    </ul>
+  </div>
+
+  <h2>5. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1 (kavram).</b> Bir <code>4×4</code> matrisin dört farklı özdeğeri var. Bu matrisin kaç lineer bağımsız özvektörü olduğunu kesin olarak söyleyebilir misin?</p>
+    <details><summary>Cevabı göster</summary><p><b>Evet: tam 4.</b> Farklı özdeğerlere karşı gelen özvektörler bağımsızdır (7.2.1 teoremi), dolayısıyla en az 4 bağımsız vektör vardır; 4 boyutlu uzayda 4'ten fazla bağımsız vektör olamayacağı için tam olarak 4'tür.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (temel işlem).</b> <code>A</code> matrisinin özdeğerleri <code>2, −5, 7</code>. <code>−2A</code> matrisinin özdeğerleri nelerdir? Özvektörler değişir mi?</p>
+    <details><summary>Cevabı göster</summary><p>Özellik 1 ile <code>c = −2</code>: özdeğerler <code>−4, 10, −14</code>. <b>Özvektörler değişmez</b> — <code>(cA)v = c(Av) = c(λv) = (cλ)v</code>, aynı <code>v</code>.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (sınav seviyesi).</b> <code>B</code> = <table class="m"><tr><td>4</td><td>7</td><td>-3</td></tr><tr><td>0</td><td>-2</td><td>9</td></tr><tr><td>0</td><td>0</td><td>5</td></tr></table> veriliyor. (a) <code>B</code>'nin özdeğerlerini yaz. (b) <code>det(B)</code>'yi <b>hiç determinant açmadan</b> bul. (c) <code>½B</code>'nin özdeğerlerini yaz.</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step">(a) <code>B</code> üst üçgen → özdeğerler köşegen: <code>λ = 4, −2, 5</code>.</p>
+      <p class="step">(b) Özdeğerlerin çarpımı determinanta eşittir: <code>det(B) = 4·(−2)·5 = −40</code>. (Aynı sonuç üçgen matris kuralından da gelir: köşegen çarpımı, Ders 07.)</p>
+      <p class="step">(c) Özellik 1 ile <code>c = ½</code>: <code>2, −1, 5/2</code>.</p>
+      <p class="step">Ek kontrol: <code>det(½B) = (½)³·det(B) = (1/8)(−40) = −5</code>; özdeğer çarpımı <code>2·(−1)·(5/2) = −5</code> ✓</p>
+    </details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/ozdeger-ozvektor.html">Özdeğer & Özvektör</a><br>
+    📚 Khan Academy Türkçe — <a href="https://tr.khanacademy.org/math/linear-algebra">Doğrusal Cebir</a>, "Üst Üçgensel Determinant" (üçgen matris determinantını tazelemek için).<br>
+    🎓 MIT 18.06 (Strang) — Ders 21, özdeğerlerin toplam/çarpım özellikleri.<br>
+    🗂️ Ön koşullar: <a href="0007-determinantin-ozellikleri-ve-hesaplama.html">Ders 07 — Üçgen matris determinantı</a> · <a href="0020-ozvektor-3x3-tam-ornek.html">Ders 20 — Örnek 7 bağımsızlık kontrolü</a>.<br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> — Bölüm 7.2, 7.2.1, 7.2.2, 7.2.3.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0020-ozvektor-3x3-tam-ornek.html">Ders 20 — 3×3 Özvektör Örneği</a></span>
+    <span>Sıradaki: <a href="0022-diyagonallestirilebilirlik.html">Ders 22 — Diyagonalleştirilebilirlik</a></span>
+  </div>
+
+</div>
+</body>
+</html>

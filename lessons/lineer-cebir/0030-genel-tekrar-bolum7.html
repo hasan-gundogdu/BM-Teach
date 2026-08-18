@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 30 — Bölüm 7 Genel Tekrar (Özdeğer → Diyagonalizasyon)</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:760px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.22rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1rem; margin:1.4em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.04rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.16em .45em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.92rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  .eq{ text-align:center; margin:1em 0; font-size:1.03rem; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .card{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.75em 1em; margin:.6em 0; font-size:.97rem; }
+  .card b.t{ color:var(--accent); }
+  .rule{ background:var(--note); border-left:3px solid var(--accent); padding:.6em .95em; border-radius:4px; font-size:.97rem; margin:.6em 0; }
+  .toc{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.8em 1.1em; font-size:.95rem; }
+  .toc ol{ margin:.3em 0; padding-left:1.4em; columns:2; column-gap:2em; }
+  .toc li{ font-size:.93rem; margin:.2em 0; break-inside:avoid; }
+  table.g{ border-collapse:collapse; width:100%; font-size:.93rem; margin:.6em 0; }
+  table.g th,table.g td{ border-bottom:1px solid var(--rule); padding:.45em .5em; text-align:left; vertical-align:top; }
+  table.g th{ color:var(--accent); font-size:.85rem; text-transform:uppercase; letter-spacing:.06em; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.94rem; margin:.25em 0; }
+  ol.chk{ padding-left:1.4em; } ol.chk li{ margin:.4em 0; font-size:.97rem; }
+  .chain{ text-align:center; font-size:1.05rem; margin:1.2em 0; color:var(--accent); font-weight:700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 30 · Bölüm 7'nin Tamamı</div>
+  <h1>Bölüm 7 Genel Tekrar</h1>
+  <p class="lead">Ders 16-29'un bütün tanım, formül ve yöntemleri tek sayfada, çalışma sırasıyla. Yeni içerik yok — sınav öncesi hızlı geçiş için.</p>
+
+  <div class="chain">özdeğer → özvektör → baz → diyagonalizasyon</div>
+
+  <div class="toc">
+    <ol>
+      <li><a href="#b1">Özdeğer/özvektör tanımı</a></li>
+      <li><a href="#b2">Karakteristik determinant / polinom / eşitlik</a></li>
+      <li><a href="#b3">Özdeğer bulma adımları</a></li>
+      <li><a href="#b4">Baz ve çözüm uzayı</a></li>
+      <li><a href="#b5">Özvektör bulma prosedürü</a></li>
+      <li><a href="#b6">Bağımsızlık teoremi</a></li>
+      <li><a href="#b7">Özdeğerlerin özellikleri (cA)</a></li>
+      <li><a href="#b8">Üçgen matrisler</a></li>
+      <li><a href="#b9">Diyagonalleştirilebilirlik şartı</a></li>
+      <li><a href="#b10">Diyagonalleştirme yöntemi (5 adım)</a></li>
+      <li><a href="#b11">Ortogonal / ortonormal küme ve baz</a></li>
+      <li><a href="#b12">Gram-Schmidt</a></li>
+      <li><a href="#b13">Simetrik ve ortogonal matris</a></li>
+      <li><a href="#b14">Simetrik matrislerin 5 özelliği</a></li>
+      <li><a href="#b15">Ortogonal diyagonalizasyon (6 adım)</a></li>
+      <li><a href="#yontem">Yöntem seçme rehberi</a></li>
+      <li><a href="#hata">Hata tuzakları toplu liste</a></li>
+      <li><a href="#kontrol">Son kontrol listesi</a></li>
+    </ol>
+  </div>
+
+  <h2 id="b1">1. Özdeğer ve özvektör — tanım <span style="font-size:.7em;color:var(--soft)">(<a href="0016-ozdeger-ozvektor-karakteristik-denklem.html">Ders 16</a>)</span></h2>
+  <div class="rule"><code>A X = λ X</code> &nbsp;— &nbsp;<code>A</code>: <code>n×n</code> kare matris, <code>λ</code>: skaler (<b>eigen değeri / özdeğer</b>), <code>X ≠ 0</code>: vektör (<b>eigen vektör / özvektör</b>).</div>
+  <div class="card">Sezgi: <code>A</code> bir dönüşüm; özvektörler bu dönüşümde <b>yönü değişmeyen</b> yönlerdir, <code>λ</code> ise o yöndeki ölçek katsayısıdır.<br>
+  <b>Sıfır vektörü özvektör olamaz</b>; <code>λ = 0</code> ise geçerli bir özdeğerdir (<code>det(A) = 0</code> demektir).<br>
+  Diğer isimler: karakteristik kökler, characteristic values, proper values, latent roots.</div>
+
+  <h2 id="b2">2. Karakteristik determinant, polinom, eşitlik <span style="font-size:.7em;color:var(--soft)">(<a href="0016-ozdeger-ozvektor-karakteristik-denklem.html">Ders 16</a>)</span></h2>
+  <div class="card">
+    <b class="t">Karakteristik determinant:</b> <code>det(λI − A)</code><br>
+    <b class="t">Karakteristik polinom:</b> <code>det(λI − A) = λⁿ + c₁λⁿ⁻¹ + c₂λⁿ⁻² + ... + cₙ</code><br>
+    <b class="t">Karakteristik eşitlik:</b> <code>det(λI − A) = 0</code> → kökleri = <b>özdeğerler</b>
+  </div>
+  <div class="card"><b>Nereden geldi:</b> <code>AX = λX</code> → <code>λIX − AX = 0</code> → <code>(λI − A)X = 0</code>. Bu homojen sistemin sıfırdan farklı çözümü olması için <code>det(λI − A) = 0</code> (Ders 13).<br>
+  <b>Notasyon:</b> Bazı kitaplarda <code>det(A − λI)</code> kullanılır; kökler değişmez. Hocanın notu <code>det(λI − A)</code> kullanıyor.</div>
+
+  <h2 id="b3">3. Özdeğer bulma — adımlar <span style="font-size:.7em;color:var(--soft)">(<a href="0017-ozdeger-bulma-3x3-tekrarli-kokler.html">Ders 17</a>)</span></h2>
+  <div class="card">
+    1) <code>λI − A</code> kur: köşegene <code>λ − aᵢᵢ</code>, diğer yerlere <code>−aᵢⱼ</code>.<br>
+    2) Determinantı kofaktör açılımıyla aç (en çok sıfır içeren satır/sütunu seç).<br>
+    3) Sıfıra eşitle, çarpanlara ayır → <code>λ₁, ..., λₙ</code>.
+  </div>
+  <div class="rule"><b>Hızlı kontrol (her boyutta):</b> köklerin toplamı = <b>iz</b> (köşegen toplamı); köklerin çarpımı = <b>det(A)</b>.</div>
+  <div class="card"><b>2×2 kısayolu:</b> <code>det(λI − A) = λ² − (iz)λ + det(A)</code>.</div>
+  <div class="card"><b>Tekrarlı kök:</b> <code>(λ−a)ᵏ</code> çarpanı → <code>λ = a</code> <code>k</code> kez tekrarlanır. Tekrar sayısı ≠ bağımsız özvektör sayısı (kontrol gerekir).</div>
+
+  <h2 id="b4">4. Baz (basis) ve çözüm uzayı <span style="font-size:.7em;color:var(--soft)">(<a href="0018-baz-ve-cozum-uzayi.html">Ders 18</a>)</span></h2>
+  <div class="card"><b class="t">Tanım:</b> <code>S = {v₁, ..., vₙ}</code> kümesi <code>V</code> için bazdır ⟺ (a) <code>S</code> lineer bağımsız, (b) <code>S</code>, <code>V</code>'yi kapsar (spans).<br>
+  <b class="t">Teorem:</b> <code>S</code> bazsa, <code>V</code>'deki her <code>v</code> vektörü <code>v = c₁v₁ + ... + cₙvₙ</code> şeklinde <b>sadece bir şekilde</b> yazılır.</div>
+  <div class="card"><b>Çözüm uzayı bazı bulma (homojen sistem):</b> arttırılmış matrisi kanonik şekle indirge → pivot sütunların değişkenleri <b>bağımlı</b>, diğerleri <b>serbest</b> → her serbest değişkene parametre ata → çözümü parametrelerin katsayı vektörlerine ayır. Boyut <code>= n − r</code>.</div>
+
+  <h2 id="b5">5. Özvektör bulma prosedürü <span style="font-size:.7em;color:var(--soft)">(<a href="0019-ozvektor-bulma-proseduru.html">Ders 19</a>, <a href="0020-ozvektor-3x3-tam-ornek.html">Ders 20</a>)</span></h2>
+  <div class="rule">
+    <b>1. Adım:</b> <code>det(λI − A) = 0</code>'dan <code>λ₁, ..., λₙ</code>'i bul.<br>
+    <b>2. Adım:</b> Her <code>λᵢ</code> için <code>(λᵢI − A)x = 0</code> homojen sistemini çöz. Çözüm uzayı = <code>λᵢ</code>'nin <b>eigen uzayı</b>; bazı = <b>baz eigen vektörleri</b>.
+  </div>
+  <div class="card"><b>Doğrulama (zorunlu alışkanlık):</b> bulduğun her <code>v</code> için <code>Av = λv</code> hesapla. 10 saniye sürer, işaret hatalarını yakalar.</div>
+  <div class="card"><b>Özvektör tek değildir:</b> sıfırdan farklı her katı da özvektördür. <code>(2,−4)</code> ile <code>(−1,2)</code> aynı cevaptır.</div>
+
+  <h2 id="b6">6. Eigen vektörlerinin bağımsızlığı <span style="font-size:.7em;color:var(--soft)">(<a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21</a>)</span></h2>
+  <div class="rule"><b>Teorem (7.2.1):</b> <code>λ₁, ..., λₙ</code> <b>birbirinden farklı</b> özdeğerler ve <code>B₁, ..., Bₙ</code> bunların eigen vektör bazları ise, <code>B₁ ∪ B₂ ∪ ... ∪ Bₙ</code> <b>lineer bağımsız</b> bir kümedir.</div>
+  <div class="card"><b>Bağımsızlık kontrolü:</b> vektörleri sütun yapıp determinant al; <code>≠ 0</code> ise bağımsız (<a href="0020-ozvektor-3x3-tam-ornek.html">Örnek 7</a>: <code>det = 27</code>).</div>
+
+  <h2 id="b7">7. Eigen değerlerinin özellikleri <span style="font-size:.7em;color:var(--soft)">(<a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21</a>)</span></h2>
+  <div class="rule"><b>Özellik 1 (7.2.2):</b> <code>λ</code>, <code>A</code>'nın özdeğeri ise <code>cλ</code>, <code>cA</code>'nın özdeğeridir (<code>c ≠ 0</code> gerçel). <b>Özvektörler değişmez.</b></div>
+  <div class="card">Gerekçe: <code>Av = λv</code> → <code>(cA)v = (cλ)v</code>.<br>
+  <small>PDF'de bu bölüm sekmeli bir sunum; yalnızca Özellik 1'in içeriği ve örneği basılı.</small></div>
+
+  <h2 id="b8">8. Üçgen matrislerin eigen değerleri <span style="font-size:.7em;color:var(--soft)">(<a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21</a>)</span></h2>
+  <div class="rule"><b>Teorem (7.2.3):</b> <code>A</code> üçgen matris ise (üst, alt veya asal köşegen), <b>eigen değerleri asal köşegen elemanlarıdır</b>.</div>
+  <div class="card">Sebep: <code>λI − A</code> da üçgen kalır → determinantı köşegen çarpımı → <code>(λ−a₁₁)(λ−a₂₂)...(λ−aₙₙ) = 0</code>.<br>
+  Örnek: <table class="m"><tr><td>3</td><td>0</td><td>0</td></tr><tr><td>-2</td><td>7</td><td>0</td></tr><tr><td>4</td><td>8</td><td>1</td></tr></table> → <code>λ = 3, 7, 1</code>.</div>
+
+  <h2 id="b9">9. Diyagonalleştirilebilirlik <span style="font-size:.7em;color:var(--soft)">(<a href="0022-diyagonallestirilebilirlik.html">Ders 22</a>)</span></h2>
+  <div class="rule"><b>Yeterli şart:</b> <code>n×n</code> matrisin <b><code>n</code> lineer bağımsız eigen vektörü</b> varsa köşegenleştirilebilir.</div>
+  <div class="card">
+    <b>Sonuç 1:</b> <code>n</code> <b>farklı</b> özdeğer varsa → kesinlikle köşegenleştirilebilir (kontrol gerekmez).<br>
+    <b>Sonuç 2:</b> <code>n</code>'den az farklı özdeğer olsa bile <code>n</code> bağımsız özvektör bulunabilir (Örnek 10: <code>λ = 2,2,1</code> ama 3 bağımsız özvektör var).
+  </div>
+  <div class="card"><b>Karar akışı:</b> özdeğerleri bul → hepsi farklıysa bitti → tekrarlı kök varsa her biri için <code>(λI−A)x = 0</code> çöz, eigen uzayı boyutlarını topla → toplam <code>= n</code> ise evet, <code>&lt; n</code> ise hayır.</div>
+
+  <h2 id="b10">10. Diyagonalleştirme yöntemi <span style="font-size:.7em;color:var(--soft)">(<a href="0023-diyagonallestirme-yontemi.html">Ders 23</a>, <a href="0024-diyagonallestirme-tam-ornekler.html">Ders 24</a>)</span></h2>
+  <div class="rule">
+    <b>1.</b> Eigen değerlerini bul. &nbsp;<b>2.</b> <code>n</code> bağımsız eigen vektörünü bul.<br>
+    <b>3.</b> <code>P = [ p₁ &nbsp; p₂ &nbsp; ... &nbsp; pₙ ]</code> (özvektörler <b>sütun</b>). &nbsp;<b>4.</b> <code>P⁻¹</code>'i bul.<br>
+    <b>5.</b> <code>D = P⁻¹AP</code>. Köşegen elemanlar <code>= λ₁, ..., λₙ</code>.
+  </div>
+  <div class="card"><b>Sıralama kuralı:</b> <code>D</code>'nin köşegen sırası, <code>P</code>'nin sütun sırasıyla <b>aynıdır</b>. Sütunların üstüne hangi <code>λ</code>'ya ait olduğunu yaz.</div>
+  <div class="card"><b>Kontroller:</b> <code>det(P) ≠ 0</code>; <code>P·P⁻¹ = I</code>; <code>iz(A) = iz(D)</code>; <code>det(A) = det(D)</code>.</div>
+
+  <h2 id="b11">11. Ortogonal / ortonormal küme ve baz <span style="font-size:.7em;color:var(--soft)">(<a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25</a>)</span></h2>
+  <div class="card">
+    <b class="t">Ortogonal:</b> <code>⟨a, b⟩ = 0</code>. Küme ortogonaldir ⟺ <b>her çift</b> ortogonaldir.<br>
+    <b class="t">Ortonormal:</b> ortogonal <b>+</b> her vektörün uzunluğu <code>1</code>.<br>
+    <b class="t">Ortogonal/ortonormal baz:</b> hem baz hem ortogonal / ortonormal olan küme.
+  </div>
+  <div class="card"><b>Normalize etme:</b> <code>c = a / ‖a‖</code>. Doğrultuyu değiştirmez, ortogonalliği bozmaz.<br>
+  <code>‖a‖ = √(a₁² + ... + aₙ²)</code></div>
+
+  <h2 id="b12">12. Gram-Schmidt yöntemi <span style="font-size:.7em;color:var(--soft)">(<a href="0026-gram-schmidt.html">Ders 26</a>)</span></h2>
+  <div class="rule" style="font-family:Consolas,monospace;font-size:.93rem;line-height:2">
+    b₁ = a₁<br>
+    b₂ = a₂ − ( ⟨a₂,b₁⟩ / ⟨b₁,b₁⟩ ) b₁<br>
+    b₃ = a₃ − ( ⟨a₃,b₁⟩ / ⟨b₁,b₁⟩ ) b₁ − ( ⟨a₃,b₂⟩ / ⟨b₂,b₂⟩ ) b₂<br>
+    ⋮ &nbsp; sonra &nbsp; cᵢ = bᵢ / ‖bᵢ‖
+  </div>
+  <div class="card">Anlamı: her adımda <code>aᵢ</code>'den önceki <b>tüm</b> <code>b</code> yönlerindeki izdüşümü çıkar; kalan dik olur.<br>
+  Ara sonucu sadeleştirmek serbesttir (<code>[3/2, −3/2, 3]</code> yerine <code>[1, −1, 2]</code>) — ama normu <b>kullandığın biçime göre</b> hesapla.</div>
+
+  <h2 id="b13">13. Simetrik ve ortogonal matris <span style="font-size:.7em;color:var(--soft)">(<a href="0027-simetrik-ve-ortogonal-matrisler.html">Ders 27</a>)</span></h2>
+  <div class="card">
+    <b class="t">Simetrik:</b> <code>A = Aᵀ</code>.<br>
+    <b class="t">Ortogonal:</b> sütunları <b>ortonormal</b> küme oluşturur ⟺ <code>AᵀA = I</code> ⟺ <code>A⁻¹ = Aᵀ</code>.<br>
+    <b>Test:</b> <code>Aᵀ·A</code>'yı hesapla; <code>I</code> çıkarsa ortogonaldir.
+  </div>
+
+  <h2 id="b14">14. Simetrik matrislerin özellikleri <span style="font-size:.7em;color:var(--soft)">(<a href="0027-simetrik-ve-ortogonal-matrisler.html">Ders 27</a>)</span></h2>
+  <table class="g">
+    <tr><th>#</th><th>Özellik</th></tr>
+    <tr><td>A</td><td>Karakteristik denklemin <b>gerçel kökleri</b> vardır.</td></tr>
+    <tr><td>B</td><td>Farklı eigen değerlerine karşı gelen eigen vektörleri <b>ortogonaldir</b>.</td></tr>
+    <tr><td>C</td><td>Her eigen değerinin eigen uzayının <b>ortogonal bazı</b> vardır; boyutu <b>tekrarlama sayısı kadardır</b>.</td></tr>
+    <tr><td>D</td><td><code>n</code> eigen vektöründen oluşan bir <b>ortonormal küme</b> mevcuttur ve baz oluşturur.</td></tr>
+    <tr><td>E</td><td>Ortogonal <code>P</code> ve diyagonal <code>D</code> mevcut, <code>D = PᵀAP</code>, <code>P⁻¹ = Pᵀ</code>. <code>D</code>'nin köşegeni = özdeğerler.</td></tr>
+  </table>
+  <div class="card"><b>Pratik sonuç:</b> <b>her simetrik matris köşegenleştirilebilir</b> — üstelik ortogonal olarak. "Köşegenleştirilebilir mi?" sorusunu simetrik matriste sormaya gerek yok.</div>
+
+  <h2 id="b15">15. Ortogonal diyagonalizasyon <span style="font-size:.7em;color:var(--soft)">(<a href="0028-simetrik-matris-ortogonal-diyagonalizasyon.html">Ders 28</a>, <a href="0029-tekrarli-ozdeger-gram-schmidt-ornek20.html">Ders 29</a>)</span></h2>
+  <div class="rule">
+    <b>1.</b> <code>A</code>'nın eigen değerlerini elde et.<br>
+    <b>2.</b> Her eigen değeri ile ilişkili baz eigen vektörlerini bul.<br>
+    <b>3.</b> Bir eigen uzayının bazı <b>birden fazla</b> vektör içeriyorsa <b>Gram-Schmidt</b> ile ortonormal baz yap; <b>tek</b> vektör içeriyorsa yalnızca <b>birim vektöre</b> çevir.<br>
+    <b>4.</b> Sütunları bu <code>â₁, ..., âₙ</code> olan <code>P</code>'yi oluştur.<br>
+    <b>5.</b> <code>Pᵀ</code>'yi yaz (<code>P⁻¹ = Pᵀ</code>).<br>
+    <b>6.</b> <code>D = PᵀAP</code>'yi elde et.
+  </div>
+  <div class="card"><b>Genel yöntemden tek farkı:</b> 4. adımda <code>P⁻¹</code>'i Gauss-Jordan ile hesaplamak yerine <b>transpozunu yazmak</b>. Karşılığında 3. adımda normalize/Gram-Schmidt yapılır.</div>
+
+  <h2 id="yontem">16. Yöntem seçme rehberi</h2>
+  <table class="g">
+    <tr><th>Soru şu diyorsa…</th><th>Yapılacak</th></tr>
+    <tr><td>"Karakteristik polinomu bul"</td><td><code>det(λI − A)</code>'yı aç, <b>sıfıra eşitleme</b>. <a href="0016-ozdeger-ozvektor-karakteristik-denklem.html">D16</a></td></tr>
+    <tr><td>"Eigen değerlerini bul"</td><td><code>det(λI − A) = 0</code>'ın kökleri. Üçgense doğrudan köşegen. <a href="0017-ozdeger-bulma-3x3-tekrarli-kokler.html">D17</a>/<a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">D21</a></td></tr>
+    <tr><td>"λ = a'ya karşı gelen eigen vektörünü bul"</td><td><code>(aI − A)x = 0</code>'ı çöz, parametre ata. <a href="0019-ozvektor-bulma-proseduru.html">D19</a></td></tr>
+    <tr><td>"Çözüm uzayı için baz bul"</td><td>Kanonik şekle indirge, serbest değişkenlere ayır. <a href="0018-baz-ve-cozum-uzayi.html">D18</a></td></tr>
+    <tr><td>"Diyagonal hale dönüştürülebilir mi?"</td><td>Bağımsız özvektör sayısını <code>n</code> ile karşılaştır. <a href="0022-diyagonallestirilebilirlik.html">D22</a></td></tr>
+    <tr><td>"Diyagonalleştiren P'yi bul" (simetrik <b>değil</b>)</td><td>5 adım, <code>D = P⁻¹AP</code>. <a href="0023-diyagonallestirme-yontemi.html">D23</a></td></tr>
+    <tr><td>"<b>Ortogonal</b> P'yi bul" / matris <b>simetrik</b></td><td>6 adım, normalize + gerekirse Gram-Schmidt, <code>D = PᵀAP</code>. <a href="0028-simetrik-matris-ortogonal-diyagonalizasyon.html">D28</a></td></tr>
+    <tr><td>Tekrarlı özdeğerin eigen uzayı 2+ boyutlu ve dik değil</td><td>O uzayın <b>içinde</b> Gram-Schmidt. <a href="0029-tekrarli-ozdeger-gram-schmidt-ornek20.html">D29</a></td></tr>
+    <tr><td>"Bu küme ortonormal mi?"</td><td>Tüm çiftlerin iç çarpımı 0 <b>ve</b> tüm normlar 1. <a href="0025-ortogonal-ortonormal-bazlar.html">D25</a></td></tr>
+    <tr><td>"Bu matris ortogonal mi?"</td><td><code>AᵀA = I</code> mi? <a href="0027-simetrik-ve-ortogonal-matrisler.html">D27</a></td></tr>
+  </table>
+
+  <h2 id="hata">17. Hata tuzakları — toplu liste</h2>
+  <div class="trap">
+    <ul>
+      <li><b>İşaret:</b> <code>λI − A</code>'da köşegen dışı elemanlar <code>A</code>'nınkilerin <b>ters işaretlisi</b>dir.</li>
+      <li><code>λ</code>'yı <code>I</code> ile çarpmadan matristen çıkarmaya çalışmak.</li>
+      <li>Karakteristik polinomu bulup <b>sıfıra eşitlemeyi</b> unutmak.</li>
+      <li>Özdeğer ile özvektörü karıştırmak (biri sayı, diğeri vektör).</li>
+      <li><code>(λI − A)x = 0</code> yerine <code>Ax = 0</code> çözmek.</li>
+      <li>Her <code>λᵢ</code> için matrisi <b>yeniden kurmayı</b> unutmak.</li>
+      <li>Serbest değişkeni yanlış seçmek (serbest olanlar <b>pivotsuz sütunların</b> değişkenleridir).</li>
+      <li>Tekrarlı kökü "tekrar sayısı kadar bağımsız özvektör var" diye saymak.</li>
+      <li>Diyagonalizasyon şartını kontrol etmeden <code>P</code> kurmaya başlamak.</li>
+      <li>Özvektörleri <code>P</code>'ye <b>satır</b> olarak yazmak (sütun olmalı).</li>
+      <li><code>D</code>'nin köşegen sırasını <code>P</code>'nin sütun sırasından bağımsız yazmak.</li>
+      <li>Gauss-Jordan'da <b>sağ bloğa</b> aynı işlemi uygulamayı unutmak.</li>
+      <li>Ortonormal olmayan <code>P</code> ile <code>D = PᵀAP</code> kullanmak.</li>
+      <li>Gram-Schmidt'te paydayı <code>⟨bᵢ,bᵢ⟩</code> yerine <code>‖bᵢ‖</code> yazmak.</li>
+      <li>Gram-Schmidt'i <b>farklı</b> özdeğerlerin vektörleri arasında uygulamak (gereksiz; onlar zaten dik).</li>
+      <li>Sonucu <code>Av = λv</code> ve <code>PᵀP = I</code> ile doğrulamamak.</li>
+    </ul>
+  </div>
+
+  <h2 id="kontrol">18. Son kontrol listesi (sınavdan hemen önce)</h2>
+  <ol class="chk">
+    <li><code>λI − A</code>'yı doğru işaretlerle kurabiliyor muyum?</li>
+    <li>Kofaktör açılımında <code>+ − +</code> şablonunu ve en çok sıfırlı satırı seçmeyi hatırlıyor muyum?</li>
+    <li>Kökleri bulduktan sonra <b>iz</b> ve <b>determinant</b> kontrolünü yapıyor muyum?</li>
+    <li>Üçgen matris görünce doğrudan köşegeni okuyor muyum?</li>
+    <li>Her <code>λ</code> için ayrı homojen sistem kurup, serbest değişkenleri doğru seçiyor muyum?</li>
+    <li>Her özvektör için <code>Av = λv</code> doğrulamasını yapıyor muyum?</li>
+    <li>Tekrarlı kök görünce eigen uzayının <b>boyutunu</b> (<code>n − r</code>) hesaplıyor muyum?</li>
+    <li><code>P</code>'yi sütunlarla kurup, üstlerine <code>λ</code> etiketlerini yazıyor muyum?</li>
+    <li>Matris simetrikse <code>P⁻¹</code> yerine <code>Pᵀ</code> kullanacağımı fark ediyor muyum?</li>
+    <li>Aynı eigen uzayında iki vektör varsa Gram-Schmidt gerektiğini kontrol ediyor muyum?</li>
+    <li>Normalize ederken <b>norma</b> (karekökle) bölüyor muyum?</li>
+    <li>Sonunda <code>D</code>'nin köşegeninin özdeğerlerle uyuştuğunu kontrol ediyor muyum?</li>
+  </ol>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/ozdeger-ozvektor.html">Özdeğer & Özvektör</a> · <a href="../../reference/lineer-cebir/diyagonalizasyon.html">Diyagonalizasyon</a> · <a href="../../reference/lineer-cebir/ortonormal-gram-schmidt.html">Ortonormal Baz & Gram-Schmidt</a><br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> (Bölüm 7.1 – 7.4.1.2) ve <code>13-14.pdf</code> (7.4.1.3 Örnek 20 + değerlendirme soruları).<br>
+    🗂️ Ders 01-13 tekrarı için: <a href="0014-genel-tekrar-1-13.html">Genel Tekrar (Bölüm 1-6)</a>.<br>
+    ✍️ <b>Pratik:</b> <a href="0031-bolum7-degerlendirme-sorulari.html">Bölüm 7 Değerlendirme Soruları (20 soru, tam çözümlü)</a>.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir maddeyi tekrar açtırabilir, ek örnek isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0029-tekrarli-ozdeger-gram-schmidt-ornek20.html">Ders 29 — Örnek 20</a></span>
+    <span>Sıradaki: <a href="0031-bolum7-degerlendirme-sorulari.html">Ders 31 — Değerlendirme Soruları</a></span>
+  </div>
+
+</div>
+</body>
+</html>

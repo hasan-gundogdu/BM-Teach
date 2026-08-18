@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 22 — Diyagonalleştirilebilirlik: Karar Verme</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.bar{ border-left:1px dashed var(--soft); }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  .rowop{ font-size:.85rem; color:var(--accent); font-family:Consolas,monospace; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.95rem; margin:.25em 0; }
+  .sezgi{ background:#f2f5f0; border-left:3px solid #5d7a4e; border-radius:4px; padding:.7em 1em; font-size:.95rem; }
+  .flow{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.8em 1em; font-size:.95rem; }
+  .flow ol{ margin:.3em 0; padding-left:1.3em; } .flow li{ font-size:.95rem; margin:.35em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 22 · Bölüm 7.3 – 7.3.1 · Örnek 8-9-10</div>
+  <h1>Diyagonalleştirilebilirlik: Karar Verme</h1>
+  <p class="lead">Bu dersin sonunda: bir matrisin köşegen hale dönüştürülüp dönüştürülemeyeceğine <span class="hi">karar verebileceksin</span> — henüz <code>P</code> ve <code>D</code>'yi hesaplamadan.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Sınav sorularının bir kısmı doğrudan "bu matris diyagonal hale dönüştürülebilir mi?" diye sorar — cevap için tam diyagonalizasyon yapmaya gerek yok, yalnızca <b>bağımsız özvektör sayısını</b> saymak yeter. Yöntemin kendisi bir sonraki derste.</p>
+
+  <h2>1. Tanım ve şart (PDF 7.3, 7.3.1)</h2>
+  <div class="q">
+    <p><b>Tanım.</b> Eğer <code>P A P⁻¹</code> sonucu bir diyagonal matris elde edilecek şekilde <b>tersi alınabilir bir <code>P</code> matrisi</b> mevcutsa, <code>n×n</code> boyutlu bir <code>A</code> kare matrisi <b>diyagonal (köşegen) haline dönüştürülebilir</b> denir.</p>
+  </div>
+  <p class="step"><b>Notasyon notu.</b> Slaytta tanım <code>PAP⁻¹</code> ile yazılmış; hocanın ilerideki bütün örneklerinde ve yönteminde kullanılan çalışma formülü <code>D = P⁻¹AP</code>'dir. İkisi aynı şeyi söyler — birinde <code>P</code>'nin rolünü diğerinde <code>P⁻¹</code> üstlenir. <b>Bu ders ve sonrakiler <code>D = P⁻¹AP</code> biçimini kullanır</b> (PDF'in Örnek 11–13 ve 7.3.1.4 yöntemi de öyle).</p>
+
+  <div class="q">
+    <p><b>Yeterli şart.</b> <code>n×n</code> boyutlu <code>A</code> matrisinin diyagonal matris haline dönüştürülebilmesi için yeterli şart, <code>A</code> matrisinin <b><code>n</code> lineer bağımsız eigen vektörünün olmasıdır</b>.</p>
+    <p><b>Sonuç 1.</b> Farklı eigen değerlerine karşı gelen eigen vektörleri lineer bağımsız olduklarından (<a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21, 7.2.1</a>), <code>n×n</code> boyutlu bir <code>A</code> matrisi <b><code>n</code> farklı eigen değerine sahipse</b> diyagonal hale dönüştürülebilir.</p>
+    <p><b>Sonuç 2.</b> Bazı durumlarda <code>A</code> matrisinin <code>n</code>'den <b>daha az sayıda farklı</b> eigen değeri olmasına karşın <code>n</code> adet lineer bağımsız eigen vektörü olabilir — bu durumda da dönüştürülebilir.</p>
+  </div>
+
+  <div class="flow">
+    <b>Karar akışı (bu dersin özeti):</b>
+    <ol>
+      <li>Özdeğerleri bul.</li>
+      <li><b><code>n</code> tanesi de farklı mı?</b> → Evet ise <b>dönüştürülebilir</b>, iş bitti.</li>
+      <li>Tekrarlı kök varsa: <b>her tekrarlı özdeğer için</b> <code>(λI − A)x = 0</code> çöz, eigen uzayının boyutunu (baz vektör sayısını) bul.</li>
+      <li>Bütün eigen uzaylarının boyutları toplamı <code>= n</code> ise <b>dönüştürülebilir</b>; <code>&lt; n</code> ise <b>dönüştürülemez</b>.</li>
+    </ol>
+  </div>
+
+  <div class="sezgi">
+    <b>Sezgi / ek açıklama — neden <code>n</code> bağımsız özvektör?</b> Diyagonalleştirmek, "uzaya öyle bir koordinat sistemi seçelim ki matris sadece eksenleri ölçekleyen bir şey gibi görünsün" demektir. O koordinat sisteminin eksenleri özvektörler olur. <code>n</code> boyutlu uzayda bir koordinat sistemi kurmak için <code>n</code> tane bağımsız yön (yani bir <b>baz</b>, <a href="0018-baz-ve-cozum-uzayi.html">Ders 18</a>) gerekir. Bağımsız özvektör sayısı <code>n</code>'den azsa, özvektörler uzayın tamamını "germez" — koordinat sistemi kurulamaz, matris köşegenleşemez.
+  </div>
+
+  <h2>2. Örnek 8 (PDF 7.3.1.1) — 2×2, iki farklı özdeğer</h2>
+  <p><code>A</code> = <table class="m"><tr><td>1</td><td>1</td></tr><tr><td>-2</td><td>4</td></tr></table> matrisinin <b>diyagonal</b> haline dönüştürülüp dönüştürülemeyeceğini belirleyiniz.</p>
+
+  <p class="step"><b>Çözüm:</b></p>
+  <div class="eq">
+    <code>det(λI − A) = </code><table class="m"><tr><td>λ−1</td><td>−1</td></tr><tr><td>2</td><td>λ−4</td></tr></table>
+  </div>
+  <p class="step"><code>= (λ−1)(λ−4) − (−1)(2) = (λ² − 5λ + 4) + 2 = λ² − 5λ + 6</code></p>
+  <p class="step"><code>λ² − 5λ + 6 = (λ−3)(λ−2) = 0</code> → <code>λ₁ = 3</code>, <code>λ₂ = 2</code></p>
+  <p><b>Birbirinden farklı iki <code>λ</code> değeri mevcut olduğundan, <code>2×2</code> boyutlu <code>A</code> matrisi diyagonal hale dönüştürülebilir.</b></p>
+  <p class="step">Kontrol: iz <code>= 1 + 4 = 5</code> ✓; <code>det(A) = 1·4 − 1·(−2) = 6</code> ✓</p>
+
+  <h2>3. Örnek 9 (PDF 7.3.1.2) — 3×3, üç farklı özdeğer</h2>
+  <p><code>A</code> = <table class="m"><tr><td>1</td><td>2</td><td>-1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>4</td><td>-4</td><td>5</td></tr></table> matrisi diyagonal hale dönüştürülebilir mi? Belirleyiniz.</p>
+
+  <p class="step"><b>Çözüm:</b> Önce <code>λI − A</code>:</p>
+  <div class="eq">
+    <table class="m"><tr><td>λ</td><td>0</td><td>0</td></tr><tr><td>0</td><td>λ</td><td>0</td></tr><tr><td>0</td><td>0</td><td>λ</td></tr></table>
+    <code>−</code>
+    <table class="m"><tr><td>1</td><td>2</td><td>-1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>4</td><td>-4</td><td>5</td></tr></table>
+    <code>=</code>
+    <table class="m"><tr><td>λ−1</td><td>−2</td><td>1</td></tr><tr><td>−1</td><td>λ</td><td>−1</td></tr><tr><td>−4</td><td>4</td><td>λ−5</td></tr></table>
+  </div>
+
+  <p class="step">1. satır boyunca açalım (işaretler <code>+ − +</code>):</p>
+  <div class="eq">
+    <code>= (λ−1)·</code><table class="m"><tr><td>λ</td><td>−1</td></tr><tr><td>4</td><td>λ−5</td></tr></table>
+    <code> − (−2)·</code><table class="m"><tr><td>−1</td><td>−1</td></tr><tr><td>−4</td><td>λ−5</td></tr></table>
+    <code> + 1·</code><table class="m"><tr><td>−1</td><td>λ</td></tr><tr><td>−4</td><td>4</td></tr></table>
+  </div>
+  <p class="step">1. minör: <code>λ(λ−5) − (−1)(4) = λ² − 5λ + 4</code></p>
+  <p class="step">2. minör: <code>(−1)(λ−5) − (−1)(−4) = −λ + 5 − 4 = 1 − λ</code></p>
+  <p class="step">3. minör: <code>(−1)(4) − λ(−4) = −4 + 4λ</code></p>
+  <p class="step">Yerine koy: <code>= (λ−1)(λ² − 5λ + 4) + 2(1 − λ) + (4λ − 4)</code></p>
+  <p class="step">Son iki terimi <code>(λ−1)</code> cinsine çevir: <code>2(1 − λ) = −2(λ−1)</code>, &nbsp; <code>4λ − 4 = 4(λ−1)</code>.</p>
+  <p class="step"><code>= (λ−1)[(λ² − 5λ + 4) − 2 + 4] = (λ−1)(λ² − 5λ + 6)</code></p>
+  <p class="step">Açık hâli: <code>λ³ − 6λ² + 11λ − 6</code></p>
+  <div class="eq"><code>λ³ − 6λ² + 11λ − 6 = (λ−1)(λ−2)(λ−3) = 0</code></div>
+  <p><b>Eşitliğinden <code>λ₁ = 1</code>, <code>λ₂ = 2</code>, <code>λ₃ = 3</code> gibi <b>farklı</b> eigen değerleri elde edildiğinden <code>3×3</code> boyutlu <code>A</code> matrisi diyagonal hale dönüştürülebilir.</b></p>
+  <p class="step">Kontrol: iz <code>= 1 + 0 + 5 = 6</code>; kökler toplamı <code>= 1+2+3 = 6</code> ✓. <code>det(A) = 1(0·5 − 1·(−4)) − 2(1·5 − 1·4) + (−1)(1·(−4) − 0·4) = 4 − 2 + 4 = 6</code>; kökler çarpımı <code>= 6</code> ✓</p>
+
+  <h2>4. Örnek 10 (PDF 7.3.1.3) — tekrarlı kök, yine de dönüştürülebilir</h2>
+  <p><code>A</code> = <table class="m"><tr><td>2</td><td>0</td><td>3</td></tr><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table> matrisi diyagonal hale dönüştürülebilir mi? Belirleyiniz.</p>
+
+  <h3>Adım 1 — özdeğerler</h3>
+  <div class="eq">
+    <code>det(λI − A) = </code><table class="m"><tr><td>λ−2</td><td>0</td><td>−3</td></tr><tr><td>0</td><td>λ−2</td><td>−1</td></tr><tr><td>0</td><td>0</td><td>λ−1</td></tr></table>
+  </div>
+  <p>Üst üçgen matris olduğundan (<a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21</a>) eigen değerleri asal köşegen eleman değerleridir. Yani</p>
+  <div class="eq"><code>(λ − 2)(λ − 2)(λ − 1) = 0</code></div>
+  <p>Dolayısıyla eigen değerleri <code>λ = 2</code> ve <code>λ = 1</code>'dir. <b>Görüldüğü gibi 3 farklı eigen değeri mevcut değildir</b> — o hâlde 3 adet lineer bağımsız eigen vektörü olup olmadığını araştıralım.</p>
+
+  <h3>Adım 2 — λ = 1 için eigen uzayı</h3>
+  <p class="step"><code>(λI − A)x = 0</code> eşitliğinde <code>λ = 1</code> olduğundan <code>(I − A)x = 0</code>:</p>
+  <div class="eq">
+    <span>(</span><table class="m"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+    <code>−</code>
+    <table class="m"><tr><td>2</td><td>0</td><td>3</td></tr><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table><span>)</span>
+    <code>=</code>
+    <table class="m"><tr><td>−1</td><td>0</td><td>−3</td></tr><tr><td>0</td><td>−1</td><td>−1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
+  </div>
+  <div class="eq">
+    <table class="m"><tr><td>−1</td><td>0</td><td>−3</td></tr><tr><td>0</td><td>−1</td><td>−1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
+    <table class="m"><tr><td>x₁</td></tr><tr><td>x₂</td></tr><tr><td>x₃</td></tr></table>
+    <code>=</code>
+    <table class="m"><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr></table>
+  </div>
+  <div class="eq">
+    <table class="m"><tr><td>−1</td><td>0</td><td>−3</td><td class="bar">0</td></tr><tr><td>0</td><td>−1</td><td>−1</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>0</td><td class="bar">0</td></tr></table>
+    <span class="rowop">&nbsp;R₁ → −R₁ , R₂ → −R₂&nbsp;</span>
+    <table class="m"><tr><td>1</td><td>0</td><td>3</td><td class="bar">0</td></tr><tr><td>0</td><td>1</td><td>1</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>0</td><td class="bar">0</td></tr></table>
+  </div>
+  <p class="step">Rank <code>r = 2</code>, <code>n = 3</code> → <code>n − r = 1</code> serbest değişken (<code>x₃</code>).</p>
+  <p class="step"><code>x₁ + 3x₃ = 0</code> → <code>x₁ = −3x₃</code>; &nbsp; <code>x₂ + x₃ = 0</code> → <code>x₂ = −x₃</code>. <code>x₃ = t</code>:</p>
+  <div class="eq">
+    <table class="m"><tr><td>x₁</td></tr><tr><td>x₂</td></tr><tr><td>x₃</td></tr></table> <code>=</code>
+    <table class="m"><tr><td>−3t</td></tr><tr><td>−t</td></tr><tr><td>t</td></tr></table> <code>= −t</code>
+    <table class="m"><tr><td>3</td></tr><tr><td>1</td></tr><tr><td>−1</td></tr></table>
+  </div>
+  <p class="step"><b><code>λ = 1</code> → 1 tane baz eigen vektörü: <code>(3, 1, −1)</code></b>. Kontrol: <code>A(3,1,−1) = (2·3 + 0 + 3(−1), &nbsp; 0 + 2·1 + 1(−1), &nbsp; 0 + 0 + 1(−1)) = (3, 1, −1)</code> ✓</p>
+
+  <h3>Adım 3 — λ = 2 için eigen uzayı (kritik adım)</h3>
+  <div class="eq">
+    <span>(</span><code>2·</code><table class="m"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+    <code>−</code>
+    <table class="m"><tr><td>2</td><td>0</td><td>3</td></tr><tr><td>0</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table><span>)</span>
+    <code>=</code>
+    <table class="m"><tr><td>0</td><td>0</td><td>−3</td></tr><tr><td>0</td><td>0</td><td>−1</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+  </div>
+  <p class="step">Arttırılmış matris ve satır işlemleri:</p>
+  <div class="eq">
+    <table class="m"><tr><td>0</td><td>0</td><td>−3</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>−1</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>1</td><td class="bar">0</td></tr></table>
+    <span class="rowop">&nbsp;R₁ → R₁/(−3)&nbsp;</span>
+    <table class="m"><tr><td>0</td><td>0</td><td>1</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>−1</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>1</td><td class="bar">0</td></tr></table>
+  </div>
+  <div class="eq">
+    <span class="rowop">&nbsp;R₂ → R₂ + R₁ , R₃ → R₃ − R₁&nbsp;</span>
+    <table class="m"><tr><td>0</td><td>0</td><td>1</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>0</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>0</td><td class="bar">0</td></tr></table>
+  </div>
+  <p class="step">2. ve 3. satır elemanları sıfır olduğundan ilgili matrisin rankı <code>r = 1</code>'dir. Bunun sonucu olarak 1 bağımlı, <code>n − r = 3 − 1 = 2</code> bağımsız değişken mevcuttur. Bağımlı değişken, <code>1</code> değeri <code>x₃</code> değişkeninin sütununda bulunduğundan <code>x₃</code>'tür.</p>
+  <p class="step">İlgili matristen <code>x₃ = 0</code> elde edilir. <code>x₁ = s</code> ve <code>x₂ = t</code> değerleri atanırsa:</p>
+  <div class="eq">
+    <table class="m"><tr><td>x₁</td></tr><tr><td>x₂</td></tr><tr><td>x₃</td></tr></table> <code>=</code>
+    <table class="m"><tr><td>s</td></tr><tr><td>t</td></tr><tr><td>0</td></tr></table> <code>= s</code>
+    <table class="m"><tr><td>1</td></tr><tr><td>0</td></tr><tr><td>0</td></tr></table> <code>+ t</code>
+    <table class="m"><tr><td>0</td></tr><tr><td>1</td></tr><tr><td>0</td></tr></table>
+  </div>
+  <p class="step"><b>Tekrarlanan kök (2 defa) <code>λ = 2</code> değerine karşı gelen eigen vektörü sayısı 2'dir:</b> <code>(1, 0, 0)</code> ve <code>(0, 1, 0)</code>.</p>
+  <p class="step">Kontrol: <code>A(1,0,0) = (2, 0, 0) = 2(1,0,0)</code> ✓ &nbsp; <code>A(0,1,0) = (0, 2, 0) = 2(0,1,0)</code> ✓</p>
+
+  <h3>Adım 4 — karar</h3>
+  <p>Görüldüğü gibi, <code>3×3</code> boyutlu <code>A</code> matrisinin <b>2 farklı eigen değeri olmasına karşın 3 lineer bağımsız vektörü</b> bulunmaktadır:</p>
+  <div class="eq">
+    <table class="m"><tr><td>3</td></tr><tr><td>1</td></tr><tr><td>−1</td></tr></table>,
+    <table class="m"><tr><td>1</td></tr><tr><td>0</td></tr><tr><td>0</td></tr></table> &nbsp;ve&nbsp;
+    <table class="m"><tr><td>0</td></tr><tr><td>1</td></tr><tr><td>0</td></tr></table>
+  </div>
+  <p><b>Dolayısıyla <code>A</code> matrisi diyagonal hale dönüştürülebilir.</b></p>
+  <details>
+    <summary>Bağımsızlık kontrolü (determinantla)</summary>
+    <p class="step"><code>det</code> <table class="m" style="margin:0 .2em"><tr><td>3</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>−1</td><td>0</td><td>0</td></tr></table> — 3. satır boyunca açalım (yalnızca ilk eleman sıfırdan farklı, işaret <code>(−1)³⁺¹ = +</code>):</p>
+    <p class="step"><code>= (−1)·</code><table class="m" style="margin:0 .2em"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td></tr></table><code> = (−1)(1·1 − 0·0) = −1 ≠ 0</code> → <b>lineer bağımsız</b> ✓</p>
+  </details>
+
+  <h2>5. Sık yapılan hatalar</h2>
+  <div class="trap">
+    <ul>
+      <li><b>Diyagonalizasyon şartını kontrol etmeden</b> doğrudan <code>P</code> kurmaya başlamak. Tekrarlı kök varsa önce eigen uzayı boyutu sayılmalı.</li>
+      <li>"Tekrarlı kök var → köşegenleştirilemez" diye erken karar vermek. Örnek 10 tam olarak bunun karşı örneği.</li>
+      <li>Tersine: "3 özdeğer var (2, 2, 1) → 3 özvektör var" diye saymak. Tekrarlı kök <b>tekrar sayısı kadar bağımsız özvektör vermek zorunda değildir</b>; sayılması gereken şey <b>eigen uzayının boyutu</b> (<code>n − r</code>).</li>
+      <li>Farklı özdeğerlerin özvektörlerini de tek tek bağımsızlık testine sokup zaman kaybetmek — teorem gereği zaten bağımsızdırlar (Ders 21).</li>
+    </ul>
+  </div>
+
+  <h2>6. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1 (kavram).</b> <code>5×5</code> bir matrisin özdeğerleri <code>3, 3, 3, 7, 7</code>. <code>λ = 3</code>'ün eigen uzayı 2 boyutlu, <code>λ = 7</code>'ninki 2 boyutlu. Matris köşegenleştirilebilir mi?</p>
+    <details><summary>Cevabı göster</summary><p><b>Hayır.</b> Toplam bağımsız özvektör sayısı <code>2 + 2 = 4 &lt; 5 = n</code>. Köşegenleştirme için 5 bağımsız özvektör gerekirdi.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (temel işlem).</b> <code>A</code> = <table class="m"><tr><td>3</td><td>0</td></tr><tr><td>0</td><td>3</td></tr></table> köşegenleştirilebilir mi? Tek bir özdeğeri (tekrarlı) olmasına rağmen cevabın ne?</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step">Özdeğer: <code>λ = 3</code> (iki kez). <code>3I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td></tr></table> → rank <code>r = 0</code>, serbest değişken sayısı <code>n − r = 2</code>.</p>
+      <p class="step">Eigen uzayı 2 boyutlu: <code>(1,0)</code> ve <code>(0,1)</code> → 2 bağımsız özvektör = <code>n</code>. <b>Evet, köşegenleştirilebilir.</b> (Zaten kendisi köşegen; <code>P = I</code> ile <code>D = A</code>.)</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (sınav seviyesi).</b> <code>A</code> = <table class="m"><tr><td>1</td><td>1</td></tr><tr><td>0</td><td>1</td></tr></table> köşegenleştirilebilir mi? Cevabını eigen uzayının boyutunu hesaplayarak gerekçelendir.</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−1</td><td>−1</td></tr><tr><td>0</td><td>λ−1</td></tr></table> → üst üçgen → <code>det = (λ−1)²= 0</code> → <code>λ = 1</code> (iki kez tekrarlı). Tek farklı özdeğer → kontrol şart.</p>
+      <p class="step"><code>1·I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>0</td><td>−1</td></tr><tr><td>0</td><td>0</td></tr></table>. Rank <code>r = 1</code>, <code>n = 2</code> → serbest değişken sayısı <code>n − r = 1</code>.</p>
+      <p class="step">Denklem: <code>−x₂ = 0</code> → <code>x₂ = 0</code>, <code>x₁ = t</code> serbest → tek baz vektörü <code>(1, 0)</code>.</p>
+      <p class="step">Toplam bağımsız özvektör sayısı <code>1 &lt; 2 = n</code> → <b>köşegenleştirilemez.</b></p>
+      <p class="step">(Bu matris, PDF'in Bölüm değerlendirme sorularında da <b>Soru 16</b> olarak soruluyor — cevap "Dönüştürülemez".)</p>
+    </details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/diyagonalizasyon.html">Diyagonalizasyon</a><br>
+    📚 3Blue1Brown — <a href="https://www.youtube.com/watch?v=PFDu9oVAE-g">"Eigenvectors and eigenvalues"</a>, "eigenbasis" bölümü (videonun son üçte biri).<br>
+    🎓 MIT 18.06 (Strang) — Ders 22: Diagonalization and Powers of A.<br>
+    🗂️ Ön koşullar: <a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21</a> · <a href="0018-baz-ve-cozum-uzayi.html">Ders 18 — Baz</a> · <a href="0012-matris-ranki.html">Ders 12 — Rank</a>.<br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> — Bölüm 7.3, 7.3.1, Örnek 8, 9, 10.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21 — Özdeğerlerin Özellikleri</a></span>
+    <span>Sıradaki: <a href="0023-diyagonallestirme-yontemi.html">Ders 23 — Diyagonalleştirme Yöntemi</a></span>
+  </div>
+
+</div>
+</body>
+</html>

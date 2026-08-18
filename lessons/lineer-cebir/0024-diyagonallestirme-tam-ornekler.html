@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 24 — İki Tam Diyagonalleştirme Örneği</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .5em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.95rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.bar{ border-left:1px dashed var(--soft); }
+  table.m td.lbl{ font-size:.72rem; color:var(--accent); padding:0 .5em; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  .rowop{ font-size:.85rem; color:var(--accent); font-family:Consolas,monospace; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.95rem; margin:.25em 0; }
+  .sezgi{ background:#f2f5f0; border-left:3px solid #5d7a4e; border-radius:4px; padding:.7em 1em; font-size:.95rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 24 · Bölüm 7.3.1.6 – 7.3.1.7 · Örnek 12 – 13</div>
+  <h1>İki Tam Diyagonalleştirme Örneği</h1>
+  <p class="lead">Bu dersin sonunda: <span class="hi">kesirli <code>P⁻¹</code></span> içeren tam bir diyagonalleştirmeyi ve <code>det(P)</code>'nin negatif çıktığı ikinci bir örneği baştan sona kendin yürütebileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> <a href="0023-diyagonallestirme-yontemi.html">Ders 23</a>'te <code>det(P) = 1</code> olduğu için <code>P⁻¹</code> tamsayı çıkmıştı — gerçek sınav sorusu genellikle böyle nazik değil. Bu iki örnek yöntemin "kirli hesap" hâlini gösteriyor. İkisi de PDF'in resmî örnekleri (Örnek 12, Örnek 13) ve daha önce özdeğer/özvektörlerini bulduğumuz matrisler — yani bu ders <b>sadece diyagonalleştirme kısmına</b> odaklanıyor.</p>
+
+  <h2>1. Örnek 12 (PDF 7.3.1.6)</h2>
+  <p><code>A</code> = <table class="m"><tr><td>1</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-1</td><td>-2</td></tr><tr><td>-2</td><td>-2</td><td>0</td></tr></table> matrisini diyagonal hale dönüştüren <code>P</code> matrisini elde ediniz.</p>
+
+  <h3>1. Adım — özdeğerler</h3>
+  <p><a href="0020-ozvektor-3x3-tam-ornek.html">Örnek 6</a>'dan <code>A</code> matrisinin eigen değerleri <code>λ₁ = 0</code>, <code>λ₂ = 3</code> ve <code>λ₃ = −3</code> olarak elde edilmiş idi.</p>
+
+  <h3>2. Adım — eigen uzayları için baz vektörler</h3>
+  <p>Yine Örnek 6'dan (orada her biri tam olarak çözülmüştü):</p>
+  <div class="eq">
+    <code>λ₁ = 0 → p₁ = </code><table class="m"><tr><td>2</td></tr><tr><td>−2</td></tr><tr><td>1</td></tr></table>
+    &nbsp;&nbsp;<code>λ₂ = 3 → p₂ = </code><table class="m"><tr><td>2</td></tr><tr><td>1</td></tr><tr><td>−2</td></tr></table>
+    &nbsp;&nbsp;<code>λ₃ = −3 → p₃ = </code><table class="m"><tr><td>1</td></tr><tr><td>2</td></tr><tr><td>2</td></tr></table>
+  </div>
+
+  <h3>3. Adım — P ve bağımsızlık</h3>
+  <div class="eq">
+    <code>P = </code><table class="m">
+      <tr><td class="lbl">λ₁=0</td><td class="lbl">λ₂=3</td><td class="lbl">λ₃=−3</td></tr>
+      <tr><td>2</td><td>2</td><td>1</td></tr><tr><td>−2</td><td>1</td><td>2</td></tr><tr><td>1</td><td>−2</td><td>2</td></tr></table>
+  </div>
+  <p class="step">Determinantı (1. satır açılımı, işaretler <code>+ − +</code>):</p>
+  <p class="step"><code>= 2·</code><table class="m" style="margin:0 .2em"><tr><td>1</td><td>2</td></tr><tr><td>−2</td><td>2</td></tr></table><code> − 2·</code><table class="m" style="margin:0 .2em"><tr><td>−2</td><td>2</td></tr><tr><td>1</td><td>2</td></tr></table><code> + 1·</code><table class="m" style="margin:0 .2em"><tr><td>−2</td><td>1</td></tr><tr><td>1</td><td>−2</td></tr></table></p>
+  <p class="step"><code>= 2(2 + 4) − 2(−4 − 2) + 1(4 − 1) = 12 + 12 + 3 = 27</code></p>
+  <p class="step"><code>det(P) = 27 ≠ 0</code> olduğundan <code>p₁, p₂, p₃</code> vektörleri <b>lineer bağımsızdır</b>.</p>
+
+  <h3>4. Adım — P⁻¹ (Gauss-Jordan, tüm satır işlemleri)</h3>
+  <p class="step"><code>P⁻¹AP</code>'yi oluşturabilmek için önce <code>P⁻¹</code>'in elde edilmesi gerekiyor. <code>[P : I]</code>:</p>
+  <div class="eq">
+    <table class="m">
+      <tr><td>2</td><td>2</td><td>1</td><td class="bar">1</td><td>0</td><td>0</td></tr>
+      <tr><td>−2</td><td>1</td><td>2</td><td class="bar">0</td><td>1</td><td>0</td></tr>
+      <tr><td>1</td><td>−2</td><td>2</td><td class="bar">0</td><td>0</td><td>1</td></tr>
+    </table>
+  </div>
+  <p class="step"><code>R₂ → R₂ + R₁</code>: sol <code>(−2+2, 1+2, 2+1) = (0, 3, 3)</code>; sağ <code>(0+1, 1+0, 0+0) = (1, 1, 0)</code></p>
+  <p class="step"><code>R₃ → R₃ − ½R₁</code>: sol <code>(1−1, −2−1, 2−½) = (0, −3, 3/2)</code>; sağ <code>(0−½, 0, 1) = (−½, 0, 1)</code></p>
+  <div class="eq">
+    <table class="m">
+      <tr><td>2</td><td>2</td><td>1</td><td class="bar">1</td><td>0</td><td>0</td></tr>
+      <tr><td>0</td><td>3</td><td>3</td><td class="bar">1</td><td>1</td><td>0</td></tr>
+      <tr><td>0</td><td>−3</td><td>3/2</td><td class="bar">−1/2</td><td>0</td><td>1</td></tr>
+    </table>
+  </div>
+  <p class="step"><code>R₃ → R₃ + R₂</code>: sol <code>(0, −3+3, 3/2+3) = (0, 0, 9/2)</code>; sağ <code>(−½+1, 0+1, 1+0) = (1/2, 1, 1)</code></p>
+  <div class="eq">
+    <table class="m">
+      <tr><td>2</td><td>2</td><td>1</td><td class="bar">1</td><td>0</td><td>0</td></tr>
+      <tr><td>0</td><td>3</td><td>3</td><td class="bar">1</td><td>1</td><td>0</td></tr>
+      <tr><td>0</td><td>0</td><td>9/2</td><td class="bar">1/2</td><td>1</td><td>1</td></tr>
+    </table>
+  </div>
+  <p class="step"><code>R₂ → R₂/3</code>: <code>(0, 1, 1 | 1/3, 1/3, 0)</code>; &nbsp; <code>R₃ → (2/9)R₃</code>: <code>(0, 0, 1 | 1/9, 2/9, 2/9)</code></p>
+  <div class="eq">
+    <table class="m">
+      <tr><td>2</td><td>2</td><td>1</td><td class="bar">1</td><td>0</td><td>0</td></tr>
+      <tr><td>0</td><td>1</td><td>1</td><td class="bar">1/3</td><td>1/3</td><td>0</td></tr>
+      <tr><td>0</td><td>0</td><td>1</td><td class="bar">1/9</td><td>2/9</td><td>2/9</td></tr>
+    </table>
+  </div>
+  <p class="step"><code>R₁ → R₁ − R₃</code>: sol <code>(2, 2, 0)</code>; sağ <code>(1 − 1/9, &nbsp;0 − 2/9, &nbsp;0 − 2/9) = (8/9, −2/9, −2/9)</code></p>
+  <p class="step"><code>R₂ → R₂ − R₃</code>: sol <code>(0, 1, 0)</code>; sağ <code>(1/3 − 1/9, &nbsp;1/3 − 2/9, &nbsp;0 − 2/9) = (2/9, 1/9, −2/9)</code></p>
+  <div class="eq">
+    <table class="m">
+      <tr><td>2</td><td>2</td><td>0</td><td class="bar">8/9</td><td>−2/9</td><td>−2/9</td></tr>
+      <tr><td>0</td><td>1</td><td>0</td><td class="bar">2/9</td><td>1/9</td><td>−2/9</td></tr>
+      <tr><td>0</td><td>0</td><td>1</td><td class="bar">1/9</td><td>2/9</td><td>2/9</td></tr>
+    </table>
+  </div>
+  <p class="step"><code>R₁ → R₁/2</code>: sol <code>(1, 1, 0)</code>; sağ <code>(4/9, −1/9, −1/9)</code></p>
+  <p class="step"><code>R₁ → R₁ − R₂</code>: sol <code>(1, 0, 0)</code>; sağ <code>(4/9 − 2/9, &nbsp;−1/9 − 1/9, &nbsp;−1/9 + 2/9) = (2/9, −2/9, 1/9)</code></p>
+  <div class="eq">
+    <table class="m">
+      <tr><td>1</td><td>0</td><td>0</td><td class="bar">2/9</td><td>−2/9</td><td>1/9</td></tr>
+      <tr><td>0</td><td>1</td><td>0</td><td class="bar">2/9</td><td>1/9</td><td>−2/9</td></tr>
+      <tr><td>0</td><td>0</td><td>1</td><td class="bar">1/9</td><td>2/9</td><td>2/9</td></tr>
+    </table>
+  </div>
+  <div class="eq">
+    <code>P⁻¹ = </code><table class="m"><tr><td>2/9</td><td>−2/9</td><td>1/9</td></tr><tr><td>2/9</td><td>1/9</td><td>−2/9</td></tr><tr><td>1/9</td><td>2/9</td><td>2/9</td></tr></table>
+  </div>
+  <details>
+    <summary>Kontrol: P·P⁻¹ = I mi?</summary>
+    <p class="step"><code>P</code>'nin 1. satırı <code>(2,2,1)</code>:</p>
+    <p class="step">· <code>P⁻¹</code>'in 1. sütunu <code>(2,2,1)/9</code> → <code>(4 + 4 + 1)/9 = 1</code> ✓</p>
+    <p class="step">· 2. sütun <code>(−2,1,2)/9</code> → <code>(−4 + 2 + 2)/9 = 0</code> ✓</p>
+    <p class="step">· 3. sütun <code>(1,−2,2)/9</code> → <code>(2 − 4 + 2)/9 = 0</code> ✓</p>
+    <p class="step"><code>P</code>'nin 2. satırı <code>(−2,1,2)</code>: <code>(−4+2+2)/9 = 0</code> ✓, <code>(4+1+4)/9 = 1</code> ✓, <code>(−2−2+4)/9 = 0</code> ✓</p>
+    <p class="step"><code>P</code>'nin 3. satırı <code>(1,−2,2)</code>: <code>(2−4+2)/9 = 0</code> ✓, <code>(−2−2+4)/9 = 0</code> ✓, <code>(1+4+4)/9 = 1</code> ✓</p>
+    <p class="step">Dikkat çekici bir detay: <code>P⁻¹ = Pᵀ/9</code> çıktı. Sebebi, <code>P</code>'nin sütunlarının birbirine <b>dik</b> ve her birinin uzunluğunun <code>3</code> olması — <a href="0028-simetrik-matris-ortogonal-diyagonalizasyon.html">Ders 28</a>'in konusu olan <b>ortogonal matris</b> durumunun bir ön habercisi. (Sezgi / ek açıklama.)</p>
+  </details>
+
+  <h3>5. Adım — D = P⁻¹AP</h3>
+  <p class="step">Önce <code>P⁻¹A</code>:</p>
+  <p class="step"><b>1. satır</b> <code>(2, −2, 1)/9</code> ile <code>A</code>'nın sütunları <code>(1,0,−2)</code>, <code>(0,−1,−2)</code>, <code>(−2,−2,0)</code>:</p>
+  <p class="step"><code>(2·1 + (−2)·0 + 1·(−2))/9 = 0</code>; &nbsp; <code>(0 + 2 − 2)/9 = 0</code>; &nbsp; <code>(−4 + 4 + 0)/9 = 0</code></p>
+  <p class="step"><b>2. satır</b> <code>(2, 1, −2)/9</code>: &nbsp; <code>(2 + 0 + 4)/9 = 6/9</code>; &nbsp; <code>(0 − 1 + 4)/9 = 3/9</code>; &nbsp; <code>(−4 − 2 + 0)/9 = −6/9</code></p>
+  <p class="step"><b>3. satır</b> <code>(1, 2, 2)/9</code>: &nbsp; <code>(1 + 0 − 4)/9 = −3/9</code>; &nbsp; <code>(0 − 2 − 4)/9 = −6/9</code>; &nbsp; <code>(−2 − 4 + 0)/9 = −6/9</code></p>
+  <div class="eq">
+    <code>P⁻¹A = </code><table class="m"><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>6/9</td><td>3/9</td><td>−6/9</td></tr><tr><td>−3/9</td><td>−6/9</td><td>−6/9</td></tr></table>
+  </div>
+  <p class="step" style="color:#8a3e2e"><b>Not (PDF'deki dizgi hatası).</b> Slaytta bu ara matrisin <code>(2,1)</code> girişi <code>5/9</code> basılmış; doğru değer <code>6/9</code>'dur (<code>2·1 + 1·0 + (−2)(−2) = 6</code>). Nihai <code>D</code> sonucu değişmez.</p>
+
+  <p class="step">Şimdi <code>(P⁻¹A)·P</code>. <code>P</code>'nin sütunları <code>(2,−2,1)</code>, <code>(2,1,−2)</code>, <code>(1,2,2)</code>:</p>
+  <p class="step"><b>1. satır</b> <code>(0,0,0)</code> → <code>(0, 0, 0)</code></p>
+  <p class="step"><b>2. satır</b> <code>(6, 3, −6)/9</code>: &nbsp; <code>(12 − 6 − 6)/9 = 0</code>; &nbsp; <code>(12 + 3 + 12)/9 = 27/9 = 3</code>; &nbsp; <code>(6 + 6 − 12)/9 = 0</code></p>
+  <p class="step"><b>3. satır</b> <code>(−3, −6, −6)/9</code>: &nbsp; <code>(−6 + 12 − 6)/9 = 0</code>; &nbsp; <code>(−6 − 6 + 12)/9 = 0</code>; &nbsp; <code>(−3 − 12 − 12)/9 = −27/9 = −3</code></p>
+  <div class="eq">
+    <code>D = </code><table class="m">
+      <tr><td class="lbl">λ=0</td><td class="lbl">λ=3</td><td class="lbl">λ=−3</td></tr>
+      <tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>3</td><td>0</td></tr><tr><td>0</td><td>0</td><td>−3</td></tr></table>
+  </div>
+  <p><b>Köşegen elemanlar, <code>P</code>'nin sütun sırasındaki özdeğerlerle birebir uyuşuyor.</b></p>
+
+  <h2>2. Örnek 13 (PDF 7.3.1.7)</h2>
+  <p><code>A</code> = <table class="m"><tr><td>-1</td><td>4</td><td>-2</td></tr><tr><td>-3</td><td>4</td><td>0</td></tr><tr><td>-3</td><td>1</td><td>3</td></tr></table> matrisini diyagonal hale dönüştüren <code>P</code> matrisini elde ediniz.</p>
+
+  <h3>1. Adım — özdeğerler</h3>
+  <p>Bölüm 7.1., <a href="0017-ozdeger-bulma-3x3-tekrarli-kokler.html">Örnek 2</a>'de <code>A</code> matrisine ilişkin eigen değerleri <code>λ₁ = 3</code>, <code>λ₂ = 2</code> ve <code>λ₃ = 1</code> olarak bulunmuş idi.</p>
+
+  <h3>2. Adım — eigen vektörleri (PDF vektörleri veriyor; burada türetiyoruz)</h3>
+
+  <p class="step"><b>λ₁ = 3:</b> <code>3I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>4</td><td>−4</td><td>2</td></tr><tr><td>3</td><td>−1</td><td>0</td></tr><tr><td>3</td><td>−1</td><td>0</td></tr></table></p>
+  <p class="step">(Hesap: <code>3−(−1)=4</code>, <code>0−4=−4</code>, <code>0−(−2)=2</code>; <code>0−(−3)=3</code>, <code>3−4=−1</code>, <code>0−0=0</code>; <code>0−(−3)=3</code>, <code>0−1=−1</code>, <code>3−3=0</code>.)</p>
+  <p class="step"><code>R₃ → R₃ − R₂</code>: <code>(0,0,0)</code>. &nbsp; <code>R₁ → R₁/4</code>: <code>(1, −1, 1/2)</code>.</p>
+  <p class="step"><code>R₂ → R₂ − 3R₁</code>: <code>(3−3, &nbsp;−1+3, &nbsp;0−3/2) = (0, 2, −3/2)</code>. &nbsp; <code>R₂ → R₂/2</code>: <code>(0, 1, −3/4)</code>.</p>
+  <p class="step"><code>R₁ → R₁ + R₂</code>: <code>(1, 0, 1/2 − 3/4) = (1, 0, −1/4)</code>.</p>
+  <p class="step">Kanonik: <table class="m" style="margin:0 .2em"><tr><td>1</td><td>0</td><td>−1/4</td><td class="bar">0</td></tr><tr><td>0</td><td>1</td><td>−3/4</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td>0</td><td class="bar">0</td></tr></table> → <code>x₁ = ¼x₃</code>, <code>x₂ = ¾x₃</code>. <code>x₃ = t</code> → <code>(t/4)(1, 3, 4)</code>.</p>
+  <p class="step"><b><code>P₁ = (1, 3, 4)</code></b>. Kontrol: <code>A(1,3,4) = (−1 + 12 − 8, &nbsp;−3 + 12 + 0, &nbsp;−3 + 3 + 12) = (3, 9, 12) = 3(1,3,4)</code> ✓</p>
+
+  <p class="step"><b>λ₂ = 2:</b> <code>2I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>3</td><td>−4</td><td>2</td></tr><tr><td>3</td><td>−2</td><td>0</td></tr><tr><td>3</td><td>−1</td><td>−1</td></tr></table></p>
+  <p class="step"><code>R₂ → R₂ − R₁</code>: <code>(0, 2, −2)</code>. &nbsp; <code>R₃ → R₃ − R₁</code>: <code>(0, 3, −3)</code>.</p>
+  <p class="step"><code>R₂ → R₂/2</code>: <code>(0, 1, −1)</code>. &nbsp; <code>R₃ → R₃ − 3R₂</code>: <code>(0, 0, 0)</code>.</p>
+  <p class="step"><code>R₁ → R₁/3</code>: <code>(1, −4/3, 2/3)</code>. &nbsp; <code>R₁ → R₁ + (4/3)R₂</code>: <code>(1, 0, 2/3 − 4/3) = (1, 0, −2/3)</code>.</p>
+  <p class="step">→ <code>x₁ = (2/3)x₃</code>, <code>x₂ = x₃</code>. <code>x₃ = t</code> → <code>(t/3)(2, 3, 3)</code>.</p>
+  <p class="step"><b><code>P₂ = (2, 3, 3)</code></b>. Kontrol: <code>A(2,3,3) = (−2 + 12 − 6, &nbsp;−6 + 12 + 0, &nbsp;−6 + 3 + 9) = (4, 6, 6) = 2(2,3,3)</code> ✓</p>
+
+  <p class="step"><b>λ₃ = 1:</b> <code>I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>2</td><td>−4</td><td>2</td></tr><tr><td>3</td><td>−3</td><td>0</td></tr><tr><td>3</td><td>−1</td><td>−2</td></tr></table></p>
+  <p class="step"><code>R₁ → R₁/2</code>: <code>(1, −2, 1)</code>. &nbsp; <code>R₂ → R₂ − 3R₁</code>: <code>(0, −3+6, 0−3) = (0, 3, −3)</code>. &nbsp; <code>R₃ → R₃ − 3R₁</code>: <code>(0, −1+6, −2−3) = (0, 5, −5)</code>.</p>
+  <p class="step"><code>R₂ → R₂/3</code>: <code>(0, 1, −1)</code>. &nbsp; <code>R₃ → R₃ − 5R₂</code>: <code>(0, 0, 0)</code>.</p>
+  <p class="step"><code>R₁ → R₁ + 2R₂</code>: <code>(1, 0, 1 − 2) = (1, 0, −1)</code>.</p>
+  <p class="step">→ <code>x₁ = x₃</code>, <code>x₂ = x₃</code>. <code>x₃ = t</code> → <code>t(1, 1, 1)</code>.</p>
+  <p class="step"><b><code>P₃ = (1, 1, 1)</code></b>. Kontrol: <code>A(1,1,1) = (−1 + 4 − 2, &nbsp;−3 + 4 + 0, &nbsp;−3 + 1 + 3) = (1, 1, 1) = 1·(1,1,1)</code> ✓</p>
+
+  <h3>3. Adım — P</h3>
+  <div class="eq">
+    <code>P = </code><table class="m">
+      <tr><td class="lbl">λ=3</td><td class="lbl">λ=2</td><td class="lbl">λ=1</td></tr>
+      <tr><td>1</td><td>2</td><td>1</td></tr><tr><td>3</td><td>3</td><td>1</td></tr><tr><td>4</td><td>3</td><td>1</td></tr></table>
+  </div>
+  <p class="step">Determinant (1. satır açılımı): <code>= 1(3·1 − 1·3) − 2(3·1 − 1·4) + 1(3·3 − 3·4) = 1(0) − 2(−1) + 1(−3) = 0 + 2 − 3 = −1</code></p>
+  <p class="step"><code>det(P) = −1 ≠ 0</code> → vektörler lineer bağımsız, <code>P</code> tersinir.</p>
+
+  <h3>4. Adım — P⁻¹</h3>
+  <div class="eq">
+    <table class="m">
+      <tr><td>1</td><td>2</td><td>1</td><td class="bar">1</td><td>0</td><td>0</td></tr>
+      <tr><td>3</td><td>3</td><td>1</td><td class="bar">0</td><td>1</td><td>0</td></tr>
+      <tr><td>4</td><td>3</td><td>1</td><td class="bar">0</td><td>0</td><td>1</td></tr>
+    </table>
+  </div>
+  <p class="step"><code>R₂ → R₂ − 3R₁</code>: sol <code>(0, 3−6, 1−3) = (0, −3, −2)</code>; sağ <code>(−3, 1, 0)</code></p>
+  <p class="step"><code>R₃ → R₃ − 4R₁</code>: sol <code>(0, 3−8, 1−4) = (0, −5, −3)</code>; sağ <code>(−4, 0, 1)</code></p>
+  <div class="eq">
+    <table class="m">
+      <tr><td>1</td><td>2</td><td>1</td><td class="bar">1</td><td>0</td><td>0</td></tr>
+      <tr><td>0</td><td>−3</td><td>−2</td><td class="bar">−3</td><td>1</td><td>0</td></tr>
+      <tr><td>0</td><td>−5</td><td>−3</td><td class="bar">−4</td><td>0</td><td>1</td></tr>
+    </table>
+  </div>
+  <p class="step"><code>R₂ → R₂/(−3)</code>: sol <code>(0, 1, 2/3)</code>; sağ <code>(1, −1/3, 0)</code></p>
+  <p class="step"><code>R₃ → R₃ + 5R₂</code>: sol <code>(0, −5+5, −3 + 10/3) = (0, 0, 1/3)</code>; sağ <code>(−4+5, &nbsp;0 − 5/3, &nbsp;1) = (1, −5/3, 1)</code></p>
+  <p class="step"><code>R₃ → 3R₃</code>: sol <code>(0, 0, 1)</code>; sağ <code>(3, −5, 3)</code></p>
+  <div class="eq">
+    <table class="m">
+      <tr><td>1</td><td>2</td><td>1</td><td class="bar">1</td><td>0</td><td>0</td></tr>
+      <tr><td>0</td><td>1</td><td>2/3</td><td class="bar">1</td><td>−1/3</td><td>0</td></tr>
+      <tr><td>0</td><td>0</td><td>1</td><td class="bar">3</td><td>−5</td><td>3</td></tr>
+    </table>
+  </div>
+  <p class="step"><code>R₂ → R₂ − (2/3)R₃</code>: sol <code>(0, 1, 0)</code>; sağ <code>(1 − 2, &nbsp;−1/3 + 10/3, &nbsp;0 − 2) = (−1, 3, −2)</code></p>
+  <p class="step"><code>R₁ → R₁ − R₃</code>: sol <code>(1, 2, 0)</code>; sağ <code>(1 − 3, &nbsp;0 + 5, &nbsp;0 − 3) = (−2, 5, −3)</code></p>
+  <p class="step"><code>R₁ → R₁ − 2R₂</code>: sol <code>(1, 0, 0)</code>; sağ <code>(−2 + 2, &nbsp;5 − 6, &nbsp;−3 + 4) = (0, −1, 1)</code></p>
+  <div class="eq">
+    <code>P⁻¹ = </code><table class="m"><tr><td>0</td><td>−1</td><td>1</td></tr><tr><td>−1</td><td>3</td><td>−2</td></tr><tr><td>3</td><td>−5</td><td>3</td></tr></table>
+  </div>
+  <details>
+    <summary>Kontrol: P⁻¹P = I mi?</summary>
+    <p class="step"><code>P</code>'nin sütunları: <code>c₁ = (1,3,4)</code>, <code>c₂ = (2,3,3)</code>, <code>c₃ = (1,1,1)</code>.</p>
+    <p class="step">1. satır <code>(0,−1,1)</code>: <code>·c₁ = 0 − 3 + 4 = 1</code> ✓, <code>·c₂ = 0 − 3 + 3 = 0</code> ✓, <code>·c₃ = 0 − 1 + 1 = 0</code> ✓</p>
+    <p class="step">2. satır <code>(−1,3,−2)</code>: <code>−1 + 9 − 8 = 0</code> ✓, <code>−2 + 9 − 6 = 1</code> ✓, <code>−1 + 3 − 2 = 0</code> ✓</p>
+    <p class="step">3. satır <code>(3,−5,3)</code>: <code>3 − 15 + 12 = 0</code> ✓, <code>6 − 15 + 9 = 0</code> ✓, <code>3 − 5 + 3 = 1</code> ✓</p>
+  </details>
+
+  <h3>5. Adım — D = P⁻¹AP</h3>
+  <p class="step">Önce <code>P⁻¹A</code>. <code>A</code>'nın sütunları: <code>a₁ = (−1,−3,−3)</code>, <code>a₂ = (4,4,1)</code>, <code>a₃ = (−2,0,3)</code>.</p>
+  <p class="step"><b>1. satır</b> <code>(0,−1,1)</code>: <code>0 + 3 − 3 = 0</code>; &nbsp; <code>0 − 4 + 1 = −3</code>; &nbsp; <code>0 − 0 + 3 = 3</code></p>
+  <p class="step"><b>2. satır</b> <code>(−1,3,−2)</code>: <code>1 − 9 + 6 = −2</code>; &nbsp; <code>−4 + 12 − 2 = 6</code>; &nbsp; <code>2 + 0 − 6 = −4</code></p>
+  <p class="step"><b>3. satır</b> <code>(3,−5,3)</code>: <code>−3 + 15 − 9 = 3</code>; &nbsp; <code>12 − 20 + 3 = −5</code>; &nbsp; <code>−6 + 0 + 9 = 3</code></p>
+  <div class="eq">
+    <code>P⁻¹A = </code><table class="m"><tr><td>0</td><td>−3</td><td>3</td></tr><tr><td>−2</td><td>6</td><td>−4</td></tr><tr><td>3</td><td>−5</td><td>3</td></tr></table>
+  </div>
+  <p class="step">Şimdi <code>(P⁻¹A)·P</code>, <code>P</code>'nin sütunları <code>(1,3,4)</code>, <code>(2,3,3)</code>, <code>(1,1,1)</code>:</p>
+  <p class="step"><b>1. satır</b> <code>(0,−3,3)</code>: <code>0 − 9 + 12 = 3</code>; &nbsp; <code>0 − 9 + 9 = 0</code>; &nbsp; <code>0 − 3 + 3 = 0</code></p>
+  <p class="step"><b>2. satır</b> <code>(−2,6,−4)</code>: <code>−2 + 18 − 16 = 0</code>; &nbsp; <code>−4 + 18 − 12 = 2</code>; &nbsp; <code>−2 + 6 − 4 = 0</code></p>
+  <p class="step"><b>3. satır</b> <code>(3,−5,3)</code>: <code>3 − 15 + 12 = 0</code>; &nbsp; <code>6 − 15 + 9 = 0</code>; &nbsp; <code>3 − 5 + 3 = 1</code></p>
+  <div class="eq">
+    <code>D = </code><table class="m">
+      <tr><td class="lbl">λ=3</td><td class="lbl">λ=2</td><td class="lbl">λ=1</td></tr>
+      <tr><td>3</td><td>0</td><td>0</td></tr><tr><td>0</td><td>2</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+  </div>
+
+  <div class="sezgi">
+    <b>İki örneğin ortak dersi.</b> Zor kısım hiçbirinde "kavram" değildi — hepsi <code>P⁻¹</code> hesabı ve matris çarpımıydı. Yani bu konuda puan kaybı neredeyse tamamen <b>aritmetikten</b> gelir. Bu yüzden her aşamada iki kontrol yap: (1) her özvektör için <code>Av = λv</code>, (2) <code>P·P⁻¹ = I</code>. İkisi tutuyorsa <code>D</code> zaten doğru çıkar.
+  </div>
+
+  <h2>3. Sık yapılan hatalar</h2>
+  <div class="trap">
+    <ul>
+      <li>Gauss-Jordan sırasında <b>sağ bloğa</b> aynı işlemi uygulamayı unutmak (en sık hata).</li>
+      <li>Kesirleri erken ondalığa çevirmek — <code>2/9</code> yerine <code>0,22</code> yazmak sonucu kirletir.</li>
+      <li><code>D</code>'yi <code>AP⁻¹P</code> gibi yanlış sırayla çarpmak. Matris çarpımı değişmeli değildir (<a href="0003-matrisler-ve-temel-islemler.html">Ders 03</a>).</li>
+      <li><code>det(P)</code> negatif çıkınca "hata yaptım" sanmak. <code>det(P)</code>'nin işareti önemsizdir; yalnızca <b>sıfırdan farklı</b> olması gerekir.</li>
+      <li><code>D</code>'yi elde ettikten sonra köşegenin özdeğerlerle uyuşup uyuşmadığını kontrol etmemek — bu, bütün hesabın bedava son kontrolüdür.</li>
+    </ul>
+  </div>
+
+  <h2>4. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1 (kavram).</b> <code>D = P⁻¹AP</code> elde ettin. <code>A</code> ile <code>D</code>'nin izleri ve determinantları arasında ne ilişki olmalı? Neden?</p>
+    <details><summary>Cevabı göster</summary><p><b>Eşit olmalılar.</b> <code>D</code>'nin köşegeni <code>A</code>'nın özdeğerleridir; iz = özdeğerler toplamı, determinant = özdeğerler çarpımı — bu iki büyüklük <code>A</code> için de aynıdır. Pratikte bu, <code>D</code>'yi doğrulamanın en hızlı yoludur: Örnek 13'te <code>iz(A) = −1 + 4 + 3 = 6 = 3+2+1</code> ✓ ve <code>det(A) = 6 = 3·2·1</code> ✓.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (temel işlem).</b> <code>A</code> = <table class="m"><tr><td>3</td><td>-2</td></tr><tr><td>-4</td><td>5</td></tr></table> matrisini diyagonal hale dönüştürecek bir <code>P</code> matrisi bul. (PDF değerlendirme sorularından Soru 13.)</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−3</td><td>2</td></tr><tr><td>4</td><td>λ−5</td></tr></table> → <code>det = (λ−3)(λ−5) − 8 = λ² − 8λ + 15 − 8 = λ² − 8λ + 7</code></p>
+      <p class="step"><code>(λ−1)(λ−7) = 0</code> → <code>λ₁ = 1</code>, <code>λ₂ = 7</code>.</p>
+      <p class="step"><b>λ = 1:</b> <code>I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−2</td><td>2</td></tr><tr><td>4</td><td>−4</td></tr></table> → <code>−2x₁ + 2x₂ = 0</code> → <code>x₁ = x₂</code> → <code>p₁ = (1, 1)</code>. Kontrol: <code>A(1,1) = (3−2, −4+5) = (1,1)</code> ✓</p>
+      <p class="step"><b>λ = 7:</b> <code>7I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>4</td><td>2</td></tr><tr><td>4</td><td>2</td></tr></table> → <code>4x₁ + 2x₂ = 0</code> → <code>x₂ = −2x₁</code> → <code>p₂ = (1, −2)</code>. Kontrol: <code>A(1,−2) = (3+4, −4−10) = (7, −14) = 7(1,−2)</code> ✓</p>
+      <p class="step"><code>P = </code><table class="m" style="margin:0 .2em"><tr><td>1</td><td>1</td></tr><tr><td>1</td><td>−2</td></tr></table> &nbsp;(sütun sırası <code>λ=1</code>, <code>λ=7</code>) → <code>D = </code><table class="m" style="margin:0 .2em"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>7</td></tr></table></p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (sınav seviyesi).</b> Örnek 13'teki <code>P</code> matrisinin <b>sütunlarını</b> <code>λ = 1, 2, 3</code> sırasına göre yeniden dizersen yeni <code>P</code> ve yeni <code>D</code> ne olur? Yeni <code>P⁻¹</code>'i baştan hesaplamana gerek var mı?</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step">Yeni <code>P' = </code><table class="m" style="margin:0 .2em"><tr><td>1</td><td>2</td><td>1</td></tr><tr><td>1</td><td>3</td><td>3</td></tr><tr><td>1</td><td>3</td><td>4</td></tr></table> (sütunlar <code>(1,1,1)</code>, <code>(2,3,3)</code>, <code>(1,3,4)</code>), yeni <code>D' = diag(1, 2, 3)</code>.</p>
+      <p class="step"><b>Evet, <code>P'⁻¹</code>'i yeniden hesaplaman gerekir</b> — ama tamamen sıfırdan değil: sütun takası, tersin <b>satırlarının</b> aynı takasına karşılık gelir. Eski <code>P⁻¹</code>'in satırları <code>λ = 3, 2, 1</code> sırasındaydı; yeni sıra <code>1, 2, 3</code> olduğu için satırları ters çevirmek yeter:</p>
+      <p class="step"><code>P'⁻¹ = </code><table class="m" style="margin:0 .2em"><tr><td>3</td><td>−5</td><td>3</td></tr><tr><td>−1</td><td>3</td><td>−2</td></tr><tr><td>0</td><td>−1</td><td>1</td></tr></table></p>
+      <p class="step">Kontrol (1. satır <code>(3,−5,3)</code> × 1. sütun <code>(1,1,1)</code>): <code>3 − 5 + 3 = 1</code> ✓; × 2. sütun <code>(2,3,3)</code>: <code>6 − 15 + 9 = 0</code> ✓; × 3. sütun <code>(1,3,4)</code>: <code>3 − 15 + 12 = 0</code> ✓</p>
+    </details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/diyagonalizasyon.html">Diyagonalizasyon</a><br>
+    🎓 MIT 18.06 (Strang) — Ders 22 problem oturumu (tam diyagonalizasyon örnekleri).<br>
+    🗂️ Ön koşullar: <a href="0023-diyagonallestirme-yontemi.html">Ders 23 — 5 adımlık yöntem</a> · <a href="0005-ters-matris.html">Ders 05 — Gauss-Jordan ile ters</a> · <a href="0020-ozvektor-3x3-tam-ornek.html">Ders 20 — Örnek 6 özvektörleri</a>.<br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> — Örnek 12, Örnek 13.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0023-diyagonallestirme-yontemi.html">Ders 23 — Diyagonalleştirme Yöntemi</a></span>
+    <span>Sıradaki: <a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25 — Ortogonal ve Ortonormal Bazlar</a></span>
+  </div>
+
+</div>
+</body>
+</html>

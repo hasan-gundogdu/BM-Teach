@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 26 — Gram-Schmidt Yöntemi</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .5em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.95rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  .frm{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.8em 1em; font-family:Consolas,monospace; font-size:.95rem; line-height:2.1; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.95rem; margin:.25em 0; }
+  .sezgi{ background:#f2f5f0; border-left:3px solid #5d7a4e; border-radius:4px; padding:.7em 1em; font-size:.95rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 26 · Bölüm 7.3.3 · Örnek 16</div>
+  <h1>Gram-Schmidt Yöntemi</h1>
+  <p class="lead">Bu dersin sonunda: elindeki herhangi bir bazı <span class="hi">önce ortogonal, sonra ortonormal</span> bir baza dönüştürebileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> <a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25</a> ortonormal bazın ne kadar işe yaradığını gösterdi — ama elimizdeki baz genelde ortonormal değil. Gram-Schmidt, <b>herhangi bir bazı</b> ortonormal bir baza çeviren mekanik yöntemdir. <a href="0029-tekrarli-ozdeger-gram-schmidt-ornek20.html">Ders 29</a>'da simetrik bir matrisin tekrarlı özdeğerinin eigen uzayı için tam olarak bu gerekecek.</p>
+
+  <h2>1. Yöntem (PDF 7.3.3)</h2>
+  <p>Sonlu boyutlu içsel çarpım uzayı <code>V</code>'nin her bir sıfırdan farklı <code>W</code> altuzayının ortogonal ve ortonormal bazları mevcuttur. Eğer <code>{a₁, a₂, ..., aₙ}</code>, <code>W</code>'nin bir bazı ise, <code>{b₁, b₂, ..., bₙ}</code> gibi bir <b>ortogonal baz</b> ve <code>{c₁, c₂, ..., cₙ}</code> gibi bir <b>ortonormal baz</b> bulmak için uygulanan <b>Gram-Schmidt Yöntemi</b>:</p>
+
+  <div class="frm">
+    b₁ = a₁<br>
+    b₂ = a₂ − ( ⟨a₂, b₁⟩ / ⟨b₁, b₁⟩ ) b₁<br>
+    b₃ = a₃ − ( ⟨a₃, b₁⟩ / ⟨b₁, b₁⟩ ) b₁ − ( ⟨a₃, b₂⟩ / ⟨b₂, b₂⟩ ) b₂<br>
+    ⋮<br>
+    bₙ = aₙ − ( ⟨aₙ, b₁⟩ / ⟨b₁, b₁⟩ ) b₁ − ( ⟨aₙ, b₂⟩ / ⟨b₂, b₂⟩ ) b₂ − ... − ( ⟨aₙ, bₙ₋₁⟩ / ⟨bₙ₋₁, bₙ₋₁⟩ ) bₙ₋₁
+  </div>
+  <p class="step" style="color:#8a3e2e"><b>Not (PDF'deki dizgi hatası).</b> Slaytta <code>b₂</code> satırı "<code>b₂ = a₃ − ...</code>" olarak basılmış; doğrusu <code>b₂ = a₂ − ...</code>'dir (Örnek 16'da hocanın kendisi de <code>a₂</code> kullanıyor).</p>
+
+  <p class="step"><b>Sembollerin karşılığı.</b> <code>aᵢ</code>: elimizdeki (ortogonal olmayan) baz vektörleri. <code>bᵢ</code>: üretilen ortogonal baz vektörleri. <code>⟨x, y⟩</code>: iç (nokta) çarpım. <code>⟨bᵢ, bᵢ⟩</code>: <code>bᵢ</code>'nin kendisiyle çarpımı, yani <code>‖bᵢ‖²</code>. Şart: <code>{aᵢ}</code> zaten <b>lineer bağımsız</b> olmalı (baz olmalı) — aksi hâlde bir adımda <code>bᵢ = 0</code> çıkar.</p>
+
+  <p><b>Ortonormal baza geçiş:</b> her <code>bᵢ</code>'yi kendi uzunluğuna böl —</p>
+  <div class="eq"><code>cᵢ = bᵢ / ‖bᵢ‖</code></div>
+
+  <div class="sezgi">
+    <b>Sezgi / ek açıklama — formül aslında ne yapıyor?</b> <code>(⟨a₂,b₁⟩ / ⟨b₁,b₁⟩) b₁</code> ifadesi, <code>a₂</code>'nin <code>b₁</code> <b>doğrultusundaki gölgesidir</b> (izdüşüm). Formül bu gölgeyi <code>a₂</code>'den çıkarıyor; geriye kalan parça artık <code>b₁</code>'e diktir. Üçüncü adımda hem <code>b₁</code> hem <code>b₂</code> yönündeki gölgeler çıkarılır. Yani yöntem tek cümlede: <b>"önceki yönlerin payını at, kalan dik olur."</b>
+  </div>
+
+  <h2>2. Örnek 16 (PDF 7.3.3.1)</h2>
+  <p><code>{a₁, a₂}</code>, altuzay <code>W</code>'nun bir bazı olsun. Burada <code>a₁ = [1 &nbsp;1 &nbsp;0]</code> ve <code>a₂ = [2 &nbsp;−1 &nbsp;3]</code> baz vektörlerini <b>ortogonal baz</b> haline dönüştürünüz. Daha sonra ortogonal baz vektörlerini <b>normalize ederek ortonormal baz</b> elde ediniz. Bu işlemleri gerçekleştirmek için <b>Gram-Schmidt yöntemini</b> kullanınız.</p>
+
+  <h3>1. Adım</h3>
+  <div class="eq"><code>b₁ = a₁ = [1 &nbsp;1 &nbsp;0]</code></div>
+
+  <h3>2. Adım</h3>
+  <div class="eq"><code>b₂ = a₂ − ( ⟨a₂, b₁⟩ / ⟨b₁, b₁⟩ ) b₁</code></div>
+  <p class="step">Payı hesapla: <code>⟨a₂, b₁⟩ = ⟨[2 −1 3], [1 1 0]⟩ = 2(1) + (−1)(1) + 3(0) = 2 − 1 + 0 = 1</code></p>
+  <p class="step">Paydayı hesapla: <code>⟨b₁, b₁⟩ = ⟨[1 1 0], [1 1 0]⟩ = 1(1) + 1(1) + 0(0) = 2</code></p>
+  <div class="eq"><code>b₂ = [2 &nbsp;−1 &nbsp;3] − (1/2)·[1 &nbsp;1 &nbsp;0]</code></div>
+  <p class="step">Skalerle çarpım: <code>(1/2)[1 1 0] = [1/2 &nbsp;1/2 &nbsp;0]</code></p>
+  <p class="step">Çıkarma (bileşen bileşen): <code>[2 − 1/2, &nbsp; −1 − 1/2, &nbsp; 3 − 0]</code></p>
+  <div class="eq"><code>b₂ = [ 3/2 &nbsp; −3/2 &nbsp; 3 ]</code></div>
+
+  <p><code>b₂</code>'ye <code>[3/2 &nbsp;−3/2 &nbsp;3]</code>, veya <code>(3/2)[1 &nbsp;−1 &nbsp;2]</code>, veya <code>[1 &nbsp;−1 &nbsp;2]</code> olarak seçilebilir.</p>
+  <p class="step">(Ortogonal bazda <b>yön</b> önemlidir, ölçek değil — sıfırdan farklı bir katıyla değiştirmek diklikleri bozmaz. Kesirlerden kurtulmak için <code>[1 −1 2]</code> seçmek hesabı sadeleştirir.)</p>
+
+  <p>Dolayısıyla <code>{b₁, b₂}</code>, yani <code>{ [1 &nbsp;1 &nbsp;0], &nbsp;[1 &nbsp;−1 &nbsp;2] }</code>:</p>
+  <div class="eq"><code>⟨b₁, b₂⟩ = 1(1) + 1(−1) + 0(2) = 0</code></div>
+  <p>olduğundan <b><code>W</code> altuzayının bir ortogonal bazıdır.</b></p>
+
+  <h3>3. Adım — normalize et</h3>
+  <div class="eq"><code>c₁ = b₁ / ‖b₁‖ = [1 &nbsp;1 &nbsp;0] / ‖[1 &nbsp;1 &nbsp;0]‖</code></div>
+  <p class="step"><code>‖[1 1 0]‖ = √(1² + 1² + 0²) = √2</code></p>
+  <div class="eq"><code>c₁ = [ 1/√2 &nbsp; 1/√2 &nbsp; 0 ]</code></div>
+
+  <div class="eq"><code>c₂ = b₂ / ‖b₂‖ = [1 &nbsp;−1 &nbsp;2] / ‖[1 &nbsp;−1 &nbsp;2]‖</code></div>
+  <p class="step"><code>‖[1 −1 2]‖ = √( 1² + (−1)² + 2² ) = √(1 + 1 + 4) = √6</code></p>
+  <div class="eq"><code>c₂ = [ 1/√6 &nbsp; −1/√6 &nbsp; 2/√6 ]</code></div>
+
+  <h3>Kontrol</h3>
+  <p class="step"><code>⟨c₁, c₂⟩ = (1/√2)(1/√6) + (1/√2)(−1/√6) + 0(2/√6)</code></p>
+  <p class="step"><code>= 1/√12 − 1/√12 + 0 = 0</code> ✓</p>
+  <p class="step">Uzunluklar: <code>‖c₁‖ = √(½ + ½ + 0) = 1</code> ✓ &nbsp; <code>‖c₂‖ = √(1/6 + 1/6 + 4/6) = √1 = 1</code> ✓</p>
+  <p><b>Olduğundan <code>{c₁, c₂}</code>, <code>W</code> altuzayının ortonormal bir bazıdır.</b></p>
+
+  <h2>3. Sık yapılan hatalar</h2>
+  <div class="trap">
+    <ul>
+      <li><b>Payda karışıklığı:</b> <code>⟨b₁, b₁⟩</code> yerine <code>⟨a₁, a₁⟩</code> ya da <code>‖b₁‖</code> (karesiz) yazmak. Payda her zaman <code>bᵢ</code>'nin kendisiyle iç çarpımıdır, yani <code>‖bᵢ‖²</code>.</li>
+      <li>İzdüşümü <code>aᵢ</code>'den değil <code>bᵢ₋₁</code>'den çıkarmak. Her adımda çıkarma işlemi <b>orijinal <code>aᵢ</code></b> üzerinde yapılır.</li>
+      <li>3. ve sonraki adımlarda <b>önceki tüm</b> <code>b</code>'lerin izdüşümünü çıkarmayı unutmak (yalnızca bir öncekini çıkarmak).</li>
+      <li>Ölçek sadeleştirmesini yaptıktan sonra normalize adımında <b>eski</b> vektörün normunu kullanmak. <code>[1 −1 2]</code> seçtiysen normu <code>√6</code>'dır, <code>[3/2 −3/2 3]</code>'ün normu değil (o <code>3√6/2</code>).</li>
+      <li>Bağımlı bir kümeye Gram-Schmidt uygulamak. Bir adımda <code>bᵢ = 0</code> çıkarsa, girdi baz değildi demektir.</li>
+    </ul>
+  </div>
+
+  <h2>4. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1 (kavram).</b> Gram-Schmidt'te <code>a₁</code> ile <code>a₂</code>'nin sırasını değiştirirsen sonuç değişir mi? Elde edilen küme yine ortonormal olur mu?</p>
+    <details><summary>Cevabı göster</summary><p><b>Vektörler değişir, ortonormallik değişmez.</b> <code>b₁</code> her zaman ilk vektörün kendisidir; sırayı değiştirirsen farklı bir ortonormal baz elde edersin. Aynı altuzayın birden çok ortonormal bazı vardır — hepsi geçerlidir. Sınavda cevabın "kitabınkinden farklı ama ortonormal ve aynı uzayı kapsıyorsa" doğrudur; farklı sıralama seçtiğini belirtmek iyi olur.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (temel işlem).</b> <code>a₁ = [1 &nbsp;0 &nbsp;1]</code>, <code>a₂ = [1 &nbsp;1 &nbsp;0]</code> için Gram-Schmidt uygulayarak ortonormal bir baz bul.</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>b₁ = [1 &nbsp;0 &nbsp;1]</code></p>
+      <p class="step"><code>⟨a₂, b₁⟩ = 1(1) + 1(0) + 0(1) = 1</code>; &nbsp; <code>⟨b₁, b₁⟩ = 1 + 0 + 1 = 2</code></p>
+      <p class="step"><code>b₂ = [1 &nbsp;1 &nbsp;0] − (1/2)[1 &nbsp;0 &nbsp;1] = [1 − 1/2, &nbsp;1 − 0, &nbsp;0 − 1/2] = [1/2 &nbsp;1 &nbsp;−1/2]</code></p>
+      <p class="step">Sadeleştir (2 ile çarp): <code>b₂ = [1 &nbsp;2 &nbsp;−1]</code>. Kontrol: <code>⟨b₁, b₂⟩ = 1 + 0 − 1 = 0</code> ✓</p>
+      <p class="step"><code>‖b₁‖ = √2</code> → <code>c₁ = [1/√2 &nbsp;0 &nbsp;1/√2]</code></p>
+      <p class="step"><code>‖b₂‖ = √(1 + 4 + 1) = √6</code> → <code>c₂ = [1/√6 &nbsp;2/√6 &nbsp;−1/√6]</code></p>
+      <p class="step">Kontrol: <code>⟨c₁,c₂⟩ = 1/√12 + 0 − 1/√12 = 0</code> ✓; <code>‖c₂‖² = 1/6 + 4/6 + 1/6 = 1</code> ✓</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (sınav seviyesi).</b> <code>a₁ = [1 &nbsp;1 &nbsp;1]</code>, <code>a₂ = [0 &nbsp;1 &nbsp;1]</code>, <code>a₃ = [0 &nbsp;0 &nbsp;1]</code> bazına Gram-Schmidt uygulayıp <b>üç</b> ortonormal vektör elde et. (Üçüncü adımda iki izdüşümün de çıkarılması gerekiyor.)</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><b>b₁</b> <code>= [1 &nbsp;1 &nbsp;1]</code>, &nbsp; <code>⟨b₁,b₁⟩ = 3</code></p>
+      <p class="step"><b>b₂:</b> <code>⟨a₂, b₁⟩ = 0 + 1 + 1 = 2</code> → <code>b₂ = [0 1 1] − (2/3)[1 1 1] = [−2/3, &nbsp;1/3, &nbsp;1/3]</code></p>
+      <p class="step">Sadeleştir (3 ile çarp): <code>b₂ = [−2 &nbsp;1 &nbsp;1]</code>. Kontrol: <code>⟨b₁,b₂⟩ = −2 + 1 + 1 = 0</code> ✓. <code>⟨b₂,b₂⟩ = 4 + 1 + 1 = 6</code></p>
+      <p class="step"><b>b₃:</b> <code>⟨a₃, b₁⟩ = 0 + 0 + 1 = 1</code>; &nbsp; <code>⟨a₃, b₂⟩ = 0 + 0 + 1 = 1</code></p>
+      <p class="step"><code>b₃ = [0 0 1] − (1/3)[1 1 1] − (1/6)[−2 1 1]</code></p>
+      <p class="step"><code>(1/3)[1 1 1] = [1/3, 1/3, 1/3]</code>; &nbsp; <code>(1/6)[−2 1 1] = [−1/3, 1/6, 1/6]</code></p>
+      <p class="step"><code>b₃ = [0 − 1/3 + 1/3, &nbsp; 0 − 1/3 − 1/6, &nbsp; 1 − 1/3 − 1/6] = [0, &nbsp;−1/2, &nbsp;1/2]</code></p>
+      <p class="step">Sadeleştir (2 ile çarp): <code>b₃ = [0 &nbsp;−1 &nbsp;1]</code>. Kontrol: <code>⟨b₁,b₃⟩ = 0 − 1 + 1 = 0</code> ✓, <code>⟨b₂,b₃⟩ = 0 − 1 + 1 = 0</code> ✓</p>
+      <p class="step"><b>Normalize:</b> <code>c₁ = [1 1 1]/√3</code>, &nbsp; <code>c₂ = [−2 1 1]/√6</code>, &nbsp; <code>c₃ = [0 −1 1]/√2</code></p>
+      <p class="step">Son kontrol: <code>‖c₂‖² = (4+1+1)/6 = 1</code> ✓, <code>‖c₃‖² = (0+1+1)/2 = 1</code> ✓</p>
+    </details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/ortonormal-gram-schmidt.html">Ortonormal Baz & Gram-Schmidt</a><br>
+    📚 Khan Academy Türkçe — <a href="https://tr.khanacademy.org/math/linear-algebra">Doğrusal Cebir</a>, "Gram-Schmidt Süreci" ve "Gram-Schmidt Süreci Örneği".<br>
+    🎓 MIT 18.06 (Strang) — Ders 17: Orthogonal Matrices and Gram-Schmidt.<br>
+    🗂️ Ön koşullar: <a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25 — Ortonormal baz</a> · <a href="0010-vektorler-temel-nokta-carpim.html">Ders 10 — Nokta çarpım</a>.<br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> — Bölüm 7.3.3, Örnek 16.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25 — Ortonormal Bazlar</a></span>
+    <span>Sıradaki: <a href="0027-simetrik-ve-ortogonal-matrisler.html">Ders 27 — Simetrik ve Ortogonal Matrisler</a></span>
+  </div>
+
+</div>
+</body>
+</html>

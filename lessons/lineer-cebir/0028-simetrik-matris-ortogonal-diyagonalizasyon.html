@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 28 — Simetrik Matrisin Ortogonal Diyagonalizasyonu</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .5em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.95rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.bar{ border-left:1px dashed var(--soft); }
+  table.m td.lbl{ font-size:.72rem; color:var(--accent); padding:0 .5em; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  .rowop{ font-size:.85rem; color:var(--accent); font-family:Consolas,monospace; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.95rem; margin:.25em 0; }
+  .sezgi{ background:#f2f5f0; border-left:3px solid #5d7a4e; border-radius:4px; padding:.7em 1em; font-size:.95rem; }
+  ol.proc{ padding-left:1.4em; } ol.proc li{ margin:.5em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 28 · Bölüm 7.4.1.1 – 7.4.1.2 · Örnek 19</div>
+  <h1>Simetrik Matrisin Ortogonal Diyagonalizasyonu</h1>
+  <p class="lead">Bu dersin sonunda: simetrik bir matrisi <span class="hi"><code>D = PᵀAP</code></span> ile köşegenleştirebilecek ve <code>P⁻¹</code>'i hiç hesaplamadan işi bitirebileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> <a href="0027-simetrik-ve-ortogonal-matrisler.html">Ders 27</a>'nin özellik E'si bunun mümkün olduğunu söylüyordu. Bu ders o vaadi somut bir örnekle gerçekleştiriyor ve arkasından resmî 6 adımlık yöntemi veriyor. <code>P⁻¹</code> yerine <code>Pᵀ</code> yazabilmek, sınavda en az 10 dakika kazandırır.</p>
+
+  <h2>1. Örnek 19 (PDF 7.4.1.1)</h2>
+  <p><code>A</code> = <table class="m"><tr><td>0</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-2</td><td>0</td></tr><tr><td>-2</td><td>0</td><td>3</td></tr></table> matrisini <b>simetrik matrisin özelliklerinden yararlanarak</b> çözünüz.</p>
+  <p class="step">Önce simetriklik kontrolü: <code>a₁₃ = −2 = a₃₁</code> ✓, <code>a₁₂ = 0 = a₂₁</code> ✓, <code>a₂₃ = 0 = a₃₂</code> ✓ → <code>A = Aᵀ</code>, <b>simetrik</b>.</p>
+
+  <h3>Adım 1 — karakteristik polinom ve özdeğerler</h3>
+  <div class="eq">
+    <code>det(λI − A) = </code><table class="m"><tr><td>λ</td><td>0</td><td>2</td></tr><tr><td>0</td><td>λ+2</td><td>0</td></tr><tr><td>2</td><td>0</td><td>λ−3</td></tr></table>
+  </div>
+  <p class="step">2. satırda yalnızca <code>(2,2)</code> girişi sıfırdan farklı; kofaktör işareti <code>(−1)²⁺² = +</code>:</p>
+  <p class="step"><code>= (λ+2)·</code><table class="m" style="margin:0 .2em"><tr><td>λ</td><td>2</td></tr><tr><td>2</td><td>λ−3</td></tr></table><code> = (λ+2)[ λ(λ−3) − 2·2 ] = (λ+2)(λ² − 3λ − 4)</code></p>
+  <p class="step"><code>λ² − 3λ − 4 = (λ−4)(λ+1)</code></p>
+  <div class="eq"><code>det(λI − A) = (λ+2)(λ−4)(λ+1) = 0</code></div>
+  <div class="eq"><b><code>λ₁ = −2</code>, &nbsp; <code>λ₂ = 4</code>, &nbsp; <code>λ₃ = −1</code></b></div>
+  <p><b>Görüldüğü gibi karakteristik eşitliğin kökleri gerçeldir</b> (Ders 27, Özellik A — simetrik matrislerde bu garantidir).</p>
+  <p class="step">Kontrol: iz <code>= 0 + (−2) + 3 = 1</code>; kökler toplamı <code>= −2 + 4 − 1 = 1</code> ✓</p>
+
+  <h3>Adım 2 — özvektörler</h3>
+
+  <p class="step"><b>λ₁ = −2:</b> <code>(−2)I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−2</td><td>0</td><td>2</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>2</td><td>0</td><td>−5</td></tr></table></p>
+  <p class="step">(Hesap: <code>−2−0=−2</code>, <code>0−0=0</code>, <code>0−(−2)=2</code>; <code>0−0</code>, <code>−2−(−2)=0</code>, <code>0−0</code>; <code>0−(−2)=2</code>, <code>0−0</code>, <code>−2−3=−5</code>.)</p>
+  <p class="step">Denklemler: <code>−2x₁ + 2x₃ = 0</code> → <code>x₁ = x₃</code>; &nbsp; <code>2x₁ − 5x₃ = 0</code>.</p>
+  <p class="step">İkincisine <code>x₁ = x₃</code> koy: <code>2x₃ − 5x₃ = −3x₃ = 0</code> → <code>x₃ = 0</code>, dolayısıyla <code>x₁ = 0</code>. <code>x₂</code> hiçbir denklemde geçmiyor → serbest.</p>
+  <p class="step"><code>x₂ = t</code> → <code>(0, t, 0) = t(0, 1, 0)</code></p>
+  <div class="eq"><b><code>λ₁ = −2</code> → eigen vektörü <code>(0, 1, 0)</code></b></div>
+  <p class="step">Kontrol: <code>A(0,1,0) = (0, −2, 0) = −2(0,1,0)</code> ✓</p>
+
+  <p class="step"><b>λ₂ = 4:</b> <code>4I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>4</td><td>0</td><td>2</td></tr><tr><td>0</td><td>6</td><td>0</td></tr><tr><td>2</td><td>0</td><td>1</td></tr></table></p>
+  <p class="step">2. denklem: <code>6x₂ = 0</code> → <code>x₂ = 0</code>. &nbsp; 1. denklem: <code>4x₁ + 2x₃ = 0</code> → <code>x₃ = −2x₁</code>. &nbsp; 3. denklem kontrolü: <code>2x₁ + x₃ = 2x₁ − 2x₁ = 0</code> ✓ (bağımlı satır).</p>
+  <p class="step"><code>x₁ = t</code> → <code>(t, 0, −2t) = t(1, 0, −2)</code>. PDF bu vektörü ters işaretlisiyle, <code>(−1, 0, 2)</code> olarak veriyor — aynı doğrultu.</p>
+  <div class="eq"><b><code>λ₂ = 4</code> → eigen vektörü <code>(−1, 0, 2)</code></b></div>
+  <p class="step">Kontrol: <code>A(−1,0,2) = (0·(−1) + 0 + (−2)(2), &nbsp; 0, &nbsp; (−2)(−1) + 0 + 3·2) = (−4, 0, 8) = 4(−1, 0, 2)</code> ✓</p>
+
+  <p class="step"><b>λ₃ = −1:</b> <code>(−1)I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−1</td><td>0</td><td>2</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>−4</td></tr></table></p>
+  <p class="step">2. denklem: <code>x₂ = 0</code>. &nbsp; 1. denklem: <code>−x₁ + 2x₃ = 0</code> → <code>x₁ = 2x₃</code>. &nbsp; 3. denklem kontrolü: <code>2(2x₃) − 4x₃ = 0</code> ✓.</p>
+  <p class="step"><code>x₃ = t</code> → <code>(2t, 0, t) = t(2, 0, 1)</code></p>
+  <div class="eq"><b><code>λ₃ = −1</code> → eigen vektörü <code>(2, 0, 1)</code></b></div>
+  <p class="step">Kontrol: <code>A(2,0,1) = (0 + 0 − 2, &nbsp; 0, &nbsp; −4 + 0 + 3) = (−2, 0, −1) = −1·(2, 0, 1)</code> ✓</p>
+
+  <h3>Adım 3 — vektörlerin içsel çarpımı (ortogonallik)</h3>
+  <p class="step">Ders 27 Özellik B, farklı özdeğerlerin özvektörlerinin dik olacağını söylüyordu. Doğrulayalım:</p>
+  <p class="step"><code>⟨(0,1,0), (−1,0,2)⟩ = 0(−1) + 1(0) + 0(2) = 0</code> ✓</p>
+  <p class="step"><code>⟨(0,1,0), (2,0,1)⟩ = 0(2) + 1(0) + 0(1) = 0</code> ✓</p>
+  <p class="step"><code>⟨(−1,0,2), (2,0,1)⟩ = (−1)(2) + 0(0) + 2(1) = −2 + 2 = 0</code> ✓</p>
+  <p><b>Dolayısıyla vektörler birbirine ortogonaldir, yani diktir.</b></p>
+
+  <h3>Adım 4 — lineer bağımsızlık</h3>
+  <div class="eq">
+    <code>det</code> <table class="m"><tr><td>0</td><td>−1</td><td>2</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>2</td><td>1</td></tr></table>
+  </div>
+  <p class="step">2. satırda yalnızca ilk eleman sıfırdan farklı; kofaktör işareti <code>(−1)²⁺¹ = −</code>:</p>
+  <p class="step"><code>= −1·</code><table class="m" style="margin:0 .2em"><tr><td>−1</td><td>2</td></tr><tr><td>2</td><td>1</td></tr></table><code> = −1·(−1·1 − 2·2) = −1(−1 − 4) = 5</code></p>
+  <p><b><code>= 5 ≠ 0</code> olduğundan eigen vektörleri lineer bağımsızdır.</b></p>
+
+  <h3>Adım 5 — normalize et (birim vektör yap)</h3>
+  <p class="step"><code>(0, 1, 0)</code> zaten <b>birim vektör</b> olduğundan (<code>‖·‖ = 1</code>), sadece <code>(−1, 0, 2)</code> ve <code>(2, 0, 1)</code> vektörlerinin normalize edilmeleri gerekir.</p>
+  <p class="step"><code>‖(−1, 0, 2)‖ = √( (−1)² + 0² + 2² ) = √5</code> → <code>(−1/√5, &nbsp;0, &nbsp;2/√5)</code></p>
+  <p class="step"><code>‖(2, 0, 1)‖ = √( 2² + 0² + 1² ) = √5</code> → <code>(2/√5, &nbsp;0, &nbsp;1/√5)</code></p>
+  <p class="step">Üç vektörümüzün her biri bir birim vektör ve birbirine dik; kontrol için determinantlarına bakalım:</p>
+  <div class="eq">
+    <code>det</code> <table class="m"><tr><td>0</td><td>−1/√5</td><td>2/√5</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>2/√5</td><td>1/√5</td></tr></table>
+    <code> = −1·</code><table class="m" style="margin:0 .2em"><tr><td>−1/√5</td><td>2/√5</td></tr><tr><td>2/√5</td><td>1/√5</td></tr></table>
+    <code> = −1( −1/5 − 4/5 ) = 1 ≠ 0</code>
+  </div>
+  <p>olduğundan bu üç vektör bir <b>ortonormal baz oluşturur</b>.</p>
+
+  <h3>Adım 6 — P matrisi ve ortogonalliği</h3>
+  <div class="eq">
+    <code>P = </code><table class="m">
+      <tr><td class="lbl">λ=−2</td><td class="lbl">λ=4</td><td class="lbl">λ=−1</td></tr>
+      <tr><td>0</td><td>−1/√5</td><td>2/√5</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>2/√5</td><td>1/√5</td></tr></table>
+  </div>
+  <p class="step"><code>Pᵀ</code> (satır ↔ sütun):</p>
+  <div class="eq">
+    <code>Pᵀ = </code><table class="m"><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>−1/√5</td><td>0</td><td>2/√5</td></tr><tr><td>2/√5</td><td>0</td><td>1/√5</td></tr></table>
+  </div>
+  <p class="step"><code>PᵀP</code>'yi giriş giriş hesaplayalım. <code>P</code>'nin sütunları: <code>k₁ = (0,1,0)</code>, <code>k₂ = (−1/√5, 0, 2/√5)</code>, <code>k₃ = (2/√5, 0, 1/√5)</code>.</p>
+  <p class="step"><b>1. satır</b> <code>(0,1,0)</code>: <code>·k₁ = 1</code>; <code>·k₂ = 0</code>; <code>·k₃ = 0</code></p>
+  <p class="step"><b>2. satır</b> <code>(−1/√5, 0, 2/√5)</code>: <code>·k₁ = 0</code>; <code>·k₂ = 1/5 + 4/5 = 1</code>; <code>·k₃ = −2/5 + 2/5 = 0</code></p>
+  <p class="step"><b>3. satır</b> <code>(2/√5, 0, 1/√5)</code>: <code>·k₁ = 0</code>; <code>·k₂ = −2/5 + 2/5 = 0</code>; <code>·k₃ = 4/5 + 1/5 = 1</code></p>
+  <div class="eq"><code>PᵀP = </code><table class="m"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table><code> = I</code></div>
+  <p><b><code>PᵀP = I</code> olduğundan <code>P</code> matrisi ortogonaldir. Bunun sonucu olarak <code>P⁻¹ = Pᵀ</code>'dır.</b></p>
+
+  <h3>Adım 7 — D = PᵀAP</h3>
+  <p class="step">Önce <code>PᵀA</code>. <code>A</code>'nın sütunları: <code>a₁ = (0, 0, −2)</code>, <code>a₂ = (0, −2, 0)</code>, <code>a₃ = (−2, 0, 3)</code>.</p>
+  <p class="step"><b>1. satır</b> <code>(0, 1, 0)</code>: <code>·a₁ = 0</code>; <code>·a₂ = −2</code>; <code>·a₃ = 0</code></p>
+  <p class="step"><b>2. satır</b> <code>(−1/√5, 0, 2/√5)</code>: <code>·a₁ = 0 + 0 + (2/√5)(−2) = −4/√5</code>; <code>·a₂ = 0</code>; <code>·a₃ = (−1/√5)(−2) + 0 + (2/√5)(3) = 2/√5 + 6/√5 = 8/√5</code></p>
+  <p class="step"><b>3. satır</b> <code>(2/√5, 0, 1/√5)</code>: <code>·a₁ = (1/√5)(−2) = −2/√5</code>; <code>·a₂ = 0</code>; <code>·a₃ = (2/√5)(−2) + (1/√5)(3) = −4/√5 + 3/√5 = −1/√5</code></p>
+  <div class="eq">
+    <code>PᵀA = </code><table class="m"><tr><td>0</td><td>−2</td><td>0</td></tr><tr><td>−4/√5</td><td>0</td><td>8/√5</td></tr><tr><td>−2/√5</td><td>0</td><td>−1/√5</td></tr></table>
+  </div>
+  <p class="step">Şimdi <code>(PᵀA)·P</code>, <code>P</code>'nin sütunları <code>k₁ = (0,1,0)</code>, <code>k₂ = (−1/√5, 0, 2/√5)</code>, <code>k₃ = (2/√5, 0, 1/√5)</code>:</p>
+  <p class="step"><b>1. satır</b> <code>(0, −2, 0)</code>: <code>·k₁ = −2</code>; &nbsp; <code>·k₂ = 0</code>; &nbsp; <code>·k₃ = 0</code></p>
+  <p class="step"><b>2. satır</b> <code>(−4/√5, 0, 8/√5)</code>: <code>·k₁ = 0</code>; &nbsp; <code>·k₂ = 4/5 + 16/5 = 20/5 = 4</code>; &nbsp; <code>·k₃ = −8/5 + 8/5 = 0</code></p>
+  <p class="step"><b>3. satır</b> <code>(−2/√5, 0, −1/√5)</code>: <code>·k₁ = 0</code>; &nbsp; <code>·k₂ = 2/5 − 2/5 = 0</code>; &nbsp; <code>·k₃ = −4/5 − 1/5 = −1</code></p>
+  <div class="eq">
+    <code>D = </code><table class="m">
+      <tr><td class="lbl">λ=−2</td><td class="lbl">λ=4</td><td class="lbl">λ=−1</td></tr>
+      <tr><td>−2</td><td>0</td><td>0</td></tr><tr><td>0</td><td>4</td><td>0</td></tr><tr><td>0</td><td>0</td><td>−1</td></tr></table>
+  </div>
+  <p><b>Görüldüğü gibi <code>D</code>'nin köşegen elemanları <code>A</code> matrisinin eigen değerleridir</b> — ve <code>P</code>'nin sütun sırasına birebir uyuyorlar.</p>
+
+  <h2>2. Yöntem: nxn boyutlu simetrik A matrisinin ortogonal olarak diyagonal hale dönüştürülmesi (PDF 7.4.1.2)</h2>
+  <ol class="proc">
+    <li><b>1. Adım:</b> <code>A</code>'nın <b>eigen değerlerini</b> elde et.</li>
+    <li><b>2. Adım:</b> Her bir eigen değeri ile ilişkili <b>baz eigen vektörlerini</b> bul.</li>
+    <li><b>3. Adım:</b> Eğer bir <b>eigen uzayına</b> ilişkin baz birden fazla eigen vektörü içeriyorsa (aynı eigen değerine karşı gelen birden fazla eigen vektörü mevcutsa), o eigen uzayı için <b>ortonormal bazı</b> elde etmede <b>Gram-Schmidt sürecini</b> kullan. Eğer eigen uzayına ilişkin baz sadece bir eigen vektör içeriyorsa, onu <b>birim vektör</b> durumuna değiştir.</li>
+    <li><b>4. Adım:</b> Sütunları 3. basamakta elde edilen <code>â₁, â₂, ..., âₙ</code> vektörleri olan <code>P</code> matrisini oluştur.</li>
+    <li><b>5. Adım:</b> <code>Pᵀ</code>'yi elde et (<code>P⁻¹ = Pᵀ</code>'dir).</li>
+    <li><b>6. Adım:</b> <code>D = PᵀAP</code>'yi elde et.</li>
+  </ol>
+
+  <div class="sezgi">
+    <b>Genel yöntemle (Ders 23) farkı tek kalemde:</b> 4. adımda <code>P⁻¹</code>'i Gauss-Jordan ile hesaplamak yerine <b>transpozunu yazıyoruz</b>. Bunun bedeli 3. adımdaki normalize/Gram-Schmidt işi. Simetrik matrislerde bu takas her zaman kârlıdır — özellikle 3×3'te.
+  </div>
+
+  <h2>3. Sık yapılan hatalar</h2>
+  <div class="trap">
+    <ul>
+      <li><b>Normalize etmeyi unutup</b> yine de <code>D = PᵀAP</code> kullanmak. <code>P</code> ortonormal değilse <code>Pᵀ ≠ P⁻¹</code>'dir ve sonuç köşegen çıkmaz.</li>
+      <li>Özvektörleri normalize ederken <code>√5</code> yerine <code>5</code>'e bölmek. Bölen <b>norm</b>dur, normun karesi değil.</li>
+      <li>Simetrik olmayan bir matriste <code>D = PᵀAP</code> kullanmaya kalkmak. Özvektörler dik olmadığı için <code>P</code> ortogonal yapılamaz; orada <code>D = P⁻¹AP</code> (Ders 23) gerekir.</li>
+      <li>3. adımda tekrarlı özdeğer olduğu hâlde Gram-Schmidt'i atlamak. Aynı eigen uzayındaki iki baz vektörü dik olmak zorunda değildir.</li>
+      <li><code>P</code>'nin sütun sırası ile <code>D</code>'nin köşegen sırasını tutarsız yazmak.</li>
+    </ul>
+  </div>
+
+  <h2>4. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1 (kavram).</b> <code>P</code> ortogonal olduğuna göre <code>det(P)</code> hangi değerleri alabilir? Neden?</p>
+    <details><summary>Cevabı göster</summary><p><code>PᵀP = I</code> → <code>det(Pᵀ)det(P) = 1</code>. <code>det(Pᵀ) = det(P)</code> olduğundan (<a href="0007-determinantin-ozellikleri-ve-hesaplama.html">Ders 07</a>) <code>[det(P)]² = 1</code> → <code>det(P) = ±1</code>. Örnek 19'da <code>+1</code> çıktı; sütun sırası değiştirilseydi <code>−1</code> olabilirdi. İkisi de geçerlidir.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (temel işlem).</b> <code>A</code> = <table class="m"><tr><td>2</td><td>1</td></tr><tr><td>1</td><td>2</td></tr></table> simetrik matrisini ortogonal olarak köşegenleştir: <code>P</code> ve <code>D</code>'yi bul.</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−2</td><td>−1</td></tr><tr><td>−1</td><td>λ−2</td></tr></table> → <code>det = (λ−2)² − 1 = λ² − 4λ + 3 = (λ−1)(λ−3)</code> → <code>λ₁ = 1</code>, <code>λ₂ = 3</code>.</p>
+      <p class="step"><b>λ = 1:</b> <code>I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−1</td><td>−1</td></tr><tr><td>−1</td><td>−1</td></tr></table> → <code>x₁ + x₂ = 0</code> → <code>(1, −1)</code>. Normalize (<code>‖·‖ = √2</code>): <code>(1/√2, −1/√2)</code>.</p>
+      <p class="step"><b>λ = 3:</b> <code>3I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>1</td><td>−1</td></tr><tr><td>−1</td><td>1</td></tr></table> → <code>x₁ = x₂</code> → <code>(1, 1)</code>. Normalize: <code>(1/√2, 1/√2)</code>.</p>
+      <p class="step">Ortogonallik: <code>⟨(1,−1),(1,1)⟩ = 1 − 1 = 0</code> ✓ (beklenen — simetrik matris, farklı özdeğerler).</p>
+      <p class="step"><code>P = </code><table class="m" style="margin:0 .2em"><tr><td>1/√2</td><td>1/√2</td></tr><tr><td>−1/√2</td><td>1/√2</td></tr></table>, &nbsp; <code>D = </code><table class="m" style="margin:0 .2em"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>3</td></tr></table></p>
+      <p class="step">Doğrulama (<code>AP</code> sütunları): <code>A(1/√2, −1/√2) = ((2−1)/√2, (1−2)/√2) = (1/√2, −1/√2)</code> ✓ <code>= 1·k₁</code>; <code>A(1/√2, 1/√2) = (3/√2, 3/√2) = 3·k₂</code> ✓</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (sınav seviyesi).</b> <code>A</code> = <table class="m"><tr><td>6</td><td>−2</td></tr><tr><td>−2</td><td>3</td></tr></table> matrisini diyagonal hale dönüştürecek <b>ortogonal</b> bir <code>P</code> matrisi elde et ve <code>D = PᵀAP</code>'yi yaz. (PDF değerlendirme sorularından Soru 17–18.)</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−6</td><td>2</td></tr><tr><td>2</td><td>λ−3</td></tr></table> → <code>det = (λ−6)(λ−3) − 4 = λ² − 9λ + 18 − 4 = λ² − 9λ + 14</code></p>
+      <p class="step"><code>(λ−2)(λ−7) = 0</code> → <code>λ₁ = 7</code>, <code>λ₂ = 2</code>.</p>
+      <p class="step"><b>λ = 7:</b> <code>7I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>1</td><td>2</td></tr><tr><td>2</td><td>4</td></tr></table> → <code>x₁ + 2x₂ = 0</code> → <code>x₁ = −2x₂</code> → <code>(−2, 1)</code>, norm <code>√5</code> → <code>(−2/√5, 1/√5)</code>.</p>
+      <p class="step"><b>λ = 2:</b> <code>2I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−4</td><td>2</td></tr><tr><td>2</td><td>−1</td></tr></table> → <code>−4x₁ + 2x₂ = 0</code> → <code>x₂ = 2x₁</code> → <code>(1, 2)</code>, norm <code>√5</code> → <code>(1/√5, 2/√5)</code>.</p>
+      <p class="step">Ortogonallik: <code>⟨(−2,1),(1,2)⟩ = −2 + 2 = 0</code> ✓</p>
+      <p class="step"><code>P = </code><table class="m" style="margin:0 .2em"><tr><td>−2/√5</td><td>1/√5</td></tr><tr><td>1/√5</td><td>2/√5</td></tr></table> &nbsp;(1. sütun <code>λ=7</code>, 2. sütun <code>λ=2</code>)</p>
+      <p class="step">Doğrulama: <code>A(−2,1) = (6(−2) + (−2)(1), &nbsp;−2(−2) + 3(1)) = (−14, 7) = 7(−2,1)</code> ✓; <code>A(1,2) = (6 − 4, −2 + 6) = (2, 4) = 2(1,2)</code> ✓</p>
+      <p class="step"><code>D = PᵀAP = </code><table class="m" style="margin:0 .2em"><tr><td>7</td><td>0</td></tr><tr><td>0</td><td>2</td></tr></table></p>
+    </details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/diyagonalizasyon.html">Diyagonalizasyon</a> · <a href="../../reference/lineer-cebir/ortonormal-gram-schmidt.html">Ortonormal Baz & Gram-Schmidt</a><br>
+    🎓 MIT 18.06 (Strang) — Ders 25: Symmetric Matrices and Positive Definiteness (spektral teorem: <code>A = QΛQᵀ</code>).<br>
+    📚 Khan Academy Türkçe — <a href="https://tr.khanacademy.org/math/linear-algebra">Doğrusal Cebir</a>, "Simetrik Matrislerin Özvektörleri".<br>
+    🗂️ Ön koşullar: <a href="0027-simetrik-ve-ortogonal-matrisler.html">Ders 27 — Simetrik/ortogonal matris</a> · <a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25 — Normalize etme</a> · <a href="0023-diyagonallestirme-yontemi.html">Ders 23 — Genel yöntem</a>.<br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> — Bölüm 7.4.1.1 (Örnek 19), 7.4.1.2 (6 adımlık yöntem).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0027-simetrik-ve-ortogonal-matrisler.html">Ders 27 — Simetrik ve Ortogonal Matrisler</a></span>
+    <span>Sıradaki: <a href="0029-tekrarli-ozdeger-gram-schmidt-ornek20.html">Ders 29 — Tekrarlı Özdeğer + Gram-Schmidt</a></span>
+  </div>
+
+</div>
+</body>
+</html>

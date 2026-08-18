@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Ortonormal Baz & Gram-Schmidt</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; margin:.5em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  .frm{ font-family:Consolas,monospace; font-size:.92rem; line-height:2; }
+  ol{ padding-left:1.3em; } li{ margin:.25em 0; }
+  small{ color:#6b6b6b; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Ortonormal Baz & Gram-Schmidt — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 25-27 (Bölüm 7.3.2-7.4) özeti.</p>
+
+  <h2>Tanımlar</h2>
+  <div class="card">
+    <b>Ortogonal (iki vektör):</b> <code>⟨a, b⟩ = 0</code><br>
+    <b>Ortogonal küme:</b> <b>her çift</b> ortogonal<br>
+    <b>Ortonormal küme:</b> ortogonal <b>+</b> her vektörün uzunluğu <code>1</code><br>
+    <b>Ortogonal/ortonormal baz:</b> hem baz hem ortogonal/ortonormal olan küme
+  </div>
+  <div class="rule">
+    <code>⟨a, b⟩ = a₁b₁ + a₂b₂ + ... + aₙbₙ</code> &nbsp;·&nbsp; <code>‖a‖ = √(a₁² + ... + aₙ²)</code><br>
+    <b>Normalize:</b> <code>c = a / ‖a‖</code> — doğrultuyu değiştirmez, ortogonalliği bozmaz.
+  </div>
+
+  <h2>Kontrol sırası (2 adım, ikisi de şart)</h2>
+  <div class="card">
+    <ol>
+      <li>Bütün <b>çiftlerin</b> iç çarpımı <code>0</code> mı? &nbsp;<small>(<code>n</code> vektör için <code>n(n−1)/2</code> çift)</small></li>
+      <li>Bütün <b>normlar</b> <code>1</code> mi?</li>
+    </ol>
+    Yalnızca 1 sağlanıyorsa <b>ortogonal</b>; ikisi birden sağlanıyorsa <b>ortonormal</b>.
+  </div>
+
+  <h2>Gram-Schmidt yöntemi</h2>
+  <div class="rule frm">
+    b₁ = a₁<br>
+    b₂ = a₂ − ( ⟨a₂,b₁⟩ / ⟨b₁,b₁⟩ ) b₁<br>
+    b₃ = a₃ − ( ⟨a₃,b₁⟩ / ⟨b₁,b₁⟩ ) b₁ − ( ⟨a₃,b₂⟩ / ⟨b₂,b₂⟩ ) b₂<br>
+    ⋮<br>
+    <b>ortonormal:</b> &nbsp; cᵢ = bᵢ / ‖bᵢ‖
+  </div>
+  <div class="card">
+    <b>Ne yapıyor:</b> her adımda <code>aᵢ</code>'den, önceki <b>tüm</b> <code>b</code> yönlerindeki <b>izdüşümü</b> (gölgeyi) çıkarıyor; kalan parça dik olur.<br>
+    <b>Payda:</b> <code>⟨bᵢ, bᵢ⟩ = ‖bᵢ‖²</code> — karekök <b>yok</b>. <code>bᵢ</code> zaten birim vektörse payda <code>1</code>'dir.<br>
+    <b>Şart:</b> girdi kümesi lineer bağımsız olmalı; değilse bir adımda <code>bᵢ = 0</code> çıkar.<br>
+    <small>Ara sonucu sadeleştirmek serbest (<code>[3/2, −3/2, 3]</code> → <code>[1, −1, 2]</code>); normu <b>kullandığın biçime göre</b> hesapla.</small>
+  </div>
+
+  <h2>Ortogonal matris</h2>
+  <div class="rule">
+    <b>Tanım:</b> sütunları <b>ortonormal</b> küme oluşturan matris.<br>
+    <b>Test:</b> <code>AᵀA = I</code> &nbsp;⟺&nbsp; <code>A⁻¹ = Aᵀ</code><br>
+    <small><code>det(A) = ±1</code> olmak zorundadır.</small>
+  </div>
+  <div class="card"><b>Simetrik matris</b> (<code>A = Aᵀ</code>) ile <b>ortogonal matris</b> (<code>AᵀA = I</code>) farklı kavramlardır; bir matris ikisi birden olabilir (ör. <code>I</code>).</div>
+
+  <h2>Nerede kullanılır</h2>
+  <div class="card">
+    Simetrik bir matrisi ortogonal olarak köşegenleştirirken (<code>D = PᵀAP</code>):<br>
+    • <b>Farklı</b> özdeğerlerin özvektörleri zaten dik → yalnızca <b>normalize</b> et.<br>
+    • <b>Aynı</b> özdeğerin eigen uzayında 2+ vektör varsa dik olmayabilir → o uzayın <b>içinde</b> Gram-Schmidt çalıştır.<br>
+    <small>Gram-Schmidt farklı eigen uzayları arasında <b>uygulanmaz</b> — gereksizdir.</small>
+  </div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • İç çarpımları kontrol edip normları atlayarak "ortonormal" demek.<br>
+    • Ortogonallikte bir çifti (ör. <code>b₁·b₃</code>) atlamak.<br>
+    • Gram-Schmidt paydasında <code>‖bᵢ‖</code> (karesiz) kullanmak.<br>
+    • İzdüşümü <code>aᵢ</code> yerine <code>bᵢ₋₁</code>'den çıkarmak.<br>
+    • 3. adımda yalnızca bir önceki <code>b</code>'nin izdüşümünü çıkarmak.<br>
+    • Sadeleştirilmiş vektörle eski normu birlikte kullanmak.<br>
+    • Ortogonallik testinde <code>AᵀA</code> yerine <code>A·A</code> hesaplamak.
+  </div>
+</body>
+</html>

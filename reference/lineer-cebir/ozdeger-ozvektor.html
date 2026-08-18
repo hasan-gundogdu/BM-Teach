@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Başvuru — Özdeğer & Özvektör</title>
+<style>
+  body{ font-family:"Iowan Old Style",Palatino,Georgia,serif; max-width:640px; margin:0 auto;
+        padding:40px 24px; color:#1a1a1a; background:#fdfcf9; line-height:1.5; }
+  h1{ font-size:1.5rem; border-bottom:2px solid #7a5c2e; padding-bottom:.2em; }
+  h2{ font-size:1.05rem; color:#7a5c2e; margin:1.4em 0 .3em; }
+  .card{ background:#fff; border:1px solid #e2ded5; border-radius:6px; padding:.7em 1em; margin:.6em 0; }
+  .rule{ background:#f3efe6; border-left:3px solid #7a5c2e; padding:.5em .9em; border-radius:4px; margin:.5em 0; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-family:Consolas,monospace; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.15em .2em; position:relative; }
+  table.m td{ padding:.12em .4em; text-align:center; font-family:Consolas,monospace; font-size:.9rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:6px; border:1.4px solid #1a1a1a; }
+  table.m::before{ left:-2px; border-right:none; } table.m::after{ right:-2px; border-left:none; }
+  ol{ padding-left:1.3em; } li{ margin:.25em 0; }
+  small{ color:#6b6b6b; }
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+  <h1>Özdeğer & Özvektör — Hızlı Başvuru</h1>
+  <p style="color:#6b6b6b;font-style:italic">Lineer Cebir BM213 · Ders 16-21 (Bölüm 7.1-7.2) özeti.</p>
+
+  <h2>Tanım</h2>
+  <div class="rule"><code>A X = λ X</code> &nbsp;(<code>A</code>: <code>n×n</code> kare, <code>λ</code>: özdeğer/skaler, <code>X ≠ 0</code>: özvektör)<br>
+  <small>Özvektör = <code>A</code> ile çarpılınca <b>yönü değişmeyen</b> vektör. Sıfır vektörü özvektör olamaz; <code>λ = 0</code> geçerlidir.</small></div>
+
+  <h2>Üç isim, tek ifade</h2>
+  <div class="card">
+    <b>Karakteristik determinant:</b> <code>det(λI − A)</code><br>
+    <b>Karakteristik polinom:</b> <code>λⁿ + c₁λⁿ⁻¹ + ... + cₙ</code><br>
+    <b>Karakteristik eşitlik:</b> <code>det(λI − A) = 0</code> → kökler = özdeğerler<br>
+    <small>Türetim: <code>AX = λIX</code> → <code>(λI − A)X = 0</code> homojen; sıfırdan farklı çözüm için <code>det = 0</code>.</small>
+  </div>
+
+  <h2>Özdeğer bulma</h2>
+  <div class="card">
+    <ol>
+      <li><code>λI − A</code>: köşegene <code>λ − aᵢᵢ</code>, diğerlerine <code>−aᵢⱼ</code> &nbsp;<small>(en sık işaret hatası burada)</small></li>
+      <li>Determinantı aç (en çok sıfır içeren satır/sütun boyunca kofaktör)</li>
+      <li>Sıfıra eşitle, çarpanlara ayır</li>
+    </ol>
+    <b>2×2 kısayolu:</b> <code>λ² − (iz)λ + det(A) = 0</code>
+  </div>
+  <div class="rule"><b>Kontrol (her zaman yap):</b> köklerin toplamı = <b>iz</b> (köşegen toplamı) · köklerin çarpımı = <b>det(A)</b></div>
+
+  <h2>Özvektör bulma</h2>
+  <div class="card">
+    Her <code>λᵢ</code> için ayrı ayrı <code>(λᵢI − A)x = 0</code> homojen sistemini çöz:<br>
+    kanonik şekle indirge → pivotsuz sütunların değişkenleri <b>serbest</b> → parametre ata → katsayı vektörlerine ayır.<br>
+    Çözüm uzayı = <b>eigen uzayı</b>, bazı = <b>baz eigen vektörleri</b>, boyutu = <code>n − r</code>.<br>
+    <small><b>Doğrulama:</b> <code>Av = λv</code> — 10 saniye, tüm işaret hatalarını yakalar.</small>
+  </div>
+
+  <h2>Üçgen matris kısayolu</h2>
+  <div class="rule"><code>A</code> üst üçgen, alt üçgen veya köşegen ise → <b>özdeğerler = asal köşegen elemanları</b>.<br>
+  <small>Örn. <table class="m"><tr><td>3</td><td>0</td><td>0</td></tr><tr><td>-2</td><td>7</td><td>0</td></tr><tr><td>4</td><td>8</td><td>1</td></tr></table> → <code>λ = 3, 7, 1</code></small></div>
+
+  <h2>Özellikler</h2>
+  <div class="card">
+    <b>Bağımsızlık (7.2.1):</b> <b>farklı</b> özdeğerlere karşı gelen özvektörler her zaman <b>lineer bağımsızdır</b>.<br>
+    <b>Ölçekleme (7.2.2, Özellik 1):</b> <code>λ</code>, <code>A</code>'nın özdeğeri ise <code>cλ</code>, <code>cA</code>'nın özdeğeridir (<code>c ≠ 0</code>). Özvektörler <b>değişmez</b>.<br>
+    <small>Bağımsızlık kontrolü: vektörleri sütun yap, determinant al, <code>≠ 0</code> ise bağımsız.</small>
+  </div>
+
+  <h2>Tekrarlı kök</h2>
+  <div class="card">
+    <code>(λ − a)ᵏ</code> çarpanı → <code>λ = a</code> <b><code>k</code> kez tekrarlanır</b>.<br>
+    <b>Tekrar sayısı ≠ bağımsız özvektör sayısı.</b> Eigen uzayının boyutunu <code>n − r</code> ile ayrıca hesapla.<br>
+    <small>Simetrik matriste (yalnızca orada) boyut her zaman tekrar sayısına eşittir.</small>
+  </div>
+
+  <h2>Sık hatalar</h2>
+  <div class="card">
+    • <code>λI − A</code>'da köşegen dışı işaretleri ters çevirmeyi unutmak.<br>
+    • <code>λ</code>'yı <code>I</code> ile çarpmadan matristen çıkarmaya çalışmak.<br>
+    • Karakteristik polinomu bulup <b>sıfıra eşitlememek</b>.<br>
+    • Özdeğer (sayı) ile özvektörü (vektör) karıştırmak.<br>
+    • Her <code>λᵢ</code> için matrisi yeniden kurmamak.<br>
+    • Sonucu <code>Av = λv</code> ile doğrulamamak.
+  </div>
+</body>
+</html>

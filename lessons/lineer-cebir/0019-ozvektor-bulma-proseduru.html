@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 19 — Özvektör Bulma Prosedürü</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .55em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.98rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.bar{ border-left:1px dashed var(--soft); }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  .rowop{ text-align:center; font-size:.9rem; color:var(--accent); margin:.15em 0 .35em; font-family:Consolas,monospace; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.95rem; margin:.25em 0; }
+  .sezgi{ background:#f2f5f0; border-left:3px solid #5d7a4e; border-radius:4px; padding:.7em 1em; font-size:.95rem; }
+  ol.proc{ padding-left:1.4em; } ol.proc li{ margin:.6em 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 19 · Bölüm 7.1.3 · Örnek 5</div>
+  <h1>Özvektör Bulma Prosedürü</h1>
+  <p class="lead">Bu dersin sonunda: bulduğun her özdeğer için <span class="hi">(λI − A)x = 0</span> sistemini çözüp o özdeğere karşı gelen özvektörü yazabileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Özdeğer tek başına "ölçek katsayısı"; asıl geometrik bilgi <b>hangi yönün</b> ölçeklendiğinde. Özvektör o yön. Ve bu vektörler, ileride köşegenleştirme matrisi <code>P</code>'nin <b>sütunları</b> olacak — yani bu ders olmadan Ders 22–24 hiç başlamaz.</p>
+
+  <h2>1. Resmî prosedür (PDF, Bölüm 7.1.3)</h2>
+  <ol class="proc">
+    <li><b><code>det(λI − A) = 0</code></b><br>
+      <code>λⁿ + c₁λⁿ⁻¹ + c₂λⁿ⁻² + ... + cₙ₋₁λ + cₙ = 0</code> karakteristik eşitliğinin <code>λ₁, λ₂, ..., λₙ</code> eigen değerlerini elde ediniz.</li>
+    <li><b><code>λᵢ</code> eigen değerine karşı gelen <code>x</code> eigen vektörünü bulabilmek için</b><br>
+      <code>(λᵢI − A)x = 0</code><br>
+      homojen lineer denklem sisteminin çözümünü elde ediniz.</li>
+  </ol>
+  <p class="step">Yani 2. adım, <a href="0018-baz-ve-cozum-uzayi.html">Ders 18</a>'in aynısı — sadece katsayı matrisi artık <code>λᵢI − A</code>. Bu sistemin çözüm uzayına <code>λᵢ</code>'nin <b>eigen uzayı</b>, o uzayın bazına da <b>baz eigen vektörleri</b> denir.</p>
+
+  <div class="sezgi"><b>Sezgi / ek açıklama.</b> Her özdeğer için <b>ayrı bir homojen sistem</b> çözülür. <code>λ</code> değiştikçe katsayı matrisi değişir, dolayısıyla çözüm uzayı da değişir. "Bir kere çöz, hepsi çıksın" diye bir kısayol yok — <code>n</code> özdeğer varsa <code>n</code> sistem çözülür.</p>
+
+  <h2>2. Örnek 5 (PDF 7.1.3.1)</h2>
+  <p>Verilen: <code>A</code> = <table class="m"><tr><td>3</td><td>1</td></tr><tr><td>-2</td><td>0</td></tr></table> — eigen değerlerini <b>ve</b> bu değerlere karşı gelen eigen vektörlerini bulunuz.</p>
+
+  <h3>Adım 1 — özdeğerler</h3>
+  <div class="eq">
+    <code>det(λI − A) = det</code>
+    <span>(</span><table class="m"><tr><td>λ</td><td>0</td></tr><tr><td>0</td><td>λ</td></tr></table>
+    <code>−</code>
+    <table class="m"><tr><td>3</td><td>1</td></tr><tr><td>-2</td><td>0</td></tr></table><span>)</span>
+    <code>=</code>
+    <table class="m"><tr><td>λ−3</td><td>−1</td></tr><tr><td>2</td><td>λ</td></tr></table>
+  </div>
+  <p class="step"><code>= (λ−3)·λ − (−1)·2 = λ(λ−3) + 2 = λ² − 3λ + 2</code></p>
+  <p class="step"><code>λ² − 3λ + 2 = (λ−2)(λ−1) = 0</code></p>
+  <div class="eq"><b><code>λ₁ = 2</code>, &nbsp; <code>λ₂ = 1</code></b></div>
+
+  <h3>Adım 2a — λ = 1 için özvektör</h3>
+  <p class="step"><code>(λI − A)x = 0</code> ifadesinde <code>λ = 1</code> koyalım:</p>
+  <div class="eq">
+    <span>(</span><code>1·</code><table class="m"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td></tr></table>
+    <code>−</code>
+    <table class="m"><tr><td>3</td><td>1</td></tr><tr><td>-2</td><td>0</td></tr></table><span>)</span>
+    <table class="m"><tr><td>x₁</td></tr><tr><td>x₂</td></tr></table>
+    <code>=</code>
+    <table class="m"><tr><td>0</td></tr><tr><td>0</td></tr></table>
+  </div>
+  <div class="eq">
+    <table class="m"><tr><td>−2</td><td>−1</td></tr><tr><td>2</td><td>1</td></tr></table>
+    <table class="m"><tr><td>x₁</td></tr><tr><td>x₂</td></tr></table>
+    <code>=</code>
+    <table class="m"><tr><td>0</td></tr><tr><td>0</td></tr></table>
+  </div>
+  <p class="step">Denklemler:</p>
+  <div class="eq" style="font-family:Consolas,monospace">−2x₁ − x₂ = 0 &nbsp;&nbsp;·&nbsp;&nbsp; 2x₁ + x₂ = 0</div>
+  <p class="step">İki denklem birbirinin <code>−1</code> katı — aslında tek bilgi var: <code>x₂ = −2x₁</code>.</p>
+  <p class="step"><code>x₁ = t</code> olarak ifade edilirse <code>x₂ = −2t</code>. Dolayısıyla <code>λ = 1</code> eigen değerine karşı gelen eigen vektörü:</p>
+  <div class="eq">
+    <table class="m"><tr><td>t</td></tr><tr><td>−2t</td></tr></table>
+    <code> = t</code>
+    <table class="m"><tr><td>1</td></tr><tr><td>−2</td></tr></table>
+  </div>
+  <p>olup, <table class="m"><tr><td>1</td></tr><tr><td>−2</td></tr></table> vektörü <code>λ = 1</code> eigen değeri ile ilişkili eigen vektörleri için bir <b>baz (basis)</b>'dir.</p>
+
+  <h3>Aynı sonuç — kanonik şekil yoluyla (PDF alternatif yol)</h3>
+  <p class="step">Katsayı matrisini satır işlemleriyle indirgeyelim:</p>
+  <div class="eq">
+    <table class="m"><tr><td>−2</td><td>−1</td></tr><tr><td>2</td><td>1</td></tr></table>
+    <span class="rowop" style="display:inline">&nbsp;R₁ → R₁/(−2)&nbsp;</span>
+    <table class="m"><tr><td>1</td><td>1/2</td></tr><tr><td>2</td><td>1</td></tr></table>
+    <span class="rowop" style="display:inline">&nbsp;R₂ → R₂ − 2R₁&nbsp;</span>
+    <table class="m"><tr><td>1</td><td>1/2</td></tr><tr><td>0</td><td>0</td></tr></table>
+  </div>
+  <p class="step">İkinci satırın hesabı: <code>(2 − 2·1, &nbsp; 1 − 2·(1/2)) = (0, 0)</code>.</p>
+  <p class="step">Arttırılmış hâliyle kanonik matris:</p>
+  <div class="eq"><table class="m"><tr><td>1</td><td>1/2</td><td class="bar">0</td></tr><tr><td>0</td><td>0</td><td class="bar">0</td></tr></table></div>
+  <p class="step">Buradan <code>x₁ + ½x₂ = 0</code> → <code>x₁ = −½x₂</code>. <code>x₂ = t</code> atanırsa:</p>
+  <div class="eq">
+    <table class="m"><tr><td>x₁</td></tr><tr><td>x₂</td></tr></table>
+    <code>=</code>
+    <table class="m"><tr><td>−½t</td></tr><tr><td>t</td></tr></table>
+    <code> = −(t/2)</code>
+    <table class="m"><tr><td>1</td></tr><tr><td>−2</td></tr></table>
+  </div>
+  <p class="step">Aynı yön, sadece skaler farklı — <b>aynı eigen vektörü</b>. Bu, özvektörlerin yalnızca <b>doğrultu</b> olarak belirli olduğunu gösterir: herhangi bir sıfırdan farklı katı da özvektördür.</p>
+
+  <h3>Adım 2b — λ = 2 için özvektör</h3>
+  <p class="step"><code>λ = 2</code> koyalım:</p>
+  <div class="eq">
+    <span>(</span><code>2·</code><table class="m"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td></tr></table>
+    <code>−</code>
+    <table class="m"><tr><td>3</td><td>1</td></tr><tr><td>-2</td><td>0</td></tr></table><span>)</span>
+    <table class="m"><tr><td>x₁</td></tr><tr><td>x₂</td></tr></table>
+    <code>=</code>
+    <table class="m"><tr><td>0</td></tr><tr><td>0</td></tr></table>
+    &nbsp;→&nbsp;
+    <table class="m"><tr><td>−1</td><td>−1</td></tr><tr><td>2</td><td>2</td></tr></table>
+    <table class="m"><tr><td>x₁</td></tr><tr><td>x₂</td></tr></table>
+    <code>=</code>
+    <table class="m"><tr><td>0</td></tr><tr><td>0</td></tr></table>
+  </div>
+  <p class="step">Hesap: köşegen <code>2−3 = −1</code> ve <code>2−0 = 2</code>; köşegen dışı <code>0−1 = −1</code> ve <code>0−(−2) = 2</code>.</p>
+  <p class="step">Denklemler: <code>−x₁ − x₂ = 0</code> ve <code>2x₁ + 2x₂ = 0</code> — ikisi de aynı bilgiyi verir: <code>x₂ = −x₁</code>.</p>
+  <p class="step"><code>x₁ = t</code> atanırsa:</p>
+  <div class="eq">
+    <table class="m"><tr><td>t</td></tr><tr><td>−t</td></tr></table>
+    <code> = t</code>
+    <table class="m"><tr><td>1</td></tr><tr><td>−1</td></tr></table>
+  </div>
+  <p>olup <table class="m"><tr><td>1</td></tr><tr><td>−1</td></tr></table> vektörü <code>λ = 2</code> eigen değeri ile ilişkili eigen vektörleri için bir <b>baz</b>'dır.</p>
+
+  <p class="step" style="color:#8a3e2e"><b>Not (PDF'deki dizgi hatası).</b> Slaytta <code>λ = 2</code> adımında ara satırda "<code>x₂ = −2x₁</code>" yazıyor; ancak hem sistemin kendisi (<code>−x₁ − x₂ = 0</code>) hem de slaytın kendi son cevabı <code>[1, −1]</code> bunun <code>x₂ = −x₁</code> olması gerektiğini söylüyor. Doğrusu <code>x₂ = −x₁</code>'dir; sonuç vektörü değişmez.</p>
+
+  <details>
+    <summary>Doğrulama — Av = λv gerçekten sağlanıyor mu?</summary>
+    <p class="step"><code>λ = 1</code>, <code>v = (1, −2)</code>:</p>
+    <p class="step"><code>Av = (3·1 + 1·(−2), &nbsp; −2·1 + 0·(−2)) = (3 − 2, −2) = (1, −2) = 1·v</code> ✓</p>
+    <p class="step"><code>λ = 2</code>, <code>v = (1, −1)</code>:</p>
+    <p class="step"><code>Av = (3·1 + 1·(−1), &nbsp; −2·1 + 0·(−1)) = (2, −2) = 2·(1, −1)</code> ✓</p>
+  </details>
+
+  <h2>3. Sık yapılan hatalar</h2>
+  <div class="trap">
+    <ul>
+      <li><b>Özdeğer ile özvektörü karıştırmak.</b> <code>λ</code> bir <b>sayı</b>, <code>v</code> bir <b>vektör</b>. "λ = (1, −2)" gibi bir cevap her zaman yanlıştır.</li>
+      <li><code>(λI − A)x = 0</code> yerine <code>(λI − A)x = λx</code> ya da <code>Ax = 0</code> çözmek. Sağ taraf <b>her zaman sıfır vektörüdür</b>.</li>
+      <li><code>λI − A</code>'yı bir kez kurup bütün özdeğerler için aynı matrisi kullanmak. Her <code>λᵢ</code> için matris <b>yeniden</b> hesaplanır.</li>
+      <li>Serbest parametreyi hiç atamayıp "sonsuz çözüm var" deyip bırakmak. Soru özvektör istiyorsa parametre atanıp <b>tek bir temsilci vektör</b> yazılmalı.</li>
+      <li>Sonucu <code>Av = λv</code> ile kontrol etmemek. Bu kontrol 10 saniye sürer ve işaret hatalarının hepsini yakalar.</li>
+    </ul>
+  </div>
+
+  <h2>4. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1 (kavram).</b> Bir özvektör bulundu: <code>v = (2, −4)</code>. Arkadaşın aynı özdeğer için <code>(−1, 2)</code> buldu. İkiniz de doğru olabilir mi?</p>
+    <details><summary>Cevabı göster</summary><p><b>Evet.</b> <code>(−1, 2) = −½ · (2, −4)</code> — aynı doğrultunun farklı bir temsilcisi. Özvektör sıfırdan farklı bir skalerle çarpılınca yine özvektördür (<code>A(cv) = c(Av) = c(λv) = λ(cv)</code>). Sınavda ikisi de kabul edilir; şıklı sorularda "aynı doğrultuda mı" diye bakmak gerekir.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (temel işlem).</b> <code>A</code> = <table class="m"><tr><td>5</td><td>4</td></tr><tr><td>0</td><td>1</td></tr></table> matrisinin <code>λ = 1</code> özdeğerine karşı gelen özvektörünü bul.</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>1·I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>1−5</td><td>0−4</td></tr><tr><td>0−0</td><td>1−1</td></tr></table> = <table class="m" style="margin:0 .2em"><tr><td>−4</td><td>−4</td></tr><tr><td>0</td><td>0</td></tr></table></p>
+      <p class="step">Denklem: <code>−4x₁ − 4x₂ = 0</code> → <code>x₁ = −x₂</code>.</p>
+      <p class="step"><code>x₂ = t</code> → <code>(−t, t) = t(−1, 1)</code>. Özvektör: <code>(−1, 1)</code> (veya <code>(1, −1)</code>).</p>
+      <p class="step">Kontrol: <code>A(−1,1) = (5(−1)+4(1), &nbsp;0+1) = (−1, 1) = 1·(−1,1)</code> ✓</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (sınav seviyesi).</b> <code>A</code> = <table class="m"><tr><td>0</td><td>2</td></tr><tr><td>3</td><td>1</td></tr></table> matrisinin bütün özdeğerlerini ve her birine karşı gelen birer özvektörü bul; sonuçları <code>Av = λv</code> ile doğrula.</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ</td><td>−2</td></tr><tr><td>−3</td><td>λ−1</td></tr></table></p>
+      <p class="step"><code>det = λ(λ−1) − (−2)(−3) = λ² − λ − 6 = (λ−3)(λ+2) = 0</code> → <code>λ₁ = 3</code>, <code>λ₂ = −2</code>.</p>
+      <p class="step"><b>λ = 3:</b> <code>3I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>3</td><td>−2</td></tr><tr><td>−3</td><td>2</td></tr></table> → <code>3x₁ − 2x₂ = 0</code> → <code>x₂ = (3/2)x₁</code>. <code>x₁ = 2</code> seçersek <code>x₂ = 3</code> → <code>v₁ = (2, 3)</code>.</p>
+      <p class="step">Kontrol: <code>A(2,3) = (0·2 + 2·3, &nbsp;3·2 + 1·3) = (6, 9) = 3(2,3)</code> ✓</p>
+      <p class="step"><b>λ = −2:</b> <code>−2I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−2</td><td>−2</td></tr><tr><td>−3</td><td>−3</td></tr></table> → <code>−2x₁ − 2x₂ = 0</code> → <code>x₂ = −x₁</code>. <code>x₁ = 1</code> → <code>v₂ = (1, −1)</code>.</p>
+      <p class="step">Kontrol: <code>A(1,−1) = (0 + 2(−1), &nbsp;3 + 1(−1)) = (−2, 2) = −2(1,−1)</code> ✓</p>
+      <p class="step">Ek kontrol: iz <code>= 0 + 1 = 1</code>; <code>3 + (−2) = 1</code> ✓ &nbsp; <code>det(A) = 0·1 − 2·3 = −6</code>; <code>3·(−2) = −6</code> ✓</p>
+    </details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/ozdeger-ozvektor.html">Özdeğer & Özvektör</a><br>
+    📚 Khan Academy Türkçe — <a href="https://tr.khanacademy.org/math/linear-algebra">Doğrusal Cebir</a>, "Özvektörler ve Özuzaylar" başlığı.<br>
+    🎓 MIT 18.06 (Strang) — Ders 21, özvektör hesaplama örnekleri.<br>
+    🗂️ Ön koşullar: <a href="0016-ozdeger-ozvektor-karakteristik-denklem.html">Ders 16</a> · <a href="0018-baz-ve-cozum-uzayi.html">Ders 18 — Baz ve Çözüm Uzayı</a>.<br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> — Bölüm 7.1.3, Örnek 5.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0018-baz-ve-cozum-uzayi.html">Ders 18 — Baz ve Çözüm Uzayı</a></span>
+    <span>Sıradaki: <a href="0020-ozvektor-3x3-tam-ornek.html">Ders 20 — 3×3 Tam Özvektör Örneği</a></span>
+  </div>
+
+</div>
+</body>
+</html>

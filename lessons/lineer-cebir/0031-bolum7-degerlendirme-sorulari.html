@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 31 — Bölüm 7 Değerlendirme Soruları (20 soru, tam çözümlü)</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:760px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:1.95rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.2rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  p,li{ font-size:1.04rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.16em .45em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.92rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  table.m td.bar{ border-left:1px dashed var(--soft); }
+  .eq{ text-align:center; margin:.9em 0; font-size:1.02rem; }
+  details{ background:#fbf9f4; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.9em 1.1em; margin:1.1em 0; }
+  .qno{ display:inline-block; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:#fff;
+        background:var(--accent); border-radius:3px; padding:.15em .5em; margin-bottom:.4em; }
+  .opts{ font-size:.95rem; margin:.5em 0 0; color:#3a3a3a; }
+  .opts span{ display:inline-block; margin-right:1.4em; }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .step{ font-size:.94rem; color:#4a4a4a; margin:.3em 0; }
+  .ans{ font-weight:700; color:#2f6b3f; }
+  .note{ background:#fff8e8; border-left:3px solid #b58a2b; border-radius:4px; padding:.7em 1em; font-size:.93rem; }
+  table.g{ border-collapse:collapse; width:100%; font-size:.93rem; margin:.6em 0; }
+  table.g th,table.g td{ border-bottom:1px solid var(--rule); padding:.4em .5em; text-align:left; }
+  table.g th{ color:var(--accent); font-size:.85rem; text-transform:uppercase; letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 31 · Değerlendirme Soruları · <code>13-14.pdf</code></div>
+  <h1>Bölüm 7 Değerlendirme Soruları</h1>
+  <p class="lead">Hocanın ders notundaki <b>20 çoktan seçmeli soru</b>, birebir. Her biri için tam çözüm <code>&lt;details&gt;</code> içinde — önce kendin çöz.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Bunlar hocanın kendi soru bankası — sınav formatına en yakın kaynak. Sorular birbirine bağlı zincirler hâlinde (aynı matris birkaç soruda tekrar ediyor), tıpkı sınavda olabileceği gibi.</p>
+
+  <div class="note">
+    <b>Kaynak notu.</b> PDF'te bu bölümün başlığı "<b>6. BÖLÜM DEĞERLENDİRME SORULARI</b>" olarak basılmış; ancak soruların tamamı <b>Bölüm 7</b> (eigen değer/vektör, diyagonalizasyon) konularından. Başlıktaki numara bir dizgi hatası — içerik Bölüm 7'nin değerlendirmesi.
+  </div>
+
+  <h2>Sorular</h2>
+
+  <div class="q">
+    <div class="qno">Soru 1</div>
+    <p><code>A</code> = <table class="m"><tr><td>1</td><td>-2</td></tr><tr><td>-3</td><td>2</td></tr></table> matrisinin <b>karakteristik polinomunu</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>λ² − 5λ + 2</code></span> <span>Ⓑ <code>λ² − 3λ − 4</code></span> <span>Ⓒ <code>λ² + 3λ − 4</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−1</td><td>2</td></tr><tr><td>3</td><td>λ−2</td></tr></table></p>
+      <p class="step"><code>det = (λ−1)(λ−2) − 2·3 = (λ² − 3λ + 2) − 6 = λ² − 3λ − 4</code></p>
+      <p class="step">Kontrol: iz <code>= 1 + 2 = 3</code> → <code>−3λ</code> ✓; <code>det(A) = 1·2 − (−2)(−3) = 2 − 6 = −4</code> ✓</p>
+      <p class="ans">Cevap: Ⓑ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 2</div>
+    <p><code>A</code> = <table class="m"><tr><td>1</td><td>-2</td></tr><tr><td>-3</td><td>2</td></tr></table> matrisinin <b>eigen değerlerini</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(−1, −4)</code></span> <span>Ⓑ <code>(1, −4)</code></span> <span>Ⓒ <code>(−1, 4)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step">Soru 1'den <code>λ² − 3λ − 4 = 0</code>.</p>
+      <p class="step">Çarpanlara ayır: çarpımı <code>−4</code>, toplamı <code>−3</code> olan iki sayı → <code>−4</code> ve <code>+1</code> → <code>(λ − 4)(λ + 1) = 0</code></p>
+      <p class="step"><code>λ₁ = 4</code>, <code>λ₂ = −1</code></p>
+      <p class="ans">Cevap: Ⓒ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 3</div>
+    <p><code>A</code> = <table class="m"><tr><td>1</td><td>2</td><td>2</td></tr><tr><td>0</td><td>4</td><td>3</td></tr><tr><td>0</td><td>-3</td><td>-2</td></tr></table> matrisinin <b>eigen değerlerini</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(2, 2, 2)</code></span> <span>Ⓑ <code>(1, 1, 1)</code></span> <span>Ⓒ <code>(1, 2, 1)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−1</td><td>−2</td><td>−2</td></tr><tr><td>0</td><td>λ−4</td><td>−3</td></tr><tr><td>0</td><td>3</td><td>λ+2</td></tr></table></p>
+      <p class="step">1. sütunda yalnızca ilk eleman sıfırdan farklı; açılım:</p>
+      <p class="step"><code>det = (λ−1)·</code><table class="m" style="margin:0 .2em"><tr><td>λ−4</td><td>−3</td></tr><tr><td>3</td><td>λ+2</td></tr></table></p>
+      <p class="step"><code>= (λ−1)[ (λ−4)(λ+2) − (−3)(3) ] = (λ−1)[ λ² − 2λ − 8 + 9 ] = (λ−1)(λ² − 2λ + 1)</code></p>
+      <p class="step"><code>= (λ−1)(λ−1)² = (λ−1)³ = 0</code> → <code>λ = 1</code> (üç kez).</p>
+      <p class="step">Kontrol: iz <code>= 1 + 4 + (−2) = 3 = 1+1+1</code> ✓</p>
+      <p class="ans">Cevap: Ⓑ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 4</div>
+    <p><code>A</code> = <table class="m"><tr><td>-1</td><td>0</td><td>0</td></tr><tr><td>3</td><td>2</td><td>0</td></tr><tr><td>3</td><td>3</td><td>1</td></tr></table> matrisinin <b>eigen değerlerini</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(1, −1, −2)</code></span> <span>Ⓑ <code>(−1, 1, 2)</code></span> <span>Ⓒ <code>(−1, +1, −2)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step">Matris <b>alt üçgen</b> (köşegenin üstündeki tüm elemanlar sıfır) → <a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21</a> teoremi gereği eigen değerleri asal köşegen elemanlarıdır.</p>
+      <p class="step"><code>λ = −1, &nbsp;2, &nbsp;1</code></p>
+      <p class="ans">Cevap: Ⓑ &nbsp;(sıra önemsiz: <code>{−1, 1, 2}</code>)</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 5</div>
+    <p><code>A</code> = <table class="m"><tr><td>-1/3</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>-1/3</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>1/2</td></tr></table> matrisinin <b>eigen değerlerini</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(1/3, 1/3, 1/2, −1)</code></span> <span>Ⓑ <code>(−1/3, −1/3, 1)</code></span> <span>Ⓒ <code>(−1/3, −1/3, 1, 1/2)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step">Matris <b>asal köşegen (diyagonal)</b> — üçgen matrisin özel hâli. Eigen değerleri köşegen elemanlarıdır.</p>
+      <p class="step"><code>λ = −1/3, &nbsp;−1/3, &nbsp;1, &nbsp;1/2</code>. <code>4×4</code> matris → <b>4</b> özdeğer olmalı; Ⓑ yalnızca 3 tane veriyor, elenir. Ⓐ işaretler yanlış.</p>
+      <p class="ans">Cevap: Ⓒ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 6</div>
+    <p><code>A</code> = <table class="m"><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>1</td></tr></table> matrisinin <b>eigen değerlerini</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(0, 1, 1)</code></span> <span>Ⓑ <code>(0, −1, 1)</code></span> <span>Ⓒ <code>(0, 1, 2)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step">Köşegenin üstündeki elemanlar: <code>a₁₂ = 0</code>, <code>a₁₃ = 0</code>, <code>a₂₃ = 0</code> → matris <b>alt üçgen</b>.</p>
+      <p class="step">Eigen değerleri köşegen: <code>λ = 0, &nbsp;1, &nbsp;1</code>.</p>
+      <p class="step">Kontrol: <code>det(A) = 0</code> (ilk satır sıfır) → <code>λ = 0</code> mutlaka bir özdeğer ✓</p>
+      <p class="ans">Cevap: Ⓐ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 7</div>
+    <p><code>A</code> = <table class="m"><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>1</td></tr></table> matrisinin eigen değerlerinden biri <code>λ = 0</code> ise, bu değere karşı gelen <b>eigen vektörünü</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(1, 1, 2)</code></span> <span>Ⓑ <code>(1, 0, −2)</code></span> <span>Ⓒ <code>(0, 1, 2)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>(0·I − A)x = 0</code> ⟺ <code>Ax = 0</code>:</p>
+      <p class="step">1. satır: <code>0 = 0</code> (bilgi yok). &nbsp; 2. satır: <code>x₂ = 0</code>. &nbsp; 3. satır: <code>2x₁ + x₃ = 0</code> → <code>x₃ = −2x₁</code>.</p>
+      <p class="step"><code>x₁ = t</code> → <code>(t, 0, −2t) = t(1, 0, −2)</code></p>
+      <p class="step">Doğrulama: <code>A(1,0,−2) = (0, &nbsp;0, &nbsp;2·1 + 0 + 1·(−2)) = (0,0,0) = 0·v</code> ✓</p>
+      <p class="ans">Cevap: Ⓑ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 8</div>
+    <p><code>A</code> = <table class="m"><tr><td>1</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-1</td><td>-2</td></tr><tr><td>-2</td><td>-2</td><td>0</td></tr></table> matrisinin <b>eigen değerlerini</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(−3, 0, 3)</code></span> <span>Ⓑ <code>(−3, 2, 3)</code></span> <span>Ⓒ <code>(3, 0, 4)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step">Bu, <a href="0020-ozvektor-3x3-tam-ornek.html">Ders 20'deki Örnek 6</a>'nın matrisi. Orada tam olarak hesaplanmıştı:</p>
+      <p class="step"><code>det(λI − A) = λ³ − 9λ = λ(λ−3)(λ+3) = 0</code> → <code>λ = 0, 3, −3</code>.</p>
+      <p class="step">Hızlı eleme: iz <code>= 1 − 1 + 0 = 0</code> → özdeğerler toplamı 0 olmalı. Ⓐ: <code>−3+0+3 = 0</code> ✓; Ⓑ: <code>2</code> ✗; Ⓒ: <code>7</code> ✗.</p>
+      <p class="ans">Cevap: Ⓐ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 9</div>
+    <p>Aynı <code>A</code> = <table class="m"><tr><td>1</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-1</td><td>-2</td></tr><tr><td>-2</td><td>-2</td><td>0</td></tr></table> için, <code>λ = −3</code>'e karşı gelen <b>eigen vektörünü</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(1, 2, 2)</code></span> <span>Ⓑ <code>(−1, −2, −2)</code></span> <span>Ⓒ <code>(−1, 2, 3)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>−3I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−4</td><td>0</td><td>2</td></tr><tr><td>0</td><td>−2</td><td>2</td></tr><tr><td>2</td><td>2</td><td>−3</td></tr></table></p>
+      <p class="step">1. denklem: <code>−4x₁ + 2x₃ = 0</code> → <code>x₁ = ½x₃</code>. &nbsp; 2. denklem: <code>−2x₂ + 2x₃ = 0</code> → <code>x₂ = x₃</code>.</p>
+      <p class="step">3. denklem kontrolü: <code>2(½x₃) + 2x₃ − 3x₃ = x₃ + 2x₃ − 3x₃ = 0</code> ✓ (bağımlı satır).</p>
+      <p class="step"><code>x₃ = t</code> → <code>(t/2, t, t) = (t/2)(1, 2, 2)</code></p>
+      <p class="step">Doğrulama: <code>A(1,2,2) = (1 + 0 − 4, &nbsp;0 − 2 − 4, &nbsp;−2 − 4 + 0) = (−3, −6, −6) = −3(1,2,2)</code> ✓</p>
+      <p class="step"><b>Not:</b> Ⓑ <code>= −(1,2,2)</code> matematiksel olarak da geçerli bir özvektördür; PDF'in beklediği cevap Ⓐ'dır.</p>
+      <p class="ans">Cevap: Ⓐ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 10</div>
+    <p>Aynı <code>A</code> için, <code>λ = 0</code>'a karşı gelen <b>eigen vektörünü</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(2, 3, 1)</code></span> <span>Ⓑ <code>(−2, −2, 1)</code></span> <span>Ⓒ <code>(−2, 2, 1)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>0·I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−1</td><td>0</td><td>2</td></tr><tr><td>0</td><td>1</td><td>2</td></tr><tr><td>2</td><td>2</td><td>0</td></tr></table></p>
+      <p class="step">1. denklem: <code>−x₁ + 2x₃ = 0</code> → <code>x₁ = 2x₃</code>. &nbsp; 2. denklem: <code>x₂ + 2x₃ = 0</code> → <code>x₂ = −2x₃</code>.</p>
+      <p class="step">3. denklem kontrolü: <code>2(2x₃) + 2(−2x₃) = 0</code> ✓</p>
+      <p class="step"><code>x₃ = t</code> → <code>t(2, −2, 1)</code>. Şıklarda bu vektör doğrudan yok; <code>t = −1</code> alınırsa <code>(−2, 2, −1)</code>… dikkat: Ⓒ <code>(−2, 2, 1)</code>.</p>
+      <p class="step">Ⓒ'yi doğrudan test edelim: <code>A(−2, 2, 1) = (1(−2) + 0 + (−2)(1), &nbsp; 0 + (−1)(2) + (−2)(1), &nbsp; (−2)(−2) + (−2)(2) + 0)</code></p>
+      <p class="step"><code>= (−2 − 2, &nbsp; −2 − 2, &nbsp; 4 − 4) = (−4, −4, 0)</code> — bu <code>0·v</code> <b>değil</b>.</p>
+      <p class="step">Ⓐ'yı test edelim: <code>A(2,3,1) = (2 + 0 − 2, &nbsp;0 − 3 − 2, &nbsp;−4 − 6 + 0) = (0, −5, −10)</code> ✗</p>
+      <p class="step">Ⓑ'yi test edelim: <code>A(−2,−2,1) = (−2 + 0 − 2, &nbsp;0 + 2 − 2, &nbsp;4 + 4 + 0) = (−4, 0, 8)</code> ✗</p>
+      <p class="step" style="color:#8a3e2e"><b>Uyarı:</b> Şıkların hiçbiri <code>t(2, −2, 1)</code> doğrultusunda değil — PDF'te bu soruda şık dizgisinde bir hata var (muhtemelen Ⓒ <code>(−2, 2, −1)</code> olacaktı; o <code>= −(2,−2,1)</code> ve doğru olurdu). <b>Doğru özvektör: <code>(2, −2, 1)</code></b> (veya katı). PDF'te işaretli şık Ⓒ'dir.</p>
+      <p class="ans">Doğru vektör: <code>(2, −2, 1)</code> · PDF'in işaretlediği şık: Ⓒ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 11</div>
+    <p>Aynı <code>A</code> için, <code>λ = 3</code>'e karşı gelen <b>eigen vektörünü</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(−2, −1, 2)</code></span> <span>Ⓑ <code>(2, 1, 2)</code></span> <span>Ⓒ <code>(2, 1, 3)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>3I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>2</td><td>0</td><td>2</td></tr><tr><td>0</td><td>4</td><td>2</td></tr><tr><td>2</td><td>2</td><td>3</td></tr></table></p>
+      <p class="step">1. denklem: <code>2x₁ + 2x₃ = 0</code> → <code>x₁ = −x₃</code>. &nbsp; 2. denklem: <code>4x₂ + 2x₃ = 0</code> → <code>x₂ = −½x₃</code>.</p>
+      <p class="step">3. denklem kontrolü: <code>2(−x₃) + 2(−½x₃) + 3x₃ = −2x₃ − x₃ + 3x₃ = 0</code> ✓</p>
+      <p class="step"><code>x₃ = t</code> → <code>(−t, −t/2, t) = (−t/2)(2, 1, −2)</code> → özvektör <code>(2, 1, −2)</code> veya katı.</p>
+      <p class="step">Ⓐ <code>= (−2, −1, 2) = −(2, 1, −2)</code> ✓ aynı doğrultu.</p>
+      <p class="step">Doğrulama: <code>A(−2,−1,2) = (−2 + 0 − 4, &nbsp;0 + 1 − 4, &nbsp;4 + 2 + 0) = (−6, −3, 6) = 3(−2,−1,2)</code> ✓</p>
+      <p class="ans">Cevap: Ⓐ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 12</div>
+    <p><code>A</code> = <table class="m"><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>1</td></tr></table> matrisinin eigen değerlerinden biri 2 kez tekrarlanmış olup <code>λ = 1</code>'dir. Bu değere karşı gelen <b>eigen vektör(ler)ini</b> elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <code>(1,1,1)</code> ve <code>(1,0,1)</code></span> <span>Ⓑ <code>(1,−1,1)</code> ve <code>(−1,0,2)</code></span> <span>Ⓒ <code>(0,1,0)</code> ve <code>(0,0,1)</code></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>1·I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>−2</td><td>0</td><td>0</td></tr></table></p>
+      <p class="step">1. denklem: <code>x₁ = 0</code>. &nbsp; 3. denklem: <code>−2x₁ = 0</code> → aynı bilgi. &nbsp; 2. denklem boş.</p>
+      <p class="step">Rank <code>r = 1</code>, <code>n = 3</code> → <code>n − r = 2</code> serbest değişken: <code>x₂ = s</code>, <code>x₃ = t</code>.</p>
+      <p class="step"><code>(0, s, t) = s(0,1,0) + t(0,0,1)</code></p>
+      <p class="step">Doğrulama: <code>A(0,1,0) = (0, 1, 0)</code> ✓ &nbsp; <code>A(0,0,1) = (0, 0, 1)</code> ✓</p>
+      <p class="ans">Cevap: Ⓒ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 13</div>
+    <p><code>A</code> = <table class="m"><tr><td>3</td><td>-2</td></tr><tr><td>-4</td><td>5</td></tr></table> matrisini <b>diyagonal hale dönüştürecek bir <code>P</code></b> matrisi elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <table class="m" style="margin:0 .15em"><tr><td>1</td><td>-1</td></tr><tr><td>2</td><td>3</td></tr></table></span> <span>Ⓑ <table class="m" style="margin:0 .15em"><tr><td>1</td><td>1</td></tr><tr><td>2</td><td>3</td></tr></table></span> <span>Ⓒ <table class="m" style="margin:0 .15em"><tr><td>1</td><td>1</td></tr><tr><td>1</td><td>-2</td></tr></table></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−3</td><td>2</td></tr><tr><td>4</td><td>λ−5</td></tr></table> → <code>det = (λ−3)(λ−5) − 8 = λ² − 8λ + 7 = (λ−1)(λ−7)</code></p>
+      <p class="step"><code>λ₁ = 1</code>, <code>λ₂ = 7</code>.</p>
+      <p class="step"><b>λ = 1:</b> <code>I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−2</td><td>2</td></tr><tr><td>4</td><td>−4</td></tr></table> → <code>−2x₁ + 2x₂ = 0</code> → <code>x₁ = x₂</code> → <code>p₁ = (1, 1)</code>.</p>
+      <p class="step"><b>λ = 7:</b> <code>7I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>4</td><td>2</td></tr><tr><td>4</td><td>2</td></tr></table> → <code>4x₁ + 2x₂ = 0</code> → <code>x₂ = −2x₁</code> → <code>p₂ = (1, −2)</code>.</p>
+      <p class="step"><code>P = </code><table class="m" style="margin:0 .2em"><tr><td>1</td><td>1</td></tr><tr><td>1</td><td>−2</td></tr></table></p>
+      <p class="step">Doğrulama: <code>A(1,1) = (3−2, −4+5) = (1,1)</code> ✓; <code>A(1,−2) = (3+4, −4−10) = (7,−14) = 7(1,−2)</code> ✓</p>
+      <p class="ans">Cevap: Ⓒ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 14</div>
+    <p><code>A</code> = <table class="m"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr></table> matrisini <b>diyagonal hale dönüştürecek <code>P</code></b> matrisini elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <table class="m" style="margin:0 .15em"><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr></table></span> <span>Ⓑ <table class="m" style="margin:0 .15em"><tr><td>0</td><td>1</td><td>2</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr></table></span> <span>Ⓒ <table class="m" style="margin:0 .15em"><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>-1</td><td>0</td><td>0</td></tr></table></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>λ−1</td><td>−1</td></tr><tr><td>0</td><td>−1</td><td>λ−1</td></tr></table></p>
+      <p class="step">1. satır boyunca: <code>det = (λ−1)[ (λ−1)² − 1 ] = (λ−1)(λ² − 2λ) = (λ−1)·λ·(λ−2)</code></p>
+      <p class="step"><code>λ = 0, 1, 2</code> (üçü farklı → köşegenleştirilebilir).</p>
+      <p class="step"><b>λ = 0:</b> <code>Ax = 0</code> → <code>x₁ = 0</code>, <code>x₂ + x₃ = 0</code> → <code>p = (0, 1, −1)</code>. Doğrulama: <code>A(0,1,−1) = (0, 1−1, 1−1) = (0,0,0)</code> ✓</p>
+      <p class="step"><b>λ = 1:</b> <code>I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>−1</td></tr><tr><td>0</td><td>−1</td><td>0</td></tr></table> → <code>x₂ = x₃ = 0</code>, <code>x₁</code> serbest → <code>p = (1, 0, 0)</code>. Doğrulama: <code>A(1,0,0) = (1,0,0)</code> ✓</p>
+      <p class="step"><b>λ = 2:</b> <code>2I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>−1</td></tr><tr><td>0</td><td>−1</td><td>1</td></tr></table> → <code>x₁ = 0</code>, <code>x₂ = x₃</code> → <code>p = (0, 1, 1)</code>. Doğrulama: <code>A(0,1,1) = (0, 2, 2) = 2(0,1,1)</code> ✓</p>
+      <p class="step">Sütunlar <code>λ = 0, 1, 2</code> sırasıyla: <code>P = </code><table class="m" style="margin:0 .2em"><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>−1</td><td>0</td><td>1</td></tr></table></p>
+      <p class="ans">Cevap: Ⓐ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 15</div>
+    <p>14 nolu soruda elde edilen <code>P</code> matrisi yardımıyla <code>P⁻¹AP</code> çarpımını elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <table class="m" style="margin:0 .15em"><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>2</td></tr></table></span> <span>Ⓑ <table class="m" style="margin:0 .15em"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>3</td><td>0</td></tr><tr><td>0</td><td>0</td><td>2</td></tr></table></span> <span>Ⓒ <table class="m" style="margin:0 .15em"><tr><td>-1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>2</td></tr></table></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>D = P⁻¹AP</code>'nin köşegeni, <code>P</code>'nin sütun sırasındaki özdeğerlerdir. Sütunlar sırasıyla <code>λ = 0</code>, <code>λ = 1</code>, <code>λ = 2</code>'ye ait.</p>
+      <p class="step"><code>D = diag(0, 1, 2)</code></p>
+      <p class="step">Hızlı kontrol: <code>iz(A) = 1 + 1 + 1 = 3</code>; <code>iz(D) = 0 + 1 + 2 = 3</code> ✓. <code>det(A) = 0</code> (2. ve 3. satır aynı); <code>det(D) = 0</code> ✓</p>
+      <p class="ans">Cevap: Ⓐ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 16</div>
+    <p><code>A</code> = <table class="m"><tr><td>1</td><td>1</td></tr><tr><td>0</td><td>1</td></tr></table> matrisinin <b>diyagonal hale dönüştürülüp dönüştürülemediğini</b> belirleyiniz.</p>
+    <p class="opts"><span>Ⓐ Dönüştürülebilir</span> <span>Ⓑ Dönüştürülemez</span> <span>Ⓒ Sadece tek vektör</span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step">Üst üçgen → <code>λ = 1</code> (iki kez tekrarlı). Tek farklı özdeğer var → eigen uzayının boyutunu kontrol etmek şart.</p>
+      <p class="step"><code>1·I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>0</td><td>−1</td></tr><tr><td>0</td><td>0</td></tr></table> → rank <code>r = 1</code>, <code>n = 2</code> → serbest değişken sayısı <code>n − r = 1</code>.</p>
+      <p class="step">Denklem: <code>−x₂ = 0</code> → <code>x₂ = 0</code>, <code>x₁</code> serbest → tek baz vektörü <code>(1, 0)</code>.</p>
+      <p class="step">Bağımsız özvektör sayısı <code>1 &lt; 2 = n</code> → <b>köşegenleştirilemez</b>.</p>
+      <p class="ans">Cevap: Ⓑ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 17</div>
+    <p><code>A</code> = <table class="m"><tr><td>6</td><td>-2</td></tr><tr><td>-2</td><td>3</td></tr></table> matrisini diyagonal hale dönüştürecek <b>ortogonal <code>P</code></b> matrisini elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <table class="m" style="margin:0 .15em"><tr><td>-1/√5</td><td>-1/√5</td></tr><tr><td>1/√5</td><td>1/√5</td></tr></table></span> <span>Ⓑ <table class="m" style="margin:0 .15em"><tr><td>1/√5</td><td>-1/√5</td></tr><tr><td>-1/√5</td><td>2/√5</td></tr></table></span> <span>Ⓒ <table class="m" style="margin:0 .15em"><tr><td>-2/√5</td><td>1/√5</td></tr><tr><td>1/√5</td><td>2/√5</td></tr></table></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step">Matris simetrik (<code>a₁₂ = a₂₁ = −2</code>) → ortogonal olarak köşegenleştirilebilir.</p>
+      <p class="step"><code>λI − A</code> = <table class="m" style="margin:0 .2em"><tr><td>λ−6</td><td>2</td></tr><tr><td>2</td><td>λ−3</td></tr></table> → <code>det = (λ−6)(λ−3) − 4 = λ² − 9λ + 14 = (λ−2)(λ−7)</code> → <code>λ = 7, 2</code>.</p>
+      <p class="step"><b>λ = 7:</b> <code>7I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>1</td><td>2</td></tr><tr><td>2</td><td>4</td></tr></table> → <code>x₁ + 2x₂ = 0</code> → <code>(−2, 1)</code>. Norm <code>√5</code> → <code>(−2/√5, 1/√5)</code>.</p>
+      <p class="step"><b>λ = 2:</b> <code>2I − A</code> = <table class="m" style="margin:0 .2em"><tr><td>−4</td><td>2</td></tr><tr><td>2</td><td>−1</td></tr></table> → <code>−4x₁ + 2x₂ = 0</code> → <code>x₂ = 2x₁</code> → <code>(1, 2)</code>. Norm <code>√5</code> → <code>(1/√5, 2/√5)</code>.</p>
+      <p class="step">Ortogonallik: <code>⟨(−2,1),(1,2)⟩ = −2 + 2 = 0</code> ✓ (simetrik matriste beklenen).</p>
+      <p class="step"><code>P = </code><table class="m" style="margin:0 .2em"><tr><td>−2/√5</td><td>1/√5</td></tr><tr><td>1/√5</td><td>2/√5</td></tr></table> &nbsp;(1. sütun <code>λ=7</code>, 2. sütun <code>λ=2</code>)</p>
+      <p class="step">Şık Ⓐ'nın sütunları aynı (ortogonal değil), Ⓑ'nin sütunları birim değil → elenirler.</p>
+      <p class="ans">Cevap: Ⓒ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 18</div>
+    <p>17 nolu soruda elde edilen <code>P</code> matrisini kullanarak <code>D = P⁻¹AP</code> çarpımını elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <table class="m" style="margin:0 .15em"><tr><td>6</td><td>0</td></tr><tr><td>0</td><td>2</td></tr></table></span> <span>Ⓑ <table class="m" style="margin:0 .15em"><tr><td>7</td><td>0</td></tr><tr><td>0</td><td>2</td></tr></table></span> <span>Ⓒ <table class="m" style="margin:0 .15em"><tr><td>7</td><td>0</td></tr><tr><td>0</td><td>3</td></tr></table></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>P</code>'nin 1. sütunu <code>λ = 7</code>, 2. sütunu <code>λ = 2</code>'ye ait → <code>D = diag(7, 2)</code>.</p>
+      <p class="step">Kontrol: <code>iz(A) = 6 + 3 = 9 = 7 + 2</code> ✓; <code>det(A) = 18 − 4 = 14 = 7·2</code> ✓</p>
+      <p class="ans">Cevap: Ⓑ</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 19</div>
+    <p><code>A</code> = <table class="m"><tr><td>2</td><td>1</td><td>1</td></tr><tr><td>1</td><td>2</td><td>1</td></tr><tr><td>1</td><td>1</td><td>2</td></tr></table> matrisinin karakteristik eşitliği <code>(λ−1)²(λ−4) = 0</code> olup eigen değerleri <code>λ₁,₂ = 1</code> ve <code>λ₃ = 4</code>'tür. <code>λ₁,₂ = 1</code> değerine karşı gelen eigen vektörleri <code>(1, 0, −1)</code> ve <code>(0, 1, −1)</code>; <code>λ₃ = 4</code> değerine karşı gelen vektör <code>(1, 1, 1)</code>'dir. <b>Gram-Schmidt yöntemini kullanarak <code>A</code> matrisini diyagonal hale dönüştüren <code>P</code> matrisini elde ediniz.</b></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>λ = 1</code>'in eigen uzayı 2 boyutlu ve verilen iki vektör dik değil: <code>⟨(1,0,−1), (0,1,−1)⟩ = 0 + 0 + 1 = 1 ≠ 0</code> → <b>Gram-Schmidt gerekli</b>.</p>
+      <p class="step"><b>b₁ = (1, 0, −1)</b>, <code>‖b₁‖ = √2</code> → <code>a₁ = (1/√2, &nbsp;0, &nbsp;−1/√2)</code></p>
+      <p class="step"><b>b₂ = (0, 1, −1)</b>: <code>⟨b₂, a₁⟩ = 0 + 0 + (−1)(−1/√2) = 1/√2</code>; <code>⟨a₁, a₁⟩ = 1</code>.</p>
+      <p class="step"><code>c₂ = (0,1,−1) − (1/√2)(1/√2, 0, −1/√2) = (0 − ½, &nbsp;1, &nbsp;−1 + ½) = (−½, &nbsp;1, &nbsp;−½)</code></p>
+      <p class="step"><code>‖c₂‖ = √(¼ + 1 + ¼) = √(3/2) = √6/2</code> → her bileşeni <code>2/√6</code> ile çarp:</p>
+      <p class="step"><code>a₂ = (−1/√6, &nbsp;2/√6, &nbsp;−1/√6)</code></p>
+      <p class="step">Kontrol: <code>⟨a₁, a₂⟩ = (1/√2)(−1/√6) + 0 + (−1/√2)(−1/√6) = −1/√12 + 1/√12 = 0</code> ✓; <code>‖a₂‖² = (1 + 4 + 1)/6 = 1</code> ✓</p>
+      <p class="step"><b>λ = 4:</b> <code>(1,1,1)</code>, <code>‖·‖ = √3</code> → <code>a₃ = (1/√3, &nbsp;1/√3, &nbsp;1/√3)</code></p>
+      <p class="step">Kontrol: <code>⟨a₁, a₃⟩ = 1/√6 + 0 − 1/√6 = 0</code> ✓; <code>⟨a₂, a₃⟩ = (−1 + 2 − 1)/√18 = 0</code> ✓</p>
+      <p class="step"><code>P = </code><table class="m" style="margin:0 .2em"><tr><td>1/√2</td><td>−1/√6</td><td>1/√3</td></tr><tr><td>0</td><td>2/√6</td><td>1/√3</td></tr><tr><td>−1/√2</td><td>−1/√6</td><td>1/√3</td></tr></table></p>
+      <p class="step">Doğrulama: <code>A(1,0,−1) = (2 + 0 − 1, &nbsp;1 + 0 − 1, &nbsp;1 + 0 − 2) = (1, 0, −1)</code> ✓ (<code>λ = 1</code>); <code>A(1,1,1) = (4,4,4)</code> ✓ (<code>λ = 4</code>).</p>
+      <p class="step"><b>İşaret notu:</b> Gram-Schmidt'i <code>b₁ = (−1, 0, 1)</code> ile başlatırsan 1. sütun <code>(−1/√2, 0, 1/√2)</code> olur — PDF'in şıklarındaki biçim budur. Her iki <code>P</code> de geçerlidir ve aynı <code>D</code>'yi verir.</p>
+      <p class="ans">Cevap: Yukarıdaki <code>P</code> (PDF'te Ⓐ şıkkı bu yapıdadır)</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qno">Soru 20</div>
+    <p>19 nolu soruda elde edilen <code>P</code> değerini kullanarak <code>D = P⁻¹AP</code>'yi elde ediniz.</p>
+    <p class="opts"><span>Ⓐ <table class="m" style="margin:0 .15em"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>3</td><td>5</td></tr><tr><td>0</td><td>0</td><td>4</td></tr></table></span> <span>Ⓑ <table class="m" style="margin:0 .15em"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>4</td></tr></table></span> <span>Ⓒ <table class="m" style="margin:0 .15em"><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>3</td><td>0</td></tr><tr><td>0</td><td>0</td><td>4</td></tr></table></span></p>
+    <details><summary>Çözüm</summary>
+      <p class="step"><code>P</code>'nin sütun sırası: <code>λ = 1</code>, <code>λ = 1</code>, <code>λ = 4</code>. <code>P</code> ortogonal olduğundan <code>P⁻¹ = Pᵀ</code>.</p>
+      <p class="step"><code>D = diag(1, 1, 4)</code></p>
+      <p class="step">Kontrol: <code>iz(A) = 2 + 2 + 2 = 6</code>; <code>iz(D) = 1 + 1 + 4 = 6</code> ✓. <code>det(A) = 1·1·4 = 4</code>; doğrudan hesap: <code>2(4−1) − 1(2−1) + 1(1−2) = 6 − 1 − 1 = 4</code> ✓</p>
+      <p class="step">Ⓐ köşegen bile değil (üstte <code>5</code> var) → elenir. Ⓒ'de <code>3</code> var ama özdeğer <code>1</code> olmalı → elenir.</p>
+      <p class="ans">Cevap: Ⓑ</p>
+    </details>
+  </div>
+
+  <h2>Nerede takıldın → hangi dersi aç</h2>
+  <table class="g">
+    <tr><th>Zorlandığın nokta</th><th>Ders</th></tr>
+    <tr><td><code>λI − A</code>'yı doğru işaretlerle kuramıyorum</td><td><a href="0016-ozdeger-ozvektor-karakteristik-denklem.html">Ders 16</a></td></tr>
+    <tr><td>3×3 karakteristik polinomu açamıyorum / çarpanlara ayıramıyorum</td><td><a href="0017-ozdeger-bulma-3x3-tekrarli-kokler.html">Ders 17</a></td></tr>
+    <tr><td>Serbest değişkeni yanlış seçiyorum, baz çıkaramıyorum</td><td><a href="0018-baz-ve-cozum-uzayi.html">Ders 18</a></td></tr>
+    <tr><td>Özvektörü bulup parametreye ayıramıyorum</td><td><a href="0019-ozvektor-bulma-proseduru.html">Ders 19</a> · <a href="0020-ozvektor-3x3-tam-ornek.html">Ders 20</a></td></tr>
+    <tr><td>Üçgen matriste özdeğeri okumayı unutuyorum</td><td><a href="0021-ozdeger-ozellikleri-ucgen-matrisler.html">Ders 21</a></td></tr>
+    <tr><td>"Köşegenleştirilebilir mi?" kararını veremiyorum</td><td><a href="0022-diyagonallestirilebilirlik.html">Ders 22</a></td></tr>
+    <tr><td><code>P</code>, <code>P⁻¹</code>, <code>D</code> sırasını karıştırıyorum</td><td><a href="0023-diyagonallestirme-yontemi.html">Ders 23</a> · <a href="0024-diyagonallestirme-tam-ornekler.html">Ders 24</a></td></tr>
+    <tr><td>Ortogonal/ortonormal kontrolünü eksik yapıyorum</td><td><a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25</a></td></tr>
+    <tr><td>Gram-Schmidt formülünü hatırlamıyorum</td><td><a href="0026-gram-schmidt.html">Ders 26</a></td></tr>
+    <tr><td>Simetrik/ortogonal matris ayrımı bulanık</td><td><a href="0027-simetrik-ve-ortogonal-matrisler.html">Ders 27</a></td></tr>
+    <tr><td>Ortogonal diyagonalizasyonun 6 adımını uygulayamıyorum</td><td><a href="0028-simetrik-matris-ortogonal-diyagonalizasyon.html">Ders 28</a> · <a href="0029-tekrarli-ozdeger-gram-schmidt-ornek20.html">Ders 29</a></td></tr>
+    <tr><td>Hangi yöntemi seçeceğimi bilemiyorum</td><td><a href="0030-genel-tekrar-bolum7.html#yontem">Ders 30 — Yöntem Rehberi</a></td></tr>
+  </table>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/ozdeger-ozvektor.html">Özdeğer & Özvektör</a> · <a href="../../reference/lineer-cebir/diyagonalizasyon.html">Diyagonalizasyon</a> · <a href="../../reference/lineer-cebir/ortonormal-gram-schmidt.html">Ortonormal Baz & Gram-Schmidt</a><br>
+    📝 Sorular birebir: <code>DersNotlari/LineerCebir/13-14.pdf</code>, "Değerlendirme Soruları" bölümü (Soru 1-20).<br>
+    🗂️ Konu tekrarı: <a href="0030-genel-tekrar-bolum7.html">Ders 30 — Bölüm 7 Genel Tekrar</a>.<br>
+    ✍️ Bölüm 1-6 pratiği: <a href="0015-pratik-sorular.html">Pratik Sorular (Ders 01-13)</a>.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir soruyu tekrar açıklatabilir, benzer başka bir soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0030-genel-tekrar-bolum7.html">Ders 30 — Bölüm 7 Genel Tekrar</a></span>
+    <span>Bölüm 7 tamamlandı ✔</span>
+  </div>
+
+</div>
+</body>
+</html>

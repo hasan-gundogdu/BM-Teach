@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 27 — Simetrik ve Ortogonal Matrisler</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .5em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.95rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.95rem; margin:.25em 0; }
+  .sezgi{ background:#f2f5f0; border-left:3px solid #5d7a4e; border-radius:4px; padding:.7em 1em; font-size:.95rem; }
+  .prop{ background:#fff; border:1px solid var(--rule); border-left:3px solid var(--accent); border-radius:6px; padding:.6em .95em; margin:.5em 0; font-size:.97rem; }
+  .prop b.tag{ display:inline-block; min-width:1.4em; color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 27 · Bölüm 7.4 – 7.4.1 · Örnek 17 – 18</div>
+  <h1>Simetrik ve Ortogonal Matrisler</h1>
+  <p class="lead">Bu dersin sonunda: bir matrisin <span class="hi">simetrik</span> mi, <span class="hi">ortogonal</span> mi olduğunu tek kontrolle söyleyebilecek ve simetrik matrislerin neden diyagonalizasyonun "kolay vakası" olduğunu bileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> Genel diyagonalizasyonda (<a href="0023-diyagonallestirme-yontemi.html">Ders 23</a>) en pahalı adım <code>P⁻¹</code> hesabıydı. Matris <b>simetrik</b> ise <code>P</code>'yi ortonormal seçebiliyoruz; o zaman <code>P⁻¹ = Pᵀ</code> olur ve o pahalı adım <b>transpoz almaya</b> iner. Bu dersteki iki kavram (simetrik, ortogonal) bu kolaylığın anahtarı.</p>
+
+  <h2>1. İki tanım (PDF 7.4)</h2>
+  <div class="q">
+    <p><b>Simetrik matris.</b> Daha önce de belirtildiği gibi (<a href="0002-matrisler-ve-ozel-matrisler.html">Ders 02</a>), <code>n×n</code> boyutlu bir <code>A</code> matrisi <code>A = Aᵀ</code> koşulu gerçekleşiyorsa <b>simetriktir</b> denir.</p>
+    <p><b>Ortogonal matris.</b> Eğer <b>sütunları ortonormal bir küme oluşturuyorsa</b> <code>A</code> matrisi <b>ortogonaldir</b> denir.</p>
+  </div>
+  <p>Eğer <code>A</code> matrisi tersi alınabilir bir matris ise, <code>A</code> matrisinin ortogonal olabilmesi için <b>sadece ve sadece <code>A⁻¹ = Aᵀ</code></b> şartının sağlanması yeterlidir. Benzer şekilde, eğer <code>Aᵀ A = I</code> şartı sağlanıyorsa <code>A</code> matrisi ortogonaldir denir.</p>
+  <div class="q">
+    <p><b>Pratik kural.</b> Eğer bir matrisin ortogonal olup olmadığını göstermenin en kısa yolu <code>Aᵀ·A</code>'nın elde edilmesidir. Eğer bu çarpım <code>Aᵀ·A = I</code> ise, <code>A</code> matrisi <b>ortogonaldir</b>.</p>
+  </div>
+
+  <div class="sezgi">
+    <b>Sezgi / ek açıklama — bu iki kavram karıştırılmasın.</b> <b>Simetrik</b>, matrisin köşegene göre aynadaki yansıması gibi olması demek (<code>aᵢⱼ = aⱼᵢ</code>) — matrisin <i>şekliyle</i> ilgili. <b>Ortogonal</b> ise sütunlarının birbirine dik ve birim uzunlukta olması demek — matrisin <i>geometrik davranışıyla</i> ilgili (uzunlukları ve açıları koruyan dönüşüm; döndürme/yansıtma). Bir matris ikisi birden olabilir, biri olup diğeri olmayabilir. Ders 28'de bu ikisi birlikte kullanılacak: <b>simetrik</b> bir <code>A</code>'yı, <b>ortogonal</b> bir <code>P</code> ile köşegenleştireceğiz.</p>
+  </div>
+
+  <h2>2. Örnek 17 (PDF) — simetrik mi?</h2>
+  <p><code>A</code> = <table class="m"><tr><td>1</td><td>4</td><td>5</td></tr><tr><td>4</td><td>-3</td><td>0</td></tr><tr><td>5</td><td>0</td><td>7</td></tr></table> matrisi <b>simetrik bir matris midir?</b></p>
+  <p class="step"><b>Çözüm:</b> <code>A</code> matrisinin transpozesi (<code>Aᵀ</code>) — satırlar sütun olur:</p>
+  <div class="eq">
+    <code>Aᵀ = </code><table class="m"><tr><td>1</td><td>4</td><td>5</td></tr><tr><td>4</td><td>-3</td><td>0</td></tr><tr><td>5</td><td>0</td><td>7</td></tr></table>
+  </div>
+  <p class="step">Kontrol, giriş giriş: <code>a₁₂ = 4 = a₂₁</code> ✓, &nbsp; <code>a₁₃ = 5 = a₃₁</code> ✓, &nbsp; <code>a₂₃ = 0 = a₃₂</code> ✓ (köşegen elemanları zaten kendileriyle eşleşir).</p>
+  <p><b>Dolayısıyla <code>A = Aᵀ</code> olduğundan <code>A</code> matrisi simetrik bir matristir.</b></p>
+
+  <h2>3. Örnek 18 (PDF) — ortogonal mi?</h2>
+  <p><code>A</code> = <table class="m"><tr><td>1/√10</td><td>3/√10</td></tr><tr><td>−3/√10</td><td>1/√10</td></tr></table> matrisinin <b>ortogonal olup olmadığını</b> belirleyiniz.</p>
+
+  <p class="step"><b>Çözüm:</b> Önce transpozesini yazalım (satır ↔ sütun):</p>
+  <div class="eq">
+    <code>Aᵀ = </code><table class="m"><tr><td>1/√10</td><td>−3/√10</td></tr><tr><td>3/√10</td><td>1/√10</td></tr></table>
+  </div>
+  <p class="step">Şimdi <code>Aᵀ·A</code> çarpımını dört giriş için tek tek hesaplayalım. <code>A</code>'nın sütunları: <code>k₁ = (1/√10, −3/√10)</code>, <code>k₂ = (3/√10, 1/√10)</code>.</p>
+  <p class="step"><b>(1,1):</b> <code>Aᵀ</code>'nin 1. satırı <code>(1/√10, −3/√10)</code> ile <code>k₁</code>: &nbsp; <code>(1·1 + (−3)(−3))/10 = (1 + 9)/10 = 1</code></p>
+  <p class="step"><b>(1,2):</b> aynı satır ile <code>k₂</code>: &nbsp; <code>(1·3 + (−3)·1)/10 = (3 − 3)/10 = 0</code></p>
+  <p class="step"><b>(2,1):</b> <code>Aᵀ</code>'nin 2. satırı <code>(3/√10, 1/√10)</code> ile <code>k₁</code>: &nbsp; <code>(3·1 + 1·(−3))/10 = 0</code></p>
+  <p class="step"><b>(2,2):</b> aynı satır ile <code>k₂</code>: &nbsp; <code>(3·3 + 1·1)/10 = 10/10 = 1</code></p>
+  <div class="eq">
+    <code>Aᵀ·A = </code><table class="m"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td></tr></table><code> = I</code>
+  </div>
+  <p><b><code>Aᵀ·A = I</code> olduğundan <code>A</code> matrisi ortogonaldir. Dolayısıyla <code>A⁻¹ = Aᵀ</code>'dır.</b></p>
+  <p class="step">Aynı sonuç sütunlara bakarak da görülür: <code>‖k₁‖² = (1 + 9)/10 = 1</code>, <code>‖k₂‖² = (9 + 1)/10 = 1</code>, <code>⟨k₁, k₂⟩ = (3 − 3)/10 = 0</code> → sütunlar ortonormal → matris ortogonal (<a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25</a>).</p>
+
+  <h2>4. Simetrik matrislerin özellikleri (PDF 7.4.1)</h2>
+  <p>Simetrik matrisler, özdeğer problemi açısından "iyi huyludur". PDF beş özellik sıralıyor:</p>
+
+  <div class="prop"><b class="tag">A</b> Karakteristik denklemin <b>gerçel kökleri</b> vardır.</div>
+  <div class="prop"><b class="tag">B</b> Farklı eigen değerlerine karşı gelen eigen vektörleri <b>ortogonaldir</b>.</div>
+  <div class="prop"><b class="tag">C</b> Her bir eigen değerinin <b>eigen uzayının ortogonal bazı mevcuttur</b> ve eigen uzayının boyutu, eigen değerinin <b>tekrarlama sayısı kadardır</b>.</div>
+  <div class="prop"><b class="tag">D</b> <code>A</code> matrisinin <code>n</code> eigen vektöründen oluşan bir <b>ortonormal kümesi</b> mevcut olup bunlar bir <b>baz</b> oluşturur.</div>
+  <div class="prop"><b class="tag">E</b> <code>A</code> matrisi simetrik bir matris ise bir <b>ortogonal matris <code>P</code></b> ve <b>diyagonal matris <code>D</code></b> mevcut olup <code>D = PᵀAP</code> eşitliği gerçekleşir. Bu durumda <code>A</code>, <b>ortogonal olarak diyagonal hale dönüştürülebilir</b> denir ve <code>P⁻¹ = Pᵀ</code>'dır. <code>D</code> matrisinin köşegen elemanları, <code>A</code> matrisinin eigen değerleridir.</div>
+
+  <div class="sezgi">
+    <b>Bu beş madde birlikte ne söylüyor?</b> Genel bir matriste "köşegenleştirilebilir mi?" diye tek tek kontrol etmek gerekiyordu (<a href="0022-diyagonallestirilebilirlik.html">Ders 22</a>). <b>Simetrik bir matriste bu soruyu sormaya gerek yok</b> — özellik C ve D, her tekrarlı özdeğerin tekrar sayısı kadar bağımsız (hatta ortogonal) özvektör vereceğini garanti eder. Yani <b>her simetrik matris köşegenleştirilebilir</b>, üstelik <b>ortogonal</b> bir <code>P</code> ile. Bunun bedeli: tekrarlı özdeğerin eigen uzayında Gram-Schmidt (<a href="0026-gram-schmidt.html">Ders 26</a>) çalıştırmak gerekebilir.
+  </div>
+
+  <h2>5. Sık yapılan hatalar</h2>
+  <div class="trap">
+    <ul>
+      <li>"Ortogonal matris" ile "ortogonal vektörler"i karıştırmak. Ortogonal <b>matris</b> için sütunların dik olması yetmez, <b>birim uzunlukta da</b> olmalıdır (yani ortonormal).</li>
+      <li>Ortogonallik testinde <code>A·Aᵀ</code> yerine <code>A·A</code> ya da <code>Aᵀ + A</code> hesaplamak. Test: <code>AᵀA = I</code>.</li>
+      <li>Simetriklik kontrolünde yalnızca birkaç girişe bakmak. Bütün <code>aᵢⱼ</code> ile <code>aⱼᵢ</code> çiftleri eşleşmelidir.</li>
+      <li>Özellik B'yi "simetrik matrisin bütün özvektörleri ortogonaldir" diye genellemek. Garanti yalnızca <b>farklı</b> özdeğerlere ait olanlar içindir; <b>aynı</b> özdeğerin eigen uzayı içindeki vektörler ortogonal olmayabilir — Gram-Schmidt tam da bu yüzden gerekir.</li>
+      <li><code>D = PᵀAP</code> ile <code>D = P⁻¹AP</code>'yi ayrı formüller sanmak. <code>P</code> ortogonal olduğunda <code>Pᵀ = P⁻¹</code> olduğu için ikisi <b>aynı</b> şeydir.</li>
+    </ul>
+  </div>
+
+  <h2>6. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1 (kavram).</b> Bir matris hem simetrik hem ortogonal olabilir mi? Örnek verebilir misin?</p>
+    <details><summary>Cevabı göster</summary>
+      <p><b>Evet.</b> En basit örnek birim matris <code>I</code>: <code>Iᵀ = I</code> (simetrik) ve <code>IᵀI = I</code> (ortogonal).</p>
+      <p>Bir başka örnek: <code>A = </code><table class="m" style="margin:0 .2em"><tr><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td></tr></table>. <code>Aᵀ = A</code> ✓ simetrik; <code>AᵀA = </code><table class="m" style="margin:0 .2em"><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td></tr></table> ✓ ortogonal.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (temel işlem).</b> <code>A</code> = <table class="m"><tr><td>0</td><td>−1</td></tr><tr><td>1</td><td>0</td></tr></table> ortogonal midir? Simetrik midir?</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>Aᵀ = </code><table class="m" style="margin:0 .2em"><tr><td>0</td><td>1</td></tr><tr><td>−1</td><td>0</td></tr></table> ≠ <code>A</code> → <b>simetrik değil</b> (aslında antisimetrik: <code>Aᵀ = −A</code>).</p>
+      <p class="step"><code>AᵀA</code>: (1,1) = <code>0·0 + 1·1 = 1</code>; (1,2) = <code>0·(−1) + 1·0 = 0</code>; (2,1) = <code>(−1)·0 + 0·1 = 0</code>; (2,2) = <code>(−1)(−1) + 0·0 = 1</code> → <code>I</code> ✓ → <b>ortogonal</b>.</p>
+      <p class="step">(Bu matris 90° döndürme dönüşümüdür — uzunlukları koruduğu için ortogonal olması beklenirdi.)</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (sınav seviyesi).</b> <code>A</code> simetrik bir <code>3×3</code> matris. Özdeğerleri <code>λ = 5, 5, −2</code>. (a) <code>A</code> köşegenleştirilebilir mi? Gerekçelendir. (b) <code>λ = 5</code>'in eigen uzayı kaç boyutludur? (c) <code>λ = −2</code>'nin özvektörü, <code>λ = 5</code>'in özvektörleriyle nasıl bir ilişkidedir?</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step">(a) <b>Evet</b>, üstelik ortogonal olarak. Özellik D/E: simetrik bir matrisin <code>n</code> özvektöründen oluşan bir ortonormal küme her zaman mevcuttur.</p>
+      <p class="step">(b) Özellik C: eigen uzayının boyutu tekrarlama sayısına eşittir → <code>λ = 5</code> iki kez tekrarlandığı için eigen uzayı <b>2 boyutludur</b>.</p>
+      <p class="step">(c) Özellik B: farklı özdeğerlere karşı gelen özvektörler <b>ortogonaldir</b> → <code>λ = −2</code>'nin özvektörü, <code>λ = 5</code>'in eigen uzayındaki <b>her</b> vektöre diktir.</p>
+      <p class="step">Ek: <code>λ = 5</code>'in eigen uzayındaki iki baz vektörü kendi aralarında dik olmak zorunda <b>değildir</b> — <code>P</code>'yi ortogonal yapmak için o ikisine Gram-Schmidt uygulanır (<a href="0029-tekrarli-ozdeger-gram-schmidt-ornek20.html">Ders 29</a>).</p>
+    </details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/ortonormal-gram-schmidt.html">Ortonormal Baz & Gram-Schmidt</a> · <a href="../../reference/lineer-cebir/diyagonalizasyon.html">Diyagonalizasyon</a><br>
+    📚 Khan Academy Türkçe — <a href="https://tr.khanacademy.org/math/linear-algebra">Doğrusal Cebir</a>, "Ortogonal Matrisler Uzunlukları Korur", "Simetrik Matrisler".<br>
+    🎓 MIT 18.06 (Strang) — Ders 25: Symmetric Matrices and Positive Definiteness.<br>
+    🗂️ Ön koşullar: <a href="0002-matrisler-ve-ozel-matrisler.html">Ders 02 — Transpoze, simetrik matris</a> · <a href="0025-ortogonal-ortonormal-bazlar.html">Ders 25 — Ortonormal küme</a> · <a href="0003-matrisler-ve-temel-islemler.html">Ders 03 — Matris çarpımı</a>.<br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> — Bölüm 7.4, Örnek 17, Örnek 18, 7.4.1 (A–E).
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0026-gram-schmidt.html">Ders 26 — Gram-Schmidt</a></span>
+    <span>Sıradaki: <a href="0028-simetrik-matris-ortogonal-diyagonalizasyon.html">Ders 28 — Ortogonal Diyagonalizasyon</a></span>
+  </div>
+
+</div>
+</body>
+</html>

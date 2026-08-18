@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ders 25 — Ortogonal ve Ortonormal Bazlar</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#6b6b6b; --rule:#e2ded5; --accent:#7a5c2e; --bg:#fdfcf9; --note:#f3efe6; }
+  *{box-sizing:border-box}
+  body{ background:var(--bg); color:var(--ink); margin:0;
+        font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+        line-height:1.6; font-size:18px; }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 24px 96px; }
+  .kicker{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1{ font-size:2rem; line-height:1.15; margin:.2em 0 .1em; font-weight:700; }
+  h2{ font-size:1.25rem; margin:2.2em 0 .5em; border-bottom:1px solid var(--rule); padding-bottom:.2em; }
+  h3{ font-size:1.02rem; margin:1.5em 0 .3em; color:var(--accent); }
+  p,li{ font-size:1.06rem; }
+  .lead{ color:var(--soft); font-style:italic; margin-top:.4em; }
+  .mission{ background:var(--note); border-left:3px solid var(--accent); padding:.8em 1.1em; border-radius:4px; font-size:.96rem; }
+  table.m{ border-collapse:collapse; display:inline-table; vertical-align:middle; margin:.2em .25em; position:relative; }
+  table.m td{ padding:.18em .5em; text-align:center; font-family:"SF Mono",Consolas,monospace; font-size:.95rem; }
+  table.m::before,table.m::after{ content:""; position:absolute; top:0; bottom:0; width:7px; border:1.6px solid var(--ink); }
+  table.m::before{ left:-2px; border-right:none; }
+  table.m::after{ right:-2px; border-left:none; }
+  .eq{ text-align:center; margin:1.1em 0; font-size:1.05rem; }
+  details{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.5em .9em; margin:.6em 0; }
+  summary{ cursor:pointer; font-weight:600; color:var(--accent); }
+  .q{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:1em 1.2em; margin:1em 0; }
+  .q b{ color:var(--accent); }
+  code{ background:#f0ece2; padding:.05em .35em; border-radius:3px; font-size:.9em; font-family:Consolas,monospace; }
+  a{ color:var(--accent); }
+  .src{ background:var(--note); border-radius:6px; padding:.9em 1.1em; font-size:.95rem; }
+  .ask{ border-top:1px solid var(--rule); margin-top:2.5em; padding-top:1em; color:var(--soft); font-size:.95rem; }
+  .nav{ display:flex; justify-content:space-between; font-size:.9rem; margin-top:1.5em; color:var(--soft); gap:1em; }
+  .hi{ color:var(--accent); font-weight:700; }
+  .step{ font-size:.95rem; color:#4a4a4a; margin:.3em 0; }
+  .trap{ background:#fff; border:1px solid #e3d3cd; border-left:3px solid #a8543f; border-radius:6px; padding:.7em 1em; font-size:.95rem; }
+  .trap ul{ margin:.3em 0 0; padding-left:1.2em; } .trap li{ font-size:.95rem; margin:.25em 0; }
+  .sezgi{ background:#f2f5f0; border-left:3px solid #5d7a4e; border-radius:4px; padding:.7em 1em; font-size:.95rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Lineer Cebir · Ders 25 · Bölüm 7.3.2 · Örnek 14 – 15</div>
+  <h1>Ortogonal ve Ortonormal Bazlar</h1>
+  <p class="lead">Bu dersin sonunda: bir vektör kümesinin <span class="hi">ortogonal mi, ortonormal mi</span> olduğunu iki adımda (iç çarpımlar + uzunluklar) kontrol edebileceksin.</p>
+
+  <p class="mission">🎯 <b>Neden bu?</b> <a href="0024-diyagonallestirme-tam-ornekler.html">Ders 24, Örnek 12</a>'de <code>P⁻¹</code>'in <code>Pᵀ/9</code> çıktığını fark ettik — bu tesadüf değildi, <code>P</code>'nin sütunları birbirine dikti. Sütunlar hem dik hem birim uzunlukta olursa <code>P⁻¹ = Pᵀ</code> olur ve <b>ters matris hesabı tamamen ortadan kalkar</b>. Simetrik matrislerin diyagonalizasyonu (<a href="0028-simetrik-matris-ortogonal-diyagonalizasyon.html">Ders 28</a>) tam olarak bunu kullanır.</p>
+
+  <h2>1. Neden ortogonal baz? (PDF 7.3.2)</h2>
+  <p>Vektör uzaylarını ilgilendiren pek çok problemde, problem çözücü <b>vektör uzayı için uygun görünen bazı seçmede serbesttir</b>. İçsel çarpım uzayında bir problemin çözümü genellikle <b>vektörlerin birbirine ortogonal olduğu bir baz seçilerek kolaylaştırılabilir</b>.</p>
+
+  <div class="sezgi">
+    <b>Sezgi / ek açıklama.</b> Dik olmayan bir bazda bir vektörün bileşenlerini bulmak için denklem sistemi çözmen gerekir. Dik (ve birim) bir bazda ise her bileşen tek bir iç çarpımdır — sistem çözmek yok. Bu, kâğıt üzerinde de bilgisayarda da devasa bir kolaylıktır. Standart <code>x-y-z</code> eksenlerinin dik seçilmesinin sebebi de budur.
+  </div>
+
+  <p class="step"><b>Hatırlatma (<a href="0010-vektorler-temel-nokta-carpim.html">Ders 10</a>).</b> Standart içsel çarpım = nokta çarpım: <code>⟨a, b⟩ = a₁b₁ + a₂b₂ + ... + aₙbₙ</code>. Vektörün uzunluğu (normu): <code>‖a‖ = √(a₁² + a₂² + ... + aₙ²)</code>. İki vektör dik ise nokta çarpımları sıfırdır.</p>
+
+  <h2>2. Örnek 14 (PDF 7.3.2.1)</h2>
+  <p><code>[1 &nbsp;0 &nbsp;0]</code>, <code>[0 &nbsp;1 &nbsp;0]</code>, <code>[0 &nbsp;0 &nbsp;1]</code> vektörler kümesinin <b>standart içsel çarpım</b> yolu ile <b>ortonormal</b> olup olmadığını belirleyiniz.</p>
+
+  <p class="step"><b>Çözüm — önce ikili iç çarpımlar (ortogonallik):</b></p>
+  <p class="step"><code>⟨[1 0 0], [0 1 0]⟩ = 1(0) + 0(1) + 0(0) = 0</code></p>
+  <p class="step"><code>⟨[1 0 0], [0 0 1]⟩ = 1(0) + 0(0) + 0(1) = 0</code></p>
+  <p class="step"><code>⟨[0 1 0], [0 0 1]⟩ = 0(0) + 1(0) + 0(1) = 0</code></p>
+  <p><b>Dolayısıyla vektörler kümesi ortogonaldir.</b></p>
+
+  <p class="step"><b>Sonra uzunluklar (normlar):</b></p>
+  <p class="step"><code>‖[1 0 0]‖ = √(1² + 0² + 0²) = 1</code></p>
+  <p class="step"><code>‖[0 1 0]‖ = √(0² + 1² + 0²) = 1</code></p>
+  <p class="step"><code>‖[0 0 1]‖ = √(0² + 0² + 1²) = 1</code></p>
+  <p><b>Görüldüğü gibi her bir vektörün uzunluğu 1'dir. Dolayısıyla vektörler kümesi ortonormaldir.</b></p>
+
+  <h2>3. Tanımlar (PDF 7.3.2.2)</h2>
+  <div class="q">
+    <p><b>Ortogonal ve ortonormal kümeler.</b> Bir <code>V</code> içsel çarpım uzayındaki iki vektör <code>a</code> ve <code>b</code>, eğer <code>⟨a, b⟩ = 0</code> şartını sağlıyorsa <b>ortogonaldir</b> denir.</p>
+    <p><code>V</code> uzayındaki vektörlerden oluşan bir <code>S</code> kümesi, eğer kümedeki vektörler <b>çifti ortogonal</b> ise <b>ortogonal bir kümedir</b> denir.</p>
+    <p>Bu şarta ek olarak, <code>S</code> kümesindeki <b>her bir vektörün uzunluğu 1</b> ise <code>S</code> <b>ortonormal kümedir</b> denir.</p>
+  </div>
+  <div class="q">
+    <p><b>Ortogonal / ortonormal baz.</b> Eğer <code>B</code> içsel çarpım uzayı <code>V</code> için bir <b>baz</b> ve <code>B</code> <b>ortogonal</b> bir küme ise, <code>B</code>, <code>V</code> için bir <b>ortogonal bazdır</b> denir. Eğer <code>B</code> <b>ortonormal</b> bir küme ise, bu durumda <code>B</code>, <code>V</code> için <b>ortonormal bir bazdır</b>.</p>
+  </div>
+  <p class="step">Özetle: <b>ortonormal = ortogonal + her vektörün uzunluğu 1</b>. "Normal" burada "normalize edilmiş", yani birim uzunluk anlamında.</p>
+
+  <h2>4. Örnek 15 (PDF 7.3.2.3)</h2>
+  <p>Aşağıdaki vektörlerin <b>ortonormal bir baz</b> oluşturduğunu gösteriniz:</p>
+  <div class="eq">
+    <code>b₁ = [ 1/√2 &nbsp; 1/√2 &nbsp; 0 ]</code>, &nbsp;
+    <code>b₂ = [ 1/√2 &nbsp; −1/√2 &nbsp; 0 ]</code>, &nbsp;
+    <code>b₃ = [ 0 &nbsp; 0 &nbsp; 1 ]</code>
+  </div>
+
+  <h3>Adım 1 — lineer bağımsızlık (baz olma şartı)</h3>
+  <p>Bu üç vektörün lineer bağımsız olduğunun gösterilmesi gerekir. Bu vektörlerin <b>satırlarını oluşturduğu matrisin determinantı</b> sıfırdan farklı ise vektörler lineer bağımsızdır.</p>
+  <div class="eq">
+    <code>det</code> <table class="m"><tr><td>1/√2</td><td>1/√2</td><td>0</td></tr><tr><td>1/√2</td><td>−1/√2</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+  </div>
+  <p class="step">3. satırda yalnızca son eleman sıfırdan farklı; kofaktör işareti <code>(−1)³⁺³ = +</code>:</p>
+  <p class="step"><code>= 1·</code><table class="m" style="margin:0 .2em"><tr><td>1/√2</td><td>1/√2</td></tr><tr><td>1/√2</td><td>−1/√2</td></tr></table>
+    <code> = 1·[ (1/√2)(−1/√2) − (1/√2)(1/√2) ] = 1·(−½ − ½) = −1</code></p>
+  <div class="eq"><code>= −1 ≠ 0</code></div>
+  <p><b>Dolayısıyla vektörler lineer bağımsızdır ve bir baz oluştururlar.</b></p>
+
+  <h3>Adım 2 — ortogonallik (üç ikili iç çarpım)</h3>
+  <p class="step"><code>⟨b₁, b₂⟩ = (1/√2)(1/√2) + (1/√2)(−1/√2) + 0(0)</code></p>
+  <p class="step"><code>= ½ − ½ + 0 = 0</code> ✓</p>
+  <p class="step"><code>⟨b₁, b₃⟩ = (1/√2)(0) + (1/√2)(0) + 0(1) = 0</code> ✓</p>
+  <p class="step"><code>⟨b₂, b₃⟩ = (1/√2)(0) + (−1/√2)(0) + 0(1) = 0</code> ✓</p>
+  <p><b>Dolayısıyla vektörler ortogonaldir.</b></p>
+
+  <h3>Adım 3 — uzunluklar (normlar)</h3>
+  <p class="step"><code>‖b₁‖ = √[ (1/√2)² + (1/√2)² + 0² ] = √(½ + ½ + 0) = √1 = 1</code></p>
+  <p class="step"><code>‖b₂‖ = √[ (1/√2)² + (−1/√2)² + 0 ] = √(½ + ½) = 1</code></p>
+  <p class="step"><code>‖b₃‖ = √(0² + 0² + 1²) = 1</code></p>
+  <p><b>Vektörler ortogonal ve uzunlukları (modülleri) 1 olduğundan, üç vektörden oluşan vektör kümesi bir ortonormal baz oluşturur.</b></p>
+
+  <details>
+    <summary>Ek gözlem — bu matris neden özel? (Sezgi / ek açıklama)</summary>
+    <p class="step">Bu üç vektörü <b>sütun</b> olarak bir <code>Q</code> matrisine koyarsan <code>QᵀQ = I</code> olur — yani <code>Q⁻¹ = Qᵀ</code>. Bu tür matrislere <b>ortogonal matris</b> denir ve <a href="0027-simetrik-ve-ortogonal-matrisler.html">Ders 27</a>'de resmî tanımı verilecek. Pratik anlamı: sütunları ortonormal olan bir matrisin tersini almak için <b>transpozunu yazmak yeter</b>.</p>
+    <p class="step">Bu, Örnek 15'in neden Bölüm 7.3.2'de durduğunu açıklıyor: Gram-Schmidt (Ders 26) ve simetrik matrislerin diyagonalizasyonu (Ders 28) bu yapıyı üretmek için var.</p>
+  </details>
+
+  <h2>5. Sık yapılan hatalar</h2>
+  <div class="trap">
+    <ul>
+      <li>Yalnızca iç çarpımları kontrol edip "ortonormal" demek. Ortonormal için <b>uzunluk kontrolü şart</b>; iç çarpımlar sıfırsa yalnızca <b>ortogonal</b> denir.</li>
+      <li>Uzunluğu hesaplarken karekökü unutmak: <code>‖a‖² = 1</code> ile <code>‖a‖ = 1</code> aynı sonucu verir ama <code>‖a‖² = 4</code> ise <code>‖a‖ = 2 ≠ 1</code>'dir.</li>
+      <li><code>(1/√2)² = 1/2</code> yerine <code>1/√2</code> yazmak — karekökün karesi alınırken sadeleşir.</li>
+      <li>Ortogonalliği yalnızca ardışık çiftlerde (<code>b₁·b₂</code>, <code>b₂·b₃</code>) kontrol edip <code>b₁·b₃</code>'ü atlamak. <b>Bütün</b> çiftler kontrol edilmeli: <code>n</code> vektör için <code>n(n−1)/2</code> çift.</li>
+      <li>"Ortogonal küme her zaman bazdır" sanmak. Sıfırdan farklı ortogonal vektörler bağımsızdır, ama baz olması için ayrıca uzayı kapsaması (sayılarının boyuta eşit olması) gerekir.</li>
+    </ul>
+  </div>
+
+  <h2>6. Şimdi sen dene</h2>
+
+  <div class="q">
+    <p><b>Soru 1 (kavram).</b> Bir küme ortonormal ise ortogonal midir? Ortogonal bir küme ortonormal midir? Hangi işlem birinden diğerine geçirir?</p>
+    <details><summary>Cevabı göster</summary><p>Ortonormal ⇒ ortogonal (evet, ortonormal tanımı ortogonalliği zaten içerir). Ortogonal ⇏ ortonormal (uzunluklar 1 olmayabilir). Geçiş işlemi <b>normalize etmek</b>tir: her vektörü kendi uzunluğuna böl, <code>a / ‖a‖</code>. Bu doğrultuyu değiştirmez, dolayısıyla ortogonallik bozulmaz.</p></details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 2 (temel işlem).</b> <code>u = (3, 4, 0)</code>, <code>v = (−4, 3, 0)</code>, <code>w = (0, 0, 2)</code> kümesi ortogonal mi? Ortonormal mi? Ortonormal değilse ortonormal hâle getir.</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>⟨u,v⟩ = 3(−4) + 4(3) + 0 = −12 + 12 = 0</code> ✓ &nbsp; <code>⟨u,w⟩ = 0 + 0 + 0 = 0</code> ✓ &nbsp; <code>⟨v,w⟩ = 0 + 0 + 0 = 0</code> ✓ → <b>ortogonal</b>.</p>
+      <p class="step"><code>‖u‖ = √(9+16+0) = 5</code>, <code>‖v‖ = √(16+9) = 5</code>, <code>‖w‖ = √4 = 2</code> → hiçbiri 1 değil → <b>ortonormal değil</b>.</p>
+      <p class="step">Normalize: <code>u/5 = (3/5, 4/5, 0)</code>, <code>v/5 = (−4/5, 3/5, 0)</code>, <code>w/2 = (0, 0, 1)</code>.</p>
+      <p class="step">Kontrol: <code>(3/5)² + (4/5)² = 9/25 + 16/25 = 1</code> ✓; iç çarpım <code>(3/5)(−4/5) + (4/5)(3/5) = −12/25 + 12/25 = 0</code> ✓ → <b>ortonormal</b>.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <p><b>Soru 3 (sınav seviyesi).</b> <code>a = (1, 1, 1)</code>, <code>b = (1, −1, 0)</code>, <code>c = (1, 1, k)</code> veriliyor. <code>c</code>'nin hem <code>a</code>'ya hem <code>b</code>'ye ortogonal olması için <code>k</code> ne olmalıdır? Böyle bir <code>k</code> var mı?</p>
+    <details><summary>Cevabı göster</summary>
+      <p class="step"><code>⟨c, b⟩ = 1(1) + 1(−1) + k(0) = 0</code> → her <code>k</code> için sağlanıyor.</p>
+      <p class="step"><code>⟨c, a⟩ = 1(1) + 1(1) + k(1) = 2 + k = 0</code> → <code>k = −2</code>.</p>
+      <p class="step">Yani <code>c = (1, 1, −2)</code>. Kontrol: <code>⟨c,a⟩ = 1 + 1 − 2 = 0</code> ✓, <code>⟨c,b⟩ = 1 − 1 + 0 = 0</code> ✓ → <b>evet, <code>k = −2</code>.</b></p>
+      <p class="step">Ek not: <code>{a, b, c}</code> artık ortogonal bir kümedir ama ortonormal değildir (<code>‖a‖ = √3</code>, <code>‖b‖ = √2</code>, <code>‖c‖ = √6</code>). Ortonormal baz istenirse her biri kendi normuna bölünür.</p>
+    </details>
+  </div>
+
+  <h2>Birincil kaynak</h2>
+  <div class="src">
+    🃏 <b>Referans kartı:</b> <a href="../../reference/lineer-cebir/ortonormal-gram-schmidt.html">Ortonormal Baz & Gram-Schmidt</a><br>
+    📚 Khan Academy Türkçe — <a href="https://tr.khanacademy.org/math/linear-algebra">Doğrusal Cebir</a>, "Ortonormal Baz Nedir", "Ortonormal Kümelerin Doğrusal Bağımsızlığı".<br>
+    🎓 MIT 18.06 (Strang) — Ders 17: Orthogonal Matrices and Gram-Schmidt.<br>
+    🗂️ Ön koşullar: <a href="0010-vektorler-temel-nokta-carpim.html">Ders 10 — Nokta çarpım, vektör uzunluğu</a> · <a href="0018-baz-ve-cozum-uzayi.html">Ders 18 — Baz</a>.<br>
+    📝 Resmî kaynak: <code>DersNotlari/LineerCebir/10-11-12.pdf</code> — Bölüm 7.3.2, Örnek 14, 7.3.2.2, Örnek 15.
+  </div>
+
+  <p class="ask">💬 <b>Takıldın mı?</b> Ben öğretmeninim — herhangi bir adımı tekrar açıklatabilir, daha fazla soru isteyebilirsin.</p>
+
+  <div class="nav">
+    <span>← <a href="0024-diyagonallestirme-tam-ornekler.html">Ders 24 — Tam Diyagonalleştirme Örnekleri</a></span>
+    <span>Sıradaki: <a href="0026-gram-schmidt.html">Ders 26 — Gram-Schmidt Yöntemi</a></span>
+  </div>
+
+</div>
+</body>
+</html>
