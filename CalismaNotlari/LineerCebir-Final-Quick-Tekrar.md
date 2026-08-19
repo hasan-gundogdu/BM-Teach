@@ -1009,7 +1009,7 @@ $$
 
 Oran:
 
-$$-rac15$$
+$$-\frac15$$
 
 Bu oranı $b_1$ ile çarp:
 
@@ -1257,4 +1257,310 @@ Ortogonal değilse önce Gram–Schmidt, sonra normalize.
 - Ortogonal ile ortonormal farkı ne?
 - Gram–Schmidt ikinci vektöre ne yapıyor?
 
-> **Sınavda takılırsan formülü tek başına ezberden çağırmaya çalışma; yöntemin amacını hatırla.** Determinant, kofaktör, homojen sistem, matris çarpımı ve nokta çarpımı birçok konunun ortak omurgasıdır.
+---
+
+# 26. Test soruları için vektör, lineer bağımsızlık ve baz hızlı özeti
+
+Bu bölüm özellikle **çoktan seçmeli sınavda kısa yorum soruları** için eklendi.
+
+## 26.1 Lineer kombinasyon nedir?
+
+Bir vektörü diğer vektörlerin skaler katlarını toplayarak yazabiliyorsan, o vektör onların lineer kombinasyonudur.
+
+Örneğin:
+
+$$
+v_1=\begin{bmatrix}1\\0\end{bmatrix},\qquad
+v_2=\begin{bmatrix}0\\1\end{bmatrix}
+$$
+
+ise:
+
+$$
+\begin{bmatrix}3\\2\end{bmatrix}=3v_1+2v_2
+$$
+
+## 26.2 Lineer bağımsızlık
+
+Vektörler $v_1,\ldots,v_k$ için:
+
+$$
+c_1v_1+c_2v_2+\cdots+c_kv_k=0
+$$
+
+denkleminin **tek çözümü**
+
+$$
+c_1=c_2=\cdots=c_k=0
+$$
+
+ise vektörler **lineer bağımsızdır**.
+
+Eğer sıfır olmayan katsayılarla da toplam sıfır yapılabiliyorsa **lineer bağımlıdır**.
+
+### Testte hızlı işaretler
+
+- Vektörlerden biri diğerinin katıysa → **bağımlı**.
+- Kümede sıfır vektörü varsa → **bağımlı**.
+- $\mathbb{R}^2$ içinde 3 veya daha fazla vektör varsa → mutlaka **bağımlı**.
+- $\mathbb{R}^3$ içinde 4 veya daha fazla vektör varsa → mutlaka **bağımlı**.
+- $n$ boyutlu uzayda $n$'den fazla vektör → mutlaka bağımlı.
+
+## 26.3 Kare matriste determinant ve lineer bağımsızlık
+
+Bir kare matrisin sütunlarını vektörler olarak düşün.
+
+$$
+\boxed{\det(A)\neq0}
+$$
+
+ise:
+
+- sütunlar lineer bağımsızdır,
+- satırlar lineer bağımsızdır,
+- rank tamdır,
+- ters matris vardır,
+- $AX=B$ her $B$ için tek çözümlüdür,
+- $AX=0$ yalnız trivial çözüme sahiptir.
+
+Buna karşılık:
+
+$$
+\boxed{\det(A)=0}
+$$
+
+ise:
+
+- matris tekildir,
+- ters yoktur,
+- sütunlar ve satırlar lineer bağımlıdır,
+- $AX=0$ için trivial olmayan çözümler vardır.
+
+> **Çok önemli:** $\det(A)=0$ demek, genel $AX=B$ sistemi için otomatik olarak “çözüm yok” demek değildir. Sistem **çözümsüz de olabilir, sonsuz çözümlü de olabilir**.
+
+## 26.4 Baz nedir?
+
+Bir vektör kümesi bir uzayın bazıysa iki şart birlikte gerekir:
+
+1. Vektörler **lineer bağımsız** olacak.
+2. Uzayın tamamını **gerecek (span)**.
+
+Örneğin $\mathbb{R}^2$ için:
+
+$$
+\begin{bmatrix}1\\0\end{bmatrix},
+\begin{bmatrix}0\\1\end{bmatrix}
+$$
+
+bir bazdır.
+
+$\mathbb{R}^2$'de iki lineer bağımsız vektör zaten baz oluşturur. Benzer şekilde $\mathbb{R}^3$'te üç lineer bağımsız vektör baz oluşturur.
+
+## 26.5 Boyut
+
+Bir uzayın herhangi bir bazındaki vektör sayısı o uzayın **boyutudur**.
+
+$$
+\dim(\mathbb{R}^2)=2,\qquad \dim(\mathbb{R}^3)=3
+$$
+
+## 26.6 Span / germe
+
+Bir vektör kümesinin bütün lineer kombinasyonlarıyla oluşturabildiği kümeye o vektörlerin gerdiği uzay denir.
+
+Kısaca:
+
+> **Span = bu vektörleri katsayılarla çarpıp toplayarak ulaşabildiğim bütün vektörler.**
+
+---
+
+# 27. Testte çok sorulabilecek sistem çözüm durumları
+
+Buradaki ayrım özellikle önemli.
+
+## 27.1 Kare sistemde $\det(A)\neq0$
+
+$$
+\boxed{\det(A)\neq0\Rightarrow\text{tek çözüm}}
+$$
+
+Ayrıca ters vardır ve Cramer uygulanabilir.
+
+## 27.2 Kare sistemde $\det(A)=0$
+
+Burada tek başına determinant sana iki seçenekten hangisi olduğunu söylemez:
+
+- **çözüm yok**, veya
+- **sonsuz çözüm**.
+
+Ayırmak için satır indirgeme / rank bilgisine bakılır.
+
+### Satır indirgemede çözümsüzlük işareti
+
+Eğer şöyle bir satır çıkarsa:
+
+$$
+[0\quad0\quad\cdots\quad0\mid c],\qquad c\neq0
+$$
+
+bu:
+
+$$0=c$$
+
+anlamına gelir ve sistem **çözümsüzdür**.
+
+Örneğin:
+
+$$
+[0\quad0\mid3]
+$$
+
+→ $0=3$ imkânsız → çözüm yok.
+
+### Sonsuz çözüm işareti
+
+Çelişki yoksa ve en az bir **serbest değişken** varsa → sonsuz çözüm vardır.
+
+Örneğin:
+
+$$
+[1\quad2\mid4]\\
+[0\quad0\mid0]
+$$
+
+tek denklem, iki bilinmeyen → bir serbest değişken → sonsuz çözüm.
+
+## 27.3 Homojen sistem özel durumu
+
+$$AX=0$$
+
+homojen sistem **asla çözümsüz değildir**, çünkü her zaman $X=0$ çözümü vardır.
+
+- $\det(A)\neq0$ → yalnız trivial çözüm.
+- $\det(A)=0$ → trivial olmayan çözümler de vardır → sonsuz çözüm.
+
+Bu ayrım testte çok güzel çeldirici olabilir.
+
+## 27.4 Rank ile kısa test bilgisi
+
+$AX=B$ sistemi için:
+
+- $\operatorname{rank}(A)=\operatorname{rank}([A|B])=n$ → **tek çözüm**.
+- $\operatorname{rank}(A)=\operatorname{rank}([A|B])<n$ → **sonsuz çözüm**.
+- $\operatorname{rank}(A)\neq\operatorname{rank}([A|B])$ → **çözüm yok**.
+
+Burada $n$ bilinmeyen sayısıdır.
+
+---
+
+# 28. Test için kısa doğru/yanlış bilgileri
+
+Bunları özellikle son turda oku:
+
+- Her homojen sistemin en az trivial çözümü vardır. **Doğru.**
+- $\det(A)=0$ ise $A^{-1}$ vardır. **Yanlış.**
+- $\det(A)\neq0$ ise kare $AX=B$ sistemi tek çözümlüdür. **Doğru.**
+- $\det(A)=0$ ise $AX=B$ kesin çözümsüzdür. **Yanlış.** Sonsuz çözüm de olabilir.
+- Kare matriste $\det(A)\neq0$ ise sütunlar lineer bağımsızdır. **Doğru.**
+- Bir kümede sıfır vektörü varsa küme lineer bağımsız olabilir. **Yanlış.**
+- Bir vektör diğerinin katıysa ikisi lineer bağımlıdır. **Doğru.**
+- Ortonormal vektörler mutlaka ortogonaldir. **Doğru.**
+- Ortogonal vektörler mutlaka ortonormaldir. **Yanlış.** Uzunluklarının da 1 olması gerekir.
+- Özvektör sıfır vektörü olabilir. **Yanlış.**
+- Özdeğer sıfır olabilir. **Doğru.**
+- Üçgen matrisin özdeğerleri köşegen elemanlarıdır. **Doğru.**
+- $P$ matrisinde özvektörler satır olarak yazılır. **Yanlış.** Sütun olarak yazılır.
+- Diyagonalizasyon için yeterli sayıda lineer bağımsız özvektör gerekir. **Doğru.**
+- Farklı $n$ özdeğeri olan $n\times n$ matris diyagonalleştirilebilir. **Doğru.**
+
+---
+
+# 29. Çalışma sırası = önem sırası (yaklaşık 1 saatlik son tur)
+
+Bu sıralamayı değiştirmeden git. Böylece hem öncelik hem öğrenme akışı aynı olur.
+
+## 1. Determinant → kofaktör → ters matris → Cramer
+
+**En yüksek öncelik.**
+
+Önce şu bölümleri oku:
+
+- Bölüm 2: determinant ve terslenebilirlik
+- Bölüm 3–4: minor, kofaktör, kofaktörle determinant
+- Bölüm 6–8: ters matrisin üç yöntemi
+- Bölüm 9–10: tersle sistem çözme ve Cramer
+
+Hatırlanacak çekirdek:
+
+$$\det(A)\neq0\Rightarrow A^{-1}\text{ var}\Rightarrow\text{tek çözüm}$$
+
+## 2. Sistemlerin çözüm durumları + lineer bağımsızlık + baz
+
+Sonra **Bölüm 26–28**.
+
+Test sınavı için özellikle şunları kafaya oturt:
+
+$$\det(A)=0\not\Rightarrow\text{kesin çözümsüz}$$
+
+ve:
+
+$$\det(A)\neq0\Rightarrow\text{lineer bağımsız sütunlar}$$
+
+Bu bölüm kısa ama testte çok puan getirebilir.
+
+## 3. Özdeğer → özvektör → diyagonalizasyon
+
+Sonra Bölüm 11–18.
+
+Akış tek zincir:
+
+$$
+AX=\lambda X
+\rightarrow
+\det(\lambda I-A)=0
+\rightarrow
+\lambda
+\rightarrow
+(\lambda I-A)X=0
+\rightarrow
+\text{özvektör}
+\rightarrow
+P,D
+$$
+
+## 4. Ortogonal → ortonormal → Gram–Schmidt
+
+En son Bölüm 19–21.
+
+Akış:
+
+$$
+u\cdot v=0
+\rightarrow
+\text{ortogonal}
+\rightarrow
+\frac{v}{\|v\|}
+\rightarrow
+\text{ortonormal}
+$$
+
+Ortogonal değillerse:
+
+$$
+\text{Gram–Schmidt}\rightarrow\text{normalize}
+$$
+
+## 5. Son 5–10 dakika
+
+Sadece şunlara dön:
+
+- Bölüm 0 — en kısa hatırlatma kartı
+- Bölüm 23 — sık hatalar
+- Bölüm 24 — iki dakikalık yöntem özeti
+- Bölüm 28 — doğru/yanlış test bilgileri
+
+> **Bu son saatte amaç yeni bir şey öğrenmek değil; bildiğin konularda soru görünce hangi yolu kullanacağını otomatikleştirmek.**
+
+---
+
+> **Sınavda takılırsan formülü tek başına ezberden çağırmaya çalışma; yöntemin amacını hatırla.** Determinant, kofaktör, homojen sistem, matris çarpımı, lineer bağımsızlık ve nokta çarpımı birçok konunun ortak omurgasıdır.
