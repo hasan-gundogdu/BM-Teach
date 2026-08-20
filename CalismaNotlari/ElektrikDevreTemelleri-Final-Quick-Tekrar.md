@@ -12,235 +12,153 @@
 2. **Hangi yapı var?** Seri/paralel, düğüm, mesh, kaynak dönüşümü, Thevenin/Norton, RC/RL, op-amp?
 3. **Kaynak söndürmek gerekiyor mu?** Yalnızca ilgili yöntemde.
 4. Yönü kendin seçebilirsin; sonuç negatifse gerçek yön tersidir.
-5. Birim kontrolü:
-   - `kΩ × mA = V`
-   - `V / kΩ = mA`
-   - `kΩ × µF = ms`
-   - `H / Ω = s`
+5. Birim kontrolü: `kΩ×mA=V`, `V/kΩ=mA`, `kΩ×µF=ms`, `H/Ω=s`.
 
 ---
 
 # 1. Temel büyüklükler
 
-## Yük
-
 $$I=\frac{Q}{t},\qquad i=\frac{dq}{dt}$$
-
-Yük birimi **Coulomb (C)**, akım birimi **Amper (A)**.
-
-## Gerilim
-
-İki nokta arasındaki potansiyel farkıdır:
 
 $$V_{AB}=V_A-V_B$$
 
-Birim: **Volt (V)**.
-
-## Güç
-
-$$P=VI$$
-
-Ayrıca dirençte:
-
-$$P=I^2R=\frac{V^2}{R}$$
-
-Birim: **Watt (W)**.
-
-## Enerji
+$$P=VI=I^2R=\frac{V^2}{R}$$
 
 $$W=Pt$$
 
-Birim: **Joule (J)**.
+Birimler: yük `C`, akım `A`, gerilim `V`, direnç `Ω`, güç `W`, enerji `J`.
 
 ---
 
 # 2. Eleman güç alıyor mu, veriyor mu?
 
-## Pasif işaret kuralı
-
-Akım elemanın **+ ucundan giriyorsa**:
+Akım elemanın **+ ucundan giriyorsa** pasif işaret kuralına göre:
 
 $$p=+vi$$
 
-- `p > 0` → eleman **güç alıyor / tüketiyor**.
-- `p < 0` → eleman **güç veriyor**.
+- `p>0` → güç **alıyor/tüketiyor**.
+- `p<0` → güç **veriyor**.
 
-Akım elemanın **- ucundan giriyorsa** güç sağlama yönündedir.
+> **Ezber:** Akım `+` uçtan girerse ALIR, `-` uçtan girerse VERİR.
 
-> **Kısa ezber:** Akım `+` uçtan girerse **ALIR**, `-` uçtan girerse **VERİR**.
-
-Pasif elemanlar: direnç, kondansatör, bobin.
-
-Aktif elemanlar: enerji sağlayabilen kaynaklar vb.
+Dirençte polariteyi seçtiğin akım yönüne göre koyabilirsin. Gerilim kaynağında `+/-` işaretleri verilidir; akıma göre değiştirilmez.
 
 ---
 
 # 3. Ohm kanunu
 
-$$V=IR$$
-
-$$I=\frac VR$$
-
-$$R=\frac VI$$
+$$V=IR,\qquad I=\frac VR,\qquad R=\frac VI$$
 
 ---
 
-# 4. Seri ve paralel direnç
+# 4. Düğüm, tel, seri ve paralel — çok kritik
+
+> **Kesintisiz tel boyunca devre elemanı geçene kadar düğüm adı değişmez.**
+
+Tel dönse veya devrenin etrafından dolaşsa bile arada direnç/kaynak vb. yoksa **aynı düğümdür**. Aynı kesintisiz tele iki farklı düğüm adı vermek hatadır.
 
 ## Seri
 
-Aynı akımın geçtiği ve ortak düğümden başka kol çıkmayan elemanlar seridir.
+Ortak düğümden başka kol çıkmıyorsa aynı akım geçer:
 
 $$R_{eş}=R_1+R_2+\cdots$$
 
-**Seride akım aynıdır.**
+Sadece çizimde yan yana/üst üste görünmeleri seri olduklarını göstermez.
 
 ## Paralel
 
-İki elemanın iki ucu da aynı iki düğüme bağlıysa paraleldir.
+İki elemanın iki ucu da aynı iki düğüme bağlıysa paraleldir:
 
 $$\frac1{R_{eş}}=\frac1{R_1}+\frac1{R_2}+\cdots$$
 
-İki direnç için:
+İki direnç:
 
 $$R_{eş}=\frac{R_1R_2}{R_1+R_2}$$
 
-**Paralelde gerilim aynıdır.**
-
-> **Düğüm yöntemi:** Bir tel üzerinde hiçbir devre elemanı geçmeden yürüyebiliyorsan aynı düğümdesin. Devre elemanı geçince düğüm değişir.
+> **Seri → akım aynı, gerilim bölünür. Paralel → gerilim aynı, akım bölünür.**
 
 ---
 
-# 5. Gerilim bölücü ve akım bölücü — ÇOK ÖNEMLİ
+# 5. Gerilim bölücü ve akım bölücü
 
-## 5.1 Gerilim bölücü
+## Gerilim bölücü
 
-**Seri dirençlerde** kullanılır.
+İlgili dirençler **seri** ise:
 
-Toplam kaynak gerilimi seri dirençlerin değerlerine göre bölünür.
+$$V_x=V_s\frac{R_x}{R_{toplam}}$$
 
-İki direnç için:
+> **Aradığın gerilim hangi direnç üzerindeyse o direnç paya gelir.**
 
-$$V_{R1}=V_s\frac{R_1}{R_1+R_2}$$
+Toprak `0V` ise ve aranan düğüm ile toprak arasında `R2` varsa, `R2` üzerindeki gerilim doğrudan o düğüm gerilimi olabilir.
 
-$$V_{R2}=V_s\frac{R_2}{R_1+R_2}$$
+## Akım bölücü — iki paralel direnç
 
-Genel biçim:
+$$I_1=I_T\frac{R_2}{R_1+R_2}$$
 
-$$\boxed{V_x=V_s\frac{R_x}{R_{toplam}}}$$
+$$I_2=I_T\frac{R_1}{R_1+R_2}$$
 
-> **Ezber:** Hangi direncin gerilimini arıyorsan **o direnç paya gelir**.
-
-### Neden?
-
-Seride akım aynıdır:
-
-$$I=\frac{V_s}{R_1+R_2}$$
-
-Aranan direnç için `V=IR` yazınca gerilim bölücü formülü çıkar.
-
-### Düğüm gerilimi sorularında
-
-Alt hat/toprak `0 V` ise ve `a` düğümü ile toprak arasında `R2` varsa:
-
-$$V_a=V_{R2}$$
-
-Bu yüzden gerilim bölücüde `R2` paya gelir.
-
-### Paralel dirençlerde ne olur?
-
-Paralel elemanların uçları aynı iki düğüme bağlıdır, bu nedenle:
-
-$$\boxed{V_{R1}=V_{R2}}$$
-
-Eğer ikisi doğrudan gerilim kaynağına paralelse:
-
-$$\boxed{V_{R1}=V_{R2}=V_s}$$
-
-Yani **paralelde gerilim bölünmez; aynıdır.**
+> **Aradığın kol için diğer direnç paya gelir.** Küçük direnç daha fazla akım alır.
 
 ---
 
-## 5.2 Akım bölücü
+# 6. Açık devre ve kısa devre
 
-**Paralel dirençlerde** kullanılır.
+## Açık devre
 
-İki paralel dirençte toplam akım `I_T` ise:
+$$I=0$$
 
-$$\boxed{I_1=I_T\frac{R_2}{R_1+R_2}}$$
+Akım geçmez ama uçlar arasında gerilim olabilir. Açık uçta biten ve başka dönüş yolu olmayan koldaki dirençlerden akım geçmez; bu nedenle o dirençlerde `V_R=IR=0` olur.
 
-$$\boxed{I_2=I_T\frac{R_1}{R_1+R_2}}$$
+## Kısa devre
 
-> **Ezber:** Akım bölücüde aradığın kolun formülünde **diğer direnç paya gelir**.
+$$V=0$$
 
-Sebebi: küçük dirençten daha fazla, büyük dirençten daha az akım geçer.
-
-Bu yüzden akım **dirençle ters orantılı** bölünür.
-
-### Seri devrede ne olur?
-
-Seride dallanma olmadığı için:
-
-$$\boxed{I_1=I_2=I_T}$$
-
-Yani **seride akım bölünmez; aynıdır.**
-
-### En kısa karşılaştırma
-
-| Bağlantı | Aynı kalan | Bölünen |
-|---|---|---|
-| Seri | **Akım** | Gerilim |
-| Paralel | **Gerilim** | Akım |
-
-> **Sınav ezberi:** SERİ → akım aynı, gerilim bölünür. PARALEL → gerilim aynı, akım bölünür.
+İdeal tel gibidir; akım sıfır olmak zorunda değildir.
 
 ---
 
-# 6. Kirchhoff kanunları
-
-## KCL / Kirchhoff Akımlar Kanunu
+# 7. KCL / Düğüm gerilimleri yöntemi
 
 $$\sum I=0$$
 
-veya:
-
-$$\text{giren akımlar}=\text{çıkan akımlar}$$
-
-Direnç akımını düğüm gerilimleriyle:
+Bir dirençte A'dan B'ye akım seçersen:
 
 $$I_{AB}=\frac{V_A-V_B}{R}$$
 
-## KVL / Kirchhoff Gerilim Kanunu
+Adımlar:
 
-Kapalı çevrede:
+1. Bir düğümü toprak seç: `0V`.
+2. Diğer düğümlere `V1,V2,...` de.
+3. Bilinmeyen düğümlerde KCL yaz.
+4. Direnç akımlarını düğüm gerilimleriyle yaz.
+5. Denklemleri çöz.
+
+**Toprağa bağlı direnç devreden silinmez; sadece bir ucu 0V olur.**
+
+---
+
+# 8. Süper düğüm
+
+İki bilinmeyen düğüm arasında ideal **gerilim kaynağı** varsa süper düğüm oluşturulur.
+
+Örneğin kaynak `+` tarafı `V1`, `-` tarafı `V2`, değeri `10V` ise:
+
+$$V_1-V_2=10$$
+
+Refleks:
+
+- Süper düğümdeki `V1` ve `V2` için ayrı ayrı KCL yazmak yerine ikisini **tek büyük düğüm gibi** sar.
+- Süper düğümün dışına çıkan/giren bütün direnç ve akım kaynağı kollarını kullanarak **tek KCL** yaz.
+- Sonra ayrıca gerilim kaynağı denklemini yaz: `V1-V2=Vs`.
+- Süper düğüme dahil olmayan örneğin `V3` düğümü varsa ona **normal KCL** yazılır.
+
+---
+
+# 9. KVL / Mesh / çevre yöntemi
 
 $$\sum V=0$$
 
----
-
-# 7. Düğüm gerilimleri yöntemi
-
-1. Bir düğümü referans/toprak seç: `0 V`.
-2. Bilinmeyen düğümlere `V1, V2...` adı ver.
-3. KCL yaz.
-4. Direnç akımlarını `(başlangıç düğümü-diğer düğüm)/R` biçiminde yaz.
-5. Denklemleri çöz.
-
-## Süper düğüm
-
-İki bilinmeyen düğüm arasında ideal gerilim kaynağı varsa süper düğüm oluşturulur.
-
-Örneğin:
-
-$$V_1-V_2=10V$$
-
-Bu ek denklemdir.
-
----
-
-# 8. Mesh / çevre akımları
-
-Her bağımsız çevreye bir mesh akımı seçilir ve KVL yazılır.
+Her bağımsız çevreye genellikle saat yönünde mesh akımı seçilir.
 
 Ortak dirençte iki mesh ters yöndeyse, `i1` açısından:
 
@@ -248,63 +166,68 @@ $$V_R=R(i_1-i_2)$$
 
 ## Süper mesh
 
-İki mesh arasındaki ortak kolda ideal akım kaynağı varsa süper mesh kullanılır.
+İki mesh arasındaki ortak kolda ideal **akım kaynağı** varsa süper mesh kullanılır.
 
-Kaynak yönüne göre ek denklem:
+- Akım kaynağı kolunu atlayıp iki çevrenin dış sınırından tek KVL yaz.
+- Kaynak yönüne göre ek denklem yaz:
 
 $$i_1-i_2=I_s$$
 
-veya tersi.
+veya yönlere göre tersi.
 
-Tek bir mesh üzerinde akım kaynağı varsa mesh akımı doğrudan kaynak akımına eşittir; yön/işarete dikkat.
+Süper mesh'e dahil olmayan başka çevre varsa ona **normal KVL** yazılır.
 
----
-
-# 9. Süperpozisyon
-
-Birden fazla bağımsız kaynaklı doğrusal devrelerde kaynaklar tek tek ele alınır.
-
-Kaynak söndürme:
-
-- Gerilim kaynağı → **kısa devre / düz tel**
-- Akım kaynağı → **açık devre**
-- Bağımlı kaynak → söndürülmez
-
-Katkılar cebirsel olarak toplanır.
+Tek bir mesh üzerinde akım kaynağı varsa mesh akımı doğrudan kaynak akımına eşit olabilir; yön/işarete dikkat.
 
 ---
 
-# 10. Kaynak dönüşümü
+# 10. Süperpozisyon
 
-Gerilim kaynağı + seri R → akım kaynağı + paralel R:
+Birden fazla bağımsız kaynak bulunan **doğrusal devrede** kullanılır.
+
+Her kaynak tek tek aktif bırakılır; diğer bağımsız kaynaklar kapatılır:
+
+- Gerilim kaynağı → `0V` → **kısa devre/tel**
+- Akım kaynağı → `0A` → **açık devre**
+- Bağımlı kaynak → **söndürülmez**
+
+Her aktif kaynağın oluşturduğu akım/gerilim katkıları en sonda **cebirsel olarak toplanır**. Yönler tersse çıkarma oluşur.
+
+---
+
+# 11. Kaynak dönüşümü
+
+Gerilim kaynağı + seri direnç ↔ akım kaynağı + paralel aynı direnç.
 
 $$I_s=\frac{V_s}{R}$$
 
-Akım kaynağı + paralel R → gerilim kaynağı + seri R:
-
 $$V_s=I_sR$$
 
+`mA×kΩ=V`.
+
 ---
 
-# 11. Thevenin
+# 12. Thevenin
 
-Bir devre A-B uçlarından **gerilim kaynağı + seri direnç** şeklinde temsil edilir.
+Bir devre A-B uçlarından **tek gerilim kaynağı + seri RTh** şeklinde temsil edilir.
 
-1. Yük `R_L` çıkarılır; A-B açık terminal kalır.
-2. Kaynaklar aktifken açık devre gerilimini bul:
+1. Yük `RL` çıkarılır → A-B açık terminal kalır.
+2. Kaynaklar aktifken:
 
-$$\boxed{V_{Th}=V_{OC}=V_{AB}}$$
+$$V_{Th}=V_{OC}=V_{AB}$$
 
 3. `RTh` için bağımsız kaynakları söndür.
-4. A-B'den devrenin içine bakarak eşdeğer direnci bul.
+4. A-B'den içeri bakarak eşdeğer direnci bul.
 
-> `VTh` bulurken kaynaklar **söndürülmez**.
+> `VTh` bulunurken kaynaklar söndürülmez.
+
+Açık devre nedeniyle son koldan akım `0` ise, o koldaki dirençte gerilim düşümü de `0` olur.
 
 ---
 
-# 12. Norton
+# 13. Norton
 
-Bir devre A-B uçlarından **akım kaynağı + paralel direnç** şeklinde temsil edilir.
+Bir devre A-B uçlarından **tek akım kaynağı + paralel RN** şeklinde temsil edilir.
 
 $$R_N=R_{Th}$$
 
@@ -316,105 +239,61 @@ $$V_{Th}=I_NR_N$$
 
 ---
 
-# 13. Maksimum güç transferi
+# 14. Maksimum güç transferi
 
-$$\boxed{R_L=R_{Th}}$$
+$$R_L=R_{Th}$$
 
-$$\boxed{P_{max}=\frac{V_{Th}^2}{4R_{Th}}}$$
+$$P_{max}=\frac{V_{Th}^2}{4R_{Th}}$$
 
-`RL kaç olmalı?` → `RTh` bul.
-
-`Maksimum güç kaç?` → `VTh` de bul.
+`RL kaç?` → önce `RTh`. `Pmax kaç?` → ayrıca `VTh`.
 
 ---
 
-# 14. Kondansatör
+# 15. Kondansatör / RC
 
 $$q=Cv$$
 
 $$i=C\frac{dv}{dt}$$
 
-$$w=\frac12Cv^2$$
+$$W=\frac12Cv^2$$
 
-- `V_C` aniden değişemez:
+Kondansatör gerilimi aniden değişemez:
 
 $$V_C(0^-)=V_C(0^+)$$
 
-- DC uzun zamanda kondansatör → **açık devre**.
-
-Kondansatörlerde:
-
-- Paralel → doğrudan toplanır.
-- Seri → terslerin toplamı.
-
----
-
-# 15. RC devresi
+DC uzun zamanda kondansatör **açık devre** olur.
 
 $$\tau=RC$$
 
-Yükselme:
+`kΩ×µF=ms`.
 
-- `1τ` → %63
-- `2τ` → %86
-- `3τ` → %95
-- `5τ` → yaklaşık %100
+Yükselme: `1τ=%63`, `2τ=%86`, `3τ=%95`, `5τ≈%100`.
 
-Azalma sonrası kalan:
-
-- `1τ` → %37
-- `2τ` → %14
-- `3τ` → %5
-- `5τ` → yaklaşık 0
-
-Başlangıç 0 ise şarj:
-
-$$v_C(t)=V_s(1-e^{-t/RC})$$
-
-Deşarj:
-
-$$v_C(t)=V_0e^{-t/RC}$$
+Azalmada kalan: `1τ=%37`, `2τ=%14`, `3τ=%5`, `5τ≈0`.
 
 ---
 
-# 16. Bobin / indüktör
+# 16. Bobin / RL
 
 $$v=L\frac{di}{dt}$$
 
-$$w=\frac12Li^2$$
+$$W=\frac12Li^2$$
 
 Bobin akımı aniden değişemez:
 
 $$I_L(0^-)=I_L(0^+)$$
 
-DC uzun zamanda bobin → **kısa devre / düz tel**.
-
----
-
-# 17. RL devresi
+DC uzun zamanda bobin **kısa devre/tel** olur.
 
 $$\tau=\frac LR$$
 
-Yükselme yüzdeleri: `%63, %86, %95, ≈%100`.
+Yükselme ve azalma yüzdeleri RC ile aynıdır.
 
-Azalma sonrası kalan: `%37, %14, %5, ≈0`.
-
----
-
-# 18. RC ve RL karşılaştırması
-
-| Özellik | RC | RL |
-|---|---|---|
-| Enerji elemanı | Kondansatör C | Bobin L |
-| Ani değişemeyen | `V_C` | `I_L` |
-| Zaman sabiti | `τ=RC` | `τ=L/R` |
-| DC uzun zaman | C açık | L kısa |
-
-> Kondansatör **gerilimini**, bobin **akımını** hatırlar.
+> **Kondansatör gerilimini, bobin akımını hatırlar.**
 
 ---
 
-# 19. İdeal op-amp
+# 17. İdeal op-amp
 
 $$I_+=I_-=0$$
 
@@ -422,60 +301,62 @@ Negatif geri besleme varsa:
 
 $$V_+\approx V_-$$
 
-`V+ = 0` ise `V- ≈ 0` olur; buna **sanal toprak** denir.
+`V+=0V` ise negatif geri beslemede `V-≈0V`; buna **sanal toprak** denir. Fiziksel GND değildir.
 
-## Eviren yükselteç
+## Eviren
 
 $$A_v=-\frac{R_f}{R_{in}}$$
 
 $$V_{out}=-\frac{R_f}{R_{in}}V_{in}$$
 
-## Evirmeyen yükselteç
+Giriş `-` uca; çıkış işareti ters.
+
+## Evirmeyen
 
 $$A_v=1+\frac{R_2}{R_1}$$
 
 $$V_{out}=V_{in}\left(1+\frac{R_2}{R_1}\right)$$
 
----
-
-# 20. Açık ve kısa devre
-
-## Açık devre
-
-$$I=0$$
-
-Gerilim olabilir.
-
-## Kısa devre
-
-$$V=0$$
-
-Akım sıfır olmak zorunda değildir.
+Giriş `+` uca; çıkış aynı işaretli.
 
 ---
 
-# 21. Testte sık karıştırılanlar
+# 18. Kaynaklar — tanım kartı
 
-- Seri → **akım aynı**, gerilim bölünür.
-- Paralel → **gerilim aynı**, akım bölünür.
-- Gerilim bölücüde aradığın direnç **paya** gelir.
-- Akım bölücüde aradığın kol için **diğer direnç paya** gelir.
-- Kondansatör gerilimi aniden değişmez.
-- Bobin akımı aniden değişmez.
-- Kondansatör DC kararlı durumda açık devredir.
-- Bobin DC kararlı durumda kısa devredir.
+- **Bağımsız kaynak:** değeri başka devre değişkenine bağlı değildir.
+- **Bağımlı kaynak:** değeri başka bir akım/gerilim tarafından kontrol edilir; genellikle elmas sembolüyle gösterilir.
+
+Bağımlı kaynaklar kaynak söndürme yapılan yöntemlerde söndürülmez.
+
+---
+
+# 19. Testte sık karıştırılanlar
+
+- Kesintisiz tel boyunca eleman geçmeden düğüm adı değişmez.
+- Seri → akım aynı.
+- Paralel → gerilim aynı.
+- Gerilim bölücü seri yapıda; aradığın direnç paya gelir.
+- Akım bölücü paralel kollarda; iki dirençli formülde diğer direnç paya gelir.
+- Toprağa bağlı direnç silinmez.
+- Açık devre: `I=0`, `V` olabilir.
+- Kısa devre: `V=0`, `I` olabilir.
+- Gerilim kaynağı söndür → kısa devre.
+- Akım kaynağı söndür → açık devre.
 - `VTh` bulunurken kaynaklar söndürülmez.
 - `RTh` bulunurken bağımsız kaynaklar söndürülür.
-- Thevenin direnci seri, Norton direnci paraleldir.
 - `RN=RTh`.
 - Maksimum güçte `RL=RTh`.
-- Süper düğüm → iki bilinmeyen düğüm arasında gerilim kaynağı.
-- Süper mesh → iki mesh arasında akım kaynağı.
-- Negatif sonuç çoğu zaman gerçek yönün seçilen yönün tersi olduğunu gösterir.
+- Süper düğüm → bilinmeyen düğümler arasında gerilim kaynağı.
+- Süper düğümde içerideki düğümlere ayrı KCL değil: **tek dış KCL + kaynak denklemi**.
+- Süper mesh → ortak kolda akım kaynağı.
+- Süper mesh dışındaki çevreler normal KVL ile çözülür.
+- Kondansatör gerilimi ani değişmez; DC'de açık devre.
+- Bobin akımı ani değişmez; DC'de kısa devre.
+- Op-amp'ta `V-=0` her zaman değildir; `V+=0` ve negatif geri besleme varsa sanal toprak olur.
 
 ---
 
-# 22. Son 2 dakikalık formül kartı
+# 20. Son 2 dakika kartı
 
 ```text
 Ohm:       V = IR
@@ -483,23 +364,19 @@ Güç:       P = VI = I²R = V²/R
 KCL:       ΣI = 0
 KVL:       ΣV = 0
 
-SERİ:
-I aynı
-Req = R1 + R2 + ...
-Vx = Vs * Rx / Rtoplam
+SERİ:      akım aynı, gerilim bölünür
+PARALEL:   gerilim aynı, akım bölünür
 
-PARALEL:
-V aynı
-Req (iki R) = R1*R2/(R1+R2)
-I1 = It * R2/(R1+R2)
-I2 = It * R1/(R1+R2)
+Gerilim bölücü:
+Vx = Vs·Rx/Rtoplam
+(aradığın direnç paya)
+
+Akım bölücü:
+I1 = It·R2/(R1+R2)
+(aradığın kol için diğer direnç paya)
 
 Gerilim kaynağı söndür → kısa devre
 Akım kaynağı söndür    → açık devre
-
-Kaynak dönüşümü:
-I = V/R
-V = IR
 
 Thevenin:
 VTh = açık devre gerilimi
@@ -513,33 +390,26 @@ Maksimum güç:
 RL = RTh
 Pmax = VTh²/(4RTh)
 
-RC:
-Vc ani değişmez
-τ = RC
-uzun zamanda C = açık
-
-RL:
-IL ani değişmez
-τ = L/R
-uzun zamanda L = kısa
+RC: Vc ani değişmez, τ=RC, uzun zamanda C=açık
+RL: IL ani değişmez, τ=L/R, uzun zamanda L=kısa
 
 1τ yükselme %63 / azalmada kalan %37
 2τ %86 / %14
 3τ %95 / %5
 5τ ≈ tamam
 
-Ideal op-amp:
+Op-amp:
 I+ = I- = 0
-negatif geri besleme: V+ ≈ V-
-Eviren:    Av = -Rf/Rin
-Evirmeyen: Av = 1 + R2/R1
+negatif geri besleme → V+ ≈ V-
+Eviren:    Av=-Rf/Rin
+Evirmeyen: Av=1+R2/R1
 ```
 
 ---
 
-# 23. Bu final için özellikle unutma
+# 21. Bu final için özellikle unutma
 
-- RLC çalışma kapsamında değil.
-- RC ve RL kapsamında.
-- Bağımlı kaynaklı RL sorusu sınavda sorulmayacağı belirtildi.
+- RLC çalışma kapsamına dahil değil.
+- RC ve RL kapsamda.
+- RL'de bağımlı kaynaklı örnek bulunmasına rağmen sınavda bağımlı kaynaklı RL sorusu sorulmayacağı belirtilmişti.
 - Öncelik: **temel analiz → devre teoremleri → maksimum güç → op-amp → RC/RL**.
